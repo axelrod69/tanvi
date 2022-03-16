@@ -31,220 +31,238 @@ class SignUpState extends State<SignUp> {
           height: height * 1,
           width: double.infinity,
           margin: EdgeInsets.only(top: height * 0.08),
-          child: Form(
-            key: _globalKey,
-            child: Column(
-              children: [
-                Center(
-                  child: Text(
-                    'Sign Up',
-                    textScaleFactor: textScaleFactor,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
-                  ),
-                ),
-                SizedBox(height: height * 0.04),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.08, right: width * 0.08),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Name',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                      SizedBox(height: height * 0.02),
-                      Container(
-                        margin: EdgeInsets.only(bottom: height * 0.04),
-                        padding: EdgeInsets.only(
-                            left: width * 0.02, top: height * 0.0045),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  // color: Color.fromRGBO(227, 189, 255, 0.5),
-                                  offset: Offset(1, 2))
-                            ]),
-                        child: TextFormField(
-                          style: const TextStyle(fontSize: 18),
-                          keyboardType: TextInputType.text,
-                          decoration: const InputDecoration(
-                              hintText: 'Enter Your Name',
-                              // suffixIcon:
-                              //     Icon(Icons.check_circle, color: Colors.green),
-                              // label: Text(
-                              //   'Enter Your Phone Number',
-                              //   textScaleFactor: textScaleFactor,
-                              //   style: const TextStyle(color: Colors.grey),
-                              // ),
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none),
-                          onFieldSubmitted: (_) =>
-                              FocusScope.of(context).requestFocus(_focusFirst),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.08, right: width * 0.08),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Phone Number',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                      SizedBox(height: height * 0.02),
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: width * 0.02, top: height * 0.0045),
-                        margin: EdgeInsets.only(bottom: height * 0.04),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  // color: Color.fromRGBO(227, 189, 255, 0.5),
-                                  offset: Offset(1, 2))
-                            ]),
-                        child: TextFormField(
-                          style: const TextStyle(fontSize: 18),
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              hintText: 'Enter Your Phone Number',
-                              // suffixIcon:
-                              //     Icon(Icons.check_circle, color: Colors.green),
-                              // label: Text(
-                              //   'Enter Your Phone Number',
-                              //   textScaleFactor: textScaleFactor,
-                              //   style: const TextStyle(color: Colors.grey),
-                              // ),
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none),
-                          onFieldSubmitted: (_) =>
-                              FocusScope.of(context).requestFocus(_focusFirst),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.08, right: width * 0.08),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Address',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                      SizedBox(height: height * 0.02),
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: width * 0.02, top: height * 0.0045),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18),
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  // color: Color.fromRGBO(227, 189, 255, 0.5),
-                                  offset: Offset(1, 2))
-                            ]),
-                        child: TextFormField(
-                          style: const TextStyle(fontSize: 18),
-                          keyboardType: TextInputType.streetAddress,
-                          decoration: const InputDecoration(
-                              hintText: 'Enter Your Address',
-                              // suffixIcon:
-                              //     Icon(Icons.check_circle, color: Colors.green),
-                              // label: Text(
-                              //   'Enter Your Phone Number',
-                              //   textScaleFactor: textScaleFactor,
-                              //   style: const TextStyle(color: Colors.grey),
-                              // ),
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none),
-                          onFieldSubmitted: (_) =>
-                              FocusScope.of(context).requestFocus(_focusFirst),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: height * 0.04),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.08, right: width * 0.08),
-                  child: Container(
-                    width: double.infinity,
-                    height: height * 0.07,
-                    margin: EdgeInsets.only(top: height * 0.02),
-                    decoration: BoxDecoration(
-                        color: const Color.fromRGBO(57, 226, 14, 1),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Center(
+          child: Stack(
+            children: [
+              Form(
+                key: _globalKey,
+                child: ListView(
+                  children: [
+                    Center(
                       child: Text(
                         'Sign Up',
                         textScaleFactor: textScaleFactor,
                         style: const TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            fontSize: 25),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(height: height * 0.02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Have an account?',
-                      textAlign: TextAlign.center,
-                      textScaleFactor: textScaleFactor,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                    InkWell(
-                      onTap: () => Navigator.of(context).pushNamed('/sign-in'),
-                      child: Text(
-                        'Sign In',
-                        textAlign: TextAlign.center,
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.grey, fontWeight: FontWeight.bold),
+                    SizedBox(height: height * 0.04),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: width * 0.08, right: width * 0.08),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Name',
+                            textScaleFactor: textScaleFactor,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                          SizedBox(height: height * 0.02),
+                          Container(
+                            margin: EdgeInsets.only(bottom: height * 0.04),
+                            padding: EdgeInsets.only(
+                                left: width * 0.02, top: height * 0.0045),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      // color: Color.fromRGBO(227, 189, 255, 0.5),
+                                      offset: Offset(1, 2))
+                                ]),
+                            child: TextFormField(
+                              style: const TextStyle(fontSize: 18),
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                  hintText: 'Enter Your Name',
+                                  // suffixIcon:
+                                  //     Icon(Icons.check_circle, color: Colors.green),
+                                  // label: Text(
+                                  //   'Enter Your Phone Number',
+                                  //   textScaleFactor: textScaleFactor,
+                                  //   style: const TextStyle(color: Colors.grey),
+                                  // ),
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none),
+                              onFieldSubmitted: (_) => FocusScope.of(context)
+                                  .requestFocus(_focusFirst),
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: width * 0.08, right: width * 0.08),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Phone Number',
+                            textScaleFactor: textScaleFactor,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                          SizedBox(height: height * 0.02),
+                          Container(
+                            padding: EdgeInsets.only(
+                                left: width * 0.02, top: height * 0.0045),
+                            margin: EdgeInsets.only(bottom: height * 0.04),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      // color: Color.fromRGBO(227, 189, 255, 0.5),
+                                      offset: Offset(1, 2))
+                                ]),
+                            child: TextFormField(
+                              style: const TextStyle(fontSize: 18),
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                  hintText: 'Enter Your Phone Number',
+                                  // suffixIcon:
+                                  //     Icon(Icons.check_circle, color: Colors.green),
+                                  // label: Text(
+                                  //   'Enter Your Phone Number',
+                                  //   textScaleFactor: textScaleFactor,
+                                  //   style: const TextStyle(color: Colors.grey),
+                                  // ),
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none),
+                              onFieldSubmitted: (_) => FocusScope.of(context)
+                                  .requestFocus(_focusFirst),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: width * 0.08, right: width * 0.08),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Address',
+                            textScaleFactor: textScaleFactor,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                          SizedBox(height: height * 0.02),
+                          Container(
+                            padding: EdgeInsets.only(
+                                left: width * 0.02, top: height * 0.0045),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      // color: Color.fromRGBO(227, 189, 255, 0.5),
+                                      offset: Offset(1, 2))
+                                ]),
+                            child: TextFormField(
+                              style: const TextStyle(fontSize: 18),
+                              keyboardType: TextInputType.streetAddress,
+                              decoration: const InputDecoration(
+                                  hintText: 'Enter Your Address',
+                                  // suffixIcon:
+                                  //     Icon(Icons.check_circle, color: Colors.green),
+                                  // label: Text(
+                                  //   'Enter Your Phone Number',
+                                  //   textScaleFactor: textScaleFactor,
+                                  //   style: const TextStyle(color: Colors.grey),
+                                  // ),
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none),
+                              onFieldSubmitted: (_) => FocusScope.of(context)
+                                  .requestFocus(_focusFirst),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: height * 0.04),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: width * 0.08, right: width * 0.08),
+                      child: InkWell(
+                        onTap: () =>
+                            Navigator.of(context).pushNamed('/home-screen'),
+                        child: Container(
+                          width: double.infinity,
+                          height: height * 0.07,
+                          margin: EdgeInsets.only(top: height * 0.02),
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(57, 226, 14, 1),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Center(
+                            child: Text(
+                              'Sign Up',
+                              textScaleFactor: textScaleFactor,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: height * 0.02),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Have an account?',
+                          textAlign: TextAlign.center,
+                          textScaleFactor: textScaleFactor,
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                        InkWell(
+                          onTap: () =>
+                              Navigator.of(context).pushNamed('/sign-in'),
+                          child: Text(
+                            'Sign In',
+                            textAlign: TextAlign.center,
+                            textScaleFactor: textScaleFactor,
+                            style: const TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              // Positioned(
+              //   top: height * 0.42,
+              //   child: InkWell(
+              //     onTap: () {},
+              //     child: Image.asset('assets/images/sign_up_asset.png',
+              //         fit: BoxFit.cover),
+              //   ),
+              // )
+            ],
           )),
     );
   }

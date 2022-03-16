@@ -48,21 +48,24 @@ class SignIn extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(left: width * 0.08, right: width * 0.08),
-              child: Container(
-                width: double.infinity,
-                height: height * 0.07,
-                margin: EdgeInsets.only(top: height * 0.02),
-                decoration: BoxDecoration(
-                    color: const Color.fromRGBO(57, 226, 14, 1),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Center(
-                  child: Text(
-                    'Login',
-                    textScaleFactor: textScaleFactor,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
+              child: InkWell(
+                onTap: () => Navigator.of(context).pushNamed('/home-screen'),
+                child: Container(
+                  width: double.infinity,
+                  height: height * 0.07,
+                  margin: EdgeInsets.only(top: height * 0.02),
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(57, 226, 14, 1),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Center(
+                    child: Text(
+                      'Login',
+                      textScaleFactor: textScaleFactor,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
                   ),
                 ),
               ),
