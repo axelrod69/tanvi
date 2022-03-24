@@ -19,7 +19,12 @@ class SignIn extends StatelessWidget {
       body: Container(
         height: height * 1,
         width: double.infinity,
-        margin: EdgeInsets.only(top: height * 0.15),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/Rectangle 392.png'),
+                fit: BoxFit.cover)),
+        // margin: EdgeInsets.only(top: height * 0.15),
+        padding: EdgeInsets.only(top: height * 0.15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -3,6 +3,7 @@ import './screens/signIn.dart';
 import './screens/signUp.dart';
 import './screens/homeScreen.dart';
 import './screens/categoryScreen.dart';
+import './widgets/categories/categoryList.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         '/sign-in': (context) => SignIn(),
         '/sign-up': (context) => SignUp(),
         '/home-screen': (context) => HomeScreen(),
-        '/category-screen': (context) => CategoryScreen()
+        '/category-screen': (context) => CategoryScreen(),
+        '/category-list': (context) => CategoryList(),
       },
     );
   }

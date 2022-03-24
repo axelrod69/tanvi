@@ -21,7 +21,9 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Color.fromRGBO(236, 236, 248, 1),
+        // foregroundColor: Color.fromRGBO(236, 236, 248, 1),
         // backgroundColor: Colors.red,
         elevation: 0,
         toolbarHeight: 180,
@@ -129,34 +131,45 @@ class HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: ListView(
-        children: [
-          Categories(),
-          SizedBox(height: height * 0.025),
-          Discount(),
-          SizedBox(height: height * 0.025),
-          PopularDeals(),
-          TopSeller(),
-          SizedBox(height: height * 0.025),
-          RecentItems(),
-          SizedBox(height: height * 0.025),
-          Container(
-            width: double.infinity,
-            height: height * 0.1,
-            color: const Color.fromRGBO(251, 243, 231, 1),
-            child: Center(
-              child: Text(
-                'Oops..Ran out of it',
-                textScaleFactor: textScaleFactor,
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
+      body: Container(
+        height: height * 1,
+        width: width * 1,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/Rectangle 392.png'),
+                fit: BoxFit.cover)),
+        child: ListView(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: height * 0.02),
+              child: Categories(),
+            ),
+            SizedBox(height: height * 0.025),
+            Discount(),
+            SizedBox(height: height * 0.025),
+            PopularDeals(),
+            TopSeller(),
+            SizedBox(height: height * 0.025),
+            RecentItems(),
+            SizedBox(height: height * 0.025),
+            Container(
+              width: double.infinity,
+              height: height * 0.1,
+              color: const Color.fromRGBO(251, 243, 231, 1),
+              child: Center(
+                child: Text(
+                  'Oops..Ran out of it',
+                  textScaleFactor: textScaleFactor,
+                  style: TextStyle(
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
               ),
             ),
-          ),
-          SizedBox(height: height * 0.025),
-        ],
+            SizedBox(height: height * 0.025),
+          ],
+        ),
       ),
       // bottomNavigationBar: BottomNavigation(),
     );
