@@ -5,7 +5,7 @@ class CategoryList extends StatefulWidget {
 }
 
 class CategoryListState extends State<CategoryList> {
-  int count = 0;
+  // int count = 0;
   bool isClicked = false;
   final List<dynamic> _categoryItems = [
     {
@@ -13,13 +13,19 @@ class CategoryListState extends State<CategoryList> {
       'name': 'Tomatoes (1KG)',
       'discountPrice': '30.00/kg',
       'actualPrice': '30.25',
+      'decription':
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      'quantity': 0,
       'image': 'assets/images/tomato-15559.png'
     },
     {
       'id': 2,
       'name': 'Cabbage (1KG)',
-      'discountPrice': '30.00/kg',
+      'discountPrice': '30.00/KG',
       'actualPrice': '30.25',
+      'decription':
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      'quantity': 0,
       'image': 'assets/images/PngItem_1310699.png'
     },
     {
@@ -27,6 +33,9 @@ class CategoryListState extends State<CategoryList> {
       'name': 'Onions (1KG)',
       'discountPrice': '30.00/kg',
       'actualPrice': '30.25',
+      'decription':
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      'quantity': 0,
       'image': 'assets/images/tomato-15559.png'
     },
     {
@@ -34,6 +43,9 @@ class CategoryListState extends State<CategoryList> {
       'name': 'Turnip (1KG)',
       'discountPrice': '30.00/kg',
       'actualPrice': '30.25',
+      'decription':
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      'quantity': 0,
       'image': 'assets/images/PngItem_1310699.png'
     }
   ];
@@ -135,10 +147,20 @@ class CategoryListState extends State<CategoryList> {
                   Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                          width: width * 0.4,
-                          height: height * 0.15,
-                          child: Image.asset(_categoryItems[index]['image'])),
+                      InkWell(
+                        onTap: () => Navigator.of(context)
+                            .pushNamed('item-details', arguments: {
+                          'image': _categoryItems[index]['image'],
+                          'name': _categoryItems[index]['name'],
+                          'quantity': _categoryItems[index]['quantity'],
+                          'decription': _categoryItems[index]['description'],
+                          'price': _categoryItems[index]['discountPrice']
+                        }),
+                        child: Container(
+                            width: width * 0.4,
+                            height: height * 0.15,
+                            child: Image.asset(_categoryItems[index]['image'])),
+                      ),
                       SizedBox(height: height * 0.01),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -213,7 +235,7 @@ class CategoryListState extends State<CategoryList> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
-                                      count++;
+                                      _categoryItems[index]['quantity']++;
                                     });
                                   },
                                   child: Text('+',
@@ -223,7 +245,10 @@ class CategoryListState extends State<CategoryList> {
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold)),
                                 ),
-                                Text(count.toString(),
+                                Text(
+                                    _categoryItems[index]['quantity']
+                                        .toString(),
+                                    // count.toString(),
                                     textScaleFactor: textScaleFactor,
                                     style: const TextStyle(
                                         color: Colors.white,
@@ -235,11 +260,18 @@ class CategoryListState extends State<CategoryList> {
                                       // while (count > 0) {
                                       //   count--;
                                       // }
-                                      count--;
+
+                                      if (_categoryItems[index]['quantity'] !=
+                                          0) {
+                                        _categoryItems[index]['quantity']--;
+                                      } else {
+                                        _categoryItems[index]['quantity'] = 0;
+                                      }
                                     });
-                                    if (count == 0) {
+                                    if (_categoryItems[index]['quantity'] ==
+                                        0) {
                                       setState(() {
-                                        isClicked = false;
+                                        // isClicked = false;
                                       });
                                     }
                                   },
@@ -260,7 +292,8 @@ class CategoryListState extends State<CategoryList> {
                           child: InkWell(
                             onTap: () {
                               setState(() {
-                                isClicked = true;
+                                // isClicked = true;
+                                _categoryItems[index]['quantity']++;
                               });
                             },
                             child: Container(
