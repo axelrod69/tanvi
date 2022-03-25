@@ -5,6 +5,10 @@ import './screens/homeScreen.dart';
 import './screens/categoryScreen.dart';
 import './widgets/categories/categoryList.dart';
 import './screens/itemDetail.dart';
+import './screens/cartScreen.dart';
+import './screens/dashboard.dart';
+import './screens/notifications.dart';
+import './screens/profile.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,7 +27,11 @@ class MyApp extends StatelessWidget {
         '/home-screen': (context) => HomeScreen(),
         '/category-screen': (context) => CategoryScreen(),
         '/category-list': (context) => CategoryList(),
-        'item-details': (context) => ItemDetails()
+        '/item-details': (context) => ItemDetails(),
+        '/cart-screen': (context) => CartScreen(),
+        '/dashboard-screen': (context) => Dashboard(),
+        '/notification-screen': (context) => Notifications(),
+        '/profile-screen': (context) => Profile()
       },
     );
   }

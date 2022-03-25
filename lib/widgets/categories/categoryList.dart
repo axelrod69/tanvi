@@ -149,11 +149,11 @@ class CategoryListState extends State<CategoryList> {
                     children: [
                       InkWell(
                         onTap: () => Navigator.of(context)
-                            .pushNamed('item-details', arguments: {
+                            .pushNamed('/item-details', arguments: {
                           'image': _categoryItems[index]['image'],
                           'name': _categoryItems[index]['name'],
                           'quantity': _categoryItems[index]['quantity'],
-                          'decription': _categoryItems[index]['description'],
+                          'description': _categoryItems[index]['decription'],
                           'price': _categoryItems[index]['discountPrice']
                         }),
                         child: Container(
@@ -268,12 +268,12 @@ class CategoryListState extends State<CategoryList> {
                                         _categoryItems[index]['quantity'] = 0;
                                       }
                                     });
-                                    if (_categoryItems[index]['quantity'] ==
-                                        0) {
-                                      setState(() {
-                                        // isClicked = false;
-                                      });
-                                    }
+                                    // if (_categoryItems[index]['quantity'] ==
+                                    //     0) {
+                                    //   setState(() {
+                                    //     // isClicked = false;
+                                    //   });
+                                    // }
                                   },
                                   child: Text('-',
                                       textScaleFactor: textScaleFactor,

@@ -8,6 +8,7 @@ class ItemDetails extends StatefulWidget {
 
 class ItemDetailsState extends State<ItemDetails> {
   double rating = 0;
+  int counter = 0;
   final List<dynamic> _categoryItems = [
     {
       'id': 1,
@@ -60,9 +61,12 @@ class ItemDetailsState extends State<ItemDetails> {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final image = route['image'];
     final name = route['name'];
-    final quantity = route['quantity'];
+    var quantity = route['quantity'];
     final description = route['description'];
     final price = route['price'];
+    int counter = route['quantity'];
+
+    // counter = quantity;
 
     // TODO: implement build
     return Scaffold(
@@ -146,7 +150,7 @@ class ItemDetailsState extends State<ItemDetails> {
                               // itemPadding: EdgeInsets.symmetric(
                               //     horizontal: 0.05, vertical: 0.05),
                               itemBuilder: (context, _) =>
-                                  Icon(Icons.star, color: Colors.black),
+                                  const Icon(Icons.star, color: Colors.black),
                               onRatingUpdate: (double value) {
                                 setState(() {
                                   rating = value;
@@ -170,44 +174,64 @@ class ItemDetailsState extends State<ItemDetails> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: const CircleAvatar(
-                                radius: 18,
-                                backgroundColor: Colors.white,
-                                child: Icon(Icons.remove_sharp,
-                                    color: Colors.black, size: 30),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  if (route['quantity'] != 0) {
+                                    route['quantity']--;
+                                  } else {
+                                    route['quantity'] = 0;
+                                  }
+                                  print(route['quantity']);
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(18),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 10,
+                                          offset: Offset(0, 1))
+                                    ]),
+                                child: const CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor: Colors.white,
+                                  child: Icon(Icons.remove_sharp,
+                                      color: Colors.black, size: 30),
+                                ),
                               ),
                             ),
                             SizedBox(width: width * 0.04),
-                            Text(quantity.toString(),
+                            Text(counter.toString(),
                                 textScaleFactor: textScaleFactor,
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 22)),
                             SizedBox(width: width * 0.04),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(18),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 1))
-                                  ]),
-                              child: const CircleAvatar(
-                                radius: 18,
-                                backgroundColor: Colors.white,
-                                child: Icon(Icons.add,
-                                    color: Colors.black, size: 30),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  route['quantity']++;
+                                  print(route['quantity']);
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(18),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 10,
+                                          offset: Offset(0, 1))
+                                    ]),
+                                child: const CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor: Colors.white,
+                                  child: Icon(Icons.add,
+                                      color: Colors.black, size: 30),
+                                ),
                               ),
                             )
                           ],
@@ -217,7 +241,7 @@ class ItemDetailsState extends State<ItemDetails> {
                   ),
                   Container(
                     width: double.infinity,
-                    height: height * 0.16,
+                    height: height * 0.178,
                     // color: Colors.blue,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,8 +257,7 @@ class ItemDetailsState extends State<ItemDetails> {
                           child: Text(description.toString(),
                               textScaleFactor: textScaleFactor,
                               style: const TextStyle(
-                                color: Colors.grey,
-                              )),
+                                  color: Colors.grey, fontSize: 13)),
                         )
                       ],
                     ),
