@@ -172,9 +172,9 @@ class HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigation(),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: CustomBottomNavigation(),
+      // bottomNavigationBar: CustomBottomNavigation(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: CustomBottomNavigation(),
       // floatingActionButton: Container(
       //   height: height * 0.15,
       //   width: double.infinity,

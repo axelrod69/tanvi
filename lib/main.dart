@@ -9,6 +9,7 @@ import './screens/cartScreen.dart';
 import './screens/dashboard.dart';
 import './screens/notifications.dart';
 import './screens/profile.dart';
+import './widgets/cart/checkout.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,8 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromRGBO(249, 240, 255, 1)),
-      home: SignIn(),
+          scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
+      home: CheckOut(),
       routes: {
         '/sign-in': (context) => SignIn(),
         '/sign-up': (context) => SignUp(),
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         '/cart-screen': (context) => CartScreen(),
         '/dashboard-screen': (context) => Dashboard(),
         '/notification-screen': (context) => Notifications(),
-        '/profile-screen': (context) => Profile()
+        '/profile-screen': (context) => Profile(),
+        '/checkout-screen': (context) => CheckOut(),
       },
     );
   }

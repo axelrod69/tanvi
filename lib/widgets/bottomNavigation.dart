@@ -10,7 +10,7 @@ class CustomBottomNavigation extends StatelessWidget {
     return Container(
       height: height * 0.15,
       width: double.infinity,
-      color: Colors.red,
+      // color: Colors.red,
       // padding: EdgeInsets.only(
       //   left: width * 0.15, top: height * 0.08,
       //   //  right: width * 0.04
