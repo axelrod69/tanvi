@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
-      home: CheckOut(),
+      home: SignIn(),
       routes: {
         '/sign-in': (context) => SignIn(),
         '/sign-up': (context) => SignUp(),

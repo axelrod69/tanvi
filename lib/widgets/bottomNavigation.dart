@@ -1,6 +1,24 @@
 import 'package:flutter/material.dart';
+import '../screens/cartScreen.dart';
+import '../screens/dashboard.dart';
+import '../screens/homeScreen.dart';
+import '../screens/notifications.dart';
+import '../screens/profile.dart';
 
-class CustomBottomNavigation extends StatelessWidget {
+class CustomBottomNavigation extends StatefulWidget {
+  CustomBottomNavigationState createState() => CustomBottomNavigationState();
+}
+
+class CustomBottomNavigationState extends State<CustomBottomNavigation> {
+  int selectedItem = 0;
+  var list = [
+    CartScreen(),
+    Dashboard(),
+    HomeScreen(),
+    Notifications(),
+    Profile()
+  ];
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -8,14 +26,14 @@ class CustomBottomNavigation extends StatelessWidget {
 
     // TODO: implement build
     return Container(
-      height: height * 0.15,
+      height: height * 0.12,
       width: double.infinity,
       // color: Colors.red,
       // padding: EdgeInsets.only(
       //   left: width * 0.15, top: height * 0.08,
       //   //  right: width * 0.04
       // ),
-      padding: EdgeInsets.only(top: height * 0.035),
+      // padding: EdgeInsets.only(top: height * 0.035),
       child: Stack(
         children: [
           Center(
@@ -43,15 +61,27 @@ class CustomBottomNavigation extends StatelessWidget {
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: () =>
-                              Navigator.of(context).pushNamed('/cart-screen'),
+                          // onTap: () =>
+                          //     Navigator.of(context).pushNamed('/cart-screen'),
+                          onTap: () {
+                            list[selectedItem] = 0 as StatefulWidget;
+                            // setState(() {
+
+                            // });
+                          },
                           child: Image.asset(
                               'assets/images/Icon awesome-shopping-cart.png'),
                         ),
                         SizedBox(width: width * 0.1),
                         InkWell(
-                          onTap: () => Navigator.of(context)
-                              .pushNamed('/dashboard-screen'),
+                          // onTap: () => Navigator.of(context)
+                          //     .pushNamed('/dashboard-screen'),
+                          onTap: () {
+                            list[selectedItem] = 1 as StatefulWidget;
+                            // setState(() {
+
+                            // });
+                          },
                           child: Image.asset(
                               'assets/images/Icon ionic-ios-settings.png'),
                         )
@@ -68,16 +98,28 @@ class CustomBottomNavigation extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: width * 0.06),
                           child: InkWell(
-                            onTap: () => Navigator.of(context)
-                                .pushNamed('/notification-screen'),
+                            // onTap: () => Navigator.of(context)
+                            //     .pushNamed('/notification-screen'),
+                            onTap: () {
+                              list[selectedItem] = 3 as StatefulWidget;
+                              // setState(() {
+
+                              // });
+                            },
                             child: Image.asset(
                                 'assets/images/Icon awesome-bell.png'),
                           ),
                         ),
                         SizedBox(width: width * 0.1),
                         InkWell(
-                            onTap: () => Navigator.of(context)
-                                .pushNamed('/profile-screen'),
+                            onTap: () {
+                              list[selectedItem] = 4 as StatefulWidget;
+                              // setState(() {
+
+                              // });
+                            },
+                            // onTap: () => Navigator.of(context)
+                            //     .pushNamed('/profile-screen'),
                             child: Image.asset('assets/images/rkwxkca7.png'))
                       ],
                     ),
@@ -88,7 +130,10 @@ class CustomBottomNavigation extends StatelessWidget {
           ),
           Positioned(
             child: InkWell(
-              onTap: () => Navigator.of(context).pushNamed('/home-screen'),
+              // onTap: () => Navigator.of(context).pushNamed('/home-screen'),
+              onTap: () {
+                list[selectedItem] = 2 as StatefulWidget;
+              },
               child: Container(
                 height: height * 0.075,
                 decoration: BoxDecoration(

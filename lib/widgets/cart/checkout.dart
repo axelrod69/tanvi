@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../bottomNavigation.dart';
 
 class CheckOut extends StatefulWidget {
   CheckOutState createState() => CheckOutState();
@@ -284,63 +285,68 @@ class CheckOutState extends State<CheckOut> {
               ),
             ),
             SizedBox(height: height * 0.02),
-            Container(
-              width: double.infinity,
-              height: height * 0.12,
-              padding:
-                  EdgeInsets.only(left: width * 0.04, right: height * 0.02),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-                  ]),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Cash On Delivery',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13),
-                      ),
-                      Radio(
-                          value: 1,
-                          groupValue: selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValue = value as int;
-                            });
-                          })
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Razorpay',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13),
-                      ),
-                      Radio(
-                          value: 2,
-                          groupValue: selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValue = value as int;
-                            });
-                          })
-                    ],
-                  )
-                ],
+            Padding(
+              padding: EdgeInsets.only(left: width * 0.01, right: width * 0.01),
+              child: Container(
+                width: double.infinity,
+                height: height * 0.12,
+                padding:
+                    EdgeInsets.only(left: width * 0.04, right: height * 0.02),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 5,
+                          offset: Offset(0, 2))
+                    ]),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Cash On Delivery',
+                          textScaleFactor: textScaleFactor,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13),
+                        ),
+                        Radio(
+                            value: 1,
+                            groupValue: selectedValue,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedValue = value as int;
+                              });
+                            })
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Razorpay',
+                          textScaleFactor: textScaleFactor,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13),
+                        ),
+                        Radio(
+                            value: 2,
+                            groupValue: selectedValue,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedValue = value as int;
+                              });
+                            })
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(height: height * 0.02),
@@ -477,10 +483,12 @@ class CheckOutState extends State<CheckOut> {
                 ],
               ),
             ),
-            Container(
+            Padding(
+              padding: EdgeInsets.only(left: width * 0.3, right: width * 0.3),
+              child: Container(
                 width: width * 0.1,
                 height: height * 0.06,
-                margin: EdgeInsets.only(bottom: height * 0.05),
+                margin: EdgeInsets.only(bottom: height * 0.15),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
@@ -489,10 +497,24 @@ class CheckOutState extends State<CheckOut> {
                           color: Colors.green,
                           blurRadius: 5,
                           offset: Offset(0, 2))
-                    ]))
+                    ]),
+                child: Center(
+                  child: Text(
+                    'PAY',
+                    textScaleFactor: textScaleFactor,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: CustomBottomNavigation(),
     );
   }
 }
