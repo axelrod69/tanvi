@@ -234,7 +234,7 @@ class DashboardState extends State<Dashboard> {
             SizedBox(height: height * 0.02),
             Container(
               width: width * 1,
-              height: height * 0.3,
+              height: height * 0.33,
               // color: Colors.red,
               padding: EdgeInsets.only(
                   left: width * 0.02,

@@ -10,8 +10,8 @@ class CustomBottomNavigation extends StatefulWidget {
 }
 
 class CustomBottomNavigationState extends State<CustomBottomNavigation> {
-  int selectedItem = 0;
-  var list = [
+  int selectedItem = 2;
+  final screens = [
     CartScreen(),
     Dashboard(),
     HomeScreen(),
@@ -64,11 +64,15 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                           // onTap: () =>
                           //     Navigator.of(context).pushNamed('/cart-screen'),
                           onTap: () {
-                            list[selectedItem] = 0 as StatefulWidget;
-                            // setState(() {
-
-                            // });
+                            Navigator.of(context).pushNamed('/cart-screen');
+                            print('Cart Screen');
                           },
+                          // onTap: () {
+                          //   screens[selectedItem] = 0 as StatefulWidget;
+                          // setState(() {
+
+                          // });
+
                           child: Image.asset(
                               'assets/images/Icon awesome-shopping-cart.png'),
                         ),
@@ -77,11 +81,16 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                           // onTap: () => Navigator.of(context)
                           //     .pushNamed('/dashboard-screen'),
                           onTap: () {
-                            list[selectedItem] = 1 as StatefulWidget;
-                            // setState(() {
-
-                            // });
+                            Navigator.of(context)
+                                .pushNamed('/dashboard-screen');
+                            print('Dashboard Screen');
                           },
+                          // onTap: () {
+                          //   screens[selectedItem] = 1 as StatefulWidget;
+                          //   // setState(() {
+
+                          //   // });
+                          // },
                           child: Image.asset(
                               'assets/images/Icon ionic-ios-settings.png'),
                         )
@@ -101,25 +110,35 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                             // onTap: () => Navigator.of(context)
                             //     .pushNamed('/notification-screen'),
                             onTap: () {
-                              list[selectedItem] = 3 as StatefulWidget;
-                              // setState(() {
-
-                              // });
+                              Navigator.of(context)
+                                  .pushNamed('/notification-screen');
+                              print('Notification Screen');
                             },
+                            // onTap: () {
+                            //   screens[selectedItem] = 3 as StatefulWidget;
+                            //   // setState(() {
+
+                            //   // });
+                            // },
                             child: Image.asset(
                                 'assets/images/Icon awesome-bell.png'),
                           ),
                         ),
                         SizedBox(width: width * 0.1),
                         InkWell(
-                            onTap: () {
-                              list[selectedItem] = 4 as StatefulWidget;
-                              // setState(() {
+                            // onTap: () {
+                            //   screens[selectedItem] = 4 as StatefulWidget;
+                            //   // setState(() {
 
-                              // });
-                            },
+                            //   // });
+                            // },
                             // onTap: () => Navigator.of(context)
                             //     .pushNamed('/profile-screen'),
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed('/profile-screen');
+                              print('Profile Screen');
+                            },
                             child: Image.asset('assets/images/rkwxkca7.png'))
                       ],
                     ),
@@ -128,11 +147,13 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
               ),
             ),
           ),
-          Positioned(
+          Align(
+            alignment: Alignment.topCenter,
             child: InkWell(
               // onTap: () => Navigator.of(context).pushNamed('/home-screen'),
               onTap: () {
-                list[selectedItem] = 2 as StatefulWidget;
+                Navigator.of(context).pushNamed('/home-screen');
+                print('Home Screen');
               },
               child: Container(
                 height: height * 0.075,

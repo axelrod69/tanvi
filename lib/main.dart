@@ -10,6 +10,7 @@ import './screens/dashboard.dart';
 import './screens/notifications.dart';
 import './screens/profile.dart';
 import './widgets/cart/checkout.dart';
+import './widgets/bottomNavigation.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
-      home: SignIn(),
+      home: HomeScreen(),
       routes: {
         '/sign-in': (context) => SignIn(),
         '/sign-up': (context) => SignUp(),

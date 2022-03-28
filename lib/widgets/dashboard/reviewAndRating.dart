@@ -58,11 +58,13 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
             style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
           ),
+          SizedBox(height: height * 0.005),
           Expanded(
             child: Container(
               width: double.infinity,
               // color: Colors.amber,
               child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Container(
                   width: double.infinity,
                   height: height * 0.08,

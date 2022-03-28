@@ -66,6 +66,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
               width: double.infinity,
               // color: Colors.amber,
               child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Container(
                   width: double.infinity,
                   height: height * 0.06,
