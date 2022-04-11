@@ -325,8 +325,8 @@ class CartScreenState extends State<CartScreen> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: CustomBottomNavigation(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: CustomBottomNavigation(),
     );
   }
 }

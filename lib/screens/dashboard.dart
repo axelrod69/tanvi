@@ -247,8 +247,8 @@ class DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: CustomBottomNavigation(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: CustomBottomNavigation(),
     );
   }
 }

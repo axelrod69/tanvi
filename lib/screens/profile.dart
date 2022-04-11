@@ -355,8 +355,8 @@ class ProfileState extends State<Profile> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: CustomBottomNavigation(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: CustomBottomNavigation(),
     );
   }
 }
