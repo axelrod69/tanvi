@@ -67,22 +67,22 @@ class CartScreenState extends State<CartScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
-        leading: Container(
-            width: width * 0.1,
-            margin: EdgeInsets.only(left: width * 0.01),
-            //height: height * 0.02,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-                ]),
-            child: Center(
-                child: Padding(
-              padding: EdgeInsets.only(left: width * 0.02),
-              child: const Icon(Icons.arrow_back_ios, color: Colors.green),
-            ))),
+        // leading: Container(
+        //     width: width * 0.1,
+        //     margin: EdgeInsets.only(left: width * 0.01),
+        //     //height: height * 0.02,
+        //     decoration: BoxDecoration(
+        //         color: Colors.white,
+        //         borderRadius: BorderRadius.circular(10),
+        //         boxShadow: const [
+        //           BoxShadow(
+        //               color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
+        //         ]),
+        //     child: Center(
+        //         child: Padding(
+        //       padding: EdgeInsets.only(left: width * 0.02),
+        //       child: const Icon(Icons.arrow_back_ios, color: Colors.green),
+        //     ))),
         title: Text('Shopping List',
             textScaleFactor: textScaleFactor,
             style: const TextStyle(

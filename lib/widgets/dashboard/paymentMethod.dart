@@ -34,7 +34,7 @@ class PaymentMethodState extends State<PaymentMethod> {
                 left: width * 0.02, top: height * 0.01, right: width * 0.02),
             child: Text(
               'Payment Method',
-              textScaleFactor: textScaleFactor,
+              // // textScaleFactor: textScaleFactor,
               style:
                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
@@ -51,7 +51,7 @@ class PaymentMethodState extends State<PaymentMethod> {
                   }),
               Text(
                 'Cash On Delivery',
-                textScaleFactor: textScaleFactor,
+                // // textScaleFactor: textScaleFactor,
                 style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -71,7 +71,7 @@ class PaymentMethodState extends State<PaymentMethod> {
                   }),
               Text(
                 'Razorpay',
-                textScaleFactor: textScaleFactor,
+                // // textScaleFactor: textScaleFactor,
                 style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

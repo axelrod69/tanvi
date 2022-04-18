@@ -32,31 +32,35 @@ class ProfileState extends State<Profile> {
               padding: EdgeInsets.only(left: width * 0.01),
               child: Row(
                 children: [
+                  // Container(
+                  //   height: height * 0.05,
+                  //   width: width * 0.1,
+                  //   padding: EdgeInsets.only(left: width * 0.025),
+                  //   decoration: BoxDecoration(
+                  //       color: Colors.white,
+                  //       borderRadius: BorderRadius.circular(10),
+                  //       boxShadow: const [
+                  //         BoxShadow(
+                  //             color: Colors.grey,
+                  //             blurRadius: 5,
+                  //             offset: Offset(0, 2))
+                  //       ]),
+                  //   child:
+                  //       const Icon(Icons.arrow_back_ios, color: Colors.green),
+                  // ),
                   Container(
-                    height: height * 0.05,
-                    width: width * 0.1,
-                    padding: EdgeInsets.only(left: width * 0.025),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 5,
-                              offset: Offset(0, 2))
-                        ]),
-                    child:
-                        const Icon(Icons.arrow_back_ios, color: Colors.green),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: width * 0.3),
-                    child: Text(
-                      'Profile',
-                      textScaleFactor: textScaleFactor,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25),
+                    width: width * 0.95,
+                    height: height * 0.1,
+                    // color: Colors.red,
+                    child: Center(
+                      child: Text(
+                        'Profile',
+                        textScaleFactor: textScaleFactor,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25),
+                      ),
                     ),
                   )
                 ],

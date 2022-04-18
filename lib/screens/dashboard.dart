@@ -17,7 +17,7 @@ class DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Scaffold(
@@ -27,7 +27,7 @@ class DashboardState extends State<Dashboard> {
         centerTitle: true,
         title: Text(
           'My Dashboard',
-          textScaleFactor: textScaleFactor,
+          // textScaleFactor: textScaleFactor,
           style:
               const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -95,7 +95,7 @@ class DashboardState extends State<Dashboard> {
                           children: [
                             Text(
                               'Eli Avon',
-                              textScaleFactor: textScaleFactor,
+                              // textScaleFactor: textScaleFactor,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class DashboardState extends State<Dashboard> {
                         ),
                         Text(
                           'somewhere@somewhat.com',
-                          textScaleFactor: textScaleFactor,
+                          // textScaleFactor: textScaleFactor,
                           style: TextStyle(color: Colors.grey[700]),
                         )
                       ],
@@ -141,14 +141,14 @@ class DashboardState extends State<Dashboard> {
                             color: Colors.green, size: 30),
                         Text(
                           '48, Tarun Sengupta Sarani',
-                          textScaleFactor: textScaleFactor,
+                          // textScaleFactor: textScaleFactor,
                           style: const TextStyle(
                               color: Colors.black, fontSize: 15),
                         ),
                         SizedBox(width: width * 0.15),
                         Text(
                           'Change',
-                          textScaleFactor: textScaleFactor,
+                          // textScaleFactor: textScaleFactor,
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         )

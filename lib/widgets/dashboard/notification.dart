@@ -15,8 +15,8 @@ class DashboardNotificationState extends State<DashboardNotification> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
-    final textScaleFactorTwo = MediaQuery.of(context).textScaleFactor * 1.4;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactorTwo = MediaQuery.of(context).textScaleFactor * 1.4;
 
     // TODO: implement build
     return Container(
@@ -41,7 +41,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
                 padding: EdgeInsets.only(left: width * 0.02),
                 child: Text(
                   'Notification',
-                  textScaleFactor: textScaleFactor,
+                  // // textScaleFactor: textScaleFactor,
                   style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
                 padding: EdgeInsets.only(right: width * 0.02),
                 child: Text(
                   'View All',
-                  textScaleFactor: textScaleFactor,
+                  // // textScaleFactor: textScaleFactor,
                   style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
                             Text(
                               _notification[index]['name'],
                               overflow: TextOverflow.fade,
-                              textScaleFactor: textScaleFactorTwo,
+                              // textScaleFactor: textScaleFactorTwo,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -91,7 +91,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
                             ),
                             Text(
                               _notification[index]['time'],
-                              textScaleFactor: textScaleFactor,
+                              // // textScaleFactor: textScaleFactor,
                               style: const TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold),

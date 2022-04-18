@@ -33,23 +33,23 @@ class NotificationsState extends State<Notifications> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
-        leading: Padding(
-          padding: EdgeInsets.only(left: width * 0.01),
-          child: Container(
-            width: width * 0.1,
-            height: height * 0.05,
-            padding: EdgeInsets.only(left: width * 0.02),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                // border: Border.all(color: Colors.green, width: 2),
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-                ]),
-            child: Icon(Icons.arrow_back_ios, color: Colors.green),
-          ),
-        ),
+        // leading: Padding(
+        //   padding: EdgeInsets.only(left: width * 0.01),
+        //   child: Container(
+        //     width: width * 0.1,
+        //     height: height * 0.05,
+        //     padding: EdgeInsets.only(left: width * 0.02),
+        //     decoration: BoxDecoration(
+        //         color: Colors.white,
+        //         // border: Border.all(color: Colors.green, width: 2),
+        //         borderRadius: BorderRadius.circular(10),
+        //         boxShadow: const [
+        //           BoxShadow(
+        //               color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
+        //         ]),
+        //     child: Icon(Icons.arrow_back_ios, color: Colors.green),
+        //   ),
+        // ),
         title: Text(
           'Notifications',
           textScaleFactor: textScaleFactor,

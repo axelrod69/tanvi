@@ -58,7 +58,7 @@ class OrderHistoryState extends State<OrderHistory> {
                     EdgeInsets.only(left: width * 0.02, top: height * 0.01),
                 child: Text(
                   'Order History',
-                  textScaleFactor: textScaleFactor,
+                  // // textScaleFactor: textScaleFactor,
                   style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class OrderHistoryState extends State<OrderHistory> {
                     EdgeInsets.only(right: width * 0.02, top: height * 0.01),
                 child: Text(
                   'View All',
-                  textScaleFactor: textScaleFactor,
+                  // // textScaleFactor: textScaleFactor,
                   style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -134,7 +134,7 @@ class OrderHistoryState extends State<OrderHistory> {
                           children: [
                             Text(
                               _orderHistory[index]['name'],
-                              textScaleFactor: textScaleFactor,
+                              // // textScaleFactor: textScaleFactor,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   color: Colors.black,
@@ -143,7 +143,7 @@ class OrderHistoryState extends State<OrderHistory> {
                             ),
                             Text(
                               'No. of Item = ${_orderHistory[index]['quantity'].toString()}',
-                              textScaleFactor: textScaleFactor,
+                              // // textScaleFactor: textScaleFactor,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class OrderHistoryState extends State<OrderHistory> {
                             ),
                             Text(
                               _orderHistory[index]['status'],
-                              textScaleFactor: textScaleFactor,
+                              // // textScaleFactor: textScaleFactor,
                               style: TextStyle(
                                   color: _orderHistory[index]['status'] ==
                                           'Delivered'

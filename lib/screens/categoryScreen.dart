@@ -6,25 +6,25 @@ class CategoryScreen extends StatefulWidget {
 
 class CategoryScreenState extends State<CategoryScreen> {
   final List<dynamic> _categoryImages = [
-    {'image': 'assets/images/Layer_3.png', 'name': 'Vegetables'},
-    {'image': 'assets/images/Layer_4.png', 'name': 'Fruits'},
-    {'image': 'assets/images/Layer_5.png', 'name': 'Meat'},
-    {'image': 'assets/images/Layer_6.png', 'name': 'Milk &Eggs'},
-    {'image': 'assets/images/Layer_7.png', 'name': 'Fish'},
-    {'image': 'assets/images/Layer_3.png', 'name': 'Drinks'},
-    {'image': 'assets/images/Layer_4.png', 'name': 'Sea Food'},
-    {'image': 'assets/images/Layer_5.png', 'name': 'Cake'},
-    {'image': 'assets/images/Layer_6.png', 'name': 'Bakery'},
-    {'image': 'assets/images/Layer_7.png', 'name': 'Biscuits'},
-    {'image': 'assets/images/Layer_3.png', 'name': 'Ice Cream'},
-    {'image': 'assets/images/Layer_4.png', 'name': 'Juice'}
+    {'image': 'assets/images/Layer_3.png', 'name': 'Fruites and Vegetables'},
+    {'image': 'assets/images/Layer_4.png', 'name': 'Grocery and Staples'},
+    {'image': 'assets/images/Layer_5.png', 'name': 'Biscuits and Snacks'},
+    {'image': 'assets/images/Layer_6.png', 'name': 'Bakery and Beverages'},
+    {'image': 'assets/images/Layer_7.png', 'name': 'Dairy Products'},
+    {'image': 'assets/images/Layer_3.png', 'name': 'Beauty and Personal Needs'},
+    {'image': 'assets/images/Layer_4.png', 'name': 'Rice Packets Special'},
+    {'image': 'assets/images/Layer_5.png', 'name': 'Non Veg'},
+    {'image': 'assets/images/Layer_6.png', 'name': 'Baby Care'},
+    {'image': 'assets/images/Layer_7.png', 'name': 'Othes'},
+    // {'image': 'assets/images/Layer_3.png', 'name': 'Ice Cream'},
+    // {'image': 'assets/images/Layer_4.png', 'name': 'Juice'}
   ];
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Scaffold(
@@ -66,7 +66,7 @@ class CategoryScreenState extends State<CategoryScreen> {
                   padding: EdgeInsets.only(left: width * 0.22),
                   child: Text(
                     'Categories',
-                    textScaleFactor: textScaleFactor,
+                    // textScaleFactor: textScaleFactor,
                     style: const TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
@@ -102,7 +102,7 @@ class CategoryScreenState extends State<CategoryScreen> {
                   SizedBox(width: width * 0.04),
                   Text(
                     'Search',
-                    textScaleFactor: textScaleFactor,
+                    // textScaleFactor: textScaleFactor,
                     style: TextStyle(
                         color: Colors.grey.withOpacity(0.6), fontSize: 25),
                   )
@@ -177,7 +177,8 @@ class CategoryScreenState extends State<CategoryScreen> {
                       child: Center(
                         child: Text(
                           _categoryImages[index]['name'],
-                          textScaleFactor: textScaleFactor,
+                          textAlign: TextAlign.center,
+                          // textScaleFactor: textScaleFactor,
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),

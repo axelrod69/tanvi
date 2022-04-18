@@ -5,7 +5,7 @@ class ReferFriend extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Container(
@@ -26,7 +26,7 @@ class ReferFriend extends StatelessWidget {
         children: [
           Text(
             'Refer A Friend',
-            textScaleFactor: textScaleFactor,
+            // textScaleFactor: textScaleFactor,
             style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
           ),
@@ -34,7 +34,7 @@ class ReferFriend extends StatelessWidget {
           Text(
             'Refer A Friend',
             textAlign: TextAlign.center,
-            textScaleFactor: textScaleFactor,
+            // textScaleFactor: textScaleFactor,
             style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
           ),
@@ -43,7 +43,7 @@ class ReferFriend extends StatelessWidget {
             child: Text(
               'and Get',
               // textAlign: TextAlign.center,
-              textScaleFactor: textScaleFactor,
+              // textScaleFactor: textScaleFactor,
               style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class ReferFriend extends StatelessWidget {
               Text(
                 '₹',
                 // textAlign: TextAlign.center,
-                textScaleFactor: textScaleFactor,
+                // textScaleFactor: textScaleFactor,
                 style: const TextStyle(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
@@ -66,7 +66,7 @@ class ReferFriend extends StatelessWidget {
               Text(
                 '100 OFF',
                 // textAlign: TextAlign.center,
-                textScaleFactor: textScaleFactor,
+                // textScaleFactor: textScaleFactor,
                 style: const TextStyle(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
