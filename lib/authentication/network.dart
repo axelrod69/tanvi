@@ -10,4 +10,10 @@ class Network with ChangeNotifier {
     return await http.post(Uri.parse(fullUrl),
         body: json.encode(data), headers: {'Content-Type': 'application/json'});
   }
+
+  dynamic checkOtp(data, url) async {
+    final fullUrl = baseUrl + url;
+    return await http.post(Uri.parse(fullUrl),
+        body: json.encode(data), headers: {'Accept': 'application/json'});
+  }
 }
