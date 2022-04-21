@@ -25,22 +25,27 @@ class SignIn extends StatelessWidget {
                 fit: BoxFit.cover)),
         // margin: EdgeInsets.only(top: height * 0.15),
         padding: EdgeInsets.only(top: height * 0.15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'Welcome',
-              textScaleFactor: textScaleFactor,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+            Center(
+              child: Text(
+                'Welcome',
+                textScaleFactor: textScaleFactor,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+              ),
             ),
-            Text(
-              'Login to start shopping',
-              textScaleFactor: textScaleFactor,
-              style: const TextStyle(
-                  // fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(154, 154, 154, 1),
-                  fontSize: 20),
+            Center(
+              child: Text(
+                'Login to start shopping',
+                textScaleFactor: textScaleFactor,
+                style: const TextStyle(
+                    // fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(154, 154, 154, 1),
+                    fontSize: 20),
+              ),
             ),
             SizedBox(height: height * 0.04),
             FormWidget(),

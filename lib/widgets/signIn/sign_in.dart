@@ -11,6 +11,7 @@ class FormWidgetState extends State<FormWidget> {
   final _focusSecond = FocusNode();
   final _focusThird = FocusNode();
   final _focusFourth = FocusNode();
+  final _focusFifth = FocusNode();
 
   @override
   void dispose() {
@@ -20,6 +21,7 @@ class FormWidgetState extends State<FormWidget> {
     _focusSecond.dispose();
     _focusThird.dispose();
     _focusFourth.dispose();
+    _focusFifth.dispose();
   }
 
   @override
@@ -83,6 +85,33 @@ class FormWidgetState extends State<FormWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                width: width * 0.15,
+                height: height * 0.075,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.grey,
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          offset: Offset(1, 2))
+                    ]),
+                child: TextFormField(
+                  showCursor: true,
+                  cursorHeight: 45,
+                  inputFormatters: [LengthLimitingTextInputFormatter(1)],
+                  keyboardType: TextInputType.number,
+                  style: const TextStyle(fontSize: 45),
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none),
+                  onFieldSubmitted: (_) =>
+                      FocusScope.of(context).requestFocus(_focusFirst),
+                ),
+              ),
               Container(
                 width: width * 0.15,
                 height: height * 0.075,
