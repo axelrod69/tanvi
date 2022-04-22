@@ -14,10 +14,35 @@ import './widgets/bottomNavigation.dart';
 import 'package:provider/provider.dart';
 import './authentication/network.dart';
 import './screens/otpScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  bool isAuth = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _checkIfLoggedIn();
+    super.initState();
+  }
+
+  void _checkIfLoggedIn() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('token');
+    print('Access Tokeeeeeeeeeeeeeeeen : $token');
+    if (token != null) {
+      setState(() {
+        isAuth = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -31,8 +56,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
-        home: SignIn(),
+        home: isAuth ? CustomBottomNavigation() : SignIn(),
         routes: {
+          '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),
           '/sign-up': (context) => SignUp(),
           '/home-screen': (context) => HomeScreen(),

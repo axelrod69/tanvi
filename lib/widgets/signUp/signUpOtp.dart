@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import '../../authentication/network.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../bottomNavigation.dart';
 
 class InputOTP extends StatefulWidget {
   InputOTPState createState() => InputOTPState();
@@ -16,11 +19,11 @@ class InputOTPState extends State<InputOTP> {
   final _focusThird = FocusNode();
   final _focusFourth = FocusNode();
   final _key = GlobalKey<FormState>();
-  var _firstPin = '';
-  var _secondPin = '';
-  var _thirdPin = '';
-  var _fourthPin = '';
-  var _fifthPin = '';
+  String? _firstPin;
+  String? _secondPin;
+  String? _thirdPin;
+  String? _fourthPin;
+  String? _fifthPin;
 
   @override
   void dispose() {
@@ -36,6 +39,11 @@ class InputOTPState extends State<InputOTP> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     var textScale = MediaQuery.of(context).textScaleFactor;
+    final routes =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final mobile = routes['mobile'];
+
+    print(mobile);
 
     // TODO: implement build
     return Column(
@@ -189,7 +197,7 @@ class InputOTPState extends State<InputOTP> {
         InkWell(
           onTap: () {
             if (_key.currentState!.validate()) {
-              checkOtp();
+              checkOtp(mobile);
             }
           },
           child: Container(
@@ -201,7 +209,7 @@ class InputOTPState extends State<InputOTP> {
                 borderRadius: BorderRadius.circular(15)),
             child: const Center(
               child: Text(
-                'Sign Up',
+                'Validate',
                 // textScaleFactor: textScaleFactor,
                 style: TextStyle(
                     color: Colors.white,
@@ -215,12 +223,28 @@ class InputOTPState extends State<InputOTP> {
     );
   }
 
-  void checkOtp() async {
+  void checkOtp(String mobile) async {
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
-    String otp = _firstPin + _secondPin + _thirdPin + _fourthPin + _fifthPin;
-    print(otp);
+    var otp = _firstPin! + _secondPin! + _thirdPin! + _fourthPin! + _fifthPin!;
+    var data = {'otp': otp, 'mobile': mobile};
+    print(data);
     var response = await Provider.of<Network>(context, listen: false)
-        .checkOtp(otp, 'api/validateotp/');
+        .checkOtp(data, 'api/validateotp/');
     print(response.body);
+    var receivedResponse = json.decode(response.body);
+
+    print('Access Token ${receivedResponse['access']}');
+
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    await localStorage.setString('token', receivedResponse['access']);
+    Navigator.of(context).pushNamed('/landing-page');
+
+    // if (receivedResponse['status'] == 'true') {
+    //   SharedPreferences localStorage = await SharedPreferences.getInstance();
+    //   localStorage.setString('token', receivedResponse['access']).then((_) {
+    //     Navigator.of(context).push(
+    //         MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
+    //   });
+    // }
   }
 }

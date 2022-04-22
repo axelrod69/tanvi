@@ -4,6 +4,8 @@ import '../screens/dashboard.dart';
 import '../screens/homeScreen.dart';
 import '../screens/notifications.dart';
 import '../screens/profile.dart';
+import 'package:provider/provider.dart';
+import '../authentication/network.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
   CustomBottomNavigationState createState() => CustomBottomNavigationState();
@@ -18,6 +20,13 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
     Notifications(),
     Profile()
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<Network>(context, listen: false).getToken();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -383,7 +383,8 @@ class SignUpState extends State<SignUp> {
         .signUp(data, 'api/register/');
     print(response.body);
     if (response.body == 'Otp send your Register Mobile Number sucessfully.') {
-      Navigator.of(context).pushNamed('/otp-screen');
+      Navigator.of(context)
+          .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
     }
   }
 }
