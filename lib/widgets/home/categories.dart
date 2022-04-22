@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../model/category/categoryProvider.dart';
 
 class Categories extends StatefulWidget {
   CategoriesState createState() => CategoriesState();
 }
 
 class CategoriesState extends State<Categories> {
+  bool isLoading = true;
+
   final List<dynamic> _categories = [
     {'id': 1, 'image': 'assets/images/Layer_3.png', 'name': 'Vegetables'},
     {'id': 2, 'image': 'assets/images/Layer_4.png', 'name': 'Fruits'},
@@ -19,17 +23,28 @@ class CategoriesState extends State<Categories> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<CategoryProvider>(context, listen: false).getCategory();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
+    final provider =
+        Provider.of<CategoryProvider>(context, listen: false).category;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Padding(
       padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       child: Container(
         width: width * 0.9,
-        height: height * 0.22,
+        height: height * 0.23,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -46,17 +61,29 @@ class CategoriesState extends State<Categories> {
                 children: [
                   Text(
                     'Categories',
-                    textScaleFactor: textScaleFactor,
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                    // textScaleFactor: textScaleFactor,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: tabLayout
+                            ? 20
+                            : largeLayout
+                                ? 17
+                                : 15),
                   ),
                   InkWell(
                     onTap: () =>
                         Navigator.of(context).pushNamed('/category-screen'),
                     child: Text(
                       'View All',
-                      textScaleFactor: textScaleFactor,
-                      style: const TextStyle(color: Colors.greenAccent),
+                      // textScaleFactor: textScaleFactor,
+                      style: TextStyle(
+                          color: Colors.greenAccent,
+                          fontSize: tabLayout
+                              ? 16
+                              : largeLayout
+                                  ? 14
+                                  : 12),
                     ),
                   )
                 ],
@@ -97,21 +124,21 @@ class CategoriesState extends State<Categories> {
                             color: Colors.green[100],
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Image.asset(
-                            _categories[index]['image'],
-                          ),
+                          child:
+                              Image.network(provider[index]['categoryImage']),
                         ),
                         SizedBox(height: height * 0.01),
                         Text(
-                          _categories[index]['name'],
-                          textScaleFactor: textScaleFactor,
+                          provider[index]['name'],
+                          textAlign: TextAlign.center,
+                          // textScaleFactor: textScaleFactor,
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         )
                       ],
                     ),
                   ),
-                  itemCount: _categories.length,
+                  itemCount: provider.length,
                 ),
               ),
             )

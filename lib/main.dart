@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import './authentication/network.dart';
 import './screens/otpScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import './model/category/categoryProvider.dart';
 
 void main() => runApp(MyApp());
 
@@ -50,6 +51,9 @@ class MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(
           create: (context) => Network(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CategoryProvider(),
         )
       ],
       child: MaterialApp(

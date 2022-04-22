@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../model/category/categoryProvider.dart';
 
 class CategoryScreen extends StatefulWidget {
   CategoryScreenState createState() => CategoryScreenState();
 }
 
 class CategoryScreenState extends State<CategoryScreen> {
-  final List<dynamic> _categoryImages = [
-    {'image': 'assets/images/Layer_3.png', 'name': 'Fruites and Vegetables'},
-    {'image': 'assets/images/Layer_4.png', 'name': 'Grocery and Staples'},
-    {'image': 'assets/images/Layer_5.png', 'name': 'Biscuits and Snacks'},
-    {'image': 'assets/images/Layer_6.png', 'name': 'Bakery and Beverages'},
-    {'image': 'assets/images/Layer_7.png', 'name': 'Dairy Products'},
-    {'image': 'assets/images/Layer_3.png', 'name': 'Beauty and Personal Needs'},
-    {'image': 'assets/images/Layer_4.png', 'name': 'Rice Packets Special'},
-    {'image': 'assets/images/Layer_5.png', 'name': 'Non Veg'},
-    {'image': 'assets/images/Layer_6.png', 'name': 'Baby Care'},
-    {'image': 'assets/images/Layer_7.png', 'name': 'Othes'},
-    // {'image': 'assets/images/Layer_3.png', 'name': 'Ice Cream'},
-    // {'image': 'assets/images/Layer_4.png', 'name': 'Juice'}
-  ];
+  bool isLoading = true;
+  // final List<dynamic> _categoryImages = [
+  //   {'image': 'assets/images/Layer_3.png', 'name': 'Fruites and Vegetables'},
+  //   {'image': 'assets/images/Layer_4.png', 'name': 'Grocery and Staples'},
+  //   {'image': 'assets/images/Layer_5.png', 'name': 'Biscuits and Snacks'},
+  //   {'image': 'assets/images/Layer_6.png', 'name': 'Bakery and Beverages'},
+  //   {'image': 'assets/images/Layer_7.png', 'name': 'Dairy Products'},
+  //   {'image': 'assets/images/Layer_3.png', 'name': 'Beauty and Personal Needs'},
+  //   {'image': 'assets/images/Layer_4.png', 'name': 'Rice Packets Special'},
+  //   {'image': 'assets/images/Layer_5.png', 'name': 'Non Veg'},
+  //   {'image': 'assets/images/Layer_6.png', 'name': 'Baby Care'},
+  //   {'image': 'assets/images/Layer_7.png', 'name': 'Othes'},
+  //   // {'image': 'assets/images/Layer_3.png', 'name': 'Ice Cream'},
+  //   // {'image': 'assets/images/Layer_4.png', 'name': 'Juice'}
+  // ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<CategoryProvider>(context, listen: false)
+        .getCategory()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final provider = Provider.of<CategoryProvider>(context).category;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
@@ -112,94 +129,107 @@ class CategoryScreenState extends State<CategoryScreen> {
           ],
         ),
       ),
-      body: Container(
-        height: height * 1,
-        width: width * 1,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/Rectangle 392.png'),
-                fit: BoxFit.cover)),
-        child: GridView.builder(
-          // physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: width * 0.04,
-              crossAxisSpacing: height * 0.04),
-          itemBuilder: (context, index) => InkWell(
-            onTap: () => Navigator.of(context).pushNamed('/category-list'),
-            child: Container(
-              // width: width * 0.3,
-              // height: height * 0.3,
-              margin: EdgeInsets.only(
-                  left: width * 0.01,
-                  top: height * 0.02,
-                  right: width * 0.01,
-                  bottom: height * 0.01),
-              decoration: BoxDecoration(
-                  color: const Color.fromRGBO(239, 239, 232, 1),
-                  borderRadius: BorderRadius.circular(20),
-                  // borderRadius: BorderRadius.only(
-                  //     topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-                  ]),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    flex: 3,
-                    fit: FlexFit.tight,
-                    child: Container(
-                      width: double.infinity,
-                      child: Image.asset(
-                        _categoryImages[index]['image'],
-                        // fit: BoxFit.contain,
-                      ),
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.green,
+              ),
+            )
+          : Container(
+              height: height * 1,
+              width: width * 1,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/Rectangle 392.png'),
+                      fit: BoxFit.cover)),
+              child: GridView.builder(
+                // physics: const NeverScrollableScrollPhysics(),
+                padding:
+                    EdgeInsets.only(left: width * 0.04, right: width * 0.04),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: width * 0.04,
+                    crossAxisSpacing: height * 0.04),
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () =>
+                      Navigator.of(context).pushNamed('/category-list'),
+                  child: Container(
+                    // width: width * 0.3,
+                    // height: height * 0.3,
+                    margin: EdgeInsets.only(
+                        left: width * 0.01,
+                        top: height * 0.02,
+                        right: width * 0.01,
+                        bottom: height * 0.01),
+                    decoration: BoxDecoration(
+                        color: const Color.fromRGBO(239, 239, 232, 1),
+                        borderRadius: BorderRadius.circular(20),
+                        // borderRadius: BorderRadius.only(
+                        //     topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 5,
+                              offset: Offset(0, 2))
+                        ]),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          fit: FlexFit.tight,
+                          child: Container(
+                            width: double.infinity,
+                            // child: Image.asset(
+                            //   _categoryImages[index]['image'],
+                            //   // fit: BoxFit.contain,
+                            // ),
+                            child:
+                                Image.network(provider[index]['categoryImage']),
+                          ),
+                        ),
+                        // SizedBox(height: height * 0.04),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Colors.green[50],
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.greenAccent,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 2))
+                                ]),
+                            child: Center(
+                              child: Text(
+                                provider[index]['name'],
+                                textAlign: TextAlign.center,
+                                // textScaleFactor: textScaleFactor,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        )
+                        // Image.asset(_categoryImages[index]['image']),
+                        // SizedBox(height: height * 0.04),
+                        // Text(
+                        //   _categoryImages[index]['name'],
+                        //   textScaleFactor: textScaleFactor,
+                        //   style: const TextStyle(
+                        //       color: Colors.black, fontWeight: FontWeight.bold),
+                        // )
+                      ],
                     ),
                   ),
-                  // SizedBox(height: height * 0.04),
-                  Flexible(
-                    flex: 1,
-                    fit: FlexFit.tight,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.green[50],
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.greenAccent,
-                                blurRadius: 5,
-                                offset: Offset(0, 2))
-                          ]),
-                      child: Center(
-                        child: Text(
-                          _categoryImages[index]['name'],
-                          textAlign: TextAlign.center,
-                          // textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  )
-                  // Image.asset(_categoryImages[index]['image']),
-                  // SizedBox(height: height * 0.04),
-                  // Text(
-                  //   _categoryImages[index]['name'],
-                  //   textScaleFactor: textScaleFactor,
-                  //   style: const TextStyle(
-                  //       color: Colors.black, fontWeight: FontWeight.bold),
-                  // )
-                ],
+                ),
+                itemCount: provider.length,
               ),
             ),
-          ),
-          itemCount: _categoryImages.length,
-        ),
-      ),
     );
   }
 }

@@ -16,7 +16,9 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Scaffold(
@@ -28,15 +30,20 @@ class HomeScreenState extends State<HomeScreen> {
         // foregroundColor: Color.fromRGBO(236, 236, 248, 1),
         // backgroundColor: Colors.red,
         elevation: 0,
-        toolbarHeight: 180,
+        toolbarHeight: height * 0.22,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Welcome',
-              textScaleFactor: textScaleFactor,
-              style:
-                  TextStyle(color: Colors.grey.withOpacity(0.8), fontSize: 20),
+              // textScaleFactor: textScaleFactor,
+              style: TextStyle(
+                  color: Colors.grey.withOpacity(0.8),
+                  fontSize: tabLayout
+                      ? 30
+                      : largeLayout
+                          ? 25
+                          : 15),
             ),
             Container(
               width: double.infinity,
@@ -52,11 +59,15 @@ class HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         'Eli Avon',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
+                        // textScaleFactor: textScaleFactor,
+                        style: TextStyle(
                             color: Colors.black,
                             // fontWeight: FontWeight.bold,
-                            fontSize: 40),
+                            fontSize: tabLayout
+                                ? 50
+                                : largeLayout
+                                    ? 40
+                                    : 30),
                       ),
                       Container(
                         width: width * 0.4,
@@ -74,17 +85,27 @@ class HomeScreenState extends State<HomeScreen> {
                                       EdgeInsets.only(top: height * 0.0098),
                                   child: Text(
                                     'Estimated Time',
-                                    textScaleFactor: textScaleFactor,
-                                    style: const TextStyle(
-                                        color: Colors.grey, fontSize: 12),
+                                    // textScaleFactor: textScaleFactor,
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: tabLayout
+                                            ? 18
+                                            : largeLayout
+                                                ? 15
+                                                : 12),
                                   ),
                                 ),
                                 // SizedBox(height: height * 0.01),
                                 Text(
                                   'Park Street',
-                                  textScaleFactor: textScaleFactor,
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 12),
+                                  // textScaleFactor: textScaleFactor,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: tabLayout
+                                          ? 18
+                                          : largeLayout
+                                              ? 15
+                                              : 12),
                                 )
                               ],
                             )
@@ -93,38 +114,41 @@ class HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   ),
-                  Container(
-                    width: width * 0.7,
-                    height: height * 0.055,
-                    margin:
-                        EdgeInsets.only(top: height * 0.02, left: width * 0.02),
-                    padding: EdgeInsets.only(left: width * 0.02),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.greenAccent,
-                              // spreadRadius: 5,
-                              blurRadius: 5,
-                              offset: Offset(0, 2))
-                        ]),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.search_outlined,
-                          color: Colors.grey,
-                          size: 30,
-                        ),
-                        SizedBox(width: width * 0.04),
-                        Text(
-                          'Search',
-                          textScaleFactor: textScaleFactor,
-                          style: TextStyle(
-                              color: Colors.grey.withOpacity(0.6),
-                              fontSize: 25),
-                        )
-                      ],
+                  Center(
+                    child: Container(
+                      width: width * 0.8,
+                      height: height * 0.055,
+                      margin: EdgeInsets.only(
+                        top: height * 0.02,
+                      ),
+                      padding: EdgeInsets.only(left: width * 0.02),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.greenAccent,
+                                // spreadRadius: 5,
+                                blurRadius: 5,
+                                offset: Offset(0, 2))
+                          ]),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.search_outlined,
+                            color: Colors.grey,
+                            size: 30,
+                          ),
+                          SizedBox(width: width * 0.04),
+                          Text(
+                            'Search',
+                            // textScaleFactor: textScaleFactor,
+                            style: TextStyle(
+                                color: Colors.grey.withOpacity(0.6),
+                                fontSize: 25),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -161,7 +185,7 @@ class HomeScreenState extends State<HomeScreen> {
               child: Center(
                 child: Text(
                   'Oops..Ran out of it',
-                  textScaleFactor: textScaleFactor,
+                  // textScaleFactor: textScaleFactor,
                   style: TextStyle(
                       color: Colors.grey[600],
                       fontWeight: FontWeight.bold,
