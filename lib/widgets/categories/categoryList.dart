@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../model/categoryProducts/categoryProductsProvider.dart';
 
 class CategoryList extends StatefulWidget {
+  final int id;
+  final String categoryName;
   CategoryListState createState() => CategoryListState();
+
+  CategoryList(this.id, this.categoryName);
 }
 
 class CategoryListState extends State<CategoryList> {
   // int count = 0;
+  bool isLoading = true;
   bool isClicked = false;
+  String baseUrl = 'http://3.109.206.91:8000';
   final List<dynamic> _categoryItems = [
     {
       'id': 1,
@@ -51,10 +59,25 @@ class CategoryListState extends State<CategoryList> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<CategoryProductsProvider>(context, listen: false)
+        .getCategoryProducts(widget.id)
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final provider =
+        Provider.of<CategoryProductsProvider>(context).categoryProducts;
 
     // TODO: implement build
     return Scaffold(
@@ -89,9 +112,9 @@ class CategoryListState extends State<CategoryList> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: width * 0.24),
+              padding: EdgeInsets.only(left: width * 0.12),
               child: Text(
-                'Vegetables',
+                widget.categoryName,
                 textScaleFactor: textScaleFactor,
                 style: const TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold),
@@ -117,209 +140,226 @@ class CategoryListState extends State<CategoryList> {
           //     // ], radius: 0.85, focal: Alignment.center),
           //     ),
           padding: EdgeInsets.only(left: width * 0.011, right: height * 0.011),
-          child: GridView.builder(
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 1,
-              crossAxisCount: 2,
-            ),
-            itemBuilder: (context, index) => Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromRGBO(236, 236, 248, 1),
-                  border: Border(
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                      ),
-                      right: BorderSide(
-                        color: Colors.grey,
-                      ))
-                  // : const Border(
-                  //     bottom: BorderSide(
-                  //       color: Colors.grey,
-                  //     ),
-                  //     left: BorderSide(
-                  //       color: Colors.grey,
-                  //     )),
+          child: isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.green,
                   ),
-              child: Stack(
-                children: [
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () => Navigator.of(context)
-                            .pushNamed('/item-details', arguments: {
-                          'image': _categoryItems[index]['image'],
-                          'name': _categoryItems[index]['name'],
-                          'quantity': _categoryItems[index]['quantity'],
-                          'description': _categoryItems[index]['decription'],
-                          'price': _categoryItems[index]['discountPrice']
-                        }),
-                        child: Container(
-                            width: width * 0.4,
-                            height: height * 0.15,
-                            child: Image.asset(_categoryItems[index]['image'])),
-                      ),
-                      SizedBox(height: height * 0.01),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: width * 0.04),
-                            child: Text(_categoryItems[index]['name'],
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: width * 0.04),
-                        child: Row(
-                          children: [
-                            Text('₹',
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.grey,
-                                )),
-                            SizedBox(width: width * 0.01),
-                            Text(_categoryItems[index]['discountPrice'],
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
-                                  // fontSize: 12,
-                                  color: Colors.grey,
-                                ))
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: width * 0.04),
-                        child: Row(
-                          children: [
-                            Text('₹',
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(width: width * 0.01),
-                            Text(_categoryItems[index]['actualPrice'],
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
-                                    // fontSize: 15,
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold))
-                          ],
-                        ),
-                      ),
-                    ],
+                )
+              : GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 1,
+                    crossAxisCount: 2,
                   ),
-                  !isClicked
-                      ? Positioned(
-                          top: height * 0.152,
-                          right: width * 0.01,
-                          child: Container(
-                            width: width * 0.1,
-                            height: height * 0.08,
-                            padding: EdgeInsets.only(top: height * 0.005),
-                            decoration: const BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10))),
-                            child: Column(
+                  itemBuilder: (context, index) => Container(
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(236, 236, 248, 1),
+                        border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey,
+                            ),
+                            right: BorderSide(
+                              color: Colors.grey,
+                            ))
+                        // : const Border(
+                        //     bottom: BorderSide(
+                        //       color: Colors.grey,
+                        //     ),
+                        //     left: BorderSide(
+                        //       color: Colors.grey,
+                        //     )),
+                        ),
+                    child: Stack(
+                      children: [
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed('/item-details', arguments: {
+                                'id': provider['data'][index]['id'],
+                                'image': provider['data'][index]['main_image'],
+                                'name': provider['data'][index]['name'],
+                                'quantity': _categoryItems[index]['quantity'],
+                                'description': provider['data'][index]
+                                    ['description'],
+                                'price': provider['data'][index]['price']
+                              }),
+                              child: Container(
+                                width: width * 0.4,
+                                height: height * 0.15,
+                                // child: Image.asset(
+                                //     _categoryItems[index]['image'])
+                                child: Image.network(
+                                    'http://3.109.206.91:8000${provider['data'][index]['main_image']}'),
+                              ),
+                            ),
+                            SizedBox(height: height * 0.01),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                InkWell(
+                                Padding(
+                                  padding: EdgeInsets.only(left: width * 0.04),
+                                  child: Text(provider['data'][index]['name'],
+                                      // _categoryItems[index]['name'],
+                                      textScaleFactor: textScaleFactor,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: width * 0.04),
+                              child: Row(
+                                children: [
+                                  Text('₹',
+                                      textScaleFactor: textScaleFactor,
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.grey,
+                                      )),
+                                  SizedBox(width: width * 0.01),
+                                  Text(_categoryItems[index]['discountPrice'],
+                                      textScaleFactor: textScaleFactor,
+                                      style: const TextStyle(
+                                        // fontSize: 12,
+                                        color: Colors.grey,
+                                      ))
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: width * 0.04),
+                              child: Row(
+                                children: [
+                                  Text('₹',
+                                      textScaleFactor: textScaleFactor,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(width: width * 0.01),
+                                  Text(
+                                      '${provider['data'][index]['price'].toString()}/${provider['data'][index]['uom']['short_name']}',
+                                      textScaleFactor: textScaleFactor,
+                                      style: const TextStyle(
+                                          // fontSize: 15,
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        !isClicked
+                            ? Positioned(
+                                top: height * 0.152,
+                                right: width * 0.01,
+                                child: Container(
+                                  width: width * 0.1,
+                                  height: height * 0.08,
+                                  padding: EdgeInsets.only(top: height * 0.005),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10))),
+                                  child: Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            _categoryItems[index]['quantity']++;
+                                          });
+                                        },
+                                        child: Text('+',
+                                            textScaleFactor: textScaleFactor,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      Text(
+                                          _categoryItems[index]['quantity']
+                                              .toString(),
+                                          // count.toString(),
+                                          textScaleFactor: textScaleFactor,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold)),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            // while (count > 0) {
+                                            //   count--;
+                                            // }
+
+                                            if (_categoryItems[index]
+                                                    ['quantity'] !=
+                                                0) {
+                                              _categoryItems[index]
+                                                  ['quantity']--;
+                                            } else {
+                                              _categoryItems[index]
+                                                  ['quantity'] = 0;
+                                            }
+                                          });
+                                          // if (_categoryItems[index]['quantity'] ==
+                                          //     0) {
+                                          //   setState(() {
+                                          //     // isClicked = false;
+                                          //   });
+                                          // }
+                                        },
+                                        child: Text('-',
+                                            textScaleFactor: textScaleFactor,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Positioned(
+                                top: height * 0.2,
+                                right: width * 0.01,
+                                child: InkWell(
                                   onTap: () {
                                     setState(() {
+                                      // isClicked = true;
                                       _categoryItems[index]['quantity']++;
                                     });
                                   },
-                                  child: Text('+',
-                                      textScaleFactor: textScaleFactor,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold)),
+                                  child: Container(
+                                    width: width * 0.1,
+                                    height: height * 0.035,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10))),
+                                    child: Center(
+                                      child: Text('+',
+                                          textScaleFactor: textScaleFactor,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                  ),
                                 ),
-                                Text(
-                                    _categoryItems[index]['quantity']
-                                        .toString(),
-                                    // count.toString(),
-                                    textScaleFactor: textScaleFactor,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold)),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      // while (count > 0) {
-                                      //   count--;
-                                      // }
-
-                                      if (_categoryItems[index]['quantity'] !=
-                                          0) {
-                                        _categoryItems[index]['quantity']--;
-                                      } else {
-                                        _categoryItems[index]['quantity'] = 0;
-                                      }
-                                    });
-                                    // if (_categoryItems[index]['quantity'] ==
-                                    //     0) {
-                                    //   setState(() {
-                                    //     // isClicked = false;
-                                    //   });
-                                    // }
-                                  },
-                                  child: Text('-',
-                                      textScaleFactor: textScaleFactor,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold)),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      : Positioned(
-                          top: height * 0.2,
-                          right: width * 0.01,
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                // isClicked = true;
-                                _categoryItems[index]['quantity']++;
-                              });
-                            },
-                            child: Container(
-                              width: width * 0.1,
-                              height: height * 0.035,
-                              decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10))),
-                              child: Center(
-                                child: Text('+',
-                                    textScaleFactor: textScaleFactor,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
                               ),
-                            ),
-                          ),
-                        ),
-                ],
-              ),
-            ),
-            itemCount: _categoryItems.length,
-          ),
+                      ],
+                    ),
+                  ),
+                  itemCount: provider['data'].length,
+                ),
         ),
       ),
     );

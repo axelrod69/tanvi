@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tanvi/widgets/categories/categoryList.dart';
 import '../model/category/categoryProvider.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -151,8 +152,9 @@ class CategoryScreenState extends State<CategoryScreen> {
                     mainAxisSpacing: width * 0.04,
                     crossAxisSpacing: height * 0.04),
                 itemBuilder: (context, index) => InkWell(
-                  onTap: () =>
-                      Navigator.of(context).pushNamed('/category-list'),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CategoryList(
+                          provider[index]['id'], provider[index]['name']))),
                   child: Container(
                     // width: width * 0.3,
                     // height: height * 0.3,

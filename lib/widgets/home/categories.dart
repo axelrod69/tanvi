@@ -9,23 +9,29 @@ class Categories extends StatefulWidget {
 class CategoriesState extends State<Categories> {
   bool isLoading = true;
 
-  final List<dynamic> _categories = [
-    {'id': 1, 'image': 'assets/images/Layer_3.png', 'name': 'Vegetables'},
-    {'id': 2, 'image': 'assets/images/Layer_4.png', 'name': 'Fruits'},
-    {'id': 3, 'image': 'assets/images/Layer_5.png', 'name': 'Meat'},
-    {'id': 4, 'image': 'assets/images/Layer_6.png', 'name': 'Seafood'},
-    {'id': 5, 'image': 'assets/images/Layer_7.png', 'name': 'Groceries'},
-    {'id': 6, 'image': 'assets/images/Layer_3.png', 'name': 'Vegetables'},
-    {'id': 7, 'image': 'assets/images/Layer_4.png', 'name': 'Fruits'},
-    {'id': 8, 'image': 'assets/images/Layer_5.png', 'name': 'Meat'},
-    {'id': 9, 'image': 'assets/images/Layer_6.png', 'name': 'Seafood'},
-    {'id': 10, 'image': 'assets/images/Layer_7.png', 'name': 'Groceries'}
-  ];
+  // final List<dynamic> _categories = [
+  //   {'id': 1, 'image': 'assets/images/Layer_3.png', 'name': 'Vegetables'},
+  //   {'id': 2, 'image': 'assets/images/Layer_4.png', 'name': 'Fruits'},
+  //   {'id': 3, 'image': 'assets/images/Layer_5.png', 'name': 'Meat'},
+  //   {'id': 4, 'image': 'assets/images/Layer_6.png', 'name': 'Seafood'},
+  //   {'id': 5, 'image': 'assets/images/Layer_7.png', 'name': 'Groceries'},
+  //   {'id': 6, 'image': 'assets/images/Layer_3.png', 'name': 'Vegetables'},
+  //   {'id': 7, 'image': 'assets/images/Layer_4.png', 'name': 'Fruits'},
+  //   {'id': 8, 'image': 'assets/images/Layer_5.png', 'name': 'Meat'},
+  //   {'id': 9, 'image': 'assets/images/Layer_6.png', 'name': 'Seafood'},
+  //   {'id': 10, 'image': 'assets/images/Layer_7.png', 'name': 'Groceries'}
+  // ];
 
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<CategoryProvider>(context, listen: false).getCategory();
+    Provider.of<CategoryProvider>(context, listen: false)
+        .getCategory()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
     super.initState();
   }
 
@@ -90,57 +96,64 @@ class CategoriesState extends State<Categories> {
               ),
             ),
             Expanded(
-              child: Container(
-                width: double.infinity,
-                // height: height * 0.1,
-                margin: EdgeInsets.only(top: height * 0.01),
-                padding: EdgeInsets.only(
-                    left: width * 0.02,
-                    top: height * 0.005,
-                    right: width * 0.02,
-                    bottom: height * 0.008),
-                decoration: BoxDecoration(
-                  // color: Colors.red,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Container(
-                    width: width * 0.3,
-                    height: height * 0.06,
-                    // padding: EdgeInsets.fromLTRB(width * 0.02, height * 0.01,
-                    //     width * 0.02, height * 0.01),
-                    margin: EdgeInsets.only(right: width * 0.02),
-                    padding: EdgeInsets.only(
-                        left: width * 0.02, right: width * 0.02),
-                    // color: Colors.green,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: height * 0.12,
-                          decoration: BoxDecoration(
-                            color: Colors.green[100],
-                            borderRadius: BorderRadius.circular(20),
+              child: isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.green,
+                      ),
+                    )
+                  : Container(
+                      width: double.infinity,
+                      // height: height * 0.1,
+                      margin: EdgeInsets.only(top: height * 0.01),
+                      padding: EdgeInsets.only(
+                          left: width * 0.02,
+                          top: height * 0.005,
+                          right: width * 0.02,
+                          bottom: height * 0.008),
+                      decoration: BoxDecoration(
+                        // color: Colors.red,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => Container(
+                          width: width * 0.3,
+                          height: height * 0.06,
+                          // padding: EdgeInsets.fromLTRB(width * 0.02, height * 0.01,
+                          //     width * 0.02, height * 0.01),
+                          margin: EdgeInsets.only(right: width * 0.02),
+                          padding: EdgeInsets.only(
+                              left: width * 0.02, right: width * 0.02),
+                          // color: Colors.green,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: height * 0.12,
+                                decoration: BoxDecoration(
+                                  color: Colors.green[100],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Image.network(
+                                    provider[index]['categoryImage']),
+                              ),
+                              SizedBox(height: height * 0.01),
+                              Text(
+                                provider[index]['name'],
+                                textAlign: TextAlign.center,
+                                // textScaleFactor: textScaleFactor,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
                           ),
-                          child:
-                              Image.network(provider[index]['categoryImage']),
                         ),
-                        SizedBox(height: height * 0.01),
-                        Text(
-                          provider[index]['name'],
-                          textAlign: TextAlign.center,
-                          // textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        )
-                      ],
+                        itemCount: provider.length,
+                      ),
                     ),
-                  ),
-                  itemCount: provider.length,
-                ),
-              ),
             )
           ],
         ),

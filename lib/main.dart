@@ -16,6 +16,7 @@ import './authentication/network.dart';
 import './screens/otpScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './model/category/categoryProvider.dart';
+import './model/categoryProducts/categoryProductsProvider.dart';
 
 void main() => runApp(MyApp());
 
@@ -54,6 +55,9 @@ class MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (context) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CategoryProductsProvider(),
         )
       ],
       child: MaterialApp(
@@ -67,7 +71,7 @@ class MyAppState extends State<MyApp> {
           '/sign-up': (context) => SignUp(),
           '/home-screen': (context) => HomeScreen(),
           '/category-screen': (context) => CategoryScreen(),
-          '/category-list': (context) => CategoryList(),
+          // '/category-list': (context) => CategoryList(),
           '/item-details': (context) => ItemDetails(),
           '/cart-screen': (context) => CartScreen(),
           '/dashboard-screen': (context) => Dashboard(),

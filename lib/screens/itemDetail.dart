@@ -9,6 +9,7 @@ class ItemDetails extends StatefulWidget {
 class ItemDetailsState extends State<ItemDetails> {
   double rating = 0;
   int counter = 0;
+  double itemPrice = 0.0;
   final List<dynamic> _categoryItems = [
     {
       'id': 1,
@@ -56,15 +57,20 @@ class ItemDetailsState extends State<ItemDetails> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final route =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final id = route['id'];
     final image = route['image'];
     final name = route['name'];
-    var quantity = route['quantity'];
+    // var quantity = route['quantity'];
     final description = route['description'];
     final price = route['price'];
-    int counter = route['quantity'];
+    int quantity = route['quantity'];
+
+    setState(() {
+      counter = quantity;
+    });
 
     // counter = quantity;
 
@@ -115,7 +121,12 @@ class ItemDetailsState extends State<ItemDetails> {
                   Positioned(
                     top: height * 0.08,
                     left: width * 0.22,
-                    child: Image.asset(image, height: height * 0.2),
+                    // child: Image.asset(
+                    //   image,
+                    //   height: height * 0.2
+                    //   ),
+                    child: Image.network('http://3.109.206.91:8000$image',
+                        height: height * 0.2),
                   )
                 ],
               ),
@@ -129,7 +140,7 @@ class ItemDetailsState extends State<ItemDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(name,
-                      textScaleFactor: textScaleFactor,
+                      // textScaleFactor: textScaleFactor,
                       style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -158,7 +169,7 @@ class ItemDetailsState extends State<ItemDetails> {
                               },
                             ),
                             Text('($rating)',
-                                textScaleFactor: textScaleFactor,
+                                // textScaleFactor: textScaleFactor,
                                 style: const TextStyle(color: Colors.black)),
                             // Container(
                             //     width: width * 0.4,
@@ -178,7 +189,8 @@ class ItemDetailsState extends State<ItemDetails> {
                               onTap: () {
                                 setState(() {
                                   if (route['quantity'] != 0) {
-                                    route['quantity']--;
+                                    // route['quantity']--;
+                                    itemPrice = price * --route['quantity'];
                                   } else {
                                     route['quantity'] = 0;
                                   }
@@ -204,7 +216,7 @@ class ItemDetailsState extends State<ItemDetails> {
                             ),
                             SizedBox(width: width * 0.04),
                             Text(counter.toString(),
-                                textScaleFactor: textScaleFactor,
+                                // textScaleFactor: textScaleFactor,
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -213,7 +225,8 @@ class ItemDetailsState extends State<ItemDetails> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  route['quantity']++;
+                                  // route['quantity']++;
+                                  itemPrice = price * ++route['quantity'];
                                   print(route['quantity']);
                                 });
                               },
@@ -247,7 +260,7 @@ class ItemDetailsState extends State<ItemDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Description',
-                            textScaleFactor: textScaleFactor,
+                            // textScaleFactor: textScaleFactor,
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -255,7 +268,7 @@ class ItemDetailsState extends State<ItemDetails> {
                         SizedBox(height: height * 0.005),
                         Expanded(
                           child: Text(description.toString(),
-                              textScaleFactor: textScaleFactor,
+                              // textScaleFactor: textScaleFactor,
                               style: const TextStyle(
                                   color: Colors.grey, fontSize: 13)),
                         )
@@ -275,7 +288,7 @@ class ItemDetailsState extends State<ItemDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Offers On',
-                      textScaleFactor: textScaleFactor,
+                      // textScaleFactor: textScaleFactor,
                       style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -315,7 +328,7 @@ class ItemDetailsState extends State<ItemDetails> {
                             ),
                             SizedBox(height: height * 0.01),
                             Text(_categoryItems[index]['name'],
-                                textScaleFactor: textScaleFactor,
+                                // textScaleFactor: textScaleFactor,
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -338,29 +351,30 @@ class ItemDetailsState extends State<ItemDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Price',
-                      textScaleFactor: textScaleFactor,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 20)),
+                  const Text('Price',
+                      // textScaleFactor: textScaleFactor,
+                      style: TextStyle(color: Colors.black, fontSize: 20)),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // Text(
+                      //   '₹',
+                      //   // textScaleFactor: textScaleFactor,
+                      //   style: TextStyle(
+                      //       color: Colors.black,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 40),
+                      // ),
                       Text(
-                        '₹',
-                        textScaleFactor: textScaleFactor,
-                        style: TextStyle(
+                        // '₹${price.toString()}',
+                        '₹${itemPrice.toString()}',
+                        // textScaleFactor: textScaleFactor,
+                        style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 40),
                       ),
-                      Text(
-                        price.toString(),
-                        textScaleFactor: textScaleFactor,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40),
-                      ),
-                      SizedBox(width: width * 0.1),
+                      // SizedBox(width: width * 0.1),
                       Container(
                         width: width * 0.3,
                         height: height * 0.04,
@@ -375,9 +389,9 @@ class ItemDetailsState extends State<ItemDetails> {
                                   blurRadius: 5,
                                   offset: Offset(0, 2))
                             ]),
-                        child: Center(
+                        child: const Center(
                             child: Text('Add To Cart',
-                                textScaleFactor: textScaleFactor,
+                                // textScaleFactor: textScaleFactor,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,

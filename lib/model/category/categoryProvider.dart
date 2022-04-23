@@ -13,12 +13,11 @@ class CategoryProvider with ChangeNotifier {
 
   Future<void> getCategory() async {
     final url = Uri.parse(baseUrl + 'api/category-list/');
-    final response =
-        await http.get(url, headers: {'Content-Type': 'application/json'});
+    final response = await http.get(url);
     // Category category = categoryFromJson(response.body);
     // _products = category.toJson() as List;
     // print(_products);
     _category = json.decode(response.body);
-    print(_category);
+    print('Category $_category');
   }
 }
