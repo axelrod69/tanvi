@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tanvi/widgets/bottomNavigation.dart';
+import 'package:provider/provider.dart';
+import '../authentication/network.dart';
 
 class Profile extends StatefulWidget {
   ProfileState createState() => ProfileState();
@@ -48,18 +51,42 @@ class ProfileState extends State<Profile> {
                   //   child:
                   //       const Icon(Icons.arrow_back_ios, color: Colors.green),
                   // ),
-                  Container(
-                    width: width * 0.95,
-                    height: height * 0.1,
-                    // color: Colors.red,
-                    child: Center(
-                      child: Text(
-                        'Profile',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25),
+                  Flexible(
+                    flex: 2,
+                    fit: FlexFit.tight,
+                    child: Container(
+                      // width: width * 0.95,
+                      height: height * 0.1,
+                      padding: EdgeInsets.only(right: width * 0.06),
+                      // color: Colors.red,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Profile',
+                            textScaleFactor: textScaleFactor,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Container(
+                      height: height * 0.1,
+                      padding: EdgeInsets.only(right: width * 0.02),
+                      // color: Colors.amber,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                              onTap: logout, child: Icon(Icons.logout_rounded))
+                        ],
                       ),
                     ),
                   )
@@ -362,5 +389,18 @@ class ProfileState extends State<Profile> {
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       // floatingActionButton: CustomBottomNavigation(),
     );
+  }
+
+  void logout() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var data = {'refresh': localStorage.getString('refresh')};
+    var response = await Provider.of<Network>(context, listen: false)
+        .logOut(data, 'api/logout/');
+    print(response.body);
+    localStorage.remove('token');
+
+    Navigator.of(context).pushNamed('/sign-in').then((_) {
+      localStorage.remove('refresh');
+    });
   }
 }

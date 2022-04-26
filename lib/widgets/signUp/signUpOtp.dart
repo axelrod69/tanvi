@@ -23,7 +23,6 @@ class InputOTPState extends State<InputOTP> {
   String? _secondPin;
   String? _thirdPin;
   String? _fourthPin;
-  String? _fifthPin;
 
   @override
   void dispose() {
@@ -164,32 +163,6 @@ class InputOTPState extends State<InputOTP> {
                       }),
                 ),
               ),
-              Center(
-                child: Container(
-                  width: width * 0.16,
-                  height: height * 0.08,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
-                  child: TextFormField(
-                      showCursor: true,
-                      cursorHeight: 45,
-                      inputFormatters: [LengthLimitingTextInputFormatter(1)],
-                      // focusNode: _focusFourth,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(fontSize: 45),
-                      textAlign: TextAlign.center,
-                      obscureText: true,
-                      obscuringCharacter: '*',
-                      decoration: const InputDecoration(
-                          focusedBorder: InputBorder.none,
-                          border: InputBorder.none),
-                      validator: (fifth) {
-                        _fifthPin = fifth.toString();
-                        return null;
-                      }),
-                ),
-              ),
             ],
           ),
         ),
@@ -225,7 +198,7 @@ class InputOTPState extends State<InputOTP> {
 
   void checkOtp(String mobile) async {
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var otp = _firstPin! + _secondPin! + _thirdPin! + _fourthPin! + _fifthPin!;
+    var otp = _firstPin! + _secondPin! + _thirdPin! + _fourthPin!;
     var data = {'otp': otp, 'mobile': mobile};
     print(data);
     var response = await Provider.of<Network>(context, listen: false)
@@ -236,7 +209,9 @@ class InputOTPState extends State<InputOTP> {
     print('Access Token ${receivedResponse['access']}');
 
     SharedPreferences localStorage = await SharedPreferences.getInstance();
+    // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
     await localStorage.setString('token', receivedResponse['access']);
+    await localStorage.setString('refresh', receivedResponse['refresh']);
     Navigator.of(context).pushNamed('/landing-page');
 
     // if (receivedResponse['status'] == 'true') {

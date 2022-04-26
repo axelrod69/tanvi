@@ -382,9 +382,7 @@ class SignUpState extends State<SignUp> {
     var response = await Provider.of<Network>(context, listen: false)
         .signUp(data, 'api/register/');
     print(response.body);
-    if (response.body == 'Otp send your Register Mobile Number sucessfully.') {
-      Navigator.of(context)
-          .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
-    }
+    Navigator.of(context)
+        .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
   }
 }

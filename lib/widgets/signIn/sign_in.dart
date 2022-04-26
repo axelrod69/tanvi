@@ -405,6 +405,7 @@ class FormWidgetState extends State<FormWidget> {
     var receivedResponse = json.decode(response.body);
 
     await localStorage.setString('token', receivedResponse['access']);
+    await localStorage.setString('refresh', receivedResponse['refresh']);
 
     Navigator.of(context).pushNamed('/landing-page');
   }

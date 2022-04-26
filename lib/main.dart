@@ -30,14 +30,20 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     // TODO: implement initState
+
     _checkIfLoggedIn();
     super.initState();
   }
 
   void _checkIfLoggedIn() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
+    // SharedPreferences refresh = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
-    print('Access Tokeeeeeeeeeeeeeeeen : $token');
+    // localStorage.remove('token');
+    // localStorage.remove('refresh');
+    print('Access Tokeeeeeeeeeeeeeeeen : ${localStorage.getString('token')}');
+    print(
+        'Refressssssssssh Tokeeeeeeeeeen : ${localStorage.getString('refresh')}');
     if (token != null) {
       setState(() {
         isAuth = true;
