@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tanvi/widgets/bottomNavigation.dart';
 import '../widgets/home/categories.dart';
 import '../widgets/home/discount.dart';
 import '../widgets/home/popularDeals.dart';
 import '../widgets/home/topSeller.dart';
 import '../widgets/home/recentItems.dart';
-import '../widgets/home/bottomNavigation.dart';
+import '../model/location/location.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreenState createState() => HomeScreenState();
@@ -18,6 +18,8 @@ class HomeScreenState extends State<HomeScreen> {
     final width = MediaQuery.of(context).size.width;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    final provider = Provider.of<LocationProvider>(context).address;
+
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
@@ -97,7 +99,7 @@ class HomeScreenState extends State<HomeScreen> {
                                 ),
                                 // SizedBox(height: height * 0.01),
                                 Text(
-                                  'Park Street',
+                                  provider,
                                   // textScaleFactor: textScaleFactor,
                                   style: TextStyle(
                                       color: Colors.black,

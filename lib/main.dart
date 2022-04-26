@@ -17,6 +17,7 @@ import './screens/otpScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './model/category/categoryProvider.dart';
 import './model/categoryProducts/categoryProductsProvider.dart';
+import './model/location/location.dart';
 
 void main() => runApp(MyApp());
 
@@ -64,13 +65,17 @@ class MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (context) => CategoryProductsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LocationProvider(),
         )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
-        home: isAuth ? CustomBottomNavigation() : SignIn(),
+        // home: isAuth ? CustomBottomNavigation() : SignIn(),
+        home: CustomBottomNavigation(),
         routes: {
           '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),
