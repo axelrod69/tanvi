@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import '../util/curvedAppBar.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
+import '../model/addToCart/addToCart.dart';
+import 'dart:convert';
+import '../model/wishList/wishList.dart';
 
 class ItemDetails extends StatefulWidget {
   ItemDetailsState createState() => ItemDetailsState();
@@ -10,6 +14,8 @@ class ItemDetailsState extends State<ItemDetails> {
   double rating = 0;
   int counter = 0;
   double itemPrice = 0.0;
+  bool isClicked = false;
+
   final List<dynamic> _categoryItems = [
     {
       'id': 1,
@@ -94,6 +100,24 @@ class ItemDetailsState extends State<ItemDetails> {
                     width: double.infinity,
                     color: const Color.fromRGBO(242, 243, 250, 1),
                   ),
+                  Positioned(
+                      top: height * 0.04,
+                      left: width * 0.9,
+                      child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              isClicked = !isClicked;
+                            });
+                            Provider.of<WishListProvider>(context,
+                                    listen: false)
+                                .wishListAdd(id);
+                          },
+                          child: !isClicked
+                              ? const Icon(Icons.favorite_outline)
+                              : const Icon(
+                                  Icons.favorite,
+                                  color: Colors.pink,
+                                ))),
                   Positioned(
                     top: height * 0.04,
                     left: width * 0.02,
@@ -375,27 +399,31 @@ class ItemDetailsState extends State<ItemDetails> {
                             fontSize: 40),
                       ),
                       // SizedBox(width: width * 0.1),
-                      Container(
-                        width: width * 0.3,
-                        height: height * 0.04,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                color: Colors.green, style: BorderStyle.solid),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 2))
-                            ]),
-                        child: const Center(
-                            child: Text('Add To Cart',
-                                // textScaleFactor: textScaleFactor,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ))),
+                      InkWell(
+                        onTap: () => cartAdd(id, quantity),
+                        child: Container(
+                          width: width * 0.3,
+                          height: height * 0.04,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  color: Colors.green,
+                                  style: BorderStyle.solid),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 2))
+                              ]),
+                          child: const Center(
+                              child: Text('Add To Cart',
+                                  // textScaleFactor: textScaleFactor,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ))),
+                        ),
                       )
                     ],
                   )
@@ -406,5 +434,13 @@ class ItemDetailsState extends State<ItemDetails> {
         ),
       ),
     );
+  }
+
+  void cartAdd(int productId, int quantity) async {
+    final response =
+        await Provider.of<AddToCartProvider>(context, listen: false)
+            .postToCart(productId, quantity);
+    final res = json.decode(response.body);
+    print(res);
   }
 }

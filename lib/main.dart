@@ -18,6 +18,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './model/category/categoryProvider.dart';
 import './model/categoryProducts/categoryProductsProvider.dart';
 import './model/location/location.dart';
+import './model/addToCart/addToCart.dart';
+import './model/addToCart/addToCartGet.dart';
+import './model/wishList/wishList.dart';
 
 void main() => runApp(MyApp());
 
@@ -68,14 +71,17 @@ class MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (context) => LocationProvider(),
-        )
+        ),
+        ChangeNotifierProvider(create: (context) => AddToCartProvider()),
+        ChangeNotifierProvider(create: (context) => AddToCartGet()),
+        ChangeNotifierProvider(create: (context) => WishListProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
-        // home: isAuth ? CustomBottomNavigation() : SignIn(),
-        home: CustomBottomNavigation(),
+        home: isAuth ? CustomBottomNavigation() : SignIn(),
+        // home: CustomBottomNavigation(),
         routes: {
           '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),

@@ -6,6 +6,7 @@ import '../widgets/home/topSeller.dart';
 import '../widgets/home/recentItems.dart';
 import '../model/location/location.dart';
 import 'package:provider/provider.dart';
+import '../screens/wishListScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreenState createState() => HomeScreenState();
@@ -177,6 +178,8 @@ class HomeScreenState extends State<HomeScreen> {
             SizedBox(height: height * 0.025),
             PopularDeals(),
             TopSeller(),
+            SizedBox(height: height * 0.025),
+            WishListScreen(),
             SizedBox(height: height * 0.025),
             RecentItems(),
             SizedBox(height: height * 0.025),
