@@ -12,6 +12,8 @@ class CartScreen extends StatefulWidget {
 
 class CartScreenState extends State<CartScreen> {
   bool isLoading = true;
+  Map<String, dynamic> updatedProducts = {};
+  double totalPrice = 0.0;
 
   @override
   void didChangeDependencies() {
@@ -21,8 +23,11 @@ class CartScreenState extends State<CartScreen> {
         .then((_) {
       setState(() {
         isLoading = false;
+        // totalPrice = response['data']['grandTotal'];
       });
     });
+    // updateCart;
+    // updateCall;
     super.didChangeDependencies();
   }
 
@@ -30,52 +35,12 @@ class CartScreenState extends State<CartScreen> {
     Provider.of<AddToCartGet>(context, listen: false).getCartProducts();
   }
 
-  // final List<dynamic> _categoryItems = [
-  //   {
-  //     'id': 1,
-  //     'name': 'Tomatoes',
-  //     'discountPrice': '30.00/kg',
-  //     'actualPrice': '₹ 30.25',
-  //     'decription':
-  //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  //     'quantity': 1,
-  //     'image': 'assets/images/tomato-15559.png',
-  //     'weight': '2/KG'
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': 'Cabbage',
-  //     'discountPrice': '30.00/KG',
-  //     'actualPrice': '₹ 30.25',
-  //     'decription':
-  //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  //     'quantity': 2,
-  //     'image': 'assets/images/PngItem_1310699.png',
-  //     'weight': '2/KG'
-  //   },
-  //   {
-  //     'id': 3,
-  //     'name': 'Onions',
-  //     'discountPrice': '30.00/kg',
-  //     'actualPrice': '₹ 30.25',
-  //     'decription':
-  //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  //     'quantity': 3,
-  //     'image': 'assets/images/tomato-15559.png',
-  //     'weight': '2/KG'
-  //   },
-  //   {
-  //     'id': 4,
-  //     'name': 'Turnip',
-  //     'discountPrice': '30.00/kg',
-  //     'actualPrice': '₹ 30.25',
-  //     'decription':
-  //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  //     'quantity': 4,
-  //     'image': 'assets/images/PngItem_1310699.png',
-  //     'weight': '2/KG'
-  //   }
-  // ];
+  void updateCart(String id, String quantity) async {
+    print('Called');
+    final response =
+        await Provider.of<AddToCartProvider>(context, listen: false)
+            .editCartItem(id, quantity);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +50,8 @@ class CartScreenState extends State<CartScreen> {
     final provider = Provider.of<AddToCartGet>(context).cartData;
     var price = 0.0;
 
+    // print('Total ${provider['data']['grandTotal']}');
+
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -92,24 +59,7 @@ class CartScreenState extends State<CartScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
-        // leading: Container(
-        //     width: width * 0.1,
-        //     margin: EdgeInsets.only(left: width * 0.01),
-        //     //height: height * 0.02,
-        //     decoration: BoxDecoration(
-        //         color: Colors.white,
-        //         borderRadius: BorderRadius.circular(10),
-        //         boxShadow: const [
-        //           BoxShadow(
-        //               color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-        //         ]),
-        //     child: Center(
-        //         child: Padding(
-        //       padding: EdgeInsets.only(left: width * 0.02),
-        //       child: const Icon(Icons.arrow_back_ios, color: Colors.green),
-        //     ))),
         title: const Text('Shopping List',
-            // // textScaleFactor: textScaleFactor,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -264,10 +214,12 @@ class CartScreenState extends State<CartScreen> {
                                         onTap: () {
                                           setState(() {
                                             if (provider['data']['cartItem']
-                                                    [index]['quantity'] !=
+                                                    [index]['quantity'] >
                                                 0) {
                                               provider['data']['cartItem']
                                                   [index]['quantity']--;
+                                              print(provider['data']['cartItem']
+                                                  [index]['quantity']);
                                               // price = provider['data']
                                               //             ['cartItem'][index]
                                               //         ['totalPrice'] *
@@ -276,13 +228,19 @@ class CartScreenState extends State<CartScreen> {
                                               // print('PRICE $price');
                                               updateCart(
                                                   provider['data']['cartItem']
-                                                      [index]['id'],
+                                                          [index]['id']
+                                                      .toString(),
                                                   provider['data']['cartItem']
-                                                      [index]['quantity']);
-                                              updateCall();
+                                                          [index]['quantity']
+                                                      .toString());
+                                              totalPrice = provider['data']
+                                                  ['grandTotal'];
+                                              print('Total Price $totalPrice');
+                                              // updateCall();
                                             } else {
                                               // provider['data']['cartItem']
                                               //     [index]['quantity'] = 0;
+                                              // if()
                                               Provider.of<AddToCartProvider>(
                                                       context,
                                                       listen: false)
@@ -290,6 +248,7 @@ class CartScreenState extends State<CartScreen> {
                                                       provider['data']
                                                               ['cartItem']
                                                           [index]['id']);
+                                              print('Rachhel Sekh');
                                             }
                                           });
                                         },
@@ -328,14 +287,14 @@ class CartScreenState extends State<CartScreen> {
                                           setState(() {
                                             provider['data']['cartItem'][index]
                                                 ['quantity']++;
-                                            price = provider['data']['cartItem']
-                                                [index]['totalPrice'];
                                             updateCart(
                                                 provider['data']['cartItem']
-                                                    [index]['id'],
+                                                        [index]['id']
+                                                    .toString(),
                                                 provider['data']['cartItem']
-                                                    [index]['quantity']);
-                                            updateCall();
+                                                        [index]['quantity']
+                                                    .toString());
+                                            // updateCall();
                                           });
                                         },
                                         child: const Icon(Icons.add, size: 30)),
@@ -359,56 +318,53 @@ class CartScreenState extends State<CartScreen> {
                   Padding(
                     padding: EdgeInsets.only(
                         left: width * 0.082, right: height * 0.04),
-                    child: Container(
-                      width: double.infinity,
-                      height: height * 0.06,
-                      margin: EdgeInsets.only(
-                          top: height * 0.04, bottom: height * 0.04),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(30),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.green,
-                                blurRadius: 10,
-                                offset: Offset(0, 2))
-                          ]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: width * 0.04),
-                            child: const Text('Checkout',
-                                // // textScaleFactor: textScaleFactor,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 22)),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: width * 0.04),
-                            child: Text(
-                                // '₹500',
-                                provider['data']['grandTotal'].toString(),
-                                // // textScaleFactor: textScaleFactor,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22)),
-                          )
-                        ],
+                    child: InkWell(
+                      onTap: () =>
+                          Navigator.of(context).pushNamed('/checkout-screen'),
+                      child: Container(
+                        width: double.infinity,
+                        height: height * 0.06,
+                        margin: EdgeInsets.only(
+                            top: height * 0.04, bottom: height * 0.04),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.green,
+                                  blurRadius: 10,
+                                  offset: Offset(0, 2))
+                            ]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: width * 0.04),
+                              child: const Text('Checkout',
+                                  // // textScaleFactor: textScaleFactor,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 22)),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: width * 0.04),
+                              child: Text(
+                                  // '₹500',
+                                  provider['data']['grandTotal'].toString(),
+                                  // price.toString(),
+                                  // // textScaleFactor: textScaleFactor,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22)),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   )
                 ],
               ),
             ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: CustomBottomNavigation(),
     );
-  }
-
-  void updateCart(int id, int quantity) async {
-    final response =
-        await Provider.of<AddToCartProvider>(context, listen: false)
-            .editCartItem(id, quantity);
   }
 }

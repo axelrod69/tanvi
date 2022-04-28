@@ -21,6 +21,9 @@ import './model/location/location.dart';
 import './model/addToCart/addToCart.dart';
 import './model/addToCart/addToCartGet.dart';
 import './model/wishList/wishList.dart';
+import './screens/itemDetailsTwo.dart';
+import './screens/address.dart';
+import './model/changeLocation/changeLocation.dart';
 
 void main() => runApp(MyApp());
 
@@ -74,7 +77,8 @@ class MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(create: (context) => AddToCartProvider()),
         ChangeNotifierProvider(create: (context) => AddToCartGet()),
-        ChangeNotifierProvider(create: (context) => WishListProvider())
+        ChangeNotifierProvider(create: (context) => WishListProvider()),
+        ChangeNotifierProvider(create: (context) => ChangeLocationProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -90,12 +94,14 @@ class MyAppState extends State<MyApp> {
           '/category-screen': (context) => CategoryScreen(),
           // '/category-list': (context) => CategoryList(),
           '/item-details': (context) => ItemDetails(),
+          'item-details-two': (context) => ItemDetailsTwo(),
           '/cart-screen': (context) => CartScreen(),
           '/dashboard-screen': (context) => Dashboard(),
           '/notification-screen': (context) => Notifications(),
           '/profile-screen': (context) => Profile(),
           '/checkout-screen': (context) => CheckOut(),
           '/otp-screen': (context) => OtpScreen(),
+          '/change-location': (context) => ChangeLocation(),
         },
       ),
     );

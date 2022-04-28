@@ -67,22 +67,25 @@ class CheckOutState extends State<CheckOut> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         automaticallyImplyLeading: false,
-        leading: Container(
-            width: width * 0.1,
-            margin: EdgeInsets.only(left: width * 0.01),
-            //height: height * 0.02,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-                ]),
-            child: Center(
-                child: Padding(
-              padding: EdgeInsets.only(left: width * 0.02),
-              child: const Icon(Icons.arrow_back_ios, color: Colors.green),
-            ))),
+        leading: InkWell(
+          onTap: () => Navigator.of(context).pop(),
+          child: Container(
+              width: width * 0.1,
+              margin: EdgeInsets.only(left: width * 0.01),
+              //height: height * 0.02,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
+                  ]),
+              child: Center(
+                  child: Padding(
+                padding: EdgeInsets.only(left: width * 0.02),
+                child: const Icon(Icons.arrow_back_ios, color: Colors.green),
+              ))),
+        ),
         title: Text('Checkout',
             textScaleFactor: textScaleFactor,
             style: const TextStyle(
@@ -104,7 +107,7 @@ class CheckOutState extends State<CheckOut> {
             Container(
               width: double.infinity,
               height: height * 0.08,
-              margin: EdgeInsets.only(top: height * 0.02),
+              margin: EdgeInsets.only(top: height * 0.001),
               decoration: const BoxDecoration(
                   color: Colors.transparent,
                   border: Border(
@@ -513,8 +516,8 @@ class CheckOutState extends State<CheckOut> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: CustomBottomNavigation(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: CustomBottomNavigation(),
     );
   }
 }

@@ -243,33 +243,38 @@ class ProfileState extends State<Profile> {
                                                 ),
                                               )),
                                           SizedBox(width: width * 0.02),
-                                          Container(
-                                              width: width * 0.4,
-                                              height: height * 0.045,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  boxShadow: const [
-                                                    BoxShadow(
-                                                        color: Colors.grey,
-                                                        blurRadius: 5,
-                                                        offset: Offset(0, 2))
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.circular(30),
-                                                  border: Border.all(
-                                                      width: 2,
-                                                      color: Colors.green)),
-                                              child: Center(
-                                                child: Text(
-                                                  'Add Address',
-                                                  textScaleFactor:
-                                                      textScaleFactor,
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ))
+                                          InkWell(
+                                            onTap: () => Navigator.of(context)
+                                                .pushNamed('/change-location'),
+                                            child: Container(
+                                                width: width * 0.4,
+                                                height: height * 0.045,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                          color: Colors.grey,
+                                                          blurRadius: 5,
+                                                          offset: Offset(0, 2))
+                                                    ],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                    border: Border.all(
+                                                        width: 2,
+                                                        color: Colors.green)),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Add Address',
+                                                    textScaleFactor:
+                                                        textScaleFactor,
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                )),
+                                          )
                                         ],
                                       ),
                                     ),

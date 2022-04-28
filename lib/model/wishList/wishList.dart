@@ -33,4 +33,27 @@ class WishListProvider with ChangeNotifier {
     _wishList = wishListProducts.toJson();
     print(_wishList);
   }
+
+  Future<void> deleteItem(int wishListId) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    final url = Uri.parse(baseUrl + 'api/wishlist-delete/$wishListId/');
+    final response = await http.delete(url, headers: {
+      'Authorization': 'Bearer ${localStorage.getString('token')}'
+    });
+    print(response.body);
+  }
+
+  Future<void> wishListToCart(
+      int wishListId, int productId, int quantity) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    final url = Uri.parse(baseUrl + 'api/wishlist-cart/');
+    final response = await http.post(url, body: {
+      'wishlist': wishListId.toString(),
+      'product': productId.toString(),
+      'quantity': quantity.toString()
+    }, headers: {
+      'Authorization': 'Bearer ${localStorage.getString('token')}'
+    });
+    print(response.body);
+  }
 }

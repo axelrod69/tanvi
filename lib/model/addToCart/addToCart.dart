@@ -24,17 +24,21 @@ class AddToCartProvider with ChangeNotifier {
     return response;
   }
 
-  Future<void> editCartItem(int productId, int quantity) async {
+  Future<Map<String, dynamic>> editCartItem(
+      String productId, String quantity) async {
+    print(productId);
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/add-to-cart/$productId/');
     final response = await http.put(url, body: {
-      'product': productId.toString(),
-      'quantity': quantity.toString()
+      'product': productId,
+      'quantity': quantity
     }, headers: {
       'Authorization': 'Bearer ${localStorage.getString('token')}',
       // 'Content-Type': 'application/json'
     });
-    print(response.body);
+    var res = json.decode(response.body);
+    print('Edit Cart Item $res');
+    return res;
   }
 
   Future<void> deleteCartItem(int productId) async {

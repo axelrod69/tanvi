@@ -5,12 +5,13 @@ import 'package:provider/provider.dart';
 import '../model/addToCart/addToCart.dart';
 import 'dart:convert';
 import '../model/wishList/wishList.dart';
+import '../model/wishList/wishList.dart';
 
-class ItemDetails extends StatefulWidget {
-  ItemDetailsState createState() => ItemDetailsState();
+class ItemDetailsTwo extends StatefulWidget {
+  ItemDetailsTwoState createState() => ItemDetailsTwoState();
 }
 
-class ItemDetailsState extends State<ItemDetails> {
+class ItemDetailsTwoState extends State<ItemDetailsTwo> {
   double rating = 0;
   int counter = 0;
   double itemPrice = 0.0;
@@ -401,7 +402,7 @@ class ItemDetailsState extends State<ItemDetails> {
                       ),
                       // SizedBox(width: width * 0.1),
                       InkWell(
-                        onTap: () => cartAdd(id, quantity),
+                        onTap: () => cartAdd(wishListId, id, quantity),
                         child: Container(
                           width: width * 0.3,
                           height: height * 0.04,
@@ -437,11 +438,10 @@ class ItemDetailsState extends State<ItemDetails> {
     );
   }
 
-  void cartAdd(int productId, int quantity) async {
-    final response =
-        await Provider.of<AddToCartProvider>(context, listen: false)
-            .postToCart(productId, quantity);
-    final res = json.decode(response.body);
-    print(res);
+  void cartAdd(int wishListId, int productId, int quantity) async {
+    final response = await Provider.of<WishListProvider>(context, listen: false)
+        .wishListToCart(wishListId, productId, quantity);
+    // final res = json.decode(response.body);
+    // print(res);
   }
 }
