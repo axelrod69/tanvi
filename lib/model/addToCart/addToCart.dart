@@ -25,13 +25,13 @@ class AddToCartProvider with ChangeNotifier {
   }
 
   Future<Map<String, dynamic>> editCartItem(
-      String productId, String quantity) async {
+      String productId, int quantity) async {
     print(productId);
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/add-to-cart/$productId/');
     final response = await http.put(url, body: {
-      'product': productId,
-      'quantity': quantity
+      // 'product': productId,
+      "quantity": quantity.toString()
     }, headers: {
       'Authorization': 'Bearer ${localStorage.getString('token')}',
       // 'Content-Type': 'application/json'
