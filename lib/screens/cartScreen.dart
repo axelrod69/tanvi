@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tanvi/model/addToCart/addToCartModel.dart';
 import '../widgets/bottomNavigation.dart';
 import 'package:provider/provider.dart';
-import '../model/addToCart/addToCartGet.dart';
 import '../model/addToCart/addToCart.dart';
-import 'dart:convert';
-import '../widgets/cart/grandTotal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreenState createState() => CartScreenState();
@@ -15,14 +13,17 @@ class CartScreenState extends State<CartScreen> {
   bool isLoading = true;
   Map<String, dynamic> updatedProducts = {};
   double totalPrice = 0.0;
+  double? totalAmount;
 
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
-    Provider.of<AddToCartGet>(context, listen: false)
+    Provider.of<AddToCartProvider>(context, listen: false)
         .getCartProducts()
         .then((_) {
       setState(() {
+        totalPrice = Provider.of<AddToCartProvider>(context, listen: false)
+            .cartData['data']['grandTotal'];
         isLoading = false;
         // totalPrice = response['data']['grandTotal'];
       });
@@ -33,11 +34,41 @@ class CartScreenState extends State<CartScreen> {
   }
 
   void updateCall() async {
-    Provider.of<AddToCartGet>(context, listen: false).getCartProducts();
+    Provider.of<AddToCartProvider>(context, listen: false).getCartProducts();
   }
 
-  void updateCart(String id, int quantity) async {
+  void updateCartIncrease(
+      String id, int quantity, double amount, double grandTotal) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
     print('Called');
+    print('Quantity $quantity');
+
+    setState(() {
+      // totalPrice = grandTotal;
+      // totalPrice += amount * 1.0;
+    });
+    print('Total Priceeeeeeeeeeeeeeeee $totalPrice');
+    localStorage.setDouble('totalAmount', totalPrice);
+    totalAmount = localStorage.getDouble('totalAmount');
+    final response =
+        await Provider.of<AddToCartProvider>(context, listen: false)
+            .editCartItem(id, quantity);
+  }
+
+  void updateCartDecrease(
+      String id, int quantity, double amount, double grandTotal) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    print('Called');
+    print('Quantity $quantity');
+    setState(() {
+      // totalPrice = grandTotal;
+
+      // totalPrice -= amount * 1.0;
+      // totalPrice = grandTotal;
+    });
+    print('Total Priceeeeeeeeeeeeeeeee D $totalPrice');
+    localStorage.setDouble('totalAmount', totalPrice);
+    totalAmount = localStorage.getDouble('totalAmount');
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
             .editCartItem(id, quantity);
@@ -48,7 +79,7 @@ class CartScreenState extends State<CartScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
-    final provider = Provider.of<AddToCartGet>(context).cartData;
+    final provider = Provider.of<AddToCartProvider>(context).cartData;
     var price = 0.0;
 
     // print('Total ${provider['data']['grandTotal']}');
@@ -164,7 +195,7 @@ class CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text(
                                               provider['data']['cartItem']
-                                                      [index]['totalPrice']
+                                                      [index]['price']
                                                   .toString(),
                                               // price.toString(),
                                               // // textScaleFactor: textScaleFactor,
@@ -213,39 +244,27 @@ class CartScreenState extends State<CartScreen> {
                                   children: [
                                     InkWell(
                                         onTap: () {
-                                          if (provider['data']['cartItem']
-                                                  [index]['quantity'] >
-                                              0) {
-                                            setState(() {
+                                          setState(() {
+                                            if (provider['data']['cartItem']
+                                                    [index]['quantity'] >
+                                                0) {
                                               provider['data']['cartItem']
                                                   [index]['quantity']--;
                                               print(provider['data']['cartItem']
                                                   [index]['quantity']);
                                               print(
                                                   'Item Total ${provider['data']['cartItem'][index]['totalPrice']}');
-                                              totalPrice += provider['data']
-                                                  ['totalPrice'];
-                                              print('total $totalPrice');
-                                              print(
-                                                  'Decrease ${provider['data']['grandTotal']}');
-                                              // price = provider['data']
-                                              //             ['cartItem'][index]
-                                              //         ['totalPrice'] *
-                                              //     provider['data']['cartItem']
-                                              //         [index]['quantity']--;
-                                              // print('PRICE $price');
-                                              updateCart(
+                                              updateCartDecrease(
                                                   provider['data']['cartItem']
                                                           [index]['id']
                                                       .toString(),
                                                   provider['data']['cartItem']
-                                                      [index]['quantity']);
-                                              totalPrice = provider['data']
-                                                  ['grandTotal'];
-                                              print('Total Price $totalPrice');
-                                            });
-                                          } else {
-                                            setState(() {
+                                                      [index]['quantity'],
+                                                  provider['data']['cartItem']
+                                                      [index]['price'],
+                                                  provider['data']
+                                                      ['grandTotal']);
+                                            } else {
                                               Provider.of<AddToCartProvider>(
                                                       context,
                                                       listen: false)
@@ -254,48 +273,8 @@ class CartScreenState extends State<CartScreen> {
                                                               ['cartItem']
                                                           [index]['id']);
                                               print('Rachhel Sekh');
-                                            });
-                                          }
-                                          // setState(() {
-                                          //   if (provider['data']['cartItem']
-                                          //           [index]['quantity'] >
-                                          //       0) {
-                                          //     provider['data']['cartItem']
-                                          //         [index]['quantity']--;
-                                          //     print(provider['data']['cartItem']
-                                          //         [index]['quantity']);
-                                          //     print(
-                                          //         'Decrease ${provider['data']['grandTotal']}');
-                                          //     // price = provider['data']
-                                          //     //             ['cartItem'][index]
-                                          //     //         ['totalPrice'] *
-                                          //     //     provider['data']['cartItem']
-                                          //     //         [index]['quantity']--;
-                                          //     // print('PRICE $price');
-                                          //     updateCart(
-                                          //         provider['data']['cartItem']
-                                          //                 [index]['id']
-                                          //             .toString(),
-                                          //         provider['data']['cartItem']
-                                          //             [index]['quantity']);
-                                          //     totalPrice = provider['data']
-                                          //         ['grandTotal'];
-                                          //     print('Total Price $totalPrice');
-                                          //     // updateCall();
-                                          //   } else {
-                                          //     // provider['data']['cartItem']
-                                          //     //     [index]['quantity'] = 0;
-                                          //     // if()
-                                          //     Provider.of<AddToCartProvider>(
-                                          //             context,
-                                          //             listen: false)
-                                          //         .deleteCartItem(
-                                          //             provider['data']
-                                          //                     ['cartItem']
-                                          //                 [index]['id']);
-                                          //     print('Rachhel Sekh');
-                                          //   }
-                                          // });
+                                            }
+                                          });
                                         },
                                         child:
                                             const Icon(Icons.remove, size: 30)),
@@ -334,17 +313,20 @@ class CartScreenState extends State<CartScreen> {
                                                 ['quantity']++;
                                             print(provider['data']['cartItem']
                                                 [index]['quantity']);
-                                            print(
-                                                'Increase ${provider['data']['grandTotal']}');
-                                            totalPrice +=
-                                                provider['data']['totalPrice'];
-                                            print('total $totalPrice');
-                                            updateCart(
+                                            // print(
+                                            //     'Increase ${provider['data']['grandTotal']}');
+                                            // totalPrice +=
+                                            //     provider['data']['totalPrice'];
+                                            // print('total $totalPrice');
+                                            updateCartIncrease(
                                                 provider['data']['cartItem']
                                                         [index]['id']
                                                     .toString(),
                                                 provider['data']['cartItem']
-                                                    [index]['quantity']);
+                                                    [index]['quantity'],
+                                                provider['data']['cartItem']
+                                                    [index]['price'],
+                                                provider['data']['grandTotal']);
                                             // updateCall();
                                           });
                                         },
@@ -386,7 +368,35 @@ class CartScreenState extends State<CartScreen> {
                                     blurRadius: 10,
                                     offset: Offset(0, 2))
                               ]),
-                          child: GrandTotalWidget()),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: width * 0.04),
+                                child: const Text('Checkout',
+                                    // // textScaleFactor: textScaleFactor,
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 22)),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: width * 0.04),
+                                child: Text(
+                                    // '₹500',
+                                    provider['data']['grandTotal'].toString(),
+                                    // totalPrice == 0.0
+                                    //     ? provider['data']['grandTotal']
+                                    //         .toString()
+                                    //     : totalPrice.toString(),
+                                    // totalPrice.toString(),
+                                    // price.toString(),
+                                    // // textScaleFactor: textScaleFactor,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22)),
+                              )
+                            ],
+                          )),
                     ),
                   )
                 ],

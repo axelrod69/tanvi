@@ -19,11 +19,11 @@ import './model/category/categoryProvider.dart';
 import './model/categoryProducts/categoryProductsProvider.dart';
 import './model/location/location.dart';
 import './model/addToCart/addToCart.dart';
-import './model/addToCart/addToCartGet.dart';
 import './model/wishList/wishList.dart';
 import './screens/itemDetailsTwo.dart';
 import './screens/address.dart';
 import './model/changeLocation/changeLocation.dart';
+import './model/coupon/couponProvider.dart';
 
 void main() => runApp(MyApp());
 
@@ -76,9 +76,9 @@ class MyAppState extends State<MyApp> {
           create: (context) => LocationProvider(),
         ),
         ChangeNotifierProvider(create: (context) => AddToCartProvider()),
-        ChangeNotifierProvider(create: (context) => AddToCartGet()),
         ChangeNotifierProvider(create: (context) => WishListProvider()),
         ChangeNotifierProvider(create: (context) => ChangeLocationProvider()),
+        ChangeNotifierProvider(create: (context) => CouponProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

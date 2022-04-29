@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../model/addToCart/addToCartGet.dart';
+import '../../model/addToCart/addToCart.dart';
 
 class GrandTotalWidget extends StatefulWidget {
+  final double total;
   GrandTotalWidgetState createState() => GrandTotalWidgetState();
+
+  GrandTotalWidget(this.total);
 }
 
 class GrandTotalWidgetState extends State<GrandTotalWidget> {
@@ -12,7 +15,7 @@ class GrandTotalWidgetState extends State<GrandTotalWidget> {
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
-    Provider.of<AddToCartGet>(context, listen: false)
+    Provider.of<AddToCartProvider>(context, listen: false)
         .getCartProducts()
         .then((_) {
       setState(() {
@@ -26,7 +29,7 @@ class GrandTotalWidgetState extends State<GrandTotalWidget> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final provider = Provider.of<AddToCartGet>(context).cartData;
+    final provider = Provider.of<AddToCartProvider>(context).cartData;
 
     // TODO: implement build
     return isLoading
@@ -46,7 +49,8 @@ class GrandTotalWidgetState extends State<GrandTotalWidget> {
                 padding: EdgeInsets.only(right: width * 0.04),
                 child: Text(
                     // '₹500',
-                    provider['data']['grandTotal'].toString(),
+                    // provider['data']['grandTotal'].toString(),
+                    widget.total.toString(),
                     // price.toString(),
                     // // textScaleFactor: textScaleFactor,
                     style: const TextStyle(
