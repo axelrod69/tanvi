@@ -14,6 +14,7 @@ class CartScreenState extends State<CartScreen> {
   Map<String, dynamic> updatedProducts = {};
   double totalPrice = 0.0;
   double? totalAmount;
+  Map<String, dynamic> _cartList = {};
 
   @override
   void didChangeDependencies() {
@@ -22,8 +23,8 @@ class CartScreenState extends State<CartScreen> {
         .getCartProducts()
         .then((_) {
       setState(() {
-        totalPrice = Provider.of<AddToCartProvider>(context, listen: false)
-            .cartData['data']['grandTotal'];
+        // totalPrice = Provider.of<AddToCartProvider>(context, listen: false)
+        //     .cartData['data']['grandTotal'];
         isLoading = false;
         // totalPrice = response['data']['grandTotal'];
       });
@@ -34,7 +35,8 @@ class CartScreenState extends State<CartScreen> {
   }
 
   void updateCall() async {
-    Provider.of<AddToCartProvider>(context, listen: false).getCartProducts();
+    _cartList = await Provider.of<AddToCartProvider>(context, listen: false)
+        .getCartProducts();
   }
 
   void updateCartIncrease(
@@ -42,10 +44,9 @@ class CartScreenState extends State<CartScreen> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     print('Called');
     print('Quantity $quantity');
-
+    totalPrice = grandTotal;
     setState(() {
-      // totalPrice = grandTotal;
-      // totalPrice += amount * 1.0;
+      totalPrice += amount * 1.0;
     });
     print('Total Priceeeeeeeeeeeeeeeee $totalPrice');
     localStorage.setDouble('totalAmount', totalPrice);
@@ -60,10 +61,10 @@ class CartScreenState extends State<CartScreen> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     print('Called');
     print('Quantity $quantity');
+    totalPrice = grandTotal;
     setState(() {
       // totalPrice = grandTotal;
-
-      // totalPrice -= amount * 1.0;
+      totalPrice -= amount * 1.0;
       // totalPrice = grandTotal;
     });
     print('Total Priceeeeeeeeeeeeeeeee D $totalPrice');
@@ -382,12 +383,15 @@ class CartScreenState extends State<CartScreen> {
                                 padding: EdgeInsets.only(right: width * 0.04),
                                 child: Text(
                                     // '₹500',
-                                    provider['data']['grandTotal'].toString(),
+                                    // provider['data']['grandTotal'].toString(),
                                     // totalPrice == 0.0
                                     //     ? provider['data']['grandTotal']
                                     //         .toString()
                                     //     : totalPrice.toString(),
-                                    // totalPrice.toString(),
+                                    totalPrice == 0.0
+                                        ? provider['data']['grandTotal']
+                                            .toString()
+                                        : totalPrice.toString(),
                                     // price.toString(),
                                     // // textScaleFactor: textScaleFactor,
                                     style: const TextStyle(

@@ -11,7 +11,7 @@ class AddToCartProvider with ChangeNotifier {
     return {..._cartData};
   }
 
-  Future<void> getCartProducts() async {
+  Future<Map<String, dynamic>> getCartProducts() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/add-to-cart/');
     final response = await http.get(url, headers: {
@@ -23,7 +23,9 @@ class AddToCartProvider with ChangeNotifier {
     _cartData = res;
     // AddToCartData addToCartData = addToCartDataFromJson(response.body);
     // _cartData = addToCartData.toJson();
-    print('Add To Cart: $_cartData');
+    // print('Add To Cart: $_cartData');
+    print('Calleddddddddddddddddd');
+    return res;
   }
 
   dynamic postToCart(int productId, int quantity) async {
