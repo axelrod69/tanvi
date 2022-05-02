@@ -71,6 +71,7 @@ class LocationProvider with ChangeNotifier {
     _state = place.administrativeArea;
     _coorDinates['lat'] = position.latitude;
     _coorDinates['lng'] = position.longitude;
+    print('Delivery Address: $_deliveryAddress');
     print('Coordinates in Location ${_coorDinates['lat']}');
     print('Coordinates in Location ${_coorDinates['lng']}');
     // setState(() {});
