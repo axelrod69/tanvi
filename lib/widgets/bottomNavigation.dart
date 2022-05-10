@@ -6,6 +6,7 @@ import '../screens/notifications.dart';
 import '../screens/profile.dart';
 import 'package:provider/provider.dart';
 import '../authentication/network.dart';
+import '../model/addToCart/addToCart.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
   CustomBottomNavigationState createState() => CustomBottomNavigationState();
@@ -13,6 +14,8 @@ class CustomBottomNavigation extends StatefulWidget {
 
 class CustomBottomNavigationState extends State<CustomBottomNavigation> {
   int index = 2;
+  bool isLoading = true;
+
   final screens = [
     CartScreen(),
     Dashboard(),
@@ -25,6 +28,13 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
   void initState() {
     // TODO: implement initState
     Provider.of<Network>(context, listen: false).getToken();
+    Provider.of<AddToCartProvider>(context, listen: false)
+        .getCartProducts()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
     super.initState();
   }
 
@@ -32,10 +42,17 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final provider = Provider.of<AddToCartProvider>(context).cartData;
 
     // TODO: implement build
     return Scaffold(
-        body: screens[index],
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.green,
+                ),
+              )
+            : screens[index],
         extendBody: true,
         bottomNavigationBar: Container(
           height: height * 0.06,
@@ -50,129 +67,146 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
           child: Stack(
             children: [
               Center(
-                child: Container(
-                  width: width * 0.75,
-                  height: height * 0.05,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 5,
-                            offset: Offset(0, 2))
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: double.infinity,
-                        width: width * 0.35,
-                        padding: EdgeInsets.only(left: width * 0.02),
-                        // color: Colors.red,
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              // onTap: () =>
-                              //     Navigator.of(context).pushNamed('/cart-screen'),
-                              onTap: () {
-                                // Navigator.of(context).pushNamed('/cart-screen');
-                                // print('Cart Screen');
-                                setState(() {
-                                  index = 0;
-                                });
-                              },
-                              // onTap: () {
-                              //   screens[selectedItem] = 0 as StatefulWidget;
-                              // setState(() {
+                child: Stack(
+                  children: [
+                    Container(
+                      width: width * 0.75,
+                      height: height * 0.05,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 5,
+                                offset: Offset(0, 2))
+                          ]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: double.infinity,
+                            width: width * 0.35,
+                            padding: EdgeInsets.only(left: width * 0.02),
+                            // color: Colors.red,
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  // onTap: () =>
+                                  //     Navigator.of(context).pushNamed('/cart-screen'),
+                                  onTap: () {
+                                    // Navigator.of(context).pushNamed('/cart-screen');
+                                    // print('Cart Screen');
+                                    setState(() {
+                                      index = 0;
+                                    });
+                                  },
+                                  // onTap: () {
+                                  //   screens[selectedItem] = 0 as StatefulWidget;
+                                  // setState(() {
 
-                              // });
+                                  // });
 
-                              child: Image.asset(
-                                  'assets/images/Icon awesome-shopping-cart.png'),
+                                  child: Image.asset(
+                                      'assets/images/Icon awesome-shopping-cart.png'),
+                                ),
+                                SizedBox(width: width * 0.1),
+                                InkWell(
+                                  // onTap: () => Navigator.of(context)
+                                  //     .pushNamed('/dashboard-screen'),
+                                  onTap: () {
+                                    // Navigator.of(context)
+                                    //     .pushNamed('/dashboard-screen');
+                                    // print('Dashboard Screen');
+                                    setState(() {
+                                      index = 1;
+                                    });
+                                  },
+                                  // onTap: () {
+                                  //   screens[selectedItem] = 1 as StatefulWidget;
+                                  //   // setState(() {
+
+                                  //   // });
+                                  // },
+                                  child: Image.asset(
+                                      'assets/images/Icon ionic-ios-settings.png'),
+                                )
+                              ],
                             ),
-                            SizedBox(width: width * 0.1),
-                            InkWell(
-                              // onTap: () => Navigator.of(context)
-                              //     .pushNamed('/dashboard-screen'),
-                              onTap: () {
-                                // Navigator.of(context)
-                                //     .pushNamed('/dashboard-screen');
-                                // print('Dashboard Screen');
-                                setState(() {
-                                  index = 1;
-                                });
-                              },
-                              // onTap: () {
-                              //   screens[selectedItem] = 1 as StatefulWidget;
-                              //   // setState(() {
+                          ),
+                          Container(
+                            height: double.infinity,
+                            width: width * 0.35,
+                            // padding: EdgeInsets.only(right: width * 0.02),
+                            // color: Colors.blue,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: width * 0.06),
+                                  child: InkWell(
+                                    // onTap: () => Navigator.of(context)
+                                    //     .pushNamed('/notification-screen'),
+                                    onTap: () {
+                                      // Navigator.of(context)
+                                      //     .pushNamed('/notification-screen');
+                                      // print('Notification Screen');
+                                      setState(() {
+                                        index = 3;
+                                      });
+                                    },
+                                    // onTap: () {
+                                    //   screens[selectedItem] = 3 as StatefulWidget;
+                                    //   // setState(() {
 
-                              //   // });
-                              // },
-                              child: Image.asset(
-                                  'assets/images/Icon ionic-ios-settings.png'),
-                            )
-                          ],
-                        ),
+                                    //   // });
+                                    // },
+                                    child: Image.asset(
+                                        'assets/images/Icon awesome-bell.png'),
+                                  ),
+                                ),
+                                SizedBox(width: width * 0.1),
+                                InkWell(
+                                    // onTap: () {
+                                    //   screens[selectedItem] = 4 as StatefulWidget;
+                                    //   // setState(() {
+
+                                    //   // });
+                                    // },
+                                    // onTap: () => Navigator.of(context)
+                                    //     .pushNamed('/profile-screen'),
+                                    onTap: () {
+                                      // Navigator.of(context)
+                                      //     .pushNamed('/profile-screen');
+                                      // print('Profile Screen');
+                                      setState(() {
+                                        index = 4;
+                                      });
+                                    },
+                                    child: Image.asset(
+                                        'assets/images/rkwxkca7.png'))
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      Container(
-                        height: double.infinity,
-                        width: width * 0.35,
-                        // padding: EdgeInsets.only(right: width * 0.02),
-                        // color: Colors.blue,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: width * 0.06),
-                              child: InkWell(
-                                // onTap: () => Navigator.of(context)
-                                //     .pushNamed('/notification-screen'),
-                                onTap: () {
-                                  // Navigator.of(context)
-                                  //     .pushNamed('/notification-screen');
-                                  // print('Notification Screen');
-                                  setState(() {
-                                    index = 3;
-                                  });
-                                },
-                                // onTap: () {
-                                //   screens[selectedItem] = 3 as StatefulWidget;
-                                //   // setState(() {
-
-                                //   // });
-                                // },
-                                child: Image.asset(
-                                    'assets/images/Icon awesome-bell.png'),
-                              ),
-                            ),
-                            SizedBox(width: width * 0.1),
-                            InkWell(
-                                // onTap: () {
-                                //   screens[selectedItem] = 4 as StatefulWidget;
-                                //   // setState(() {
-
-                                //   // });
-                                // },
-                                // onTap: () => Navigator.of(context)
-                                //     .pushNamed('/profile-screen'),
-                                onTap: () {
-                                  // Navigator.of(context)
-                                  //     .pushNamed('/profile-screen');
-                                  // print('Profile Screen');
-                                  setState(() {
-                                    index = 4;
-                                  });
-                                },
-                                child:
-                                    Image.asset('assets/images/rkwxkca7.png'))
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    Positioned(
+                      top: height * 0.001,
+                      left: width * 0.08,
+                      child: CircleAvatar(
+                        radius: width * 0.025,
+                        backgroundColor: Colors.green,
+                        child: Text(
+                            provider['data']['cartItem'].length.toString(),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ],

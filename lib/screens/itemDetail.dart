@@ -103,7 +103,7 @@ class ItemDetailsState extends State<ItemDetails> {
                   ),
                   Positioned(
                       top: height * 0.04,
-                      left: width * 0.9,
+                      left: width * 0.81,
                       child: InkWell(
                           onTap: () {
                             setState(() {
@@ -119,6 +119,18 @@ class ItemDetailsState extends State<ItemDetails> {
                                   Icons.favorite,
                                   color: Colors.pink,
                                 ))),
+                  Positioned(
+                      top: height * 0.04,
+                      left: width * 0.9,
+                      child: const Icon(Icons.shopping_cart_outlined)),
+                  Positioned(
+                    top: height * 0.035,
+                    left: width * 0.94,
+                    child: CircleAvatar(
+                      radius: width * 0.02,
+                      backgroundColor: Colors.green,
+                    ),
+                  ),
                   Positioned(
                     top: height * 0.04,
                     left: width * 0.02,
@@ -144,8 +156,10 @@ class ItemDetailsState extends State<ItemDetails> {
                     ),
                   ),
                   Positioned(
-                    top: height * 0.08,
-                    left: width * 0.22,
+                    top: height * 0.07,
+                    // left: width * 0.22,
+                    left: 0,
+                    right: 0,
                     // child: Image.asset(
                     //   image,
                     //   height: height * 0.2
@@ -401,7 +415,7 @@ class ItemDetailsState extends State<ItemDetails> {
                       ),
                       // SizedBox(width: width * 0.1),
                       InkWell(
-                        onTap: () => cartAdd(id, quantity),
+                        onTap: () => cartAdd(id, quantity, context),
                         child: Container(
                           width: width * 0.3,
                           height: height * 0.04,
@@ -437,11 +451,23 @@ class ItemDetailsState extends State<ItemDetails> {
     );
   }
 
-  void cartAdd(int productId, int quantity) async {
+  void cartAdd(int productId, int quantity, BuildContext context) async {
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
             .postToCart(productId, quantity);
     final res = json.decode(response.body);
     print(res);
+    if (res['data']['message'] == 'Product added to cart.') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Product Added To Cart',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.green,
+        action: SnackBarAction(
+            textColor: Colors.white,
+            label: 'OK',
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+      ));
+    }
   }
 }
