@@ -59,7 +59,13 @@ class InputOTPState extends State<InputOTP> {
                   height: height * 0.08,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 8,
+                            offset: Offset(1, 2))
+                      ]),
                   child: TextFormField(
                     showCursor: true,
                     cursorHeight: 45,
@@ -87,7 +93,13 @@ class InputOTPState extends State<InputOTP> {
                   height: height * 0.08,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 8,
+                            offset: Offset(1, 2))
+                      ]),
                   child: TextFormField(
                       showCursor: true,
                       cursorHeight: 45,
@@ -115,7 +127,13 @@ class InputOTPState extends State<InputOTP> {
                   height: height * 0.08,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 8,
+                            offset: Offset(1, 2))
+                      ]),
                   child: TextFormField(
                       showCursor: true,
                       cursorHeight: 45,
@@ -143,7 +161,13 @@ class InputOTPState extends State<InputOTP> {
                   height: height * 0.08,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 8,
+                            offset: Offset(1, 2))
+                      ]),
                   child: TextFormField(
                       showCursor: true,
                       cursorHeight: 45,
@@ -170,7 +194,7 @@ class InputOTPState extends State<InputOTP> {
         InkWell(
           onTap: () {
             if (_key.currentState!.validate()) {
-              checkOtp(mobile);
+              checkOtp(mobile, context);
             }
           },
           child: Container(
@@ -196,7 +220,7 @@ class InputOTPState extends State<InputOTP> {
     );
   }
 
-  void checkOtp(String mobile) async {
+  void checkOtp(String mobile, BuildContext context) async {
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
     var otp = _firstPin! + _secondPin! + _thirdPin! + _fourthPin!;
     var data = {'otp': otp, 'mobile': mobile};
@@ -208,18 +232,51 @@ class InputOTPState extends State<InputOTP> {
 
     print('Access Token ${receivedResponse['access']}');
 
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
-    await localStorage.setString('token', receivedResponse['access']);
-    await localStorage.setString('refresh', receivedResponse['refresh']);
-    Navigator.of(context).pushNamed('/landing-page');
+    if (receivedResponse['detail'] ==
+        'Otp has been matched successfully. Please Validate your Account') {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
+      await localStorage.setString('token', receivedResponse['access']);
+      await localStorage.setString('refresh', receivedResponse['refresh']);
+      Navigator.of(context).pushNamed('/landing-page');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Incorrect OTP',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.green,
+        action: SnackBarAction(
+            label: 'OK',
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+      ));
+    }
 
-    // if (receivedResponse['status'] == 'true') {
+    // if (receivedResponse['context']['message'] == 'Wrong OTP') {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: const Text('Incorrect OTP',
+    //         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+    //     backgroundColor: Colors.green,
+    //     action: SnackBarAction(
+    //         label: 'OK',
+    //         onPressed: () =>
+    //             ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+    //   ));
+    // } else if (otp.isEmpty) {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: const Text('Please Enter OTP',
+    //         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+    //     backgroundColor: Colors.green,
+    //     action: SnackBarAction(
+    //         label: 'OK',
+    //         onPressed: () =>
+    //             ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+    //   ));
+    // } else {
     //   SharedPreferences localStorage = await SharedPreferences.getInstance();
-    //   localStorage.setString('token', receivedResponse['access']).then((_) {
-    //     Navigator.of(context).push(
-    //         MaterialPageRoute(builder: (context) => CustomBottomNavigation()));
-    //   });
+    //   // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
+    //   await localStorage.setString('token', receivedResponse['access']);
+    //   await localStorage.setString('refresh', receivedResponse['refresh']);
+    //   Navigator.of(context).pushNamed('/landing-page');
     // }
   }
 }

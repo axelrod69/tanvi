@@ -21,7 +21,7 @@ class OtpScreenState extends State<OtpScreen> {
 
     // TODO: implement build
     return Scaffold(
-      body: Container(
+      body: Container( 
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
