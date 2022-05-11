@@ -43,6 +43,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = Provider.of<AddToCartProvider>(context).cartData;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
 
     // TODO: implement build
     return Scaffold(
@@ -58,7 +60,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
           height: height * 0.06,
           width: double.infinity,
           margin: EdgeInsets.only(bottom: height * 0.02),
-          // color: Colors.red,
+          color: Colors.red,
           // padding: EdgeInsets.only(
           //   left: width * 0.15, top: height * 0.08,
           //   //  right: width * 0.04
@@ -70,7 +72,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                 child: Stack(
                   children: [
                     Container(
-                      width: width * 0.75,
+                      width: tabLayout ? width * 0.7 : width * 0.75,
                       height: height * 0.05,
                       decoration: const BoxDecoration(
                           color: Colors.white,
@@ -90,7 +92,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                             height: double.infinity,
                             width: width * 0.35,
                             padding: EdgeInsets.only(left: width * 0.02),
-                            // color: Colors.red,
+                            // color: Colors.amber,
                             child: Row(
                               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -110,8 +112,19 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
 
                                   // });
 
-                                  child: Image.asset(
-                                      'assets/images/Icon awesome-shopping-cart.png'),
+                                  child: tabLayout
+                                      ? Image.asset(
+                                          'assets/images/Icon awesome-shopping-cart.png',
+                                          height: height * 0.1,
+                                          width: width * 0.1,
+                                        )
+                                      : largeLayout
+                                          ? Image.asset(
+                                              'assets/images/Icon awesome-shopping-cart.png',
+                                            )
+                                          : Image.asset(
+                                              'assets/images/Icon awesome-shopping-cart.png',
+                                            ),
                                 ),
                                 SizedBox(width: width * 0.1),
                                 InkWell(
@@ -131,8 +144,21 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
 
                                   //   // });
                                   // },
-                                  child: Image.asset(
-                                      'assets/images/Icon ionic-ios-settings.png'),
+                                  // child: Image.asset(
+                                  //     'assets/images/Icon ionic-ios-settings.png'),
+                                  child: tabLayout
+                                      ? Image.asset(
+                                          'assets/images/Icon ionic-ios-settings.png',
+                                          height: height * 0.05,
+                                          width: width * 0.05,
+                                        )
+                                      : largeLayout
+                                          ? Image.asset(
+                                              'assets/images/Icon ionic-ios-settings.png',
+                                            )
+                                          : Image.asset(
+                                              'assets/images/Icon ionic-ios-settings.png',
+                                            ),
                                 )
                               ],
                             ),
@@ -163,30 +189,57 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
 
                                     //   // });
                                     // },
-                                    child: Image.asset(
-                                        'assets/images/Icon awesome-bell.png'),
+                                    // child: Image.asset(
+                                    //     'assets/images/Icon awesome-bell.png'),
+                                    child: tabLayout
+                                        ? Image.asset(
+                                            'assets/images/Icon awesome-bell.png',
+                                            height: height * 0.03,
+                                            width: width * 0.03,
+                                          )
+                                        : largeLayout
+                                            ? Image.asset(
+                                                'assets/images/Icon awesome-bell.png',
+                                              )
+                                            : Image.asset(
+                                                'assets/images/Icon awesome-bell.png',
+                                              ),
                                   ),
                                 ),
                                 SizedBox(width: width * 0.1),
                                 InkWell(
-                                    // onTap: () {
-                                    //   screens[selectedItem] = 4 as StatefulWidget;
-                                    //   // setState(() {
+                                  // onTap: () {
+                                  //   screens[selectedItem] = 4 as StatefulWidget;
+                                  //   // setState(() {
 
-                                    //   // });
-                                    // },
-                                    // onTap: () => Navigator.of(context)
-                                    //     .pushNamed('/profile-screen'),
-                                    onTap: () {
-                                      // Navigator.of(context)
-                                      //     .pushNamed('/profile-screen');
-                                      // print('Profile Screen');
-                                      setState(() {
-                                        index = 4;
-                                      });
-                                    },
-                                    child: Image.asset(
-                                        'assets/images/rkwxkca7.png'))
+                                  //   // });
+                                  // },
+                                  // onTap: () => Navigator.of(context)
+                                  //     .pushNamed('/profile-screen'),
+                                  onTap: () {
+                                    // Navigator.of(context)
+                                    //     .pushNamed('/profile-screen');
+                                    // print('Profile Screen');
+                                    setState(() {
+                                      index = 4;
+                                    });
+                                  },
+                                  // child: Image.asset(
+                                  //     'assets/images/rkwxkca7.png')
+                                  child: tabLayout
+                                      ? Image.asset(
+                                          'assets/images/rkwxkca7.png',
+                                          height: height * 0.06,
+                                          width: width * 0.06,
+                                        )
+                                      : largeLayout
+                                          ? Image.asset(
+                                              'assets/images/rkwxkca7.png',
+                                            )
+                                          : Image.asset(
+                                              'assets/images/rkwxkca7.png',
+                                            ),
+                                )
                               ],
                             ),
                           )
@@ -197,7 +250,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                       top: height * 0.001,
                       left: width * 0.08,
                       child: CircleAvatar(
-                        radius: width * 0.025,
+                        radius: tabLayout ? width * 0.02 : width * 0.025,
                         backgroundColor: Colors.green,
                         child: Text(
                             provider['data']['cartItem'].length.toString(),
@@ -222,21 +275,31 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
           },
           child: Align(
             alignment: Alignment.topCenter,
-            child: Container(
-              // height: height * 0.075,
-              // width: width * 0.8,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-                  ],
-                  border: Border.all(
-                      color: Colors.green, width: 2, style: BorderStyle.solid)),
-              child: Center(
-                  child: Image.asset('assets/images/Icon ionic-ios-home.png')),
-            ),
+            child: tabLayout
+                ? CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: height * 0.8,
+                  )
+                : Container(
+                    // height: height * 0.075,
+                    // width: width * 0.8,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 5,
+                              offset: Offset(0, 2))
+                        ],
+                        border: Border.all(
+                            color: Colors.green,
+                            width: 2,
+                            style: BorderStyle.solid)),
+                    child: Center(
+                        child: Image.asset(
+                            'assets/images/Icon ionic-ios-home.png')),
+                  ),
           ),
         ));
   }

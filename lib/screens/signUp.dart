@@ -111,7 +111,7 @@ class SignUpState extends State<SignUp> {
                               child: TextFormField(
                                 style: TextStyle(
                                     fontSize: tabLayout
-                                        ? width * 0.03
+                                        ? width * 0.04
                                         : largeLayout
                                             ? 18
                                             : 16),
@@ -179,7 +179,7 @@ class SignUpState extends State<SignUp> {
                               child: TextFormField(
                                 style: TextStyle(
                                     fontSize: tabLayout
-                                        ? width * 0.03
+                                        ? width * 0.04
                                         : largeLayout
                                             ? 18
                                             : 16),
@@ -247,7 +247,7 @@ class SignUpState extends State<SignUp> {
                               child: TextFormField(
                                 style: TextStyle(
                                     fontSize: tabLayout
-                                        ? width * 0.03
+                                        ? width * 0.04
                                         : largeLayout
                                             ? 18
                                             : 16),
@@ -317,7 +317,7 @@ class SignUpState extends State<SignUp> {
                               child: TextFormField(
                                 style: TextStyle(
                                     fontSize: tabLayout
-                                        ? width * 0.03
+                                        ? width * 0.04
                                         : largeLayout
                                             ? 18
                                             : 16),

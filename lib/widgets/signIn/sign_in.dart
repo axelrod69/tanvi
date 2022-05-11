@@ -72,7 +72,7 @@ class FormWidgetState extends State<FormWidget> {
                   child: TextFormField(
                     style: TextStyle(
                         fontSize: tabLayout
-                            ? width * 0.03
+                            ? width * 0.04
                             : largeLayout
                                 ? 18
                                 : 16),
@@ -80,7 +80,7 @@ class FormWidgetState extends State<FormWidget> {
                     decoration: InputDecoration(
                         hintText: 'Enter Your Phone Number',
                         hintStyle: tabLayout
-                            ? TextStyle(fontSize: width * 0.03)
+                            ? TextStyle(fontSize: width * 0.04)
                             : TextStyle(fontSize: width * 0.05),
                         suffixIcon: mobileNumber!.length < 10
                             ? null
@@ -125,7 +125,7 @@ class FormWidgetState extends State<FormWidget> {
                         style: TextStyle(
                             color: Colors.green,
                             fontWeight: FontWeight.bold,
-                            fontSize: tabLayout ? width * 0.018 : 14)),
+                            fontSize: tabLayout ? width * 0.02 : 14)),
                   ),
                 )
               ],
@@ -150,8 +150,10 @@ class FormWidgetState extends State<FormWidget> {
                 children: [
                   tabLayout
                       ? Container(
-                          width: width * 0.15,
-                          height: height * 0.1,
+                          // width: width * 0.15,
+                          // height: height * 0.1,
+                          width: width * 0.12,
+                          height: height * 0.08,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -164,7 +166,7 @@ class FormWidgetState extends State<FormWidget> {
                               ]),
                           child: TextFormField(
                             showCursor: true,
-                            cursorHeight: height * 0.08,
+                            cursorHeight: height * 0.07,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(1)
                             ],
@@ -252,8 +254,8 @@ class FormWidgetState extends State<FormWidget> {
                   SizedBox(width: width * 0.04),
                   tabLayout
                       ? Container(
-                          width: width * 0.15,
-                          height: height * 0.1,
+                          width: width * 0.12,
+                          height: height * 0.08,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -266,7 +268,7 @@ class FormWidgetState extends State<FormWidget> {
                               ]),
                           child: TextFormField(
                             showCursor: true,
-                            cursorHeight: height * 0.08,
+                            cursorHeight: height * 0.07,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(1)
                             ],
@@ -354,8 +356,8 @@ class FormWidgetState extends State<FormWidget> {
                   SizedBox(width: width * 0.04),
                   tabLayout
                       ? Container(
-                          width: width * 0.15,
-                          height: height * 0.1,
+                          width: width * 0.12,
+                          height: height * 0.08,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -368,7 +370,7 @@ class FormWidgetState extends State<FormWidget> {
                               ]),
                           child: TextFormField(
                             showCursor: true,
-                            cursorHeight: height * 0.08,
+                            cursorHeight: height * 0.07,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(1)
                             ],
@@ -456,8 +458,8 @@ class FormWidgetState extends State<FormWidget> {
                   SizedBox(width: width * 0.04),
                   tabLayout
                       ? Container(
-                          width: width * 0.15,
-                          height: height * 0.1,
+                          width: width * 0.12,
+                          height: height * 0.08,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -470,7 +472,7 @@ class FormWidgetState extends State<FormWidget> {
                               ]),
                           child: TextFormField(
                             showCursor: true,
-                            cursorHeight: height * 0.08,
+                            cursorHeight: height * 0.07,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(1)
                             ],

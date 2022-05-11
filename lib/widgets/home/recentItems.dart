@@ -128,31 +128,48 @@ class RecentItemsState extends State<RecentItems> {
                             Text(
                               _recentItems[index]['name'],
                               // // textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                                  fontSize: tabLayout
+                                      ? 25
+                                      : largeLayout
+                                          ? 17
+                                          : 12),
                             ),
                             SizedBox(height: height * 0.01),
                             Text(
                               _recentItems[index]['category'],
                               // // textScaleFactor: textScaleFactor,
                               style: TextStyle(
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  color: Colors.grey[600],
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: tabLayout
+                                      ? 22
+                                      : largeLayout
+                                          ? 15
+                                          : 10),
                             )
                           ],
                         ),
                       ),
-                      SizedBox(width: width * 0.15),
+                      SizedBox(
+                          width: tabLayout
+                              ? width * 0.3
+                              : largeLayout
+                                  ? width * 0.15
+                                  : width * 0.12),
                       Text(
                         _recentItems[index]['price'],
                         // // textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 20),
+                            fontSize: tabLayout
+                                ? 50
+                                : largeLayout
+                                    ? 17
+                                    : 12),
                       )
                     ],
                   ),
