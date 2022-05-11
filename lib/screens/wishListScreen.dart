@@ -27,6 +27,8 @@ class WishListScreenState extends State<WishListScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = Provider.of<WishListProvider>(context).wishList;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
 
     // TODO: implement build
     return Padding(
@@ -48,14 +50,18 @@ class WishListScreenState extends State<WishListScreen> {
                   left: width * 0.04, top: height * 0.01, right: width * 0.04),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'Wishlist',
                     // textScaleFactor: textScaleFactor,
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: tabLayout
+                            ? 25
+                            : largeLayout
+                                ? 17
+                                : 12),
                   ),
                   // Text(
                   //   'View All',
@@ -98,7 +104,11 @@ class WishListScreenState extends State<WishListScreen> {
                             'quantity': 0
                           }),
                           child: Container(
-                            width: width * 0.45,
+                            width: tabLayout
+                                ? width * 0.25
+                                : largeLayout
+                                    ? width * 0.45
+                                    : width * 0.4,
                             height: double.infinity,
                             margin: EdgeInsets.only(right: width * 0.02),
                             // color: Colors.amber,
@@ -121,9 +131,14 @@ class WishListScreenState extends State<WishListScreen> {
                                           provider['data'][index]
                                               ['ProductName'],
                                           // textScaleFactor: textScaleFactor,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: Colors.black,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: tabLayout
+                                                  ? width * 0.02
+                                                  : largeLayout
+                                                      ? 14
+                                                      : 12),
                                         ),
                                       ),
                                       Padding(
@@ -132,13 +147,18 @@ class WishListScreenState extends State<WishListScreen> {
                                         child: Text(
                                             '₹${provider['data'][index]['price'].toString()}',
                                             // textScaleFactor: textScaleFactor,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: Colors.black,
-                                                fontWeight: FontWeight.bold)),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: tabLayout
+                                                    ? width * 0.02
+                                                    : largeLayout
+                                                        ? 14
+                                                        : 12)),
                                       ),
                                     ]),
                                 Positioned(
-                                  left: width * 0.39,
+                                  left: tabLayout ? width * 0.22 : width * 0.39,
                                   child: InkWell(
                                     onTap: () => deleteItem(
                                         provider['data'][index]['id']),

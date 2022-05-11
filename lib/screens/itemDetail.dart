@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../model/addToCart/addToCart.dart';
 import 'dart:convert';
 import '../model/wishList/wishList.dart';
+import '../model/addToCart/addToCart.dart';
 
 class ItemDetails extends StatefulWidget {
   ItemDetailsState createState() => ItemDetailsState();
@@ -15,6 +16,7 @@ class ItemDetailsState extends State<ItemDetails> {
   int counter = 0;
   double itemPrice = 0.0;
   bool isClicked = false;
+  bool isLoading = true;
 
   final List<dynamic> _categoryItems = [
     {
@@ -60,6 +62,19 @@ class ItemDetailsState extends State<ItemDetails> {
   ];
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    Provider.of<AddToCartProvider>(context, listen: false)
+        .getCartProducts()
+        .then((_) {
+      setState(() {
+        isLoading = true;
+      });
+    });
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -74,9 +89,15 @@ class ItemDetailsState extends State<ItemDetails> {
     final description = route['description'];
     final price = route['price'];
     int quantity = route['quantity'];
+    final provider = Provider.of<AddToCartProvider>(context).cartData;
+    int length = 0;
 
     setState(() {
       counter = quantity;
+      length = Provider.of<AddToCartProvider>(context)
+          .cartData['data']['cartItem']
+          .length;
+      print('Length $length');
     });
 
     // counter = quantity;
@@ -122,15 +143,33 @@ class ItemDetailsState extends State<ItemDetails> {
                   Positioned(
                       top: height * 0.04,
                       left: width * 0.9,
-                      child: const Icon(Icons.shopping_cart_outlined)),
-                  Positioned(
-                    top: height * 0.035,
-                    left: width * 0.94,
-                    child: CircleAvatar(
-                      radius: width * 0.02,
-                      backgroundColor: Colors.green,
-                    ),
-                  ),
+                      child: InkWell(
+                          onTap: () =>
+                              Navigator.of(context).pushNamed('/cart-screen'),
+                          child: const Icon(Icons.shopping_cart_outlined))),
+                  length == 0
+                      ? const SizedBox()
+                      : Positioned(
+                          top: height * 0.035,
+                          left: width * 0.94,
+                          child: CircleAvatar(
+                            radius: width * 0.02,
+                            backgroundColor: Colors.green,
+                            child: Center(
+                              child: length < 10
+                                  ? Text(length.toString(),
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.bold))
+                                  : const Text('9+',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 8,
+                                          fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                        ),
                   Positioned(
                     top: height * 0.04,
                     left: width * 0.02,
@@ -298,9 +337,9 @@ class ItemDetailsState extends State<ItemDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Description',
+                        const Text('Description',
                             // textScaleFactor: textScaleFactor,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18)),
@@ -326,9 +365,9 @@ class ItemDetailsState extends State<ItemDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Offers On',
+                  const Text('Offers On',
                       // textScaleFactor: textScaleFactor,
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 18)),
@@ -414,32 +453,57 @@ class ItemDetailsState extends State<ItemDetails> {
                             fontSize: 40),
                       ),
                       // SizedBox(width: width * 0.1),
-                      InkWell(
-                        onTap: () => cartAdd(id, quantity, context),
-                        child: Container(
-                          width: width * 0.3,
-                          height: height * 0.04,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  color: Colors.green,
-                                  style: BorderStyle.solid),
-                              boxShadow: const [
-                                BoxShadow(
+                      itemPrice == 0.0
+                          ? Container(
+                              width: width * 0.3,
+                              height: height * 0.04,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
                                     color: Colors.grey,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 2))
-                              ]),
-                          child: const Center(
-                              child: Text('Add To Cart',
-                                  // textScaleFactor: textScaleFactor,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ))),
-                        ),
-                      )
+                                    style: BorderStyle.solid),
+                                // boxShadow: const [
+                                //   BoxShadow(
+                                //       color: Colors.grey,
+                                //       blurRadius: 5,
+                                //       offset: Offset(0, 2))
+                                // ]
+                              ),
+                              child: const Center(
+                                  child: Text('Add To Cart',
+                                      // textScaleFactor: textScaleFactor,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ))),
+                            )
+                          : InkWell(
+                              onTap: () => cartAdd(id, quantity, context),
+                              child: Container(
+                                width: width * 0.3,
+                                height: height * 0.04,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: Colors.green,
+                                        style: BorderStyle.solid),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 2))
+                                    ]),
+                                child: const Center(
+                                    child: Text('Add To Cart',
+                                        // textScaleFactor: textScaleFactor,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ))),
+                              ),
+                            )
                     ],
                   )
                 ],
@@ -468,6 +532,19 @@ class ItemDetailsState extends State<ItemDetails> {
             onPressed: () =>
                 ScaffoldMessenger.of(context).hideCurrentSnackBar()),
       ));
+    }
+    if (res['data']['message'] == 'Product available in cart.') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text('Product Already Available In Cart',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+            textColor: Colors.white,
+            label: 'OK',
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+          )));
     }
   }
 }

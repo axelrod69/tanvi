@@ -15,6 +15,7 @@ class InputOTP extends StatefulWidget {
 }
 
 class InputOTPState extends State<InputOTP> {
+  final _focusFirst = FocusNode();
   final _focusSecond = FocusNode();
   final _focusThird = FocusNode();
   final _focusFourth = FocusNode();
@@ -27,6 +28,7 @@ class InputOTPState extends State<InputOTP> {
   @override
   void dispose() {
     // TODO: implement dispose
+    _focusFirst.dispose();
     _focusSecond.dispose();
     _focusThird.dispose();
     _focusFourth.dispose();
@@ -37,7 +39,9 @@ class InputOTPState extends State<InputOTP> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    var textScale = MediaQuery.of(context).textScaleFactor;
+    // var textScale = MediaQuery.of(context).textScaleFactor;
+    bool tabLayout = width > 600;
+    bool largeLayout = width > 350 && width < 600;
     final routes =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final mobile = routes['mobile'];
@@ -51,145 +55,552 @@ class InputOTPState extends State<InputOTP> {
         Form(
           key: _key,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                child: Container(
-                  width: width * 0.16,
-                  height: height * 0.08,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 8,
-                            offset: Offset(1, 2))
-                      ]),
-                  child: TextFormField(
-                    showCursor: true,
-                    cursorHeight: 45,
-                    inputFormatters: [LengthLimitingTextInputFormatter(1)],
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(fontSize: 45),
-                    textAlign: TextAlign.center,
-                    obscureText: true,
-                    obscuringCharacter: '*',
-                    decoration: const InputDecoration(
-                        focusedBorder: InputBorder.none,
-                        border: InputBorder.none),
-                    onFieldSubmitted: (_) =>
-                        FocusScope.of(context).requestFocus(_focusSecond),
-                    validator: (first) {
-                      _firstPin = first.toString();
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
-                  width: width * 0.16,
-                  height: height * 0.08,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 8,
-                            offset: Offset(1, 2))
-                      ]),
-                  child: TextFormField(
-                      showCursor: true,
-                      cursorHeight: 45,
-                      inputFormatters: [LengthLimitingTextInputFormatter(1)],
-                      keyboardType: TextInputType.number,
-                      // focusNode: _focusSecond,
-                      style: const TextStyle(fontSize: 45),
-                      textAlign: TextAlign.center,
-                      obscureText: true,
-                      obscuringCharacter: '*',
-                      decoration: const InputDecoration(
-                          focusedBorder: InputBorder.none,
-                          border: InputBorder.none),
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).requestFocus(_focusThird),
-                      validator: (second) {
-                        _secondPin = second.toString();
-                        return null;
-                      }),
-                ),
-              ),
-              Center(
-                child: Container(
-                  width: width * 0.16,
-                  height: height * 0.08,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 8,
-                            offset: Offset(1, 2))
-                      ]),
-                  child: TextFormField(
-                      showCursor: true,
-                      cursorHeight: 45,
-                      inputFormatters: [LengthLimitingTextInputFormatter(1)],
-                      // focusNode: _focusThird,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(fontSize: 45),
-                      textAlign: TextAlign.center,
-                      obscureText: true,
-                      obscuringCharacter: '*',
-                      decoration: const InputDecoration(
-                          focusedBorder: InputBorder.none,
-                          border: InputBorder.none),
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).requestFocus(_focusFourth),
-                      validator: (third) {
-                        _thirdPin = third.toString();
-                        return null;
-                      }),
-                ),
-              ),
-              Center(
-                child: Container(
-                  width: width * 0.16,
-                  height: height * 0.08,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 8,
-                            offset: Offset(1, 2))
-                      ]),
-                  child: TextFormField(
-                      showCursor: true,
-                      cursorHeight: 45,
-                      inputFormatters: [LengthLimitingTextInputFormatter(1)],
-                      // focusNode: _focusFourth,
-                      keyboardType: TextInputType.number,
-                      style: const TextStyle(fontSize: 45),
-                      textAlign: TextAlign.center,
-                      obscureText: true,
-                      obscuringCharacter: '*',
-                      decoration: const InputDecoration(
-                          focusedBorder: InputBorder.none,
-                          border: InputBorder.none),
-                      validator: (fourth) {
-                        _fourthPin = fourth.toString();
-                        return null;
-                      }),
-                ),
-              ),
+              tabLayout
+                  ? Container(
+                      width: width * 0.15,
+                      height: height * 0.1,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(1, 2))
+                          ]),
+                      child: TextFormField(
+                        showCursor: true,
+                        cursorHeight: height * 0.08,
+                        inputFormatters: [LengthLimitingTextInputFormatter(1)],
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(fontSize: width * 0.1),
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none),
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).requestFocus(_focusFirst),
+                        validator: (first) {
+                          _firstPin = first;
+                          return null;
+                        },
+                      ),
+                    )
+                  : largeLayout
+                      ? Container(
+                          width: width * 0.15,
+                          height: height * 0.075,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextFormField(
+                            showCursor: true,
+                            cursorHeight: 45,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1)
+                            ],
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontSize: 45),
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onFieldSubmitted: (_) => FocusScope.of(context)
+                                .requestFocus(_focusFirst),
+                            validator: (first) {
+                              _firstPin = first;
+                              return null;
+                            },
+                          ),
+                        )
+                      : Container(
+                          width: width * 0.15,
+                          height: height * 0.08,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextFormField(
+                            showCursor: true,
+                            cursorHeight: height * 0.04,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1)
+                            ],
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontSize: 45),
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onFieldSubmitted: (_) => FocusScope.of(context)
+                                .requestFocus(_focusFirst),
+                            validator: (first) {
+                              _firstPin = first;
+                              return null;
+                            },
+                          ),
+                        ),
+              SizedBox(width: width * 0.04),
+              tabLayout
+                  ? Container(
+                      width: width * 0.15,
+                      height: height * 0.1,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(1, 2))
+                          ]),
+                      child: TextFormField(
+                        showCursor: true,
+                        cursorHeight: height * 0.08,
+                        inputFormatters: [LengthLimitingTextInputFormatter(1)],
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(fontSize: width * 0.1),
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none),
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).requestFocus(_focusSecond),
+                        validator: (second) {
+                          _secondPin = second;
+                          return null;
+                        },
+                      ),
+                    )
+                  : largeLayout
+                      ? Container(
+                          width: width * 0.15,
+                          height: height * 0.075,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextFormField(
+                            showCursor: true,
+                            cursorHeight: 45,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1)
+                            ],
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontSize: 45),
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onFieldSubmitted: (_) => FocusScope.of(context)
+                                .requestFocus(_focusSecond),
+                            validator: (second) {
+                              _secondPin = second;
+                              return null;
+                            },
+                          ),
+                        )
+                      : Container(
+                          width: width * 0.15,
+                          height: height * 0.08,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextFormField(
+                            showCursor: true,
+                            cursorHeight: height * 0.04,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1)
+                            ],
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontSize: 45),
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onFieldSubmitted: (_) => FocusScope.of(context)
+                                .requestFocus(_focusSecond),
+                            validator: (second) {
+                              _secondPin = second;
+                              return null;
+                            },
+                          ),
+                        ),
+              SizedBox(width: width * 0.04),
+              tabLayout
+                  ? Container(
+                      width: width * 0.15,
+                      height: height * 0.1,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(1, 2))
+                          ]),
+                      child: TextFormField(
+                        showCursor: true,
+                        cursorHeight: height * 0.08,
+                        inputFormatters: [LengthLimitingTextInputFormatter(1)],
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(fontSize: width * 0.1),
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none),
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).requestFocus(_focusThird),
+                        validator: (third) {
+                          _thirdPin = third;
+                          return null;
+                        },
+                      ),
+                    )
+                  : largeLayout
+                      ? Container(
+                          width: width * 0.15,
+                          height: height * 0.075,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextFormField(
+                            showCursor: true,
+                            cursorHeight: 45,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1)
+                            ],
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontSize: 45),
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onFieldSubmitted: (_) => FocusScope.of(context)
+                                .requestFocus(_focusThird),
+                            validator: (third) {
+                              _thirdPin = third;
+                              return null;
+                            },
+                          ),
+                        )
+                      : Container(
+                          width: width * 0.15,
+                          height: height * 0.08,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextFormField(
+                            showCursor: true,
+                            cursorHeight: height * 0.04,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1)
+                            ],
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontSize: 45),
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onFieldSubmitted: (_) => FocusScope.of(context)
+                                .requestFocus(_focusThird),
+                            validator: (third) {
+                              _thirdPin = third;
+                              return null;
+                            },
+                          ),
+                        ),
+              SizedBox(width: width * 0.04),
+              tabLayout
+                  ? Container(
+                      width: width * 0.15,
+                      height: height * 0.1,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: Offset(1, 2))
+                          ]),
+                      child: TextFormField(
+                        showCursor: true,
+                        cursorHeight: height * 0.08,
+                        inputFormatters: [LengthLimitingTextInputFormatter(1)],
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(fontSize: width * 0.1),
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none),
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).requestFocus(_focusFourth),
+                        validator: (fourth) {
+                          _fourthPin = fourth;
+                          return null;
+                        },
+                      ),
+                    )
+                  : largeLayout
+                      ? Container(
+                          width: width * 0.15,
+                          height: height * 0.075,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextFormField(
+                            showCursor: true,
+                            cursorHeight: 45,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1)
+                            ],
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontSize: 45),
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onFieldSubmitted: (_) => FocusScope.of(context)
+                                .requestFocus(_focusFourth),
+                            validator: (fourth) {
+                              _fourthPin = fourth;
+                              return null;
+                            },
+                          ),
+                        )
+                      : Container(
+                          width: width * 0.15,
+                          height: height * 0.08,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextFormField(
+                            showCursor: true,
+                            cursorHeight: height * 0.04,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1)
+                            ],
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontSize: 45),
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onFieldSubmitted: (_) => FocusScope.of(context)
+                                .requestFocus(_focusFourth),
+                            validator: (fourth) {
+                              _fourthPin = fourth;
+                              return null;
+                            },
+                          ),
+                        ),
             ],
           ),
         ),
+        // Form(
+        //   key: _key,
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //     children: [
+        //       Center(
+        //         child: Container(
+        //           width: width * 0.16,
+        //           height: height * 0.08,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(10),
+        //               color: Colors.white,
+        //               boxShadow: const [
+        //                 BoxShadow(
+        //                     color: Colors.grey,
+        //                     blurRadius: 8,
+        //                     offset: Offset(1, 2))
+        //               ]),
+        //           child: TextFormField(
+        //             showCursor: true,
+        //             cursorHeight: 45,
+        //             inputFormatters: [LengthLimitingTextInputFormatter(1)],
+        //             keyboardType: TextInputType.number,
+        //             style: const TextStyle(fontSize: 45),
+        //             textAlign: TextAlign.center,
+        //             obscureText: true,
+        //             obscuringCharacter: '*',
+        //             decoration: const InputDecoration(
+        //                 focusedBorder: InputBorder.none,
+        //                 border: InputBorder.none),
+        //             onFieldSubmitted: (_) =>
+        //                 FocusScope.of(context).requestFocus(_focusSecond),
+        //             validator: (first) {
+        //               _firstPin = first.toString();
+        //               return null;
+        //             },
+        //           ),
+        //         ),
+        //       ),
+        //       Center(
+        //         child: Container(
+        //           width: width * 0.16,
+        //           height: height * 0.08,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(10),
+        //               color: Colors.white,
+        //               boxShadow: const [
+        //                 BoxShadow(
+        //                     color: Colors.grey,
+        //                     blurRadius: 8,
+        //                     offset: Offset(1, 2))
+        //               ]),
+        //           child: TextFormField(
+        //               showCursor: true,
+        //               cursorHeight: 45,
+        //               inputFormatters: [LengthLimitingTextInputFormatter(1)],
+        //               keyboardType: TextInputType.number,
+        //               // focusNode: _focusSecond,
+        //               style: const TextStyle(fontSize: 45),
+        //               textAlign: TextAlign.center,
+        //               obscureText: true,
+        //               obscuringCharacter: '*',
+        //               decoration: const InputDecoration(
+        //                   focusedBorder: InputBorder.none,
+        //                   border: InputBorder.none),
+        //               onFieldSubmitted: (_) =>
+        //                   FocusScope.of(context).requestFocus(_focusThird),
+        //               validator: (second) {
+        //                 _secondPin = second.toString();
+        //                 return null;
+        //               }),
+        //         ),
+        //       ),
+        //       Center(
+        //         child: Container(
+        //           width: width * 0.16,
+        //           height: height * 0.08,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(10),
+        //               color: Colors.white,
+        //               boxShadow: const [
+        //                 BoxShadow(
+        //                     color: Colors.grey,
+        //                     blurRadius: 8,
+        //                     offset: Offset(1, 2))
+        //               ]),
+        //           child: TextFormField(
+        //               showCursor: true,
+        //               cursorHeight: 45,
+        //               inputFormatters: [LengthLimitingTextInputFormatter(1)],
+        //               // focusNode: _focusThird,
+        //               keyboardType: TextInputType.number,
+        //               style: const TextStyle(fontSize: 45),
+        //               textAlign: TextAlign.center,
+        //               obscureText: true,
+        //               obscuringCharacter: '*',
+        //               decoration: const InputDecoration(
+        //                   focusedBorder: InputBorder.none,
+        //                   border: InputBorder.none),
+        //               onFieldSubmitted: (_) =>
+        //                   FocusScope.of(context).requestFocus(_focusFourth),
+        //               validator: (third) {
+        //                 _thirdPin = third.toString();
+        //                 return null;
+        //               }),
+        //         ),
+        //       ),
+        //       Center(
+        //         child: Container(
+        //           width: width * 0.16,
+        //           height: height * 0.08,
+        //           decoration: BoxDecoration(
+        //               borderRadius: BorderRadius.circular(10),
+        //               color: Colors.white,
+        //               boxShadow: const [
+        //                 BoxShadow(
+        //                     color: Colors.grey,
+        //                     blurRadius: 8,
+        //                     offset: Offset(1, 2))
+        //               ]),
+        //           child: TextFormField(
+        //               showCursor: true,
+        //               cursorHeight: 45,
+        //               inputFormatters: [LengthLimitingTextInputFormatter(1)],
+        //               // focusNode: _focusFourth,
+        //               keyboardType: TextInputType.number,
+        //               style: const TextStyle(fontSize: 45),
+        //               textAlign: TextAlign.center,
+        //               obscureText: true,
+        //               obscuringCharacter: '*',
+        //               decoration: const InputDecoration(
+        //                   focusedBorder: InputBorder.none,
+        //                   border: InputBorder.none),
+        //               validator: (fourth) {
+        //                 _fourthPin = fourth.toString();
+        //                 return null;
+        //               }),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
         SizedBox(height: height * 0.045),
         InkWell(
           onTap: () {
@@ -204,14 +615,18 @@ class InputOTPState extends State<InputOTP> {
             decoration: BoxDecoration(
                 color: const Color.fromRGBO(57, 226, 14, 1),
                 borderRadius: BorderRadius.circular(15)),
-            child: const Center(
+            child: Center(
               child: Text(
                 'Validate',
                 // textScaleFactor: textScaleFactor,
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16),
+                    fontSize: tabLayout
+                        ? width * 0.03
+                        : largeLayout
+                            ? 18
+                            : 16),
               ),
             ),
           ),
@@ -250,33 +665,5 @@ class InputOTPState extends State<InputOTP> {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar()),
       ));
     }
-
-    // if (receivedResponse['context']['message'] == 'Wrong OTP') {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     content: const Text('Incorrect OTP',
-    //         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-    //     backgroundColor: Colors.green,
-    //     action: SnackBarAction(
-    //         label: 'OK',
-    //         onPressed: () =>
-    //             ScaffoldMessenger.of(context).hideCurrentSnackBar()),
-    //   ));
-    // } else if (otp.isEmpty) {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     content: const Text('Please Enter OTP',
-    //         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-    //     backgroundColor: Colors.green,
-    //     action: SnackBarAction(
-    //         label: 'OK',
-    //         onPressed: () =>
-    //             ScaffoldMessenger.of(context).hideCurrentSnackBar()),
-    //   ));
-    // } else {
-    //   SharedPreferences localStorage = await SharedPreferences.getInstance();
-    //   // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
-    //   await localStorage.setString('token', receivedResponse['access']);
-    //   await localStorage.setString('refresh', receivedResponse['refresh']);
-    //   Navigator.of(context).pushNamed('/landing-page');
-    // }
   }
 }

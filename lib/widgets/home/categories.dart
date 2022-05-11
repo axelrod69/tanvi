@@ -50,7 +50,7 @@ class CategoriesState extends State<Categories> {
       padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       child: Container(
         width: width * 0.9,
-        height: height * 0.23,
+        height: !tabLayout && !largeLayout ? height * 0.3 : height * 0.23,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -72,10 +72,10 @@ class CategoriesState extends State<Categories> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: tabLayout
-                            ? 20
+                            ? 25
                             : largeLayout
                                 ? 17
-                                : 15),
+                                : 12),
                   ),
                   InkWell(
                     onTap: () =>
@@ -86,10 +86,10 @@ class CategoriesState extends State<Categories> {
                       style: TextStyle(
                           color: Colors.greenAccent,
                           fontSize: tabLayout
-                              ? 16
+                              ? 18
                               : largeLayout
                                   ? 14
-                                  : 12),
+                                  : 10),
                     ),
                   )
                 ],
@@ -129,24 +129,33 @@ class CategoriesState extends State<Categories> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                width: double.infinity,
-                                height: height * 0.12,
-                                decoration: BoxDecoration(
-                                  color: Colors.green[100],
-                                  borderRadius: BorderRadius.circular(20),
+                              Padding(
+                                padding: EdgeInsets.only(top: height * 0.004),
+                                child: Container(
+                                  width: double.infinity,
+                                  height:
+                                      tabLayout ? height * 0.14 : height * 0.12,
+                                  decoration: BoxDecoration(
+                                    color: Colors.green[100],
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Image.network(
+                                      provider[index]['categoryImage']),
                                 ),
-                                child: Image.network(
-                                    provider[index]['categoryImage']),
                               ),
                               SizedBox(height: height * 0.01),
                               Text(
                                 provider[index]['name'],
                                 textAlign: TextAlign.center,
                                 // textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: tabLayout
+                                        ? width * 0.02
+                                        : largeLayout
+                                            ? 14
+                                            : 12),
                               )
                             ],
                           ),

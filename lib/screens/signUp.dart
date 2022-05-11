@@ -29,7 +29,9 @@ class SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    bool tabLayout = width > 600;
+    bool largeLayout = width > 350 && width < 600;
 
     // TODO: implement build
     return Scaffold(
@@ -48,6 +50,7 @@ class SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Image.asset('assets/images/sign_up_asset.png',
+                      width: tabLayout ? double.infinity : null,
                       fit: BoxFit.cover),
                 ],
               ),
@@ -59,11 +62,15 @@ class SignUpState extends State<SignUp> {
                       Center(
                         child: Text(
                           'Sign Up',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 25),
+                              fontSize: tabLayout
+                                  ? width * 0.05
+                                  : largeLayout
+                                      ? 25
+                                      : width * 0.06),
                         ),
                       ),
                       SizedBox(height: height * 0.04),
@@ -75,11 +82,15 @@ class SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'First Name',
-                              textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                                  fontSize: tabLayout
+                                      ? width * 0.03
+                                      : largeLayout
+                                          ? 14
+                                          : 12),
                             ),
                             SizedBox(height: height * 0.02),
                             Container(
@@ -98,7 +109,12 @@ class SignUpState extends State<SignUp> {
                                         offset: Offset(1, 2))
                                   ]),
                               child: TextFormField(
-                                style: const TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: tabLayout
+                                        ? width * 0.03
+                                        : largeLayout
+                                            ? 18
+                                            : 16),
                                 keyboardType: TextInputType.text,
                                 decoration: const InputDecoration(
                                     hintText: 'Enter Your First Name',
@@ -106,7 +122,7 @@ class SignUpState extends State<SignUp> {
                                     //     Icon(Icons.check_circle, color: Colors.green),
                                     // label: Text(
                                     //   'Enter Your Phone Number',
-                                    //   textScaleFactor: textScaleFactor,
+                                    // textScaleFactor: textScaleFactor,
                                     //   style: const TextStyle(color: Colors.grey),
                                     // ),
                                     focusedBorder: InputBorder.none,
@@ -134,11 +150,15 @@ class SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'Last Name',
-                              textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                                  fontSize: tabLayout
+                                      ? width * 0.03
+                                      : largeLayout
+                                          ? 14
+                                          : 12),
                             ),
                             SizedBox(height: height * 0.02),
                             Container(
@@ -157,7 +177,12 @@ class SignUpState extends State<SignUp> {
                                         offset: Offset(1, 2))
                                   ]),
                               child: TextFormField(
-                                style: const TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: tabLayout
+                                        ? width * 0.03
+                                        : largeLayout
+                                            ? 18
+                                            : 16),
                                 keyboardType: TextInputType.text,
                                 decoration: const InputDecoration(
                                     hintText: 'Enter Your Last Name',
@@ -165,7 +190,7 @@ class SignUpState extends State<SignUp> {
                                     //     Icon(Icons.check_circle, color: Colors.green),
                                     // label: Text(
                                     //   'Enter Your Phone Number',
-                                    //   textScaleFactor: textScaleFactor,
+                                    // textScaleFactor: textScaleFactor,
                                     //   style: const TextStyle(color: Colors.grey),
                                     // ),
                                     focusedBorder: InputBorder.none,
@@ -193,11 +218,15 @@ class SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'Phone Number',
-                              textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                                  fontSize: tabLayout
+                                      ? width * 0.03
+                                      : largeLayout
+                                          ? 14
+                                          : 12),
                             ),
                             SizedBox(height: height * 0.02),
                             Container(
@@ -216,7 +245,12 @@ class SignUpState extends State<SignUp> {
                                         offset: Offset(1, 2))
                                   ]),
                               child: TextFormField(
-                                style: const TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: tabLayout
+                                        ? width * 0.03
+                                        : largeLayout
+                                            ? 18
+                                            : 16),
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                     hintText: 'Enter Your Phone Number',
@@ -224,7 +258,7 @@ class SignUpState extends State<SignUp> {
                                     //     Icon(Icons.check_circle, color: Colors.green),
                                     // label: Text(
                                     //   'Enter Your Phone Number',
-                                    //   textScaleFactor: textScaleFactor,
+                                    // textScaleFactor: textScaleFactor,
                                     //   style: const TextStyle(color: Colors.grey),
                                     // ),
                                     focusedBorder: InputBorder.none,
@@ -255,11 +289,15 @@ class SignUpState extends State<SignUp> {
                           children: [
                             Text(
                               'Email',
-                              textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18),
+                                  fontSize: tabLayout
+                                      ? width * 0.03
+                                      : largeLayout
+                                          ? 14
+                                          : 12),
                             ),
                             SizedBox(height: height * 0.02),
                             Container(
@@ -277,7 +315,12 @@ class SignUpState extends State<SignUp> {
                                         offset: Offset(1, 2))
                                   ]),
                               child: TextFormField(
-                                style: const TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: tabLayout
+                                        ? width * 0.03
+                                        : largeLayout
+                                            ? 18
+                                            : 16),
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: const InputDecoration(
                                     hintText: 'Enter Your Email',
@@ -285,7 +328,7 @@ class SignUpState extends State<SignUp> {
                                     //     Icon(Icons.check_circle, color: Colors.green),
                                     // label: Text(
                                     //   'Enter Your Phone Number',
-                                    //   textScaleFactor: textScaleFactor,
+                                    // textScaleFactor: textScaleFactor,
                                     //   style: const TextStyle(color: Colors.grey),
                                     // ),
                                     focusedBorder: InputBorder.none,
@@ -327,11 +370,15 @@ class SignUpState extends State<SignUp> {
                             child: Center(
                               child: Text(
                                 'Sign Up',
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
+                                // // textScaleFactor: textScaleFactor,
+                                style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18),
+                                    fontSize: tabLayout
+                                        ? width * 0.03
+                                        : largeLayout
+                                            ? 18
+                                            : 16),
                               ),
                             ),
                           ),
@@ -344,8 +391,15 @@ class SignUpState extends State<SignUp> {
                           Text(
                             'Have an account?',
                             textAlign: TextAlign.center,
-                            textScaleFactor: textScaleFactor,
-                            style: const TextStyle(color: Colors.grey),
+                            // // textScaleFactor: textScaleFactor,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: tabLayout
+                                    ? width * 0.03
+                                    : largeLayout
+                                        ? 14
+                                        : 12),
                           ),
                           InkWell(
                             onTap: () =>
@@ -353,10 +407,15 @@ class SignUpState extends State<SignUp> {
                             child: Text(
                               'Sign In',
                               textAlign: TextAlign.center,
-                              textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: tabLayout
+                                      ? width * 0.03
+                                      : largeLayout
+                                          ? 14
+                                          : 12),
                             ),
                           ),
                         ],

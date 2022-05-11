@@ -42,14 +42,20 @@ class PopularDealsState extends State<PopularDeals> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
 
     // TODO: implement build
     return Padding(
       padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       child: Container(
         width: width * 0.9,
-        height: height * 0.31,
+        height: tabLayout
+            ? height * 0.34
+            : largeLayout
+                ? height * 0.31
+                : height * 0.32,
         margin: EdgeInsets.only(bottom: height * 0.04),
         decoration: BoxDecoration(
             color: Colors.green[50],
@@ -67,15 +73,27 @@ class PopularDealsState extends State<PopularDeals> {
                 children: [
                   Text(
                     'Popular Deals',
-                    textScaleFactor: textScaleFactor,
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                    // // textScaleFactor: textScaleFactor,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: tabLayout
+                            ? 25
+                            : largeLayout
+                                ? 17
+                                : 12),
                   ),
                   Text(
                     'View All',
-                    textScaleFactor: textScaleFactor,
-                    style: const TextStyle(
-                        color: Colors.green, fontWeight: FontWeight.bold),
+                    // // textScaleFactor: textScaleFactor,
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                        fontSize: tabLayout
+                            ? 18
+                            : largeLayout
+                                ? 14
+                                : 10),
                   )
                 ],
               ),
@@ -96,7 +114,7 @@ class PopularDealsState extends State<PopularDeals> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => Container(
-                    width: width * 0.45,
+                    width: tabLayout ? width * 0.35 : width * 0.45,
                     height: double.infinity,
                     margin: EdgeInsets.only(right: width * 0.02),
                     // color: Colors.amber,
@@ -106,26 +124,40 @@ class PopularDealsState extends State<PopularDeals> {
                           Image.asset(
                             _popularDeals[index]['image'],
                             fit: BoxFit.cover,
-                            width: width * 0.45,
-                            height: height * 0.2,
+                            width: tabLayout
+                                ? width * 0.35
+                                : largeLayout
+                                    ? width * 0.45
+                                    : width * 0.3,
+                            height: tabLayout ? height * 0.24 : height * 0.2,
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: width * 0.03),
                             child: Text(
                               _popularDeals[index]['name'],
-                              textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: tabLayout
+                                      ? width * 0.02
+                                      : largeLayout
+                                          ? 14
+                                          : 12),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: width * 0.03),
                             child: Text(_popularDeals[index]['price'],
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
+                                // // textScaleFactor: textScaleFactor,
+                                style: TextStyle(
                                     color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: tabLayout
+                                        ? width * 0.02
+                                        : largeLayout
+                                            ? 14
+                                            : 1)),
                           ),
                         ]),
                   ),

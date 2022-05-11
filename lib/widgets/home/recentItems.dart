@@ -40,7 +40,9 @@ class RecentItemsState extends State<RecentItems> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Padding(
@@ -57,17 +59,27 @@ class RecentItemsState extends State<RecentItems> {
               children: [
                 Text(
                   'Recent Items',
-                  textScaleFactor: textScaleFactor,
-                  style: const TextStyle(
+                  // // textScaleFactor: textScaleFactor,
+                  style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                      fontSize: tabLayout
+                          ? 25
+                          : largeLayout
+                              ? 17
+                              : 12),
                 ),
                 Text(
                   'View All',
-                  textScaleFactor: textScaleFactor,
-                  style: const TextStyle(
-                      color: Colors.green, fontWeight: FontWeight.bold),
+                  // // textScaleFactor: textScaleFactor,
+                  style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                      fontSize: tabLayout
+                          ? 18
+                          : largeLayout
+                              ? 14
+                              : 10),
                 )
               ],
             ),
@@ -80,7 +92,11 @@ class RecentItemsState extends State<RecentItems> {
                     EdgeInsets.only(left: width * 0.02, right: width * 0.02),
                 child: Container(
                   width: double.infinity,
-                  height: height * 0.1,
+                  height: tabLayout
+                      ? height * 0.14
+                      : largeLayout
+                          ? height * 0.1
+                          : height * 0.12,
                   padding: EdgeInsets.fromLTRB(width * 0.01, height * 0.005,
                       width * 0.02, height * 0.005),
                   margin: EdgeInsets.only(bottom: height * 0.04),
@@ -111,7 +127,7 @@ class RecentItemsState extends State<RecentItems> {
                           children: [
                             Text(
                               _recentItems[index]['name'],
-                              textScaleFactor: textScaleFactor,
+                              // // textScaleFactor: textScaleFactor,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -120,7 +136,7 @@ class RecentItemsState extends State<RecentItems> {
                             SizedBox(height: height * 0.01),
                             Text(
                               _recentItems[index]['category'],
-                              textScaleFactor: textScaleFactor,
+                              // // textScaleFactor: textScaleFactor,
                               style: TextStyle(
                                 color: Colors.grey[600],
                                 fontWeight: FontWeight.bold,
@@ -132,7 +148,7 @@ class RecentItemsState extends State<RecentItems> {
                       SizedBox(width: width * 0.15),
                       Text(
                         _recentItems[index]['price'],
-                        textScaleFactor: textScaleFactor,
+                        // // textScaleFactor: textScaleFactor,
                         style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,

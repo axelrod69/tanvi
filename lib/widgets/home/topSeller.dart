@@ -42,7 +42,9 @@ class TopSellerState extends State<TopSeller> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Padding(
@@ -52,14 +54,25 @@ class TopSellerState extends State<TopSeller> {
         children: [
           Text(
             'Top Sellers',
-            textScaleFactor: textScaleFactor,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+            // // textScaleFactor: textScaleFactor,
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: tabLayout
+                    ? 25
+                    : largeLayout
+                        ? 17
+                        : 12),
           ),
           SizedBox(height: height * 0.01),
           Container(
             width: width * 0.9,
-            height: height * 0.28,
+            height: tabLayout
+                ? height * 0.33
+                : largeLayout
+                    ? height * 0.28
+                    : height * 0.3,
+            // color: Colors.red,
             margin: EdgeInsets.only(bottom: height * 0.04),
             child: Column(
               children: [
@@ -90,25 +103,39 @@ class TopSellerState extends State<TopSeller> {
                                 _popularDeals[index]['image'],
                                 fit: BoxFit.cover,
                                 width: width * 0.45,
-                                height: height * 0.2,
+                                height: tabLayout
+                                    ? height * 0.27
+                                    : largeLayout
+                                        ? height * 0.2
+                                        : height * 0.22,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
                                 child: Text(
                                   _popularDeals[index]['name'],
-                                  textScaleFactor: textScaleFactor,
-                                  style: const TextStyle(
+                                  // // textScaleFactor: textScaleFactor,
+                                  style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: tabLayout
+                                          ? width * 0.02
+                                          : largeLayout
+                                              ? 14
+                                              : 12),
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
                                 child: Text(_popularDeals[index]['price'],
-                                    textScaleFactor: textScaleFactor,
-                                    style: const TextStyle(
+                                    // // textScaleFactor: textScaleFactor,
+                                    style: TextStyle(
                                         color: Colors.black,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: tabLayout
+                                            ? width * 0.02
+                                            : largeLayout
+                                                ? 14
+                                                : 12)),
                               ),
                             ]),
                       ),
@@ -121,7 +148,13 @@ class TopSellerState extends State<TopSeller> {
           ),
           Container(
             width: width * 0.9,
-            height: height * 0.28,
+            height: tabLayout
+                ? height * 0.33
+                : largeLayout
+                    ? height * 0.28
+                    : height * 0.3,
+            // color: Colors.red,
+            margin: EdgeInsets.only(bottom: height * 0.04),
             child: Column(
               children: [
                 Expanded(
@@ -130,7 +163,7 @@ class TopSellerState extends State<TopSeller> {
                     height: height * 0.1,
                     padding: EdgeInsets.fromLTRB(width * 0.02, height * 0.005,
                         width * 0.02, height * 0.008),
-                    // margin: EdgeInsets.only(top: height * 0.01),
+                    margin: EdgeInsets.only(top: height * 0.01),
                     decoration: const BoxDecoration(
                       // color: Colors.red,
                       borderRadius: BorderRadius.only(
@@ -151,25 +184,39 @@ class TopSellerState extends State<TopSeller> {
                                 _popularDeals[index]['image'],
                                 fit: BoxFit.cover,
                                 width: width * 0.45,
-                                height: height * 0.2,
+                                height: tabLayout
+                                    ? height * 0.27
+                                    : largeLayout
+                                        ? height * 0.2
+                                        : height * 0.22,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
                                 child: Text(
                                   _popularDeals[index]['name'],
-                                  textScaleFactor: textScaleFactor,
-                                  style: const TextStyle(
+                                  // // textScaleFactor: textScaleFactor,
+                                  style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: tabLayout
+                                          ? width * 0.02
+                                          : largeLayout
+                                              ? 14
+                                              : 12),
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
                                 child: Text(_popularDeals[index]['price'],
-                                    textScaleFactor: textScaleFactor,
-                                    style: const TextStyle(
+                                    // // textScaleFactor: textScaleFactor,
+                                    style: TextStyle(
                                         color: Colors.black,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: tabLayout
+                                            ? width * 0.02
+                                            : largeLayout
+                                                ? 14
+                                                : 12)),
                               ),
                             ]),
                       ),

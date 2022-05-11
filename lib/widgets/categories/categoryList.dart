@@ -75,7 +75,7 @@ class CategoryListState extends State<CategoryList> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final provider =
         Provider.of<CategoryProductsProvider>(context).categoryProducts;
 
@@ -86,6 +86,7 @@ class CategoryListState extends State<CategoryList> {
         automaticallyImplyLeading: false,
         backgroundColor: const Color.fromRGBO(236, 236, 248, 1),
         toolbarHeight: 55,
+        centerTitle: true,
         title: Row(
           children: [
             InkWell(
@@ -115,7 +116,7 @@ class CategoryListState extends State<CategoryList> {
               padding: EdgeInsets.only(left: width * 0.12),
               child: Text(
                 widget.categoryName,
-                textScaleFactor: textScaleFactor,
+                // // textScaleFactor: textScaleFactor,
                 style: const TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold),
               ),
@@ -177,16 +178,21 @@ class CategoryListState extends State<CategoryList> {
                           // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: () => Navigator.of(context)
-                                  .pushNamed('/item-details', arguments: {
-                                'id': provider['data'][index]['id'],
-                                'image': provider['data'][index]['main_image'],
-                                'name': provider['data'][index]['name'],
-                                'quantity': _categoryItems[index]['quantity'],
-                                'description': provider['data'][index]
-                                    ['description'],
-                                'price': provider['data'][index]['price']
-                              }),
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed('/item-details', arguments: {
+                                  'id': provider['data'][index]['id'],
+                                  'image': provider['data'][index]
+                                      ['main_image'],
+                                  'name': provider['data'][index]['name'],
+                                  'quantity': _categoryItems[index]['quantity'],
+                                  'description': provider['data'][index]
+                                      ['description'],
+                                  'price': provider['data'][index]['price']
+                                });
+                                print(
+                                    'Quantity Print ${_categoryItems[index]['quantity']}');
+                              },
                               child: Container(
                                 width: width * 0.4,
                                 height: height * 0.15,
@@ -204,49 +210,52 @@ class CategoryListState extends State<CategoryList> {
                                   padding: EdgeInsets.only(left: width * 0.04),
                                   child: Text(provider['data'][index]['name'],
                                       // _categoryItems[index]['name'],
-                                      textScaleFactor: textScaleFactor,
+                                      // // textScaleFactor: textScaleFactor,
                                       style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold)),
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      )),
                                 ),
                               ],
                             ),
+                            SizedBox(height: height * 0.01),
+                            // Container(
+                            //   padding: EdgeInsets.only(left: width * 0.04),
+                            //   child: Row(
+                            //     children: [
+                            //       Text('₹',
+                            // textScaleFactor: textScaleFactor,
+                            //           style: const TextStyle(
+                            //             fontSize: 10,
+                            //             color: Colors.grey,
+                            //           )),
+                            //       SizedBox(width: width * 0.01),
+                            //       Text(_categoryItems[index]['discountPrice'],
+                            // textScaleFactor: textScaleFactor,
+                            //           style: const TextStyle(
+                            //             // fontSize: 12,
+                            //             color: Colors.grey,
+                            //           ))
+                            //     ],
+                            //   ),
+                            // ),
                             Container(
                               padding: EdgeInsets.only(left: width * 0.04),
                               child: Row(
                                 children: [
-                                  Text('₹',
-                                      textScaleFactor: textScaleFactor,
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.grey,
-                                      )),
-                                  SizedBox(width: width * 0.01),
-                                  Text(_categoryItems[index]['discountPrice'],
-                                      textScaleFactor: textScaleFactor,
-                                      style: const TextStyle(
-                                        // fontSize: 12,
-                                        color: Colors.grey,
-                                      ))
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: width * 0.04),
-                              child: Row(
-                                children: [
-                                  Text('₹',
-                                      textScaleFactor: textScaleFactor,
-                                      style: const TextStyle(
-                                          fontSize: 15,
+                                  const Text('₹',
+                                      // // textScaleFactor: textScaleFactor,
+                                      style: TextStyle(
+                                          fontSize: 18,
                                           color: Colors.green,
                                           fontWeight: FontWeight.bold)),
                                   SizedBox(width: width * 0.01),
                                   Text(
                                       '${provider['data'][index]['price'].toString()}/${provider['data'][index]['uom']['short_name']}',
-                                      textScaleFactor: textScaleFactor,
+                                      // // textScaleFactor: textScaleFactor,
                                       style: const TextStyle(
-                                          // fontSize: 15,
+                                          fontSize: 18,
                                           color: Colors.green,
                                           fontWeight: FontWeight.bold))
                                 ],
@@ -275,21 +284,21 @@ class CategoryListState extends State<CategoryList> {
                                             _categoryItems[index]['quantity']++;
                                           });
                                         },
-                                        child: Text('+',
-                                            textScaleFactor: textScaleFactor,
-                                            style: const TextStyle(
+                                        child: const Text('+',
+                                            // // textScaleFactor: textScaleFactor,
+                                            style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 15,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Text(
                                           _categoryItems[index]['quantity']
                                               .toString(),
                                           // count.toString(),
-                                          textScaleFactor: textScaleFactor,
+                                          // // textScaleFactor: textScaleFactor,
                                           style: const TextStyle(
                                               color: Colors.white,
-                                              fontSize: 15,
+                                              fontSize: 18,
                                               fontWeight: FontWeight.bold)),
                                       InkWell(
                                         onTap: () {
@@ -315,11 +324,11 @@ class CategoryListState extends State<CategoryList> {
                                           //   });
                                           // }
                                         },
-                                        child: Text('-',
-                                            textScaleFactor: textScaleFactor,
-                                            style: const TextStyle(
+                                        child: const Text('-',
+                                            // // textScaleFactor: textScaleFactor,
+                                            style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 15,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.bold)),
                                       )
                                     ],
@@ -344,10 +353,10 @@ class CategoryListState extends State<CategoryList> {
                                         borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(10),
                                             topRight: Radius.circular(10))),
-                                    child: Center(
+                                    child: const Center(
                                       child: Text('+',
-                                          textScaleFactor: textScaleFactor,
-                                          style: const TextStyle(
+                                          // // textScaleFactor: textScaleFactor,
+                                          style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold)),

@@ -12,7 +12,9 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+
+    print('width of Screen: $width');
 
     // TODO: implement build
     return Scaffold(
@@ -24,7 +26,7 @@ class SignIn extends StatelessWidget {
                 image: AssetImage('assets/images/Rectangle 392.png'),
                 fit: BoxFit.cover)),
         // margin: EdgeInsets.only(top: height * 0.15),
-        padding: EdgeInsets.only(top: height * 0.15),
+        padding: EdgeInsets.only(top: height * 0.11),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,23 +34,24 @@ class SignIn extends StatelessWidget {
             Center(
               child: Text(
                 'Welcome',
-                textScaleFactor: textScaleFactor,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                // textScaleFactor: textScaleFactor,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: width * 0.1),
               ),
             ),
             Center(
               child: Text(
                 'Login to start shopping',
-                textScaleFactor: textScaleFactor,
-                style: const TextStyle(
+                // textScaleFactor: textScaleFactor,
+                style: TextStyle(
                     // fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(154, 154, 154, 1),
-                    fontSize: 20),
+                    fontSize: width * 0.03),
               ),
             ),
             SizedBox(height: height * 0.04),
             FormWidget(),
+            SizedBox(height: height * 0.04),
           ],
         ),
       ),

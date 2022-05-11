@@ -18,10 +18,12 @@ class OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    bool tabLayout = width > 600;
+    bool largeLayout = width > 350 && width < 600;
 
     // TODO: implement build
     return Scaffold(
-      body: Container( 
+      body: Container(
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -33,19 +35,27 @@ class OtpScreenState extends State<OtpScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'An OTP has been sent to your Email',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontSize: 20),
+                  fontSize: tabLayout
+                      ? width * 0.03
+                      : largeLayout
+                          ? 20
+                          : 16),
             ),
-            const Text(
+            Text(
               'Please Enter to Continue',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontSize: 20),
+                  fontSize: tabLayout
+                      ? width * 0.03
+                      : largeLayout
+                          ? 20
+                          : 16),
             ),
             SizedBox(height: height * 0.02),
             Padding(

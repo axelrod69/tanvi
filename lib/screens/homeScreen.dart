@@ -29,7 +29,7 @@ class HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        backgroundColor: Color.fromRGBO(236, 236, 248, 1),
+        backgroundColor: const Color.fromRGBO(236, 236, 248, 1),
         // foregroundColor: Color.fromRGBO(236, 236, 248, 1),
         // backgroundColor: Colors.red,
         elevation: 0,
@@ -78,8 +78,11 @@ class HomeScreenState extends State<HomeScreen> {
                         // color: Colors.pink,
                         child: Row(
                           children: [
-                            const Icon(Icons.location_on,
-                                color: Colors.green, size: 35),
+                            Icon(Icons.location_on,
+                                color: Colors.green,
+                                size: !tabLayout && !largeLayout
+                                    ? width * 0.05
+                                    : 35),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -95,7 +98,7 @@ class HomeScreenState extends State<HomeScreen> {
                                             ? 18
                                             : largeLayout
                                                 ? 15
-                                                : 12),
+                                                : 10),
                                   ),
                                 ),
                                 // SizedBox(height: height * 0.01),
@@ -108,7 +111,7 @@ class HomeScreenState extends State<HomeScreen> {
                                           ? 18
                                           : largeLayout
                                               ? 15
-                                              : 12),
+                                              : 10),
                                 )
                               ],
                             )
@@ -137,10 +140,10 @@ class HomeScreenState extends State<HomeScreen> {
                           ]),
                       child: Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.search_outlined,
                             color: Colors.grey,
-                            size: 30,
+                            size: !tabLayout && !largeLayout ? 15 : 30,
                           ),
                           SizedBox(width: width * 0.04),
                           Text(
@@ -148,7 +151,11 @@ class HomeScreenState extends State<HomeScreen> {
                             // textScaleFactor: textScaleFactor,
                             style: TextStyle(
                                 color: Colors.grey.withOpacity(0.6),
-                                fontSize: 25),
+                                fontSize: tabLayout
+                                    ? width * 0.03
+                                    : largeLayout
+                                        ? 25
+                                        : 12),
                           )
                         ],
                       ),
@@ -198,7 +205,7 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(height: height * 0.15),
+            SizedBox(height: height * 0.05),
           ],
         ),
       ),
