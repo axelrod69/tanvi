@@ -138,18 +138,6 @@ class LocationProvider with ChangeNotifier {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + '/api/customer/shipping-address/');
 
-    var data = {
-      'name': 'Siddhartha Chatterjee',
-      'contact_number': '+919831405393',
-      'postcode': postCode,
-      'address_line': addressLine,
-      'locality': locality,
-      'city': city,
-      'state': state,
-      'save_address_as': 'home',
-      'is_default': true
-    };
-
     final response = await http.post(url,
         body: json.encode({
           'name': 'Siddhartha Chatterjee',
@@ -166,7 +154,7 @@ class LocationProvider with ChangeNotifier {
           'Authorization': 'Bearer ${localStorage.getString('token')}',
           'Content-Type': 'application/json'
         });
-    print('Input $data');
+
     print(json.decode(response.body));
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../model/coupon/couponProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class Discount extends StatefulWidget {
   DiscountState createState() => DiscountState();
@@ -62,7 +63,7 @@ class DiscountState extends State<Discount> {
                       InkWell(
                         onTap: () => showAlertDialog(
                             context,
-                            provider['data'][index]['offer_full_desc'],
+                            provider['data'][index]['offer_short_desc'],
                             provider['data'][index]['offer_code']),
                         child: Container(
                           margin: EdgeInsets.only(right: width * 0.02),
@@ -148,23 +149,40 @@ class DiscountState extends State<Discount> {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text('Offer Applicable'),
+              title: const Text('Offer Applicable'),
               content: Text(description, textAlign: TextAlign.center),
               actions: [
                 TextButton(
                     onPressed: () async {
                       SharedPreferences localStorage =
                           await SharedPreferences.getInstance();
-                      localStorage.setString('coupon', code).then((_) {
-                        Navigator.of(context).pop();
+                      var res = await Provider.of<CouponProvider>(context,
+                              listen: false)
+                          .applyCoupon(code);
+                      if (res['message'] != 'This Coupon is expired') {
+                        localStorage.setString('coupon', code).then((_) {
+                          Navigator.of(context).pop();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text('$code Selected',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                              action: SnackBarAction(
+                                  label: 'OK',
+                                  textColor: Colors.white,
+                                  onPressed: () =>
+                                      Navigator.of(context).pop())));
+                        });
+                      } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.green,
-                          content: Text('$code Selected'),
-                          action: SnackBarAction(
-                              label: 'OK',
-                              onPressed: () => Navigator.of(context).pop()),
-                        ));
-                      });
+                            backgroundColor: Colors.green,
+                            content: Text(res['message']),
+                            action: SnackBarAction(
+                                label: 'OK',
+                                textColor: Colors.white,
+                                onPressed: () => Navigator.of(context).pop())));
+                      }
                     },
                     child: const Text(
                       'Apply',

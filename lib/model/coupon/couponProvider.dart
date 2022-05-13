@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import './couponModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class CouponProvider with ChangeNotifier {
   String baseUrl = 'http://3.109.206.91:8000/';
@@ -20,5 +21,19 @@ class CouponProvider with ChangeNotifier {
     Coupon couponModel = couponFromJson(response.body);
     _coupon = couponModel.toJson();
     print('Coupons $_coupon');
+  }
+
+  applyCoupon(String code) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    final url = Uri.parse(baseUrl + 'api/offer/apply/');
+    final response =
+        await http.post(url, body: json.encode({'offer_code': code}), headers: {
+      'Authorization': 'Bearer ${localStorage.getString('token')}',
+      'Content-Type': 'application/json'
+    });
+
+    var res = json.decode(response.body);
+
+    return res;
   }
 }

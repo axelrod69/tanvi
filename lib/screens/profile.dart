@@ -10,6 +10,8 @@ class Profile extends StatefulWidget {
 
 class ProfileState extends State<Profile> {
   bool isLoading = true;
+  var index = 0;
+  String? address;
 
   @override
   void initState() {
@@ -29,10 +31,14 @@ class ProfileState extends State<Profile> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
-    // final provider = Provider.of<LocationProvider>(context).addressData;
+    final provider = Provider.of<LocationProvider>(context).addressData;
 
-    // String address =
-    //     '${provider['data']['address_line']}, ${provider['data']['locality']}, ${provider['data']['city']}, ${provider['data']['postcode']}, ${provider['data']['state']}';
+    // for (index in provider['data']) {
+    //   if (provider['data'][index]['is_default'] == true) {
+    //     address =
+    //         '${provider['data'][index]['address_line']}, ${provider['data'][index]['locality']}, ${provider['data'][index]['city']}, ${provider['data'][index]['postcode']}, ${provider['data'][index]['state']}';
+    //   }
+    // }
 
     // TODO: implement build
     return Scaffold(
@@ -56,22 +62,6 @@ class ProfileState extends State<Profile> {
                   padding: EdgeInsets.only(left: width * 0.01),
                   child: Row(
                     children: [
-                      // Container(
-                      //   height: height * 0.05,
-                      //   width: width * 0.1,
-                      //   padding: EdgeInsets.only(left: width * 0.025),
-                      //   decoration: BoxDecoration(
-                      //       color: Colors.white,
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       boxShadow: const [
-                      //         BoxShadow(
-                      //             color: Colors.grey,
-                      //             blurRadius: 5,
-                      //             offset: Offset(0, 2))
-                      //       ]),
-                      //   child:
-                      //       const Icon(Icons.arrow_back_ios, color: Colors.green),
-                      // ),
                       Flexible(
                         flex: 2,
                         fit: FlexFit.tight,

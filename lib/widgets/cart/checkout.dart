@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import '../../model/order/orderProvider.dart';
 
 class CheckOut extends StatefulWidget {
   CheckOutState createState() => CheckOutState();
@@ -78,35 +80,26 @@ class CheckOutState extends State<CheckOut> {
   }
 
   Future<void> openCheckOut() async {
-    // print('Order ID ${orderIdList[0]}');
     try {
-      // print('Discount Amount ${widget.discountAmount}');
-      // print('Coupon Code ${widget.couponCode}');
-      // Provider.of<OrderIdProvider>(context, listen: false)
-      //     .getOrderId('West Bengal', widget.couponCode)
-      //     .then((_) {
-      //   Provider.of<OrderIdProvider>(context, listen: false).orderId;
-      var options = {
-        // 'key': 'rzp_test_Y6HLJNhTBmNio8',
-        // 'key': 'rzp_test_Su2RqsYhHFrQnI',
-        // 'key': 'rzp_test_pLeJZKECvw4lZM', //Prabhu's
-        'key': 'rzp_test_xGrQHFJAeQY8uD',
-        'amount': 100 * 100,
-        'name': 'Tanvee Order',
-        // 'order_id': 'order_JOl9lnYqSnpZmR',
-        // 'order_id': Provider.of<OrderIdProvider>(context, listen: false)
-        //     .orderId['id'],
-        // 'description': 'Fine T-Shirt',
-        'prefill': {'contact': '+919831405393', 'email': 'siddc.8@gmail.com'}
-      };
-      // print(
-      //     'PAYMENT ID ${Provider.of<OrderIdProvider>(context, listen: false).orderId['id']}');
-      print('OPTIONS $options');
-      razorpay.open(options);
-      // }
-      // );
-      // print('PAYMENT ID AGAIN $paymentId');
-      // razorpay.open(options);
+      Provider.of<OrderProvider>(context, listen: false)
+          .postRazorPayOrder()
+          .then((_) {
+        var options = {
+          'key': 'rzp_test_xGrQHFJAeQY8uD',
+          'amount': Provider.of<OrderProvider>(context, listen: false)
+                  .orderId['data']['amount_due'] /
+              100,
+          'name': 'Tanvee Order',
+          'order_id': Provider.of<OrderProvider>(context, listen: false)
+              .orderId['data']['id'],
+          // 'order_id': Provider.of<OrderIdProvider>(context, listen: false)
+          //     .orderId['id'],
+          // 'description': 'Fine T-Shirt',
+          'prefill': {'contact': '+919831405393', 'email': 'siddc.8@gmail.com'}
+        };
+        print('OPTIONS $options');
+        razorpay.open(options);
+      });
     } catch (e) {
       debugPrint('Error: e');
     }
