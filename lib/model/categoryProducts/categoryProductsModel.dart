@@ -56,7 +56,7 @@ class Datum {
   final String name;
   final String shortDescription;
   final String description;
-  final bool status;
+  final String status;
   final double price;
   final String tax;
   final String mainImage;

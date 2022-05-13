@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import '../bottomNavigation.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CheckOut extends StatefulWidget {
   CheckOutState createState() => CheckOutState();
 }
 
 class CheckOutState extends State<CheckOut> {
+  late Razorpay razorpay;
   int selectedValue = 1;
   final List<dynamic> _categoryItems = [
     {
@@ -53,6 +55,79 @@ class CheckOutState extends State<CheckOut> {
       'weight': '2/KG'
     }
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    razorpay = Razorpay();
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse paymentSuccessResponse) {
+    Fluttertoast.showToast(
+        msg: "SUCCESS: " + paymentSuccessResponse.paymentId!,
+        toastLength: Toast.LENGTH_LONG);
+
+    print('Payment Success Order ID ${paymentSuccessResponse.orderId}');
+    print('Payment Success Payment ID ${paymentSuccessResponse.paymentId}');
+    print('Payment Success Signature ${paymentSuccessResponse.signature}');
+    // Navigator.of(context).pushNamed('/my-order-screen');
+  }
+
+  Future<void> openCheckOut() async {
+    // print('Order ID ${orderIdList[0]}');
+    try {
+      // print('Discount Amount ${widget.discountAmount}');
+      // print('Coupon Code ${widget.couponCode}');
+      // Provider.of<OrderIdProvider>(context, listen: false)
+      //     .getOrderId('West Bengal', widget.couponCode)
+      //     .then((_) {
+      //   Provider.of<OrderIdProvider>(context, listen: false).orderId;
+      var options = {
+        // 'key': 'rzp_test_Y6HLJNhTBmNio8',
+        // 'key': 'rzp_test_Su2RqsYhHFrQnI',
+        // 'key': 'rzp_test_pLeJZKECvw4lZM', //Prabhu's
+        'key': 'rzp_test_xGrQHFJAeQY8uD',
+        'amount': 100 * 100,
+        'name': 'Tanvee Order',
+        // 'order_id': 'order_JOl9lnYqSnpZmR',
+        // 'order_id': Provider.of<OrderIdProvider>(context, listen: false)
+        //     .orderId['id'],
+        // 'description': 'Fine T-Shirt',
+        'prefill': {'contact': '+919831405393', 'email': 'siddc.8@gmail.com'}
+      };
+      // print(
+      //     'PAYMENT ID ${Provider.of<OrderIdProvider>(context, listen: false).orderId['id']}');
+      print('OPTIONS $options');
+      razorpay.open(options);
+      // }
+      // );
+      // print('PAYMENT ID AGAIN $paymentId');
+      // razorpay.open(options);
+    } catch (e) {
+      debugPrint('Error: e');
+    }
+  }
+
+  void _handlePaymentError(PaymentFailureResponse paymentFailureResponse) {
+    Fluttertoast.showToast(
+        msg: "ERROR: " +
+            paymentFailureResponse.code.toString() +
+            "-" +
+            paymentFailureResponse.message!,
+        toastLength: Toast.LENGTH_LONG);
+    print('PAYMENT ERROR ${paymentFailureResponse.code.toString()}');
+    print('PAYMENT DESCRIPTION ${paymentFailureResponse.message}');
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse externalWalletResponse) {
+    Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET: " + externalWalletResponse.walletName!,
+        toastLength: Toast.LENGTH_SHORT);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -488,27 +563,32 @@ class CheckOutState extends State<CheckOut> {
             ),
             Padding(
               padding: EdgeInsets.only(left: width * 0.3, right: width * 0.3),
-              child: Container(
-                width: width * 0.1,
-                height: height * 0.06,
-                margin: EdgeInsets.only(bottom: height * 0.15),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.green,
-                          blurRadius: 5,
-                          offset: Offset(0, 2))
-                    ]),
-                child: Center(
-                  child: Text(
-                    'PAY',
-                    textScaleFactor: textScaleFactor,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+              child: InkWell(
+                onTap: () => selectedValue == 1
+                    ? print('Cash On Delivery to Go Here')
+                    : openCheckOut(),
+                child: Container(
+                  width: width * 0.1,
+                  height: height * 0.06,
+                  margin: EdgeInsets.only(bottom: height * 0.15),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.green,
+                            blurRadius: 5,
+                            offset: Offset(0, 2))
+                      ]),
+                  child: Center(
+                    child: Text(
+                      'PAY',
+                      textScaleFactor: textScaleFactor,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
                   ),
                 ),
               ),

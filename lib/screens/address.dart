@@ -132,6 +132,8 @@ class ChangeLocationState extends State<ChangeLocation> {
               Provider.of<LocationProvider>(context, listen: false)
                   .setNewAddress(latitude, longitude)
                   .then((_) {
+                Provider.of<LocationProvider>(context, listen: false)
+                    .setAddress();
                 Navigator.of(context).pop();
               });
             },

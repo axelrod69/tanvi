@@ -60,7 +60,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
           height: height * 0.06,
           width: double.infinity,
           margin: EdgeInsets.only(bottom: height * 0.02),
-          color: Colors.red,
+          // color: Colors.red,
           // padding: EdgeInsets.only(
           //   left: width * 0.15, top: height * 0.08,
           //   //  right: width * 0.04
@@ -246,19 +246,19 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                         ],
                       ),
                     ),
-                    Positioned(
-                      top: height * 0.001,
-                      left: width * 0.08,
-                      child: CircleAvatar(
-                        radius: tabLayout ? width * 0.02 : width * 0.025,
-                        backgroundColor: Colors.green,
-                        child: Text(
-                            provider['data']['cartItem'].length.toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                    )
+                    // Positioned(
+                    //   top: height * 0.001,
+                    //   left: width * 0.08,
+                    //   child: CircleAvatar(
+                    //     radius: tabLayout ? width * 0.02 : width * 0.025,
+                    //     backgroundColor: Colors.green,
+                    //     child: Text(
+                    //         provider['data']['cartItem'].length.toString(),
+                    //         style: const TextStyle(
+                    //             color: Colors.white,
+                    //             fontWeight: FontWeight.bold)),
+                    //   ),
+                    // )
                   ],
                 ),
               ),

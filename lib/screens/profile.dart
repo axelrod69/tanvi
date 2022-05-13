@@ -9,11 +9,30 @@ class Profile extends StatefulWidget {
 }
 
 class ProfileState extends State<Profile> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<LocationProvider>(context, listen: false)
+        .getAddress()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final provider = Provider.of<LocationProvider>(context).addressData;
+
+    // String address =
+    //     '${provider['data']['address_line']}, ${provider['data']['locality']}, ${provider['data']['city']}, ${provider['data']['postcode']}, ${provider['data']['state']}';
 
     // TODO: implement build
     return Scaffold(
