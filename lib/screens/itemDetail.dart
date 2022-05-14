@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../util/curvedAppBar.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -479,7 +480,8 @@ class ItemDetailsState extends State<ItemDetails> {
                                       ))),
                             )
                           : InkWell(
-                              onTap: () => cartAdd(id, quantity, context),
+                              onTap: () =>
+                                  cartAdd(id, quantity, context, provider),
                               child: Container(
                                 width: width * 0.3,
                                 height: height * 0.04,
@@ -515,11 +517,16 @@ class ItemDetailsState extends State<ItemDetails> {
     );
   }
 
-  void cartAdd(int productId, int quantity, BuildContext context) async {
+  void cartAdd(int productId, int quantity, BuildContext context,
+      Map<String, dynamic> provider) async {
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
             .postToCart(productId, quantity);
     final res = json.decode(response.body);
+
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setInt('cartLength', provider['data']['cartItem'].length);
+
     print(res);
     if (res['data']['message'] == 'Product added to cart.') {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

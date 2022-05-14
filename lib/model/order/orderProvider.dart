@@ -27,4 +27,21 @@ class OrderProvider with ChangeNotifier {
     print(_orderId);
     return _orderId;
   }
+
+  Future<Map<String, dynamic>> postCodOrder() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    final url = Uri.parse(baseUrl + 'api/customer/order-place/');
+    final response = await http.post(url,
+        body: json.encode({
+          'offer_code': localStorage.getString('coupon'),
+          'payment_method': 'COD'
+        }),
+        headers: {
+          'Authorization': 'Bearer ${localStorage.getString('token')}',
+          'Content-Type': 'application/json'
+        });
+    _orderId = json.decode(response.body);
+    print(_orderId);
+    return _orderId;
+  }
 }

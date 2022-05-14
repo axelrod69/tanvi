@@ -25,6 +25,7 @@ import './screens/address.dart';
 import './model/changeLocation/changeLocation.dart';
 import './model/coupon/couponProvider.dart';
 import './model/order/orderProvider.dart';
+import './model/popularDeals/popularDealsProducts.dart';
 
 void main() => runApp(MyApp());
 
@@ -81,6 +82,7 @@ class MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => ChangeLocationProvider()),
         ChangeNotifierProvider(create: (context) => CouponProvider()),
         ChangeNotifierProvider(create: (context) => OrderProvider()),
+        ChangeNotifierProvider(create: (context) => PopularDealsProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

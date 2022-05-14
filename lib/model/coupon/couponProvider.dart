@@ -7,9 +7,14 @@ import 'dart:convert';
 class CouponProvider with ChangeNotifier {
   String baseUrl = 'http://3.109.206.91:8000/';
   Map<String, dynamic> _coupon = {};
+  Map<String, dynamic> _couponDetails = {};
 
   Map<String, dynamic> get coupon {
     return {..._coupon};
+  }
+
+  Map<String, dynamic> get couponDetails {
+    return {..._couponDetails};
   }
 
   Future<void> fetchCoupons() async {
@@ -35,5 +40,22 @@ class CouponProvider with ChangeNotifier {
     var res = json.decode(response.body);
 
     return res;
+  }
+
+  Future<void> getCouponDetails(String id) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    final url = Uri.parse(baseUrl + 'api/offer/offer-list/$id');
+
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${localStorage.getString('token')}'
+    });
+
+    var res = json.decode(response.body);
+
+    _couponDetails = res;
+
+    localStorage.setString('couponDetails', json.encode(response.body));
+
+    print('Coupon Details: $_couponDetails');
   }
 }

@@ -353,8 +353,9 @@ class CartScreenState extends State<CartScreen> {
                     padding: EdgeInsets.only(
                         left: width * 0.082, right: height * 0.04),
                     child: InkWell(
-                      onTap: () =>
-                          Navigator.of(context).pushNamed('/checkout-screen'),
+                      onTap: () => Navigator.of(context).pushNamed(
+                          '/checkout-screen',
+                          arguments: {'data': provider}),
                       child: Container(
                           width: double.infinity,
                           height: height * 0.06,

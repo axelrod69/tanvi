@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../model/popularDeals/popularDealsProducts.dart';
 
 class PopularDeals extends StatefulWidget {
   PopularDealsState createState() => PopularDealsState();
 }
 
 class PopularDealsState extends State<PopularDeals> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<PopularDealsProvider>(context, listen: false)
+        .getPopularDeals()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
+
   final List<dynamic> _popularDeals = [
     {
       'id': 1,
@@ -45,6 +62,7 @@ class PopularDealsState extends State<PopularDeals> {
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    final provider = Provider.of<PopularDealsProvider>(context).popularDeals;
 
     // TODO: implement build
     return Padding(
@@ -121,20 +139,31 @@ class PopularDealsState extends State<PopularDeals> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.asset(
-                            _popularDeals[index]['image'],
-                            fit: BoxFit.cover,
-                            width: tabLayout
-                                ? width * 0.35
-                                : largeLayout
-                                    ? width * 0.45
-                                    : width * 0.3,
-                            height: tabLayout ? height * 0.24 : height * 0.2,
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 10,
+                                      offset: Offset(1, 2))
+                                ]),
+                            child: Image.network(
+                              'http://3.109.206.91:8000${provider['data'][index][0]['main_image']}',
+                              fit: BoxFit.contain,
+                              width: tabLayout
+                                  ? width * 0.35
+                                  : largeLayout
+                                      ? width * 0.45
+                                      : width * 0.3,
+                              height: tabLayout ? height * 0.24 : height * 0.2,
+                            ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: width * 0.03),
                             child: Text(
-                              _popularDeals[index]['name'],
+                              provider['data'][index][0]['name'],
                               // // textScaleFactor: textScaleFactor,
                               style: TextStyle(
                                   color: Colors.black,
@@ -148,7 +177,8 @@ class PopularDealsState extends State<PopularDeals> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: width * 0.03),
-                            child: Text(_popularDeals[index]['price'],
+                            child: Text(
+                                '₹${provider['data'][index][0]['price']}/${provider['data'][index][0]['uom']['short_name']}',
                                 // // textScaleFactor: textScaleFactor,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -161,7 +191,7 @@ class PopularDealsState extends State<PopularDeals> {
                           ),
                         ]),
                   ),
-                  itemCount: _popularDeals.length,
+                  itemCount: provider['data'].length,
                 ),
               ),
             )

@@ -3,6 +3,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../model/order/orderProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOut extends StatefulWidget {
   CheckOutState createState() => CheckOutState();
@@ -11,52 +12,6 @@ class CheckOut extends StatefulWidget {
 class CheckOutState extends State<CheckOut> {
   late Razorpay razorpay;
   int selectedValue = 1;
-  final List<dynamic> _categoryItems = [
-    {
-      'id': 1,
-      'name': 'Tomatoes',
-      'discountPrice': '30.00/kg',
-      'actualPrice': '₹ 30.25',
-      'decription':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'quantity': 1,
-      'image': 'assets/images/tomato-15559.png',
-      'weight': '2/KG'
-    },
-    {
-      'id': 2,
-      'name': 'Cabbage',
-      'discountPrice': '30.00/KG',
-      'actualPrice': '₹ 30.25',
-      'decription':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'quantity': 2,
-      'image': 'assets/images/PngItem_1310699.png',
-      'weight': '2/KG'
-    },
-    {
-      'id': 3,
-      'name': 'Onions',
-      'discountPrice': '30.00/kg',
-      'actualPrice': '₹ 30.25',
-      'decription':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'quantity': 3,
-      'image': 'assets/images/tomato-15559.png',
-      'weight': '2/KG'
-    },
-    {
-      'id': 4,
-      'name': 'Turnip',
-      'discountPrice': '30.00/kg',
-      'actualPrice': '₹ 30.25',
-      'decription':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'quantity': 4,
-      'image': 'assets/images/PngItem_1310699.png',
-      'weight': '2/KG'
-    }
-  ];
 
   @override
   void initState() {
@@ -79,7 +34,7 @@ class CheckOutState extends State<CheckOut> {
     // Navigator.of(context).pushNamed('/my-order-screen');
   }
 
-  Future<void> openCheckOut() async {
+  Future<void> razorPayCheckout() async {
     try {
       Provider.of<OrderProvider>(context, listen: false)
           .postRazorPayOrder()
@@ -105,6 +60,10 @@ class CheckOutState extends State<CheckOut> {
     }
   }
 
+  Future<void> codCheckOut() async {
+    Provider.of<OrderProvider>(context, listen: false).postCodOrder();
+  }
+
   void _handlePaymentError(PaymentFailureResponse paymentFailureResponse) {
     Fluttertoast.showToast(
         msg: "ERROR: " +
@@ -127,6 +86,12 @@ class CheckOutState extends State<CheckOut> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final routes =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    final data = routes['data'];
+
+    print('DATA: $data');
 
     // TODO: implement build
     return Scaffold(
@@ -170,61 +135,8 @@ class CheckOutState extends State<CheckOut> {
                 image: AssetImage('assets/images/Rectangle 392.png'),
                 fit: BoxFit.cover)),
         child: ListView(
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: double.infinity,
-              height: height * 0.08,
-              margin: EdgeInsets.only(top: height * 0.001),
-              decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border(
-                      top: BorderSide(color: Colors.green, width: 1),
-                      bottom: BorderSide(color: Colors.green, width: 1))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Order No:',
-                            textScaleFactor: textScaleFactor,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(width: width * 0.01),
-                        Text('ABvCD32',
-                            textScaleFactor: textScaleFactor,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold))
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Estimated Delivery Time:',
-                            textScaleFactor: textScaleFactor,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(width: width * 0.01),
-                        Text('38 mins',
-                            textScaleFactor: textScaleFactor,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold))
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(height: height * 0.015),
+            SizedBox(height: height * 0.03),
             Text('Your order',
                 textScaleFactor: textScaleFactor,
                 style: const TextStyle(fontSize: 18)),
@@ -266,17 +178,18 @@ class CheckOutState extends State<CheckOut> {
                                     blurRadius: 5,
                                     offset: Offset(0, 2))
                               ]),
-                          child: Image.asset(_categoryItems[index]['image'])),
+                          child: Image.network(
+                              data['data']['cartItem'][index]['mainImage'])),
                       Text(
-                        _categoryItems[index]['name'],
+                        data['data']['cartItem'][index]['productName'],
                         textScaleFactor: textScaleFactor,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
                 ),
-                itemCount: _categoryItems.length,
+                itemCount: data['data']['cartItem'].length,
               ),
             ),
             SizedBox(height: height * 0.02),
@@ -290,13 +203,13 @@ class CheckOutState extends State<CheckOut> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Amount To Pay',
+                      Text('Total',
                           textScaleFactor: textScaleFactor,
                           style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 13)),
-                      Text('₹250',
+                      Text('₹${data['data']['grandTotal']}',
                           textScaleFactor: textScaleFactor,
                           style: const TextStyle(
                               color: Colors.black,
@@ -557,13 +470,12 @@ class CheckOutState extends State<CheckOut> {
             Padding(
               padding: EdgeInsets.only(left: width * 0.3, right: width * 0.3),
               child: InkWell(
-                onTap: () => selectedValue == 1
-                    ? print('Cash On Delivery to Go Here')
-                    : openCheckOut(),
+                onTap: () =>
+                    selectedValue == 1 ? codCheckOut() : razorPayCheckout(),
                 child: Container(
                   width: width * 0.1,
                   height: height * 0.06,
-                  margin: EdgeInsets.only(bottom: height * 0.15),
+                  // margin: EdgeInsets.only(bottom: height * 0.15),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),

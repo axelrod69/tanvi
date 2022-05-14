@@ -64,6 +64,7 @@ class DiscountState extends State<Discount> {
                         onTap: () => showAlertDialog(
                             context,
                             provider['data'][index]['offer_short_desc'],
+                            provider['data'][index]['id'],
                             provider['data'][index]['offer_code']),
                         child: Container(
                           margin: EdgeInsets.only(right: width * 0.02),
@@ -99,6 +100,7 @@ class DiscountState extends State<Discount> {
                           onTap: () => showAlertDialog(
                               context,
                               provider['data'][index]['offer_full_desc'],
+                              provider['data'][index]['id'],
                               provider['data'][index]['offer_code']),
                           child: Center(
                             child: Text(
@@ -122,6 +124,7 @@ class DiscountState extends State<Discount> {
                           onTap: () => showAlertDialog(
                               context,
                               provider['data'][index]['offer_full_desc'],
+                              provider['data'][index]['id'],
                               provider['data'][index]['offer_code']),
                           child: Center(
                             child: Text(
@@ -144,7 +147,8 @@ class DiscountState extends State<Discount> {
           );
   }
 
-  void showAlertDialog(BuildContext context, String description, String code) {
+  void showAlertDialog(
+      BuildContext context, String description, String id, String code) {
     print('Dialog Clicked');
     showDialog(
         context: context,
@@ -156,6 +160,8 @@ class DiscountState extends State<Discount> {
                     onPressed: () async {
                       SharedPreferences localStorage =
                           await SharedPreferences.getInstance();
+                      Provider.of<CouponProvider>(context, listen: false)
+                          .getCouponDetails(id);
                       var res = await Provider.of<CouponProvider>(context,
                               listen: false)
                           .applyCoupon(code);

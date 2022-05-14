@@ -7,6 +7,7 @@ import '../screens/profile.dart';
 import 'package:provider/provider.dart';
 import '../authentication/network.dart';
 import '../model/addToCart/addToCart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
   CustomBottomNavigationState createState() => CustomBottomNavigationState();
