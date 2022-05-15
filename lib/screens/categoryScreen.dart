@@ -42,6 +42,8 @@ class CategoryScreenState extends State<CategoryScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final provider = Provider.of<CategoryProvider>(context).category;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
@@ -52,7 +54,7 @@ class CategoryScreenState extends State<CategoryScreen> {
         centerTitle: true,
         // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         backgroundColor: const Color.fromRGBO(236, 236, 248, 1),
-        toolbarHeight: 120,
+        toolbarHeight: tabLayout ? height * 0.16 : 120,
         title: Column(
           children: [
             Row(
@@ -60,7 +62,7 @@ class CategoryScreenState extends State<CategoryScreen> {
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
-                    height: height * 0.05,
+                    height: tabLayout ? height * 0.07 : height * 0.05,
                     width: width * 0.1,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -74,19 +76,22 @@ class CategoryScreenState extends State<CategoryScreen> {
                     child: Center(
                       child: Padding(
                         padding: EdgeInsets.only(left: width * 0.02),
-                        child: const Icon(Icons.arrow_back_ios,
-                            color: Colors.green),
+                        child: Icon(Icons.arrow_back_ios,
+                            size: tabLayout ? 40 : 14, color: Colors.green),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: width * 0.22),
+                  padding: EdgeInsets.only(
+                      left: tabLayout ? width * 0.28 : width * 0.22),
                   child: Text(
                     'Categories',
                     // textScaleFactor: textScaleFactor,
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: tabLayout ? 35 : 14),
                   ),
                 )
               ],
@@ -210,9 +215,10 @@ class CategoryScreenState extends State<CategoryScreen> {
                                 provider[index]['name'],
                                 textAlign: TextAlign.center,
                                 // textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: tabLayout ? 22 : 14),
                               ),
                             ),
                           ),

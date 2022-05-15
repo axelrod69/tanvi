@@ -79,6 +79,8 @@ class ItemDetailsState extends State<ItemDetails> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final route =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -125,7 +127,7 @@ class ItemDetailsState extends State<ItemDetails> {
                   ),
                   Positioned(
                       top: height * 0.04,
-                      left: width * 0.81,
+                      left: tabLayout ? width * 0.85 : width * 0.81,
                       child: InkWell(
                           onTap: () {
                             setState(() {
@@ -136,22 +138,23 @@ class ItemDetailsState extends State<ItemDetails> {
                                 .wishListAdd(id);
                           },
                           child: !isClicked
-                              ? const Icon(Icons.favorite_outline)
-                              : const Icon(
-                                  Icons.favorite,
+                              ? Icon(Icons.favorite_outline,
+                                  size: tabLayout ? 40 : 20)
+                              : Icon(Icons.favorite,
                                   color: Colors.pink,
-                                ))),
+                                  size: tabLayout ? 40 : 20))),
                   Positioned(
                       top: height * 0.04,
-                      left: width * 0.9,
+                      left: tabLayout ? width * 0.92 : width * 0.9,
                       child: InkWell(
                           onTap: () =>
                               Navigator.of(context).pushNamed('/cart-screen'),
-                          child: const Icon(Icons.shopping_cart_outlined))),
+                          child: Icon(Icons.shopping_cart_outlined,
+                              size: tabLayout ? 40 : 20))),
                   length == 0
                       ? const SizedBox()
                       : Positioned(
-                          top: height * 0.035,
+                          top: tabLayout ? height * 0.028 : height * 0.035,
                           left: width * 0.94,
                           child: CircleAvatar(
                             radius: width * 0.02,
@@ -159,14 +162,14 @@ class ItemDetailsState extends State<ItemDetails> {
                             child: Center(
                               child: length < 10
                                   ? Text(length.toString(),
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold))
-                                  : const Text('9+',
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 8,
+                                          fontSize: tabLayout ? 20 : 10,
+                                          fontWeight: FontWeight.bold))
+                                  : Text('9+',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: tabLayout ? 18 : 8,
                                           fontWeight: FontWeight.bold)),
                             ),
                           ),
@@ -176,7 +179,7 @@ class ItemDetailsState extends State<ItemDetails> {
                     left: width * 0.02,
                     child: Container(
                       width: width * 0.1,
-                      height: height * 0.05,
+                      height: tabLayout ? height * 0.07 : height * 0.05,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -190,8 +193,8 @@ class ItemDetailsState extends State<ItemDetails> {
                           onTap: () => Navigator.of(context).pop(),
                           child: Padding(
                             padding: EdgeInsets.only(left: width * 0.02),
-                            child: const Icon(Icons.arrow_back_ios,
-                                color: Colors.green),
+                            child: Icon(Icons.arrow_back_ios,
+                                color: Colors.green, size: tabLayout ? 40 : 14),
                           )),
                     ),
                   ),
@@ -205,7 +208,7 @@ class ItemDetailsState extends State<ItemDetails> {
                     //   height: height * 0.2
                     //   ),
                     child: Image.network('http://3.109.206.91:8000$image',
-                        height: height * 0.2),
+                        height: tabLayout ? height * 0.25 : height * 0.2),
                   )
                 ],
               ),
@@ -220,10 +223,10 @@ class ItemDetailsState extends State<ItemDetails> {
                 children: [
                   Text(name,
                       // textScaleFactor: textScaleFactor,
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25)),
+                          fontSize: tabLayout ? 40 : 25)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -236,7 +239,7 @@ class ItemDetailsState extends State<ItemDetails> {
                             RatingBar.builder(
                               allowHalfRating: true,
                               minRating: 1,
-                              itemSize: 24,
+                              itemSize: tabLayout ? 35 : 24,
                               // itemPadding: EdgeInsets.symmetric(
                               //     horizontal: 0.05, vertical: 0.05),
                               itemBuilder: (context, _) =>
@@ -249,7 +252,9 @@ class ItemDetailsState extends State<ItemDetails> {
                             ),
                             Text('($rating)',
                                 // textScaleFactor: textScaleFactor,
-                                style: const TextStyle(color: Colors.black)),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: tabLayout ? 25 : 14)),
                             // Container(
                             //     width: width * 0.4,
                             //     height: height * 0.1,
@@ -285,21 +290,22 @@ class ItemDetailsState extends State<ItemDetails> {
                                           blurRadius: 10,
                                           offset: Offset(0, 1))
                                     ]),
-                                child: const CircleAvatar(
-                                  radius: 18,
+                                child: CircleAvatar(
+                                  radius: tabLayout ? 28 : 18,
                                   backgroundColor: Colors.white,
                                   child: Icon(Icons.remove_sharp,
-                                      color: Colors.black, size: 30),
+                                      color: Colors.black,
+                                      size: tabLayout ? 40 : 30),
                                 ),
                               ),
                             ),
                             SizedBox(width: width * 0.04),
                             Text(counter.toString(),
                                 // textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 22)),
+                                    fontSize: tabLayout ? 40 : 22)),
                             SizedBox(width: width * 0.04),
                             InkWell(
                               onTap: () {
@@ -318,11 +324,12 @@ class ItemDetailsState extends State<ItemDetails> {
                                           blurRadius: 10,
                                           offset: Offset(0, 1))
                                     ]),
-                                child: const CircleAvatar(
-                                  radius: 18,
+                                child: CircleAvatar(
+                                  radius: tabLayout ? 28 : 18,
                                   backgroundColor: Colors.white,
                                   child: Icon(Icons.add,
-                                      color: Colors.black, size: 30),
+                                      color: Colors.black,
+                                      size: tabLayout ? 40 : 30),
                                 ),
                               ),
                             )
@@ -338,18 +345,19 @@ class ItemDetailsState extends State<ItemDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Description',
+                        Text('Description',
                             // textScaleFactor: textScaleFactor,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 18)),
+                                fontSize: tabLayout ? 30 : 18)),
                         SizedBox(height: height * 0.005),
                         Expanded(
                           child: Text(description.toString(),
                               // textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
-                                  color: Colors.grey, fontSize: 13)),
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: tabLayout ? 25 : 13)),
                         )
                       ],
                     ),
@@ -366,16 +374,16 @@ class ItemDetailsState extends State<ItemDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Offers On',
+                  Text('Offers On',
                       // textScaleFactor: textScaleFactor,
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 18)),
+                          fontSize: tabLayout ? 30 : 18)),
                   SizedBox(height: height * 0.02),
                   Container(
                     width: double.infinity,
-                    height: height * 0.14,
+                    height: tabLayout ? height * 0.15 : height * 0.14,
                     // color: Colors.amber,
                     padding: EdgeInsets.only(left: width * 0.02),
                     child: ListView.builder(
@@ -402,16 +410,18 @@ class ItemDetailsState extends State<ItemDetails> {
                                   ]),
                               child: Image.asset(
                                   'assets/images/tomato-15559.png',
-                                  height: height * 0.1,
-                                  width: height * 0.1),
+                                  height:
+                                      tabLayout ? height * 0.12 : height * 0.1,
+                                  width:
+                                      tabLayout ? width * 0.18 : height * 0.1),
                             ),
                             SizedBox(height: height * 0.01),
                             Text(_categoryItems[index]['name'],
                                 // textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ))
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: tabLayout ? 20 : 14))
                           ],
                         ),
                       ),
@@ -430,9 +440,10 @@ class ItemDetailsState extends State<ItemDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Price',
+                  Text('Price',
                       // textScaleFactor: textScaleFactor,
-                      style: TextStyle(color: Colors.black, fontSize: 20)),
+                      style: TextStyle(
+                          color: Colors.black, fontSize: tabLayout ? 45 : 20)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -448,16 +459,16 @@ class ItemDetailsState extends State<ItemDetails> {
                         // '₹${price.toString()}',
                         '₹${itemPrice.toString()}',
                         // textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 40),
+                            fontSize: tabLayout ? 45 : 40),
                       ),
                       // SizedBox(width: width * 0.1),
                       itemPrice == 0.0
                           ? Container(
-                              width: width * 0.3,
-                              height: height * 0.04,
+                              width: tabLayout ? width * 0.4 : width * 0.3,
+                              height: tabLayout ? height * 0.05 : height * 0.04,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -471,20 +482,21 @@ class ItemDetailsState extends State<ItemDetails> {
                                 //       offset: Offset(0, 2))
                                 // ]
                               ),
-                              child: const Center(
+                              child: Center(
                                   child: Text('Add To Cart',
                                       // textScaleFactor: textScaleFactor,
                                       style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ))),
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: tabLayout ? 20 : 14))),
                             )
                           : InkWell(
                               onTap: () =>
                                   cartAdd(id, quantity, context, provider),
                               child: Container(
-                                width: width * 0.3,
-                                height: height * 0.04,
+                                width: tabLayout ? width * 0.4 : width * 0.3,
+                                height:
+                                    tabLayout ? height * 0.05 : height * 0.04,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -497,13 +509,13 @@ class ItemDetailsState extends State<ItemDetails> {
                                           blurRadius: 5,
                                           offset: Offset(0, 2))
                                     ]),
-                                child: const Center(
+                                child: Center(
                                     child: Text('Add To Cart',
                                         // textScaleFactor: textScaleFactor,
                                         style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ))),
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: tabLayout ? 20 : 14))),
                               ),
                             )
                     ],

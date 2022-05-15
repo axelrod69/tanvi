@@ -50,7 +50,7 @@ class CategoriesState extends State<Categories> {
       padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       child: Container(
         width: width * 0.9,
-        height: !tabLayout && !largeLayout ? height * 0.3 : height * 0.23,
+        height: !tabLayout && !largeLayout ? height * 0.3 : height * 0.25,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),

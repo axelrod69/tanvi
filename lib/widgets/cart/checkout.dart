@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../model/order/orderProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class CheckOut extends StatefulWidget {
   CheckOutState createState() => CheckOutState();
@@ -12,15 +13,31 @@ class CheckOut extends StatefulWidget {
 class CheckOutState extends State<CheckOut> {
   late Razorpay razorpay;
   int selectedValue = 1;
+  var selectedCoupon;
+  String? coupon;
+  // bool isLoading = true;
+  String? couponCode;
+  double amount = 0;
+  String? minOrder;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getCoupon();
     razorpay = Razorpay();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  Future<void> getCoupon() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    couponCode = localStorage.getString('couponCode');
+    minOrder = localStorage.getString('couponAmount');
+    amount = double.parse(minOrder!);
+    print('Code: $couponCode');
+    print('Min Order: $amount');
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse paymentSuccessResponse) {
@@ -93,6 +110,8 @@ class CheckOutState extends State<CheckOut> {
 
     print('DATA: $data');
 
+    // print('Min Order Amount: ${double.parse(selectedCoupon['min_order_amt'])}');
+
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -129,7 +148,7 @@ class CheckOutState extends State<CheckOut> {
       body: Container(
         height: height * 1,
         width: width * 1,
-        padding: EdgeInsets.only(left: width * 0.04, right: height * 0.04),
+        padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/Rectangle 392.png'),
@@ -195,7 +214,7 @@ class CheckOutState extends State<CheckOut> {
             SizedBox(height: height * 0.02),
             Container(
               width: double.infinity,
-              height: height * 0.15,
+              // height: height * 0.18,
               // color: Colors.red,
               padding: EdgeInsets.only(left: width * 0.02, right: width * 0.02),
               child: Column(
@@ -227,7 +246,10 @@ class CheckOutState extends State<CheckOut> {
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 13)),
-                      Text('FREE',
+                      Text(
+                          amount <= data['data']['grandTotal']
+                              ? '$couponCode Applied'
+                              : 'Not Applicable',
                           textScaleFactor: textScaleFactor,
                           style: const TextStyle(
                               color: Colors.black,
@@ -240,6 +262,24 @@ class CheckOutState extends State<CheckOut> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Delivery Fee',
+                          textScaleFactor: textScaleFactor,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13)),
+                      Text('₹10',
+                          textScaleFactor: textScaleFactor,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13))
+                    ],
+                  ),
+                  SizedBox(height: height * 0.02),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Tax',
                           textScaleFactor: textScaleFactor,
                           style: const TextStyle(
                               color: Colors.black,
@@ -386,8 +426,8 @@ class CheckOutState extends State<CheckOut> {
                               '124, Park Street, Kolkata: 700016, West Bengal',
                               // overflow: TextOverflow.ellipsis,
                               textScaleFactor: textScaleFactor,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 12),
                             ),
                           )
                         ],
@@ -501,8 +541,6 @@ class CheckOutState extends State<CheckOut> {
           ],
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: CustomBottomNavigation(),
     );
   }
 }

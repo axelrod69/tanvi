@@ -44,17 +44,24 @@ class CouponProvider with ChangeNotifier {
 
   Future<void> getCouponDetails(String id) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    final url = Uri.parse(baseUrl + 'api/offer/offer-list/$id');
+    final url = Uri.parse(baseUrl + 'api/offer/offer/$id');
 
     final response = await http.get(url, headers: {
       'Authorization': 'Bearer ${localStorage.getString('token')}'
     });
 
-    var res = json.decode(response.body);
+    _couponDetails = json.decode(response.body);
 
-    _couponDetails = res;
+    // localStorage.setString('couponDetails', json.encode(response.body));
 
-    localStorage.setString('couponDetails', json.encode(response.body));
+    // var code = localStorage.getString('couponDetails');
+
+    // var res = json.decode(code!);
+
+    // print('Code ${res['min_order_amt']}');
+
+    localStorage.setString('couponCode', _couponDetails['offer_code']);
+    localStorage.setString('couponAmount', _couponDetails['min_order_amt']);
 
     print('Coupon Details: $_couponDetails');
   }

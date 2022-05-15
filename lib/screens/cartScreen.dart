@@ -14,6 +14,8 @@ class CartScreenState extends State<CartScreen> {
   Map<String, dynamic> updatedProducts = {};
   double totalPrice = 0.0;
   double? totalAmount;
+  int index = 0;
+  double tax = 0.0;
   Map<String, dynamic> _cartList = {};
 
   @override
@@ -29,9 +31,19 @@ class CartScreenState extends State<CartScreen> {
         // totalPrice = response['data']['grandTotal'];
       });
     });
+    taxCalculation();
     // updateCart;
     // updateCall;
     super.didChangeDependencies();
+  }
+
+  double taxCalculation() {
+    final taxCalculation = Provider.of<AddToCartProvider>(context).cartData;
+    for (final cartItem in taxCalculation['data']['cartItem']) {
+      tax += (cartItem['tax'] as num) / 100.0;
+    }
+    print('Tax: $tax');
+    return tax;
   }
 
   void updateCall() async {
@@ -82,6 +94,8 @@ class CartScreenState extends State<CartScreen> {
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final provider = Provider.of<AddToCartProvider>(context).cartData;
     var price = 0.0;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
 
     // print('Total ${provider['data']['grandTotal']}');
 
@@ -92,11 +106,11 @@ class CartScreenState extends State<CartScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
-        title: const Text('Shopping List',
+        title: Text('Shopping List',
             style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            )),
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: tabLayout ? 35 : 14)),
       ),
       body: isLoading
           ? const Center(
@@ -120,14 +134,15 @@ class CartScreenState extends State<CartScreen> {
                         margin: EdgeInsets.only(
                             top: height * 0.02, right: width * 0.02),
                         child: Row(
-                          children: const [
-                            const Icon(Icons.delete_forever, color: Colors.red),
+                          children: [
+                            Icon(Icons.delete_forever,
+                                color: Colors.red, size: tabLayout ? 40 : 24),
                             Text('Remove All',
                                 // // textScaleFactor: textScaleFactor,
                                 style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ))
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: tabLayout ? 25 : 14))
                           ],
                         ),
                       )
@@ -138,7 +153,7 @@ class CartScreenState extends State<CartScreen> {
                     // color: Colors.amber,
                     child: ListView.builder(
                       itemBuilder: (context, index) => Container(
-                        height: height * 0.11,
+                        height: tabLayout ? height * 0.15 : height * 0.11,
                         width: double.infinity,
                         margin: EdgeInsets.only(bottom: height * 0.04),
                         // color: Colors.red,
@@ -195,24 +210,24 @@ class CartScreenState extends State<CartScreen> {
                                               MainAxisAlignment.spaceAround,
                                           children: [
                                             Text(
-                                              provider['data']['cartItem']
-                                                      [index]['price']
-                                                  .toString(),
+                                              '₹${provider['data']['cartItem'][index]['price']}',
                                               // price.toString(),
                                               // // textScaleFactor: textScaleFactor,
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      tabLayout ? 25 : 14),
                                             ),
                                             Text(
                                               provider['data']['cartItem']
                                                   [index]['productName'],
                                               // // textScaleFactor: textScaleFactor,
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      tabLayout ? 25 : 14),
                                             ),
                                             // SizedBox(height: height * 0.02),
                                             Text(
@@ -220,10 +235,11 @@ class CartScreenState extends State<CartScreen> {
                                                       [index]['quantity']
                                                   .toString(),
                                               // // textScaleFactor: textScaleFactor,
-                                              style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      tabLayout ? 25 : 14),
                                             )
                                           ],
                                         ),
@@ -277,8 +293,8 @@ class CartScreenState extends State<CartScreen> {
                                             }
                                           });
                                         },
-                                        child:
-                                            const Icon(Icons.remove, size: 30)),
+                                        child: Icon(Icons.remove,
+                                            size: tabLayout ? 45 : 30)),
                                     Container(
                                       // height: height * 0.2,
                                       width: width * 0.12,
@@ -301,10 +317,10 @@ class CartScreenState extends State<CartScreen> {
                                                     ['quantity']
                                                 .toString(),
                                             // // textScaleFactor: textScaleFactor,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 18)),
+                                                fontSize: tabLayout ? 40 : 18)),
                                       ),
                                     ),
                                     InkWell(
@@ -331,7 +347,8 @@ class CartScreenState extends State<CartScreen> {
                                             // updateCall();
                                           });
                                         },
-                                        child: const Icon(Icons.add, size: 30)),
+                                        child: Icon(Icons.add,
+                                            size: tabLayout ? 45 : 30)),
                                   ],
                                 ),
                               ),
@@ -353,12 +370,13 @@ class CartScreenState extends State<CartScreen> {
                     padding: EdgeInsets.only(
                         left: width * 0.082, right: height * 0.04),
                     child: InkWell(
-                      onTap: () => Navigator.of(context).pushNamed(
-                          '/checkout-screen',
-                          arguments: {'data': provider}),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed('/checkout-screen', arguments: {
+                        'data': provider,
+                      }),
                       child: Container(
                           width: double.infinity,
-                          height: height * 0.06,
+                          height: tabLayout ? height * 0.08 : height * 0.06,
                           margin: EdgeInsets.only(
                               top: height * 0.04, bottom: height * 0.04),
                           decoration: BoxDecoration(
@@ -375,10 +393,11 @@ class CartScreenState extends State<CartScreen> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.04),
-                                child: const Text('Checkout',
+                                child: Text('Checkout',
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 22)),
+                                        color: Colors.black,
+                                        fontSize: tabLayout ? 35 : 22)),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(right: width * 0.04),
@@ -390,15 +409,14 @@ class CartScreenState extends State<CartScreen> {
                                     //         .toString()
                                     //     : totalPrice.toString(),
                                     totalPrice == 0.0
-                                        ? provider['data']['grandTotal']
-                                            .toString()
-                                        : totalPrice.toString(),
+                                        ? '₹${provider['data']['grandTotal']}'
+                                        : '₹$totalPrice',
                                     // price.toString(),
                                     // // textScaleFactor: textScaleFactor,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 22)),
+                                        fontSize: tabLayout ? 35 : 22)),
                               )
                             ],
                           )),
