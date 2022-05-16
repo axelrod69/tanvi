@@ -17,6 +17,8 @@ class DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
@@ -24,12 +26,15 @@ class DashboardState extends State<Dashboard> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
           'My Dashboard',
           // textScaleFactor: textScaleFactor,
-          style:
-              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: tabLayout ? 35 : 14),
         ),
       ),
       body: Container(
@@ -47,7 +52,7 @@ class DashboardState extends State<Dashboard> {
                 children: [
                   Container(
                     width: width * 0.32,
-                    height: height * 0.15,
+                    height: tabLayout ? height * 0.18 : height * 0.15,
                     padding: EdgeInsets.only(
                         top: height * 0.002,
                         right: width * 0.005,
@@ -96,18 +101,21 @@ class DashboardState extends State<Dashboard> {
                             Text(
                               'Eli Avon',
                               // textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 25),
+                                  fontSize: tabLayout ? 45 : 25),
                             ),
-                            const Icon(Icons.edit, color: Colors.black)
+                            Icon(Icons.edit,
+                                color: Colors.black, size: tabLayout ? 35 : 30)
                           ],
                         ),
                         Text(
                           'somewhere@somewhat.com',
                           // textScaleFactor: textScaleFactor,
-                          style: TextStyle(color: Colors.grey[700]),
+                          style: TextStyle(
+                              color: Colors.grey[700],
+                              fontSize: tabLayout ? 22 : 14),
                         )
                       ],
                     ),
@@ -142,15 +150,19 @@ class DashboardState extends State<Dashboard> {
                         Text(
                           '48, Tarun Sengupta Sarani',
                           // textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 15),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: tabLayout ? 20 : 15),
                         ),
-                        SizedBox(width: width * 0.15),
+                        SizedBox(
+                            width: tabLayout ? width * 0.52 : width * 0.15),
                         Text(
                           'Change',
                           // textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: tabLayout ? 18 : 15),
                         )
                       ],
                     ),
@@ -164,34 +176,31 @@ class DashboardState extends State<Dashboard> {
               child: Graph(),
             ),
             SizedBox(height: height * 0.02),
-            Row(
-              children: [
-                Container(
-                  height: height * 0.4,
-                  width: width * 0.6,
-                  // padding: EdgeInsets.symmetric(
-                  //     vertical: height * 0.02, horizontal: width * 0.02),
-                  padding: EdgeInsets.only(
-                      left: width * 0.02,
-                      top: height * 0.02,
-                      bottom: height * 0.02),
-                  // color: Colors.red,
-                  child: OrderHistory(),
-                ),
-                Container(
-                  height: height * 0.3,
-                  width: width * 0.4,
-                  // color: Colors.pink,
-                  padding: EdgeInsets.symmetric(
-                      vertical: height * 0.02, horizontal: width * 0.02),
-                  child: PaymentMethod(),
-                )
-              ],
+            Container(
+              height: tabLayout ? height * 0.5 : height * 0.4,
+              width: width * 0.6,
+              // padding: EdgeInsets.symmetric(
+              //     vertical: height * 0.02, horizontal: width * 0.02),
+              padding: EdgeInsets.only(
+                  left: width * 0.02,
+                  top: height * 0.02,
+                  right: width * 0.02,
+                  bottom: height * 0.02),
+              // color: Colors.red,
+              child: OrderHistory(),
             ),
+            // Container(
+            //       height: height * 0.3,
+            //       width: width * 0.4,
+            //       // color: Colors.pink,
+            //       padding: EdgeInsets.symmetric(
+            //           vertical: height * 0.02, horizontal: width * 0.02),
+            //       child: PaymentMethod(),
+            //     )
             SizedBox(height: height * 0.02),
             Container(
               width: double.infinity,
-              height: height * 0.25,
+              height: tabLayout ? height * 0.29 : height * 0.25,
               padding: EdgeInsets.only(
                   left: width * 0.02,
                   top: height * 0.01,
@@ -201,40 +210,36 @@ class DashboardState extends State<Dashboard> {
               child: Frequent(),
             ),
             SizedBox(height: height * 0.02),
-            Row(
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    height: height * 0.28,
-                    // color: Colors.red,
-                    padding: EdgeInsets.only(
-                        left: width * 0.02,
-                        top: height * 0.01,
-                        right: width * 0.02,
-                        bottom: height * 0.01),
-                    child: ReferFriend(),
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    height: height * 0.28,
-                    // color: Colors.blue,
-                    padding: EdgeInsets.only(
-                        left: width * 0.02,
-                        top: height * 0.01,
-                        right: width * 0.02,
-                        bottom: height * 0.01),
-                    child: DashboardNotification(),
-                  ),
-                )
-              ],
+            // Flexible(
+            //       flex: 1,
+            //       child: Container(
+            //         height: height * 0.28,
+            //         // color: Colors.red,
+            //         padding: EdgeInsets.only(
+            //             left: width * 0.02,
+            //             top: height * 0.01,
+            //             right: width * 0.02,
+            //             bottom: height * 0.01),
+            //         child: ReferFriend(),
+            //       ),
+            //     ),
+            Flexible(
+              flex: 1,
+              child: Container(
+                height: height * 0.28,
+                // color: Colors.blue,
+                padding: EdgeInsets.only(
+                    left: width * 0.02,
+                    top: height * 0.01,
+                    right: width * 0.02,
+                    bottom: height * 0.01),
+                child: DashboardNotification(),
+              ),
             ),
             SizedBox(height: height * 0.02),
             Container(
               width: width * 1,
-              height: height * 0.33,
+              height: tabLayout ? height * 0.35 : height * 0.33,
               // color: Colors.red,
               padding: EdgeInsets.only(
                   left: width * 0.02,
@@ -243,7 +248,7 @@ class DashboardState extends State<Dashboard> {
                   bottom: height * 0.01),
               child: ReviewAndRating(),
             ),
-            SizedBox(height: height * 0.2)
+            SizedBox(height: height * 0.06)
           ],
         ),
       ),

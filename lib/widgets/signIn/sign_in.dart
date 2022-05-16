@@ -221,6 +221,7 @@ class FormWidgetState extends State<FormWidget> {
                           : Container(
                               width: width * 0.15,
                               height: height * 0.08,
+                              // padding: EdgeInsets.only(top: height * 0.04),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -233,12 +234,12 @@ class FormWidgetState extends State<FormWidget> {
                                   ]),
                               child: TextFormField(
                                 showCursor: true,
-                                cursorHeight: height * 0.04,
+                                cursorHeight: height * 0.065,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(1)
                                 ],
                                 keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 45),
+                                style: const TextStyle(fontSize: 40),
                                 textAlign: TextAlign.center,
                                 decoration: const InputDecoration(
                                     focusedBorder: InputBorder.none,

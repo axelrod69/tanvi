@@ -27,6 +27,9 @@ class FrequentState extends State<Frequent> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
+
     // TODO: implement build
     return Container(
       width: double.infinity,
@@ -34,7 +37,7 @@ class FrequentState extends State<Frequent> {
       padding: EdgeInsets.only(
           left: width * 0.02, top: height * 0.01, right: width * 0.02),
       decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
               image: AssetImage('assets/images/Rectangle 392.png'),
               fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(20),
@@ -46,9 +49,11 @@ class FrequentState extends State<Frequent> {
         children: [
           Text(
             'Frequently Brought',
-            textScaleFactor: textScaleFactor,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+            // // textScaleFactor: textScaleFactor,
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: tabLayout ? 25 : 18),
           ),
           SizedBox(height: height * 0.01),
           Expanded(
@@ -69,8 +74,8 @@ class FrequentState extends State<Frequent> {
                   child: Column(
                     children: [
                       Container(
-                        width: height * 0.12,
-                        height: height * 0.12,
+                        width: tabLayout ? height * 0.25 : height * 0.12,
+                        height: tabLayout ? height * 0.175 : height * 0.12,
                         // padding: EdgeInsets.symmetric(
                         //     vertical: height * 0.02, horizontal: width * 0.02),
                         decoration: BoxDecoration(
@@ -84,15 +89,18 @@ class FrequentState extends State<Frequent> {
                             ]),
                         child: Image.asset(
                           _frequentItems[index]['image'],
-                          // fit: BoxFit.cover,
+                          // fit: BoxFit.contain,
+                          scale: 0.5,
                         ),
                       ),
                       SizedBox(height: height * 0.01),
                       Text(
                         _frequentItems[index]['name'],
-                        textScaleFactor: textScaleFactor,
+                        // // textScaleFactor: textScaleFactor,
                         style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: tabLayout ? 18 : 14),
                       )
                     ],
                   ),

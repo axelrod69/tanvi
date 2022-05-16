@@ -15,6 +15,8 @@ class DashboardNotificationState extends State<DashboardNotification> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     // final textScaleFactorTwo = MediaQuery.of(context).textScaleFactor * 1.4;
 
@@ -24,7 +26,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
       height: double.infinity,
       padding: EdgeInsets.only(top: height * 0.01),
       decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
               image: AssetImage('assets/images/Rectangle 392.png'),
               fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(20),
@@ -42,10 +44,10 @@ class DashboardNotificationState extends State<DashboardNotification> {
                 child: Text(
                   'Notification',
                   // // textScaleFactor: textScaleFactor,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                      fontSize: tabLayout ? 25 : 18),
                 ),
               ),
               Padding(
@@ -53,10 +55,10 @@ class DashboardNotificationState extends State<DashboardNotification> {
                 child: Text(
                   'View All',
                   // // textScaleFactor: textScaleFactor,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 10),
+                      fontSize: tabLayout ? 18 : 10),
                 ),
               )
             ],
@@ -69,7 +71,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Container(
                   width: double.infinity,
-                  height: height * 0.06,
+                  height: tabLayout ? height * 0.07 : height * 0.06,
                   // color: Colors.green,
                   margin: EdgeInsets.only(bottom: height * 0.01),
                   child: Row(
@@ -84,17 +86,18 @@ class DashboardNotificationState extends State<DashboardNotification> {
                               _notification[index]['name'],
                               overflow: TextOverflow.fade,
                               // textScaleFactor: textScaleFactorTwo,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 8),
+                                  fontSize: tabLayout ? 15 : 8),
                             ),
                             Text(
                               _notification[index]['time'],
                               // // textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.grey,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: tabLayout ? 15 : 8),
                             )
                           ],
                         ),

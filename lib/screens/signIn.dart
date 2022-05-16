@@ -12,6 +12,8 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    bool tabLayout = width > 600;
+    bool largeLayout = width > 350 && width < 600;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     print('width of Screen: $width');
@@ -26,7 +28,8 @@ class SignIn extends StatelessWidget {
                 image: AssetImage('assets/images/Rectangle 392.png'),
                 fit: BoxFit.cover)),
         // margin: EdgeInsets.only(top: height * 0.15),
-        padding: EdgeInsets.only(top: height * 0.11),
+        padding: EdgeInsets.only(
+            top: !tabLayout && !largeLayout ? height * 0.05 : height * 0.11),
         child: ListView(
           // mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.center,

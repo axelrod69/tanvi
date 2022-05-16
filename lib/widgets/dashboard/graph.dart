@@ -5,14 +5,16 @@ class Graph extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
 
     // TODO: implement build
     return Container(
       width: double.infinity,
-      height: height * 0.2,
+      height: tabLayout ? height * 0.25 : height * 0.2,
       decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
               image: AssetImage('assets/images/Rectangle 392.png'),
               fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(20),
@@ -26,9 +28,11 @@ class Graph extends StatelessWidget {
             padding: EdgeInsets.only(left: width * 0.02, top: height * 0.01),
             child: Text(
               'Order Graph',
-              textScaleFactor: textScaleFactor,
-              style: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.bold),
+              // // textScaleFactor: textScaleFactor,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: tabLayout ? 18 : 14),
             ),
           )
         ],

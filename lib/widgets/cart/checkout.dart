@@ -105,6 +105,8 @@ class CheckOutState extends State<CheckOut> {
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final routes =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
 
     final data = routes['data'];
 
@@ -119,31 +121,34 @@ class CheckOutState extends State<CheckOut> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         automaticallyImplyLeading: false,
+        toolbarHeight: tabLayout ? height * 0.05 : 120,
         leading: InkWell(
           onTap: () => Navigator.of(context).pop(),
           child: Container(
-              width: width * 0.1,
-              margin: EdgeInsets.only(left: width * 0.01),
-              //height: height * 0.02,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-                  ]),
-              child: Center(
-                  child: Padding(
+            height: tabLayout ? height * 0.07 : height * 0.05,
+            width: width * 0.1,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
+                ]),
+            child: Center(
+              child: Padding(
                 padding: EdgeInsets.only(left: width * 0.02),
-                child: const Icon(Icons.arrow_back_ios, color: Colors.green),
-              ))),
+                child: Icon(Icons.arrow_back_ios,
+                    size: tabLayout ? 40 : 14, color: Colors.green),
+              ),
+            ),
+          ),
         ),
         title: Text('Checkout',
-            textScaleFactor: textScaleFactor,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            )),
+            // // textScaleFactor: textScaleFactor,
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: tabLayout ? 35 : 14)),
       ),
       body: Container(
         height: height * 1,
@@ -157,15 +162,17 @@ class CheckOutState extends State<CheckOut> {
           children: [
             SizedBox(height: height * 0.03),
             Text('Your order',
-                textScaleFactor: textScaleFactor,
-                style: const TextStyle(fontSize: 18)),
+                // // textScaleFactor: textScaleFactor,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: tabLayout ? 26 : 18)),
             Text('12 product(s) from Wee Food',
-                textScaleFactor: textScaleFactor,
-                style: const TextStyle(fontSize: 15)),
+                // // textScaleFactor: textScaleFactor,
+                style: TextStyle(fontSize: tabLayout ? 20 : 15)),
             SizedBox(height: height * 0.015),
             Container(
               width: double.infinity,
-              height: height * 0.14,
+              height: tabLayout ? height * 0.18 : height * 0.14,
               // color: Colors.red,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -182,8 +189,8 @@ class CheckOutState extends State<CheckOut> {
                   child: Column(
                     children: [
                       Container(
-                          height: height * 0.1,
-                          width: height * 0.1,
+                          height: tabLayout ? height * 0.14 : height * 0.1,
+                          width: tabLayout ? height * 0.14 : height * 0.1,
                           padding: EdgeInsets.symmetric(
                               vertical: height * 0.01,
                               horizontal: width * 0.01),
@@ -201,9 +208,11 @@ class CheckOutState extends State<CheckOut> {
                               data['data']['cartItem'][index]['mainImage'])),
                       Text(
                         data['data']['cartItem'][index]['productName'],
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                        // // textScaleFactor: textScaleFactor,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: tabLayout ? 25 : 14),
                       ),
                     ],
                   ),
@@ -223,17 +232,17 @@ class CheckOutState extends State<CheckOut> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Total',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13)),
+                              fontSize: tabLayout ? 20 : 13)),
                       Text('₹${data['data']['grandTotal']}',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13))
+                              fontSize: tabLayout ? 20 : 13))
                     ],
                   ),
                   SizedBox(height: height * 0.02),
@@ -241,20 +250,20 @@ class CheckOutState extends State<CheckOut> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Coupon',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13)),
+                              fontSize: tabLayout ? 20 : 13)),
                       Text(
                           amount <= data['data']['grandTotal']
                               ? '$couponCode Applied'
                               : 'Not Applicable',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13))
+                              fontSize: tabLayout ? 20 : 13))
                     ],
                   ),
                   SizedBox(height: height * 0.02),
@@ -262,17 +271,17 @@ class CheckOutState extends State<CheckOut> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Delivery Fee',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13)),
+                              fontSize: tabLayout ? 20 : 13)),
                       Text('₹10',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13))
+                              fontSize: tabLayout ? 20 : 13))
                     ],
                   ),
                   SizedBox(height: height * 0.02),
@@ -280,17 +289,17 @@ class CheckOutState extends State<CheckOut> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Tax',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13)),
+                              fontSize: tabLayout ? 20 : 13)),
                       Text('₹10',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13))
+                              fontSize: tabLayout ? 20 : 13))
                     ],
                   ),
                   SizedBox(height: height * 0.02),
@@ -298,11 +307,11 @@ class CheckOutState extends State<CheckOut> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text('Payment Method',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13)),
+                              fontSize: tabLayout ? 20 : 13)),
                     ],
                   )
                 ],
@@ -313,7 +322,7 @@ class CheckOutState extends State<CheckOut> {
               padding: EdgeInsets.only(left: width * 0.01, right: width * 0.01),
               child: Container(
                 width: double.infinity,
-                height: height * 0.12,
+                height: tabLayout ? height * 0.1 : height * 0.12,
                 padding:
                     EdgeInsets.only(left: width * 0.04, right: height * 0.02),
                 decoration: BoxDecoration(
@@ -326,17 +335,18 @@ class CheckOutState extends State<CheckOut> {
                           offset: Offset(0, 2))
                     ]),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Cash On Delivery',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13),
+                              fontSize: tabLayout ? 22 : 13),
                         ),
                         Radio(
                             value: 1,
@@ -353,11 +363,11 @@ class CheckOutState extends State<CheckOut> {
                       children: [
                         Text(
                           'Razorpay',
-                          textScaleFactor: textScaleFactor,
-                          style: const TextStyle(
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13),
+                              fontSize: tabLayout ? 22 : 13),
                         ),
                         Radio(
                             value: 2,
@@ -379,19 +389,19 @@ class CheckOutState extends State<CheckOut> {
               children: [
                 Text(
                   'Delivery',
-                  textScaleFactor: textScaleFactor,
-                  style: const TextStyle(
+                  // // textScaleFactor: textScaleFactor,
+                  style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                      fontSize: tabLayout ? 26 : 18),
                 ),
                 Text(
                   'Change Location',
-                  textScaleFactor: textScaleFactor,
-                  style: const TextStyle(
+                  // // textScaleFactor: textScaleFactor,
+                  style: TextStyle(
                       color: Colors.black,
                       // fontWeight: FontWeight.bold,
-                      fontSize: 14),
+                      fontSize: tabLayout ? 20 : 14),
                 ),
               ],
             ),
@@ -413,11 +423,12 @@ class CheckOutState extends State<CheckOut> {
                                 shape: BoxShape.circle,
                                 border:
                                     Border.all(color: Colors.black, width: 2)),
-                            child: const CircleAvatar(
-                              radius: 18,
+                            child: CircleAvatar(
+                              radius: tabLayout ? 25 : 18,
                               backgroundColor: Colors.white,
                               child: Icon(Icons.assistant_direction_rounded,
-                                  color: Colors.green),
+                                  color: Colors.green,
+                                  size: tabLayout ? 40 : 24),
                             ),
                           ),
                           SizedBox(width: width * 0.03),
@@ -425,9 +436,10 @@ class CheckOutState extends State<CheckOut> {
                             child: Text(
                               '124, Park Street, Kolkata: 700016, West Bengal',
                               // overflow: TextOverflow.ellipsis,
-                              textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 12),
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: tabLayout ? 20 : 12),
                             ),
                           )
                         ],
@@ -439,11 +451,12 @@ class CheckOutState extends State<CheckOut> {
                                 shape: BoxShape.circle,
                                 border:
                                     Border.all(color: Colors.black, width: 2)),
-                            child: const CircleAvatar(
-                              radius: 18,
+                            child: CircleAvatar(
+                              radius: tabLayout ? 25 : 18,
                               backgroundColor: Colors.white,
                               child: Icon(Icons.arrow_drop_down_circle_outlined,
-                                  color: Colors.green),
+                                  color: Colors.green,
+                                  size: tabLayout ? 40 : 24),
                             ),
                           ),
                           SizedBox(width: width * 0.03),
@@ -451,9 +464,10 @@ class CheckOutState extends State<CheckOut> {
                             child: Text(
                               '48, Tarun Sengupta Sarani, Dum Dum, Kolkata: 700079, West Bengal',
                               // overflow: TextOverflow.ellipsis,
-                              textScaleFactor: textScaleFactor,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: tabLayout ? 20 : 12),
                             ),
                           )
                         ],
@@ -462,7 +476,7 @@ class CheckOutState extends State<CheckOut> {
                   ),
                   Positioned(
                     top: height * 0.0472,
-                    left: width * 0.042,
+                    left: tabLayout ? width * 0.026 : width * 0.042,
                     child: Container(
                       width: width * 0.01,
                       height: height * 0.045,
@@ -528,11 +542,11 @@ class CheckOutState extends State<CheckOut> {
                   child: Center(
                     child: Text(
                       'PAY',
-                      textScaleFactor: textScaleFactor,
-                      style: const TextStyle(
+                      // // textScaleFactor: textScaleFactor,
+                      style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                          fontSize: tabLayout ? 30 : 20),
                     ),
                   ),
                 ),

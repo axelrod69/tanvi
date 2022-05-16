@@ -30,8 +30,10 @@ class ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final provider = Provider.of<LocationProvider>(context).addressData;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
 
     // for (index in provider['data']) {
     //   if (provider['data'][index]['is_default'] == true) {
@@ -68,18 +70,19 @@ class ProfileState extends State<Profile> {
                         child: Container(
                           // width: width * 0.95,
                           height: height * 0.1,
-                          padding: EdgeInsets.only(right: width * 0.06),
+                          padding: EdgeInsets.only(
+                              right: tabLayout ? width * 0.12 : width * 0.06),
                           // color: Colors.red,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
                                 'Profile',
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
+                                // // textScaleFactor: textScaleFactor,
+                                style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 25),
+                                    fontSize: tabLayout ? 30 : 25),
                               ),
                             ],
                           ),
@@ -97,7 +100,8 @@ class ProfileState extends State<Profile> {
                             children: [
                               InkWell(
                                   onTap: logout,
-                                  child: Icon(Icons.logout_rounded))
+                                  child: Icon(Icons.logout_rounded,
+                                      size: tabLayout ? 30 : 24))
                             ],
                           ),
                         ),
@@ -110,8 +114,8 @@ class ProfileState extends State<Profile> {
                   height: height * 0.5,
                   // color: Colors.red,
                   padding: EdgeInsets.only(
-                      left: width * 0.04,
-                      right: width * 0.04,
+                      left: tabLayout ? width * 0.08 : width * 0.04,
+                      right: tabLayout ? width * 0.08 : width * 0.04,
                       bottom: height * 0.02),
                   child: Stack(
                     children: [
@@ -135,16 +139,18 @@ class ProfileState extends State<Profile> {
                               children: [
                                 Text(
                                   'Eli Avon',
-                                  textScaleFactor: textScaleFactor,
-                                  style: const TextStyle(
+                                  // // textScaleFactor: textScaleFactor,
+                                  style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 35),
+                                      fontSize: tabLayout ? 55 : 35),
                                 ),
                                 Text(
                                   'something@somewhere.com',
-                                  textScaleFactor: textScaleFactor,
-                                  style: TextStyle(color: Colors.grey[600]),
+                                  // // textScaleFactor: textScaleFactor,
+                                  style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: tabLayout ? 35 : 14),
                                 ),
                                 Expanded(
                                   child: Container(
@@ -181,12 +187,15 @@ class ProfileState extends State<Profile> {
                                                 child: Center(
                                                   child: Text(
                                                     'Change Email',
-                                                    textScaleFactor:
-                                                        textScaleFactor,
-                                                    style: const TextStyle(
+                                                    // textScaleFactor:
+                                                    // textScaleFactor,
+                                                    style: TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.bold,
+                                                        fontSize: tabLayout
+                                                            ? 20
+                                                            : 14),
                                                   ),
                                                 ),
                                               ),
@@ -212,12 +221,15 @@ class ProfileState extends State<Profile> {
                                                   child: Center(
                                                     child: Text(
                                                       'Change Payment',
-                                                      textScaleFactor:
-                                                          textScaleFactor,
-                                                      style: const TextStyle(
+                                                      // textScaleFactor:
+                                                      // textScaleFactor,
+                                                      style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: tabLayout
+                                                              ? 20
+                                                              : 14),
                                                     ),
                                                   ))
                                             ],
@@ -250,13 +262,16 @@ class ProfileState extends State<Profile> {
                                                           color: Colors.green)),
                                                   child: Center(
                                                     child: Text(
-                                                      'Change Password',
-                                                      textScaleFactor:
-                                                          textScaleFactor,
-                                                      style: const TextStyle(
+                                                      'Change Mobile Number',
+                                                      // textScaleFactor:
+                                                      // textScaleFactor,
+                                                      style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: tabLayout
+                                                              ? 20
+                                                              : 14),
                                                     ),
                                                   )),
                                               SizedBox(width: width * 0.02),
@@ -288,13 +303,15 @@ class ProfileState extends State<Profile> {
                                                     child: Center(
                                                       child: Text(
                                                         'Add Address',
-                                                        textScaleFactor:
-                                                            textScaleFactor,
-                                                        style: const TextStyle(
+                                                        // textScaleFactor:
+                                                        // textScaleFactor,
+                                                        style: TextStyle(
                                                             color: Colors.black,
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                                FontWeight.bold,
+                                                            fontSize: tabLayout
+                                                                ? 20
+                                                                : 14),
                                                       ),
                                                     )),
                                               )
@@ -325,8 +342,8 @@ class ProfileState extends State<Profile> {
                                         blurRadius: 5,
                                         offset: Offset(0, 2))
                                   ]),
-                              child: const CircleAvatar(
-                                radius: 60,
+                              child: CircleAvatar(
+                                radius: tabLayout ? 80 : 60,
                                 backgroundColor: Colors.amber,
                                 // child: Image.asset(
                                 //   'assets/images/rkwxkca7.png',
@@ -336,10 +353,11 @@ class ProfileState extends State<Profile> {
                             SizedBox(height: height * 0.005),
                             Text(
                               'Edit',
-                              textScaleFactor: textScaleFactor,
+                              // // textScaleFactor: textScaleFactor,
                               style: TextStyle(
                                   color: Colors.grey[600],
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: tabLayout ? 20 : 14),
                             )
                           ],
                         ),
@@ -354,9 +372,11 @@ class ProfileState extends State<Profile> {
                       padding: EdgeInsets.only(left: width * 0.04),
                       child: Text(
                         'Address',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                        // // textScaleFactor: textScaleFactor,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: tabLayout ? 25 : 14),
                       ),
                     ),
                     SizedBox(width: width * 0.2),
@@ -364,8 +384,10 @@ class ProfileState extends State<Profile> {
                       child: Text(
                         // '48, Tarun Sengupta Sarani, Dum Dum, Kolkata: 700079, West Bengal, India',
                         Provider.of<LocationProvider>(context).deliveryAddress,
-                        textScaleFactor: textScaleFactor,
-                        style: TextStyle(color: Colors.grey[700]),
+                        // // textScaleFactor: textScaleFactor,
+                        style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: tabLayout ? 25 : 14),
                       ),
                     )
                   ],
@@ -377,17 +399,21 @@ class ProfileState extends State<Profile> {
                     Padding(
                       padding: EdgeInsets.only(left: width * 0.04),
                       child: Text(
-                        'Password',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                        'Mobile Number',
+                        // // textScaleFactor: textScaleFactor,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: tabLayout ? 25 : 14),
                       ),
                     ),
-                    SizedBox(width: width * 0.17),
+                    SizedBox(width: width * 0.044),
                     Text(
-                      '*********',
-                      textScaleFactor: textScaleFactor,
-                      style: TextStyle(color: Colors.grey[700]),
+                      '+919831405393',
+                      // // textScaleFactor: textScaleFactor,
+                      style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: tabLayout ? 25 : 14),
                     )
                   ],
                 ),
@@ -398,17 +424,21 @@ class ProfileState extends State<Profile> {
                     Padding(
                       padding: EdgeInsets.only(left: width * 0.04),
                       child: Text(
-                        'Payment Method',
-                        textScaleFactor: textScaleFactor,
-                        style: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                        'Email',
+                        // // textScaleFactor: textScaleFactor,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: tabLayout ? 25 : 14),
                       ),
                     ),
                     SizedBox(width: width * 0.044),
                     Text(
                       'Cash On Delivery',
-                      textScaleFactor: textScaleFactor,
-                      style: TextStyle(color: Colors.grey[700]),
+                      // // textScaleFactor: textScaleFactor,
+                      style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: tabLayout ? 25 : 14),
                     )
                   ],
                 )

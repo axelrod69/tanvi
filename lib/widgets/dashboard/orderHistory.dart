@@ -33,14 +33,16 @@ class OrderHistoryState extends State<OrderHistory> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
+    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Container(
       width: width * 1,
       height: height * 1,
       decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
               image: AssetImage('assets/images/Rectangle 392.png'),
               fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(20),
@@ -59,10 +61,10 @@ class OrderHistoryState extends State<OrderHistory> {
                 child: Text(
                   'Order History',
                   // // textScaleFactor: textScaleFactor,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                      fontSize: tabLayout ? 25 : 18),
                 ),
               ),
               Padding(
@@ -71,10 +73,10 @@ class OrderHistoryState extends State<OrderHistory> {
                 child: Text(
                   'View All',
                   // // textScaleFactor: textScaleFactor,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 12),
+                      fontSize: tabLayout ? 16 : 12),
                 ),
               )
             ],
@@ -88,7 +90,7 @@ class OrderHistoryState extends State<OrderHistory> {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => Container(
                 width: double.infinity,
-                height: height * 0.1,
+                height: tabLayout ? height * 0.14 : height * 0.1,
                 margin: EdgeInsets.only(bottom: height * 0.005),
                 // color: Colors.blue,
                 child: Row(
@@ -124,7 +126,7 @@ class OrderHistoryState extends State<OrderHistory> {
                       ),
                     ),
                     Flexible(
-                      flex: 2,
+                      flex: 3,
                       child: Container(
                         height: double.infinity,
                         // color: Colors.purple,
@@ -136,18 +138,18 @@ class OrderHistoryState extends State<OrderHistory> {
                               _orderHistory[index]['name'],
                               // // textScaleFactor: textScaleFactor,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16),
+                                  fontSize: tabLayout ? 25 : 16),
                             ),
                             Text(
                               'No. of Item = ${_orderHistory[index]['quantity'].toString()}',
                               // // textScaleFactor: textScaleFactor,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 12),
+                                  fontSize: tabLayout ? 20 : 12),
                             ),
                             Text(
                               _orderHistory[index]['status'],
@@ -161,7 +163,7 @@ class OrderHistoryState extends State<OrderHistory> {
                                           ? Colors.amber
                                           : Colors.red,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16),
+                                  fontSize: tabLayout ? 20 : 16),
                             )
                           ],
                         ),

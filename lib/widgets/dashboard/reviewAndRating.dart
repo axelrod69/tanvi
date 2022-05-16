@@ -33,6 +33,8 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final tabLayout = width > 600;
+    final largeLayout = width > 350 && width < 600;
 
     // TODO: implement build
     return Container(
@@ -54,9 +56,11 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
         children: [
           Text(
             'Review and Rating',
-            textScaleFactor: textScaleFactor,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+            // // textScaleFactor: textScaleFactor,
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: tabLayout ? 25 : 18),
           ),
           SizedBox(height: height * 0.005),
           Expanded(
@@ -67,7 +71,7 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Container(
                   width: double.infinity,
-                  height: height * 0.08,
+                  height: tabLayout ? height * 0.1 : height * 0.08,
                   margin: EdgeInsets.only(bottom: height * 0.01),
                   padding:
                       EdgeInsets.only(left: width * 0.01, right: width * 0.01),
@@ -77,23 +81,27 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                       Image.asset(
                         _review[index]['image'],
                         fit: BoxFit.cover,
+                        scale: 0.6,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             _review[index]['name'],
-                            textScaleFactor: textScaleFactor,
-                            style: const TextStyle(
+                            // // textScaleFactor: textScaleFactor,
+                            style: TextStyle(
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                fontSize: tabLayout ? 22 : 14),
                           ),
                           Text(
                             _review[index]['description'],
-                            textScaleFactor: textScaleFactor,
-                            style: const TextStyle(
+                            // // textScaleFactor: textScaleFactor,
+                            style: TextStyle(
                                 color: Colors.grey,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                fontSize: tabLayout ? 20 : 14),
                           ),
                           SizedBox(height: height * 0.005),
                           Row(
@@ -101,7 +109,7 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                               RatingBar.builder(
                                 allowHalfRating: true,
                                 minRating: 1,
-                                itemSize: 12,
+                                itemSize: tabLayout ? 18 : 12,
                                 // itemPadding: EdgeInsets.symmetric(
                                 //     horizontal: 0.05, vertical: 0.05),
                                 itemBuilder: (context, _) => const Icon(
@@ -116,11 +124,11 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                               SizedBox(width: width * 0.01),
                               Text(
                                 '(${_review[index]['totalRatings'].toString()})',
-                                textScaleFactor: textScaleFactor,
-                                style: const TextStyle(
+                                // // textScaleFactor: textScaleFactor,
+                                style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 12),
+                                    fontSize: tabLayout ? 15 : 12),
                               )
                             ],
                           )
