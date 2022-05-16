@@ -17,6 +17,13 @@ class CategoryProductsProvider with ChangeNotifier {
     // print(response.body);
     CategoryProducts category = categoryProductsFromJson(response.body);
     _categoryProducts = category.toJson();
+
+    for (int index = 0; index < _categoryProducts['data'].length; index++) {
+      _categoryProducts['data'][index]['selectedQuantity'] = 0;
+      print(
+          'Quantity: ${_categoryProducts['data'][index]['selectedQuantity']}');
+    }
+
     print('Category Products $_categoryProducts');
   }
 }

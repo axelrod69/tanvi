@@ -100,6 +100,9 @@ class ItemDetailsState extends State<ItemDetails> {
       length = Provider.of<AddToCartProvider>(context)
           .cartData['data']['cartItem']
           .length;
+      itemPrice = price * counter.toDouble();
+      print('Item Price: $itemPrice');
+      print('Counter $counter');
       print('Length $length');
     });
 

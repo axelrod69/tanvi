@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../model/categoryProducts/categoryProductsProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryList extends StatefulWidget {
   final int id;
@@ -26,8 +27,14 @@ class CategoryListState extends State<CategoryList> {
         isLoading = false;
       });
     });
+    // categoryCount();
     super.initState();
   }
+
+  // Future<void> categoryCount() async {
+  //   SharedPreferences localStorage = await SharedPreferences.getInstance();
+  //   count = localStorage.getInt('categoryCounter')!;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +155,8 @@ class CategoryListState extends State<CategoryList> {
                                   'image': provider['data'][index]
                                       ['main_image'],
                                   'name': provider['data'][index]['name'],
-                                  'quantity': count,
+                                  'quantity': provider['data'][index]
+                                      ['selectedQuantity'],
                                   'description': provider['data'][index]
                                       ['description'],
                                   'price': provider['data'][index]['price']
@@ -207,110 +215,130 @@ class CategoryListState extends State<CategoryList> {
                             ),
                           ],
                         ),
-                        !isClicked
-                            ? Positioned(
-                                top: tabLayout ? height * 0.26 : height * 0.152,
-                                right: width * 0.01,
-                                child: Container(
-                                  width: tabLayout ? width * 0.09 : width * 0.1,
-                                  height:
-                                      tabLayout ? height * 0.1 : height * 0.08,
-                                  padding: EdgeInsets.only(top: height * 0.005),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10))),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            count =
-                                                provider['data'][index]['qty'];
-                                            count++;
-                                          });
-                                        },
-                                        child: Text('+',
-                                            // // textScaleFactor: textScaleFactor,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: tabLayout ? 30 : 18,
-                                                fontWeight: FontWeight.bold)),
-                                      ),
-                                      Text(count.toString(),
-                                          // count.toString(),
-                                          // // textScaleFactor: textScaleFactor,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: tabLayout ? 30 : 18,
-                                              fontWeight: FontWeight.bold)),
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            // while (count > 0) {
-                                            //   count--;
-                                            // }
-
-                                            if (provider['data'][index]
-                                                    ['qty'] !=
-                                                0) {
-                                              // provider['data'][index]['qty']--;
-                                              count--;
-                                            } else {
-                                              // provider['data'][index]['qty'] =
-                                              //     0;
-                                              count = 0;
-                                            }
-                                          });
-                                          // if (provider['data'][index]['qty'] ==
-                                          //     0) {
-                                          //   setState(() {
-                                          // isClicked = false;
-                                          //   });
-                                          // }
-                                        },
-                                        child: Text('-',
-                                            // // textScaleFactor: textScaleFactor,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: tabLayout ? 30 : 18,
-                                                fontWeight: FontWeight.bold)),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : Positioned(
-                                top: height * 0.2,
-                                right: width * 0.01,
-                                child: InkWell(
-                                  onTap: () {
+                        // !isClicked
+                        // ?
+                        Positioned(
+                          top: tabLayout ? height * 0.26 : height * 0.152,
+                          right: width * 0.01,
+                          child: Container(
+                            width: tabLayout ? width * 0.09 : width * 0.1,
+                            height: tabLayout ? height * 0.1 : height * 0.08,
+                            padding: EdgeInsets.only(top: height * 0.005),
+                            decoration: const BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    SharedPreferences localStorage =
+                                        await SharedPreferences.getInstance();
                                     setState(() {
-                                      // isClicked = true;
-                                      provider['data'][index]['qty']++;
+                                      provider['data'][index]
+                                          ['selectedQuantity']++;
+                                      // localStorage.setInt(
+                                      //     'categoryCounter',
+                                      //     provider['data'][index]
+                                      //         ['selectedQuantity']++);
+                                      print('Increased');
                                     });
                                   },
-                                  child: Container(
-                                    width: width * 0.1,
-                                    height: height * 0.035,
-                                    decoration: const BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10))),
-                                    child: const Center(
-                                      child: Text('+',
-                                          // // textScaleFactor: textScaleFactor,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                  ),
+                                  child: Text('+',
+                                      // // textScaleFactor: textScaleFactor,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: tabLayout ? 30 : 18,
+                                          fontWeight: FontWeight.bold)),
                                 ),
-                              ),
+                                Text(
+                                    provider['data'][index]['selectedQuantity']
+                                        .toString(),
+                                    // count.toString(),
+                                    // // textScaleFactor: textScaleFactor,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: tabLayout ? 30 : 18,
+                                        fontWeight: FontWeight.bold)),
+                                InkWell(
+                                  onTap: () async {
+                                    SharedPreferences localStorage =
+                                        await SharedPreferences.getInstance();
+                                    setState(() {
+                                      // while (count > 0) {
+                                      //   count--;
+                                      // }
+
+                                      if (provider['data'][index]
+                                              ['selectedQuantity'] >
+                                          0) {
+                                        // provider['data'][index]['qty']--;
+                                        provider['data'][index]
+                                            ['selectedQuantity']--;
+                                        // localStorage.setInt(
+                                        //     'categoryCounter',
+                                        //     provider['data'][index]
+                                        //         ['selectedQuantity']--);
+                                      } else {
+                                        // provider['data'][index]['qty'] =
+                                        //     0;
+                                        provider['data'][index]
+                                            ['selectedQuantity'] = 0;
+                                        // localStorage.setInt(
+                                        //     'categoryCounter', 0);
+                                      }
+
+                                      print('Decreased');
+                                    });
+                                    // if (provider['data'][index]['qty'] ==
+                                    //     0) {
+                                    //   setState(() {
+                                    // isClicked = false;
+                                    //   });
+                                    // }
+                                  },
+                                  child: Text('-',
+                                      // // textScaleFactor: textScaleFactor,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: tabLayout ? 30 : 18,
+                                          fontWeight: FontWeight.bold)),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                        // : Positioned(
+                        //     top: height * 0.2,
+                        //     right: width * 0.01,
+                        //     child: InkWell(
+                        //       onTap: () {
+                        //         setState(() {
+                        //           // isClicked = true;
+                        //           provider['data'][index]['qty']++;
+                        //         });
+                        //       },
+                        //       child: Container(
+                        //         width: width * 0.1,
+                        //         height: height * 0.035,
+                        //         decoration: const BoxDecoration(
+                        //             color: Colors.green,
+                        //             borderRadius: BorderRadius.only(
+                        //                 topLeft: Radius.circular(10),
+                        //                 topRight: Radius.circular(10))),
+                        //         child: const Center(
+                        //           child: Text('+',
+                        //               // // textScaleFactor: textScaleFactor,
+                        //               style: TextStyle(
+                        //                   color: Colors.white,
+                        //                   fontSize: 18,
+                        //                   fontWeight: FontWeight.bold)),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
                       ],
                     ),
                   ),

@@ -51,14 +51,14 @@ android {
         multiDexEnabled = true
     }
 
-    signingConfigs {
-        debug {
-            keyAlias 'uploadkeystoreTanvee'
-            keyPassword 'android'
-            storeFile file('upload-keystoreTanvee.jks')
-            storePassword 'android'
-        }
-    }
+    // signingConfigs {
+    //     debug {
+    //         keyAlias 'uploadkeystoreTanvee'
+    //         keyPassword 'android'
+    //         storeFile file('upload-keystoreTanvee.jks')
+    //         storePassword 'android'
+    //     }
+    // }
 
     buildTypes {
         release {

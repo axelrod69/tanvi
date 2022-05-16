@@ -13,7 +13,7 @@ class CartScreenState extends State<CartScreen> {
   bool isLoading = true;
   Map<String, dynamic> updatedProducts = {};
   double totalPrice = 0.0;
-  double? totalAmount;
+  double totalAmount = 0.0;
   int index = 0;
   double tax = 0.0;
   Map<String, dynamic> _cartList = {};
@@ -31,13 +31,21 @@ class CartScreenState extends State<CartScreen> {
         // totalPrice = response['data']['grandTotal'];
       });
     });
-    taxCalculation();
+    // getTotalPriceCalculation();
     // updateCart;
     // updateCall;
     super.didChangeDependencies();
   }
 
-  double taxCalculation() {
+  // Future<void> getTotalPriceCalculation() async {
+  //   SharedPreferences localStorage = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     localStorage.setDouble('counter', 0.0);
+  //     totalPrice = localStorage.getDouble('counter')!;
+  //   });
+  // }
+
+  double get taxCalculation {
     final taxCalculation = Provider.of<AddToCartProvider>(context).cartData;
     for (final cartItem in taxCalculation['data']['cartItem']) {
       tax += (cartItem['tax'] as num) / 100.0;
@@ -56,13 +64,20 @@ class CartScreenState extends State<CartScreen> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     print('Called');
     print('Quantity $quantity');
-    totalPrice = grandTotal;
+    // totalPrice = grandTotal;
     setState(() {
-      totalPrice += amount * 1.0;
+      // totalPrice = grandTotal;
+
+      // totalPrice += amount * 1.0;
+      totalPrice += amount;
+      // totalAmount = totalPrice + grandTotal;
+      // localStorage.setDouble('counter', totalPrice);
+      // totalPrice = localStorage.getDouble('counter')!;
+      print('Total Priceeeeeeeeeeeeeeeee $totalPrice');
     });
-    print('Total Priceeeeeeeeeeeeeeeee $totalPrice');
-    localStorage.setDouble('totalAmount', totalPrice);
-    totalAmount = localStorage.getDouble('totalAmount');
+    totalAmount = totalPrice + grandTotal;
+    // localStorage.setDouble('totalAmount', totalPrice);
+    // totalAmount = localStorage.getDouble('totalAmount');
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
             .editCartItem(id, quantity);
@@ -71,17 +86,27 @@ class CartScreenState extends State<CartScreen> {
   void updateCartDecrease(
       String id, int quantity, double amount, double grandTotal) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
+    double itemTotal = 0.0;
     print('Called');
     print('Quantity $quantity');
-    totalPrice = grandTotal;
     setState(() {
       // totalPrice = grandTotal;
-      totalPrice -= amount * 1.0;
+
       // totalPrice = grandTotal;
+      // totalPrice -= amount * 1.0;
+      itemTotal += amount;
+      totalAmount = totalAmount > 0.0 ? totalAmount - itemTotal : 0.0;
+
+      // localStorage.setDouble('counter', totalPrice);
+      // totalPrice = localStorage.getDouble('counter')!;
+      // totalPrice = grandTotal;
+      print('Total Priceeeeeeeeeeeeeeeee D $totalPrice');
     });
-    print('Total Priceeeeeeeeeeeeeeeee D $totalPrice');
-    localStorage.setDouble('totalAmount', totalPrice);
-    totalAmount = localStorage.getDouble('totalAmount');
+
+    // totalPrice = grandTotal;
+
+    // localStorage.setDouble('totalAmount', totalPrice);
+    // totalAmount = localStorage.getDouble('totalAmount');
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
             .editCartItem(id, quantity);
@@ -408,9 +433,10 @@ class CartScreenState extends State<CartScreen> {
                                     //     ? provider['data']['grandTotal']
                                     //         .toString()
                                     //     : totalPrice.toString(),
-                                    totalPrice == 0.0
+                                    totalAmount == 0.0
                                         ? '₹${provider['data']['grandTotal']}'
-                                        : '₹$totalPrice',
+                                        : '₹$totalAmount',
+                                    // '₹$totalPrice',
                                     // price.toString(),
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
