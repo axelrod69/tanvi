@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../model/topProducts/topProductsProvider.dart';
 
 class TopSeller extends StatefulWidget {
   TopSellerState createState() => TopSellerState();
 }
 
 class TopSellerState extends State<TopSeller> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<TopProductsProvider>(context, listen: false)
+        .getTopProducts()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
+
   final List<dynamic> _popularDeals = [
     {
       'id': 1,
@@ -44,7 +61,10 @@ class TopSellerState extends State<TopSeller> {
     final width = MediaQuery.of(context).size.width;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
-    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final firstProvider =
+        Provider.of<TopProductsProvider>(context).topProductsFirst;
+    final secondProvider =
+        Provider.of<TopProductsProvider>(context).topProductsSecond;
 
     // TODO: implement build
     return Padding(
@@ -53,7 +73,7 @@ class TopSellerState extends State<TopSeller> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Top Sellers',
+            'Fresh Arrivals',
             // // textScaleFactor: textScaleFactor,
             style: TextStyle(
                 color: Colors.black,
@@ -99,20 +119,32 @@ class TopSellerState extends State<TopSeller> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(
-                                _popularDeals[index]['image'],
-                                fit: BoxFit.cover,
+                              Container(
                                 width: width * 0.45,
                                 height: tabLayout
                                     ? height * 0.27
                                     : largeLayout
                                         ? height * 0.2
                                         : height * 0.22,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(30),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 5,
+                                          offset: Offset(1, 2))
+                                    ]),
+                                child: Image.network(
+                                  'http://3.109.206.91:8000${firstProvider[index]['main_image']}',
+                                  // scale: 0.6,
+                                  // fit: BoxFit.contain,
+                                ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
                                 child: Text(
-                                  _popularDeals[index]['name'],
+                                  firstProvider[index]['name'],
                                   // // textScaleFactor: textScaleFactor,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -126,7 +158,8 @@ class TopSellerState extends State<TopSeller> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
-                                child: Text(_popularDeals[index]['price'],
+                                child: Text(
+                                    '₹${firstProvider[index]['price']}/${firstProvider[index]['uom']['short_name']}',
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -139,7 +172,7 @@ class TopSellerState extends State<TopSeller> {
                               ),
                             ]),
                       ),
-                      itemCount: _popularDeals.length,
+                      itemCount: firstProvider.length,
                     ),
                   ),
                 )
@@ -180,20 +213,31 @@ class TopSellerState extends State<TopSeller> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(
-                                _popularDeals[index]['image'],
-                                fit: BoxFit.cover,
+                              Container(
                                 width: width * 0.45,
                                 height: tabLayout
                                     ? height * 0.27
                                     : largeLayout
                                         ? height * 0.2
                                         : height * 0.22,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(30),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 5,
+                                          offset: Offset(1, 2))
+                                    ]),
+                                child: Image.network(
+                                  'http://3.109.206.91:8000${secondProvider[index]['main_image']}',
+                                  // fit: BoxFit.contain,
+                                ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
                                 child: Text(
-                                  _popularDeals[index]['name'],
+                                  secondProvider[index]['name'],
                                   // // textScaleFactor: textScaleFactor,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -207,7 +251,8 @@ class TopSellerState extends State<TopSeller> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
-                                child: Text(_popularDeals[index]['price'],
+                                child: Text(
+                                    '₹${secondProvider[index]['price']}/${secondProvider[index]['uom']['short_name']}',
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -220,7 +265,7 @@ class TopSellerState extends State<TopSeller> {
                               ),
                             ]),
                       ),
-                      itemCount: _popularDeals.length,
+                      itemCount: secondProvider.length,
                     ),
                   ),
                 )

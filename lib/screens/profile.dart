@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import '../authentication/network.dart';
 import '../model/location/location.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import '../model/profile/profileProvider.dart';
 
 class Profile extends StatefulWidget {
   ProfileState createState() => ProfileState();
@@ -12,6 +16,21 @@ class ProfileState extends State<Profile> {
   bool isLoading = true;
   var index = 0;
   String? address;
+  File? image;
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final img = await ImagePicker().pickImage(source: source);
+      final imageTemporary = File(img!.path);
+      print('Temp Image: $imageTemporary');
+      setState(() {
+        image = imageTemporary;
+        print('Image $image');
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
 
   @override
   void initState() {
@@ -34,6 +53,7 @@ class ProfileState extends State<Profile> {
     final provider = Provider.of<LocationProvider>(context).addressData;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    final profileProvider = Provider.of<ProfileProvider>(context).profile;
 
     // for (index in provider['data']) {
     //   if (provider['data'][index]['is_default'] == true) {
@@ -60,7 +80,7 @@ class ProfileState extends State<Profile> {
                   width: double.infinity,
                   height: height * 0.07,
                   // color: Colors.red,
-                  margin: EdgeInsets.only(top: height * 0.03),
+                  margin: EdgeInsets.only(top: height * 0.02),
                   padding: EdgeInsets.only(left: width * 0.01),
                   child: Row(
                     children: [
@@ -138,7 +158,7 @@ class ProfileState extends State<Profile> {
                             child: Column(
                               children: [
                                 Text(
-                                  'Eli Avon',
+                                  '${profileProvider['data']['first_name']} ${profileProvider['data']['last_name']}',
                                   // // textScaleFactor: textScaleFactor,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -146,7 +166,7 @@ class ProfileState extends State<Profile> {
                                       fontSize: tabLayout ? 55 : 35),
                                 ),
                                 Text(
-                                  'something@somewhere.com',
+                                  '${profileProvider['data']['email']}',
                                   // // textScaleFactor: textScaleFactor,
                                   style: TextStyle(
                                       color: Colors.grey[600],
@@ -342,24 +362,67 @@ class ProfileState extends State<Profile> {
                                         blurRadius: 5,
                                         offset: Offset(0, 2))
                                   ]),
-                              child: CircleAvatar(
-                                radius: tabLayout ? 80 : 60,
-                                backgroundColor: Colors.amber,
-                                // child: Image.asset(
-                                //   'assets/images/rkwxkca7.png',
-                                // ),
-                              ),
+                              child: profileProvider['data']['profile_pic'] !=
+                                      null
+                                  ? CircleAvatar(
+                                      radius: tabLayout ? 80 : 70,
+                                      child: ClipRRect(
+                                        borderRadius: tabLayout
+                                            ? BorderRadius.circular(80)
+                                            : BorderRadius.circular(70),
+                                        child: Image.network(
+                                            'http://3.109.206.91:8000${profileProvider['data']['profile_pic']}'),
+                                      ),
+                                    )
+                                  : image != null
+                                      ? InkWell(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: CircleAvatar(
+                                              radius: tabLayout ? 80 : 70,
+                                              child: ClipRRect(
+                                                borderRadius: tabLayout
+                                                    ? BorderRadius.circular(80)
+                                                    : BorderRadius.circular(70),
+                                                child: Image.file(image!,
+                                                    fit: BoxFit.fill),
+                                              )))
+                                      : CircleAvatar(
+                                          radius: tabLayout ? 80 : 70,
+                                          backgroundColor: Colors.amber,
+                                          // child: Image.asset(
+                                          //   'assets/images/rkwxkca7.png',
+                                          // ),
+                                        ),
                             ),
-                            SizedBox(height: height * 0.005),
-                            Text(
-                              'Edit',
-                              // // textScaleFactor: textScaleFactor,
-                              style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout ? 20 : 14),
-                            )
+                            // SizedBox(height: height * 0.005),
+                            // Text(
+                            //   'Edit',
+                            //   // // textScaleFactor: textScaleFactor,
+                            //   style: TextStyle(
+                            //       color: Colors.grey[600],
+                            //       fontWeight: FontWeight.bold,
+                            //       fontSize: tabLayout ? 20 : 14),
+                            // )
                           ],
+                        ),
+                      ),
+                      Positioned(
+                        top: height * 0.17,
+                        left: width * 0.54,
+                        child: InkWell(
+                          onTap: () async {
+                            pickImage(ImageSource.gallery).then((_) {
+                              Provider.of<ProfileProvider>(context,
+                                      listen: false)
+                                  .postProfileUpdate(
+                                      image,
+                                      profileProvider['data']['email'],
+                                      profileProvider['data']['mobile']);
+                            });
+                          },
+                          child: Icon(Icons.camera,
+                              color: Colors.green, size: tabLayout ? 34 : 30),
                         ),
                       )
                     ],
@@ -409,7 +472,7 @@ class ProfileState extends State<Profile> {
                     ),
                     SizedBox(width: width * 0.044),
                     Text(
-                      '+919831405393',
+                      '${profileProvider['data']['mobile']}',
                       // // textScaleFactor: textScaleFactor,
                       style: TextStyle(
                           color: Colors.grey[700],
@@ -434,7 +497,7 @@ class ProfileState extends State<Profile> {
                     ),
                     SizedBox(width: width * 0.044),
                     Text(
-                      'Cash On Delivery',
+                      '${profileProvider['data']['email']}',
                       // // textScaleFactor: textScaleFactor,
                       style: TextStyle(
                           color: Colors.grey[700],

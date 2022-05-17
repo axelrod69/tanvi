@@ -7,6 +7,7 @@ import '../widgets/home/recentItems.dart';
 import '../model/location/location.dart';
 import 'package:provider/provider.dart';
 import '../screens/wishListScreen.dart';
+import '../model/profile/profileProvider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreenState createState() => HomeScreenState();
@@ -20,6 +21,7 @@ class HomeScreenState extends State<HomeScreen> {
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
     final provider = Provider.of<LocationProvider>(context).address;
+    final profileProvider = Provider.of<ProfileProvider>(context).profile;
 
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
@@ -61,7 +63,7 @@ class HomeScreenState extends State<HomeScreen> {
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Eli Avon',
+                        '${profileProvider['data']['first_name']}',
                         // textScaleFactor: textScaleFactor,
                         style: TextStyle(
                             color: Colors.black,

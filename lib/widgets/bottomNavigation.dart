@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../authentication/network.dart';
 import '../model/addToCart/addToCart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import '../model/profile/profileProvider.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
   CustomBottomNavigationState createState() => CustomBottomNavigationState();
@@ -17,14 +19,6 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
   int index = 2;
   bool isLoading = true;
 
-  final screens = [
-    CartScreen(),
-    Dashboard(),
-    HomeScreen(),
-    Notifications(),
-    Profile()
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -32,12 +26,24 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
     Provider.of<AddToCartProvider>(context, listen: false)
         .getCartProducts()
         .then((_) {
-      setState(() {
-        isLoading = false;
+      Provider.of<ProfileProvider>(context, listen: false)
+          .getProfileDetails()
+          .then((_) {
+        setState(() {
+          isLoading = false;
+        });
       });
     });
     super.initState();
   }
+
+  final screens = [
+    CartScreen(),
+    Dashboard(),
+    HomeScreen(),
+    Notifications(),
+    Profile()
+  ];
 
   @override
   Widget build(BuildContext context) {
