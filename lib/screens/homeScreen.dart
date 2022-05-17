@@ -72,7 +72,7 @@ class HomeScreenState extends State<HomeScreen> {
                                 ? 50
                                 : largeLayout
                                     ? 40
-                                    : 30),
+                                    : 25),
                       ),
                       Container(
                         width: width * 0.4,
@@ -125,7 +125,9 @@ class HomeScreenState extends State<HomeScreen> {
                   Center(
                     child: Container(
                       width: width * 0.8,
-                      height: height * 0.055,
+                      height: !tabLayout && !largeLayout
+                          ? height * 0.075
+                          : height * 0.055,
                       margin: EdgeInsets.only(
                         top: height * 0.02,
                       ),
@@ -145,7 +147,7 @@ class HomeScreenState extends State<HomeScreen> {
                           Icon(
                             Icons.search_outlined,
                             color: Colors.grey,
-                            size: !tabLayout && !largeLayout ? 15 : 30,
+                            size: !tabLayout && !largeLayout ? 22 : 30,
                           ),
                           SizedBox(width: width * 0.04),
                           Text(
@@ -157,7 +159,7 @@ class HomeScreenState extends State<HomeScreen> {
                                     ? width * 0.03
                                     : largeLayout
                                         ? 25
-                                        : 12),
+                                        : 18),
                           )
                         ],
                       ),
@@ -192,22 +194,22 @@ class HomeScreenState extends State<HomeScreen> {
             SizedBox(height: height * 0.025),
             RecentItems(),
             SizedBox(height: height * 0.025),
-            Container(
-              width: double.infinity,
-              height: height * 0.1,
-              color: const Color.fromRGBO(251, 243, 231, 1),
-              child: Center(
-                child: Text(
-                  'Oops..Ran out of it',
-                  // textScaleFactor: textScaleFactor,
-                  style: TextStyle(
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-              ),
-            ),
-            SizedBox(height: height * 0.05),
+            // Container(
+            //   width: double.infinity,
+            //   height: height * 0.1,
+            //   color: const Color.fromRGBO(251, 243, 231, 1),
+            //   child: Center(
+            //     child: Text(
+            //       'Oops..Ran out of it',
+            //       // textScaleFactor: textScaleFactor,
+            //       style: TextStyle(
+            //           color: Colors.grey[600],
+            //           fontWeight: FontWeight.bold,
+            //           fontSize: 20),
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(height: height * 0.05),
           ],
         ),
       ),

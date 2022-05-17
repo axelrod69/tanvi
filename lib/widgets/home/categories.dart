@@ -50,7 +50,7 @@ class CategoriesState extends State<Categories> {
       padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       child: Container(
         width: width * 0.9,
-        height: !tabLayout && !largeLayout ? height * 0.3 : height * 0.25,
+        height: !tabLayout && !largeLayout ? height * 0.28 : height * 0.25,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -133,8 +133,11 @@ class CategoriesState extends State<Categories> {
                                 padding: EdgeInsets.only(top: height * 0.004),
                                 child: Container(
                                   width: double.infinity,
-                                  height:
-                                      tabLayout ? height * 0.14 : height * 0.12,
+                                  height: tabLayout
+                                      ? height * 0.14
+                                      : largeLayout
+                                          ? height * 0.12
+                                          : height * 0.15,
                                   decoration: BoxDecoration(
                                     color: Colors.green[100],
                                     borderRadius: BorderRadius.circular(20),

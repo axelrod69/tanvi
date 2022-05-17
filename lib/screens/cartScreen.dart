@@ -135,7 +135,11 @@ class CartScreenState extends State<CartScreen> {
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: tabLayout ? 35 : 14)),
+                fontSize: tabLayout
+                    ? 35
+                    : largeLayout
+                        ? 14
+                        : 16)),
       ),
       body: isLoading
           ? const Center(
@@ -157,11 +161,19 @@ class CartScreenState extends State<CartScreen> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(
-                            top: height * 0.02, right: width * 0.02),
+                            top: !tabLayout && !largeLayout
+                                ? height * 0.008
+                                : height * 0.02,
+                            right: width * 0.02),
                         child: Row(
                           children: [
                             Icon(Icons.delete_forever,
-                                color: Colors.red, size: tabLayout ? 40 : 24),
+                                color: Colors.red,
+                                size: tabLayout
+                                    ? 40
+                                    : largeLayout
+                                        ? 24
+                                        : 20),
                             Text('Remove All',
                                 // // textScaleFactor: textScaleFactor,
                                 style: TextStyle(
@@ -174,11 +186,17 @@ class CartScreenState extends State<CartScreen> {
                     ],
                   ),
                   Container(
-                    height: height * 0.6,
+                    height: !tabLayout && !largeLayout
+                        ? height * 0.52
+                        : height * 0.6,
                     // color: Colors.amber,
                     child: ListView.builder(
                       itemBuilder: (context, index) => Container(
-                        height: tabLayout ? height * 0.15 : height * 0.11,
+                        height: tabLayout
+                            ? height * 0.15
+                            : largeLayout
+                                ? height * 0.11
+                                : height * 0.14,
                         width: double.infinity,
                         margin: EdgeInsets.only(bottom: height * 0.04),
                         // color: Colors.red,
@@ -319,10 +337,16 @@ class CartScreenState extends State<CartScreen> {
                                           });
                                         },
                                         child: Icon(Icons.remove,
-                                            size: tabLayout ? 45 : 30)),
+                                            size: tabLayout
+                                                ? 45
+                                                : largeLayout
+                                                    ? 30
+                                                    : 25)),
                                     Container(
                                       // height: height * 0.2,
-                                      width: width * 0.12,
+                                      width: !tabLayout && !largeLayout
+                                          ? width * 0.1
+                                          : width * 0.12,
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           shape: BoxShape.circle,
@@ -345,7 +369,11 @@ class CartScreenState extends State<CartScreen> {
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: tabLayout ? 40 : 18)),
+                                                fontSize: tabLayout
+                                                    ? 40
+                                                    : largeLayout
+                                                        ? 18
+                                                        : 14)),
                                       ),
                                     ),
                                     InkWell(
@@ -373,7 +401,11 @@ class CartScreenState extends State<CartScreen> {
                                           });
                                         },
                                         child: Icon(Icons.add,
-                                            size: tabLayout ? 45 : 30)),
+                                            size: tabLayout
+                                                ? 45
+                                                : largeLayout
+                                                    ? 30
+                                                    : 22)),
                                   ],
                                 ),
                               ),
@@ -385,11 +417,13 @@ class CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   Divider(
-                    height: height * 0.01,
+                    height: !tabLayout && !largeLayout
+                        ? height * 0.005
+                        : height * 0.01,
                     color: Colors.grey,
-                    thickness: 2,
-                    indent: 30,
-                    endIndent: 30,
+                    thickness: !tabLayout && !largeLayout ? 1 : 2,
+                    indent: !tabLayout && !largeLayout ? 20 : 30,
+                    endIndent: !tabLayout && !largeLayout ? 20 : 30,
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -401,7 +435,11 @@ class CartScreenState extends State<CartScreen> {
                       }),
                       child: Container(
                           width: double.infinity,
-                          height: tabLayout ? height * 0.08 : height * 0.06,
+                          height: tabLayout
+                              ? height * 0.08
+                              : largeLayout
+                                  ? height * 0.06
+                                  : height * 0.07,
                           margin: EdgeInsets.only(
                               top: height * 0.04, bottom: height * 0.04),
                           decoration: BoxDecoration(
@@ -422,7 +460,11 @@ class CartScreenState extends State<CartScreen> {
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: tabLayout ? 35 : 22)),
+                                        fontSize: tabLayout
+                                            ? 35
+                                            : largeLayout
+                                                ? 22
+                                                : 18)),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(right: width * 0.04),
@@ -442,7 +484,11 @@ class CartScreenState extends State<CartScreen> {
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: tabLayout ? 35 : 22)),
+                                        fontSize: tabLayout
+                                            ? 35
+                                            : largeLayout
+                                                ? 22
+                                                : 18)),
                               )
                             ],
                           )),

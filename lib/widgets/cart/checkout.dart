@@ -121,7 +121,7 @@ class CheckOutState extends State<CheckOut> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         automaticallyImplyLeading: false,
-        toolbarHeight: tabLayout ? height * 0.05 : 120,
+        toolbarHeight: tabLayout ? height * 0.05 : height * 0.1,
         leading: InkWell(
           onTap: () => Navigator.of(context).pop(),
           child: Container(
@@ -138,7 +138,12 @@ class CheckOutState extends State<CheckOut> {
               child: Padding(
                 padding: EdgeInsets.only(left: width * 0.02),
                 child: Icon(Icons.arrow_back_ios,
-                    size: tabLayout ? 40 : 14, color: Colors.green),
+                    size: tabLayout
+                        ? 40
+                        : largeLayout
+                            ? 14
+                            : 18,
+                    color: Colors.green),
               ),
             ),
           ),
@@ -148,7 +153,11 @@ class CheckOutState extends State<CheckOut> {
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: tabLayout ? 35 : 14)),
+                fontSize: tabLayout
+                    ? 35
+                    : largeLayout
+                        ? 14
+                        : 18)),
       ),
       body: Container(
         height: height * 1,
@@ -322,7 +331,11 @@ class CheckOutState extends State<CheckOut> {
               padding: EdgeInsets.only(left: width * 0.01, right: width * 0.01),
               child: Container(
                 width: double.infinity,
-                height: tabLayout ? height * 0.1 : height * 0.12,
+                height: tabLayout
+                    ? height * 0.1
+                    : largeLayout
+                        ? height * 0.12
+                        : height * 0.18,
                 padding:
                     EdgeInsets.only(left: width * 0.04, right: height * 0.02),
                 decoration: BoxDecoration(
@@ -346,7 +359,11 @@ class CheckOutState extends State<CheckOut> {
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: tabLayout ? 22 : 13),
+                              fontSize: tabLayout
+                                  ? 22
+                                  : largeLayout
+                                      ? 13
+                                      : 12),
                         ),
                         Radio(
                             value: 1,
@@ -367,7 +384,11 @@ class CheckOutState extends State<CheckOut> {
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: tabLayout ? 22 : 13),
+                              fontSize: tabLayout
+                                  ? 22
+                                  : largeLayout
+                                      ? 13
+                                      : 12),
                         ),
                         Radio(
                             value: 2,
@@ -393,7 +414,11 @@ class CheckOutState extends State<CheckOut> {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: tabLayout ? 26 : 18),
+                      fontSize: tabLayout
+                          ? 26
+                          : largeLayout
+                              ? 18
+                              : 16),
                 ),
                 Text(
                   'Change Location',
@@ -401,13 +426,18 @@ class CheckOutState extends State<CheckOut> {
                   style: TextStyle(
                       color: Colors.black,
                       // fontWeight: FontWeight.bold,
-                      fontSize: tabLayout ? 20 : 14),
+                      fontSize: tabLayout
+                          ? 20
+                          : largeLayout
+                              ? 14
+                              : 12),
                 ),
               ],
             ),
             Container(
               width: double.infinity,
-              height: height * 0.18,
+              height:
+                  !tabLayout && !largeLayout ? height * 0.25 : height * 0.18,
               // color: Colors.red,
               padding: EdgeInsets.symmetric(
                   horizontal: width * 0.04, vertical: height * 0.02),
@@ -475,42 +505,62 @@ class CheckOutState extends State<CheckOut> {
                     ],
                   ),
                   Positioned(
-                    top: height * 0.0472,
-                    left: tabLayout ? width * 0.026 : width * 0.042,
+                    top: !tabLayout && !largeLayout
+                        ? height * 0.07
+                        : height * 0.0472,
+                    left: tabLayout
+                        ? width * 0.026
+                        : largeLayout
+                            ? width * 0.042
+                            : width * 0.055,
                     child: Container(
                       width: width * 0.01,
-                      height: height * 0.045,
-                      // color: Colors.white,
+                      height: !tabLayout && !largeLayout
+                          ? height * 0.07
+                          : height * 0.045,
+                      color: Colors.white,
                       child: Column(
                         children: [
                           Container(
                               width: double.infinity,
-                              height: height * 0.006,
+                              height: !tabLayout && !largeLayout
+                                  ? height * 0.01
+                                  : height * 0.006,
                               color: Colors.green,
                               margin: EdgeInsets.only(bottom: height * 0.002)),
                           Container(
                               width: double.infinity,
-                              height: height * 0.006,
+                              height: !tabLayout && !largeLayout
+                                  ? height * 0.01
+                                  : height * 0.006,
                               color: Colors.green,
                               margin: EdgeInsets.only(bottom: height * 0.002)),
                           Container(
                               width: double.infinity,
-                              height: height * 0.006,
+                              height: !tabLayout && !largeLayout
+                                  ? height * 0.01
+                                  : height * 0.006,
                               color: Colors.green,
                               margin: EdgeInsets.only(bottom: height * 0.002)),
                           Container(
                               width: double.infinity,
-                              height: height * 0.006,
+                              height: !tabLayout && !largeLayout
+                                  ? height * 0.01
+                                  : height * 0.006,
                               color: Colors.green,
                               margin: EdgeInsets.only(bottom: height * 0.002)),
                           Container(
                               width: double.infinity,
-                              height: height * 0.006,
+                              height: !tabLayout && !largeLayout
+                                  ? height * 0.01
+                                  : height * 0.006,
                               color: Colors.green,
                               margin: EdgeInsets.only(bottom: height * 0.002)),
                           Container(
                             width: double.infinity,
-                            height: height * 0.005,
+                            height: !tabLayout && !largeLayout
+                                ? height * 0.01
+                                : height * 0.006,
                             color: Colors.green,
                             // margin: EdgeInsets.only(bottom: height * 0.002)
                           ),
@@ -528,11 +578,14 @@ class CheckOutState extends State<CheckOut> {
                     selectedValue == 1 ? codCheckOut() : razorPayCheckout(),
                 child: Container(
                   width: width * 0.1,
-                  height: height * 0.06,
+                  height: !tabLayout && !largeLayout
+                      ? height * 0.08
+                      : height * 0.06,
                   // margin: EdgeInsets.only(bottom: height * 0.15),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(
+                          !tabLayout && !largeLayout ? 10 : 20),
                       boxShadow: const [
                         BoxShadow(
                             color: Colors.green,
@@ -551,7 +604,8 @@ class CheckOutState extends State<CheckOut> {
                   ),
                 ),
               ),
-            )
+            ),
+            SizedBox(height: height * 0.05)
           ],
         ),
       ),

@@ -62,8 +62,13 @@ class CategoryScreenState extends State<CategoryScreen> {
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
-                    height: tabLayout ? height * 0.07 : height * 0.05,
-                    width: width * 0.1,
+                    height: tabLayout
+                        ? height * 0.07
+                        : largeLayout
+                            ? height * 0.05
+                            : height * 0.08,
+                    width:
+                        !tabLayout && !largeLayout ? width * 0.12 : width * 0.1,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -77,7 +82,12 @@ class CategoryScreenState extends State<CategoryScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: width * 0.02),
                         child: Icon(Icons.arrow_back_ios,
-                            size: tabLayout ? 40 : 14, color: Colors.green),
+                            size: tabLayout
+                                ? 40
+                                : largeLayout
+                                    ? 14
+                                    : 18,
+                            color: Colors.green),
                       ),
                     ),
                   ),
@@ -91,14 +101,19 @@ class CategoryScreenState extends State<CategoryScreen> {
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: tabLayout ? 35 : 14),
+                        fontSize: tabLayout
+                            ? 35
+                            : largeLayout
+                                ? 14
+                                : 18),
                   ),
                 )
               ],
             ),
             Container(
-              width: width * 0.65,
-              height: height * 0.055,
+              width: !tabLayout && !largeLayout ? width * 0.8 : width * 0.65,
+              height:
+                  !tabLayout && !largeLayout ? height * 0.075 : height * 0.055,
               margin: EdgeInsets.only(
                 // left: width * 0.05,
                 top: height * 0.02,
@@ -218,7 +233,11 @@ class CategoryScreenState extends State<CategoryScreen> {
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: tabLayout ? 22 : 14),
+                                    fontSize: tabLayout
+                                        ? 22
+                                        : largeLayout
+                                            ? 14
+                                            : 12),
                               ),
                             ),
                           ),

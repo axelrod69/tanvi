@@ -98,7 +98,9 @@ class ItemDetailsState extends State<ItemDetails> {
                           color: const Color.fromRGBO(242, 243, 250, 1),
                         ),
                         Positioned(
-                            top: height * 0.04,
+                            top: !tabLayout && !largeLayout
+                                ? height * 0.05
+                                : height * 0.04,
                             left: tabLayout ? width * 0.85 : width * 0.81,
                             child: InkWell(
                                 onTap: () {
@@ -116,7 +118,9 @@ class ItemDetailsState extends State<ItemDetails> {
                                         color: Colors.pink,
                                         size: tabLayout ? 40 : 20))),
                         Positioned(
-                            top: height * 0.04,
+                            top: !tabLayout && !largeLayout
+                                ? height * 0.05
+                                : height * 0.04,
                             left: tabLayout ? width * 0.92 : width * 0.9,
                             child: InkWell(
                                 onTap: () => Navigator.of(context)
@@ -126,8 +130,11 @@ class ItemDetailsState extends State<ItemDetails> {
                         length == 0
                             ? const SizedBox()
                             : Positioned(
-                                top:
-                                    tabLayout ? height * 0.028 : height * 0.035,
+                                top: tabLayout
+                                    ? height * 0.028
+                                    : largeLayout
+                                        ? height * 0.035
+                                        : height * 0.048,
                                 left: width * 0.94,
                                 child: CircleAvatar(
                                   radius: width * 0.02,
@@ -148,11 +155,19 @@ class ItemDetailsState extends State<ItemDetails> {
                                 ),
                               ),
                         Positioned(
-                          top: height * 0.04,
+                          top: !tabLayout && !largeLayout
+                              ? height * 0.05
+                              : height * 0.04,
                           left: width * 0.02,
                           child: Container(
-                            width: width * 0.1,
-                            height: tabLayout ? height * 0.07 : height * 0.05,
+                            width: !tabLayout && !largeLayout
+                                ? width * 0.12
+                                : width * 0.1,
+                            height: tabLayout
+                                ? height * 0.07
+                                : largeLayout
+                                    ? height * 0.05
+                                    : height * 0.08,
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -168,12 +183,18 @@ class ItemDetailsState extends State<ItemDetails> {
                                   padding: EdgeInsets.only(left: width * 0.02),
                                   child: Icon(Icons.arrow_back_ios,
                                       color: Colors.green,
-                                      size: tabLayout ? 40 : 14),
+                                      size: tabLayout
+                                          ? 40
+                                          : largeLayout
+                                              ? 14
+                                              : 18),
                                 )),
                           ),
                         ),
                         Positioned(
-                          top: height * 0.07,
+                          top: !tabLayout && !largeLayout
+                              ? height * 0.085
+                              : height * 0.07,
                           // left: width * 0.22,
                           left: 0,
                           right: 0,
@@ -201,7 +222,11 @@ class ItemDetailsState extends State<ItemDetails> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: tabLayout ? 40 : 25)),
+                                fontSize: tabLayout
+                                    ? 40
+                                    : largeLayout
+                                        ? 25
+                                        : 20)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -214,7 +239,11 @@ class ItemDetailsState extends State<ItemDetails> {
                                   RatingBar.builder(
                                     allowHalfRating: true,
                                     minRating: 1,
-                                    itemSize: tabLayout ? 35 : 24,
+                                    itemSize: tabLayout
+                                        ? 35
+                                        : largeLayout
+                                            ? 24
+                                            : 18,
                                     // itemPadding: EdgeInsets.symmetric(
                                     //     horizontal: 0.05, vertical: 0.05),
                                     itemBuilder: (context, _) => const Icon(
@@ -240,7 +269,9 @@ class ItemDetailsState extends State<ItemDetails> {
                             ),
                             Container(
                               width: width * 0.45,
-                              height: height * 0.06,
+                              height: !tabLayout && !largeLayout
+                                  ? height * 0.05
+                                  : height * 0.06,
                               // color: Colors.amber,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -269,11 +300,19 @@ class ItemDetailsState extends State<ItemDetails> {
                                                 offset: Offset(0, 1))
                                           ]),
                                       child: CircleAvatar(
-                                        radius: tabLayout ? 28 : 18,
+                                        radius: tabLayout
+                                            ? 28
+                                            : largeLayout
+                                                ? 18
+                                                : 16,
                                         backgroundColor: Colors.white,
                                         child: Icon(Icons.remove_sharp,
                                             color: Colors.black,
-                                            size: tabLayout ? 40 : 30),
+                                            size: tabLayout
+                                                ? 40
+                                                : largeLayout
+                                                    ? 30
+                                                    : 25),
                                       ),
                                     ),
                                   ),
@@ -283,7 +322,11 @@ class ItemDetailsState extends State<ItemDetails> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: tabLayout ? 40 : 22)),
+                                          fontSize: tabLayout
+                                              ? 40
+                                              : largeLayout
+                                                  ? 22
+                                                  : 18)),
                                   SizedBox(width: width * 0.04),
                                   InkWell(
                                     onTap: () {
@@ -304,11 +347,19 @@ class ItemDetailsState extends State<ItemDetails> {
                                                 offset: Offset(0, 1))
                                           ]),
                                       child: CircleAvatar(
-                                        radius: tabLayout ? 28 : 18,
+                                        radius: tabLayout
+                                            ? 28
+                                            : largeLayout
+                                                ? 18
+                                                : 16,
                                         backgroundColor: Colors.white,
                                         child: Icon(Icons.add,
                                             color: Colors.black,
-                                            size: tabLayout ? 40 : 30),
+                                            size: tabLayout
+                                                ? 40
+                                                : largeLayout
+                                                    ? 30
+                                                    : 18),
                                       ),
                                     ),
                                   )
@@ -329,14 +380,22 @@ class ItemDetailsState extends State<ItemDetails> {
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: tabLayout ? 30 : 18)),
+                                      fontSize: tabLayout
+                                          ? 30
+                                          : largeLayout
+                                              ? 18
+                                              : 16)),
                               SizedBox(height: height * 0.005),
                               Expanded(
                                 child: Text(description.toString(),
                                     // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: tabLayout ? 25 : 13)),
+                                        fontSize: tabLayout
+                                            ? 25
+                                            : largeLayout
+                                                ? 13
+                                                : 11)),
                               )
                             ],
                           ),
@@ -359,7 +418,11 @@ class ItemDetailsState extends State<ItemDetails> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: tabLayout ? 30 : 18)),
+                                fontSize: tabLayout
+                                    ? 30
+                                    : largeLayout
+                                        ? 18
+                                        : 14)),
                         SizedBox(height: height * 0.02),
                         Container(
                           width: double.infinity,
@@ -398,8 +461,10 @@ class ItemDetailsState extends State<ItemDetails> {
                                       //     vertical: height * 0.02,
                                       //     horizontal: width * 0.04),
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                          borderRadius: BorderRadius.circular(
+                                              !tabLayout && !largeLayout
+                                                  ? 10
+                                                  : 20),
                                           color: Colors.white,
                                           boxShadow: const [
                                             BoxShadow(
@@ -414,7 +479,9 @@ class ItemDetailsState extends State<ItemDetails> {
                                               : height * 0.1,
                                           width: tabLayout
                                               ? width * 0.18
-                                              : height * 0.1),
+                                              : largeLayout
+                                                  ? height * 0.1
+                                                  : height * 0.13),
                                     ),
                                     SizedBox(height: height * 0.01),
                                     Text(
@@ -423,7 +490,11 @@ class ItemDetailsState extends State<ItemDetails> {
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: tabLayout ? 20 : 14))
+                                            fontSize: tabLayout
+                                                ? 20
+                                                : largeLayout
+                                                    ? 14
+                                                    : 12))
                                   ],
                                 ),
                               ),
@@ -448,7 +519,11 @@ class ItemDetailsState extends State<ItemDetails> {
                             // textScaleFactor: textScaleFactor,
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: tabLayout ? 45 : 20)),
+                                fontSize: tabLayout
+                                    ? 45
+                                    : largeLayout
+                                        ? 20
+                                        : 12)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -467,7 +542,11 @@ class ItemDetailsState extends State<ItemDetails> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout ? 45 : 40),
+                                  fontSize: tabLayout
+                                      ? 45
+                                      : largeLayout
+                                          ? 40
+                                          : 32),
                             ),
                             // SizedBox(width: width * 0.1),
                             itemPrice == 0.0
@@ -479,7 +558,8 @@ class ItemDetailsState extends State<ItemDetails> {
                                         : height * 0.04,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(
+                                          !tabLayout && !largeLayout ? 5 : 10),
                                       border: Border.all(
                                           color: Colors.grey,
                                           style: BorderStyle.solid),
@@ -496,8 +576,11 @@ class ItemDetailsState extends State<ItemDetails> {
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize:
-                                                    tabLayout ? 20 : 14))),
+                                                fontSize: tabLayout
+                                                    ? 20
+                                                    : largeLayout
+                                                        ? 14
+                                                        : 12))),
                                   )
                                 : InkWell(
                                     onTap: () => cartAdd(

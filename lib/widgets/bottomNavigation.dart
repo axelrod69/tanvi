@@ -80,7 +80,9 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                   children: [
                     Container(
                       width: tabLayout ? width * 0.7 : width * 0.75,
-                      height: height * 0.05,
+                      height: !tabLayout && !largeLayout
+                          ? height * 0.08
+                          : height * 0.05,
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -131,6 +133,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                             )
                                           : Image.asset(
                                               'assets/images/Icon awesome-shopping-cart.png',
+                                              height: height * 0.07,
+                                              width: width * 0.07,
                                             ),
                                 ),
                                 SizedBox(width: width * 0.1),
@@ -165,6 +169,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                             )
                                           : Image.asset(
                                               'assets/images/Icon ionic-ios-settings.png',
+                                              height: height * 0.07,
+                                              width: width * 0.07,
                                             ),
                                 )
                               ],
@@ -178,7 +184,10 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                             child: Row(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: width * 0.06),
+                                  padding: EdgeInsets.only(
+                                      left: !tabLayout && !largeLayout
+                                          ? width * 0.08
+                                          : width * 0.08),
                                   child: InkWell(
                                     // onTap: () => Navigator.of(context)
                                     //     .pushNamed('/notification-screen'),
@@ -210,6 +219,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                               )
                                             : Image.asset(
                                                 'assets/images/Icon awesome-bell.png',
+                                                height: height * 0.06,
+                                                width: width * 0.06,
                                               ),
                                   ),
                                 ),
@@ -245,6 +256,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                             )
                                           : Image.asset(
                                               'assets/images/rkwxkca7.png',
+                                              height: height * 0.1,
+                                              width: width * 0.09,
                                             ),
                                 )
                               ],
@@ -287,26 +300,48 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                     backgroundColor: Colors.white,
                     radius: height * 0.8,
                   )
-                : Container(
-                    // height: height * 0.075,
-                    // width: width * 0.8,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 5,
-                              offset: Offset(0, 2))
-                        ],
-                        border: Border.all(
-                            color: Colors.green,
-                            width: 2,
-                            style: BorderStyle.solid)),
-                    child: Center(
-                        child: Image.asset(
-                            'assets/images/Icon ionic-ios-home.png')),
-                  ),
+                : largeLayout
+                    ? Container(
+                        // height: height * 0.075,
+                        // width: width * 0.8,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 2))
+                            ],
+                            border: Border.all(
+                                color: Colors.green,
+                                width: 2,
+                                style: BorderStyle.solid)),
+                        child: Center(
+                            child: Image.asset(
+                                'assets/images/Icon ionic-ios-home.png')),
+                      )
+                    : Container(
+                        // height: height * 0.5,
+                        // width: width * 0.8,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 2))
+                            ],
+                            border: Border.all(
+                                color: Colors.green,
+                                width: 2,
+                                style: BorderStyle.solid)),
+                        child: Center(
+                            child: Image.asset(
+                          'assets/images/Icon ionic-ios-home.png',
+                        )),
+                      ),
           ),
         ));
   }

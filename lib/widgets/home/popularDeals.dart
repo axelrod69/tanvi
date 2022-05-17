@@ -22,39 +22,6 @@ class PopularDealsState extends State<PopularDeals> {
     super.initState();
   }
 
-  final List<dynamic> _popularDeals = [
-    {
-      'id': 1,
-      'image': 'assets/images/Rectangle 256.png',
-      'name': 'Tomato',
-      'price': '₹25/kg'
-    },
-    {
-      'id': 2,
-      'image': 'assets/images/Rectangle 257.png',
-      'name': 'Cabbage',
-      'price': '₹25/kg'
-    },
-    {
-      'id': 3,
-      'image': 'assets/images/Rectangle 258.png',
-      'name': 'Meat',
-      'price': '₹200/kg'
-    },
-    {
-      'id': 4,
-      'image': 'assets/images/Rectangle 260.png',
-      'name': 'Fruits',
-      'price': '₹100/kg'
-    },
-    {
-      'id': 5,
-      'image': 'assets/images/Rectangle 259.png',
-      'name': 'Cosmetics',
-      'price': '₹100/kg'
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -165,10 +132,12 @@ class PopularDealsState extends State<PopularDeals> {
                                         ? width * 0.35
                                         : largeLayout
                                             ? width * 0.45
-                                            : width * 0.3,
+                                            : width * 0.46,
                                     height: tabLayout
                                         ? height * 0.24
-                                        : height * 0.2,
+                                        : largeLayout
+                                            ? height * 0.2
+                                            : height * 0.22,
                                   ),
                                 ),
                                 Padding(

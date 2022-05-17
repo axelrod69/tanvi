@@ -73,7 +73,7 @@ class DiscountState extends State<Discount> {
                               ? height * 0.24
                               : largeLayout
                                   ? height * 0.2
-                                  : height * 0.22,
+                                  : height * 0.28,
                           decoration: BoxDecoration(
                               color: Colors.greenAccent[100],
                               borderRadius: BorderRadius.circular(20),
@@ -119,7 +119,7 @@ class DiscountState extends State<Discount> {
                       Positioned(
                         left: 0,
                         right: 0,
-                        top: tabLayout ? height * 0.12 : height * 0.08,
+                        top: tabLayout ? height * 0.12 : height * 0.12,
                         child: InkWell(
                           onTap: () => showAlertDialog(
                               context,

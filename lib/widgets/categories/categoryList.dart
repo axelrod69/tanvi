@@ -52,15 +52,23 @@ class CategoryListState extends State<CategoryList> {
         elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: const Color.fromRGBO(236, 236, 248, 1),
-        toolbarHeight: tabLayout ? 100 : 55,
+        toolbarHeight: tabLayout
+            ? 100
+            : largeLayout
+                ? 55
+                : 60,
         centerTitle: true,
         title: Row(
           children: [
             InkWell(
               onTap: () => Navigator.of(context).pop(),
               child: Container(
-                height: tabLayout ? height * 0.07 : height * 0.05,
-                width: width * 0.1,
+                height: tabLayout
+                    ? height * 0.07
+                    : largeLayout
+                        ? height * 0.05
+                        : height * 0.08,
+                width: !tabLayout && !largeLayout ? width * 0.12 : width * 0.1,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -74,7 +82,12 @@ class CategoryListState extends State<CategoryList> {
                   child: Padding(
                     padding: EdgeInsets.only(left: width * 0.02),
                     child: Icon(Icons.arrow_back_ios,
-                        size: tabLayout ? 40 : 14, color: Colors.green),
+                        size: tabLayout
+                            ? 40
+                            : largeLayout
+                                ? 14
+                                : 18,
+                        color: Colors.green),
                   ),
                 ),
               ),
@@ -165,9 +178,17 @@ class CategoryListState extends State<CategoryList> {
                                 //     'Quantity Print ${_categoryItems[index]['quantity']}');
                               },
                               child: Container(
-                                width: tabLayout ? width * 0.5 : width * 0.4,
-                                height:
-                                    tabLayout ? height * 0.28 : height * 0.15,
+                                margin: const EdgeInsets.only(top: 10),
+                                width: tabLayout
+                                    ? width * 0.5
+                                    : largeLayout
+                                        ? width * 0.4
+                                        : width * 0.45,
+                                height: tabLayout
+                                    ? height * 0.28
+                                    : largeLayout
+                                        ? height * 0.15
+                                        : height * 0.16,
                                 // child: Image.asset(
                                 //     _categoryItems[index]['image'])
                                 child: Image.network(
@@ -186,7 +207,11 @@ class CategoryListState extends State<CategoryList> {
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: tabLayout ? 25 : 20,
+                                        fontSize: tabLayout
+                                            ? 25
+                                            : largeLayout
+                                                ? 20
+                                                : 16,
                                       )),
                                 ),
                               ],
@@ -199,7 +224,11 @@ class CategoryListState extends State<CategoryList> {
                                   Text('₹',
                                       // // textScaleFactor: textScaleFactor,
                                       style: TextStyle(
-                                          fontSize: tabLayout ? 22 : 18,
+                                          fontSize: tabLayout
+                                              ? 22
+                                              : largeLayout
+                                                  ? 18
+                                                  : 16,
                                           color: Colors.green,
                                           fontWeight: FontWeight.bold)),
                                   SizedBox(width: width * 0.01),
@@ -207,7 +236,11 @@ class CategoryListState extends State<CategoryList> {
                                       '${provider['data'][index]['price'].toString()}/${provider['data'][index]['uom']['short_name']}',
                                       // // textScaleFactor: textScaleFactor,
                                       style: TextStyle(
-                                          fontSize: tabLayout ? 22 : 18,
+                                          fontSize: tabLayout
+                                              ? 22
+                                              : largeLayout
+                                                  ? 18
+                                                  : 16,
                                           color: Colors.green,
                                           fontWeight: FontWeight.bold))
                                 ],
@@ -218,11 +251,19 @@ class CategoryListState extends State<CategoryList> {
                         // !isClicked
                         // ?
                         Positioned(
-                          top: tabLayout ? height * 0.26 : height * 0.152,
+                          top: tabLayout
+                              ? height * 0.26
+                              : largeLayout
+                                  ? height * 0.152
+                                  : height * 0.192,
                           right: width * 0.01,
                           child: Container(
                             width: tabLayout ? width * 0.09 : width * 0.1,
-                            height: tabLayout ? height * 0.1 : height * 0.08,
+                            height: tabLayout
+                                ? height * 0.1
+                                : largeLayout
+                                    ? height * 0.08
+                                    : height * 0.1,
                             padding: EdgeInsets.only(top: height * 0.005),
                             decoration: const BoxDecoration(
                                 color: Colors.green,
@@ -250,7 +291,11 @@ class CategoryListState extends State<CategoryList> {
                                       // // textScaleFactor: textScaleFactor,
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: tabLayout ? 30 : 18,
+                                          fontSize: tabLayout
+                                              ? 30
+                                              : largeLayout
+                                                  ? 18
+                                                  : 12,
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Text(
@@ -260,7 +305,11 @@ class CategoryListState extends State<CategoryList> {
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: tabLayout ? 30 : 18,
+                                        fontSize: tabLayout
+                                            ? 30
+                                            : largeLayout
+                                                ? 18
+                                                : 12,
                                         fontWeight: FontWeight.bold)),
                                 InkWell(
                                   onTap: () async {
@@ -303,7 +352,11 @@ class CategoryListState extends State<CategoryList> {
                                       // // textScaleFactor: textScaleFactor,
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: tabLayout ? 30 : 18,
+                                          fontSize: tabLayout
+                                              ? 30
+                                              : largeLayout
+                                                  ? 18
+                                                  : 12,
                                           fontWeight: FontWeight.bold)),
                                 )
                               ],

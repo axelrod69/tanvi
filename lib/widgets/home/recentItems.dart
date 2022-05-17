@@ -158,7 +158,7 @@ class RecentItemsState extends State<RecentItems> {
                               ? width * 0.3
                               : largeLayout
                                   ? width * 0.15
-                                  : width * 0.12),
+                                  : width * 0.25),
                       Text(
                         _recentItems[index]['price'],
                         // // textScaleFactor: textScaleFactor,
