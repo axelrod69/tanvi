@@ -78,7 +78,9 @@ class ProfileState extends State<Profile> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: height * 0.07,
+                  height: !tabLayout && !largeLayout
+                      ? height * 0.05
+                      : height * 0.07,
                   // color: Colors.red,
                   margin: EdgeInsets.only(top: height * 0.02),
                   padding: EdgeInsets.only(left: width * 0.01),
@@ -131,12 +133,15 @@ class ProfileState extends State<Profile> {
                 ),
                 Container(
                   width: double.infinity,
-                  height: height * 0.5,
+                  height:
+                      !tabLayout && !largeLayout ? height * 0.54 : height * 0.5,
                   // color: Colors.red,
                   padding: EdgeInsets.only(
                       left: tabLayout ? width * 0.08 : width * 0.04,
                       right: tabLayout ? width * 0.08 : width * 0.04,
-                      bottom: height * 0.02),
+                      bottom: !tabLayout && !largeLayout
+                          ? height * 0.05
+                          : height * 0.02),
                   child: Stack(
                     children: [
                       Column(
@@ -163,7 +168,11 @@ class ProfileState extends State<Profile> {
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: tabLayout ? 55 : 35),
+                                      fontSize: tabLayout
+                                          ? 55
+                                          : largeLayout
+                                              ? 35
+                                              : 20),
                                 ),
                                 Text(
                                   '${profileProvider['data']['email']}',
@@ -189,7 +198,10 @@ class ProfileState extends State<Profile> {
                                             children: [
                                               Container(
                                                 width: width * 0.4,
-                                                height: height * 0.045,
+                                                height:
+                                                    !tabLayout && !largeLayout
+                                                        ? height * 0.05
+                                                        : height * 0.045,
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     boxShadow: const [
@@ -215,14 +227,19 @@ class ProfileState extends State<Profile> {
                                                             FontWeight.bold,
                                                         fontSize: tabLayout
                                                             ? 20
-                                                            : 14),
+                                                            : largeLayout
+                                                                ? 14
+                                                                : 12),
                                                   ),
                                                 ),
                                               ),
                                               SizedBox(width: width * 0.02),
                                               Container(
                                                   width: width * 0.4,
-                                                  height: height * 0.045,
+                                                  height:
+                                                      !tabLayout && !largeLayout
+                                                          ? height * 0.05
+                                                          : height * 0.045,
                                                   decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       boxShadow: const [
@@ -249,7 +266,9 @@ class ProfileState extends State<Profile> {
                                                               FontWeight.bold,
                                                           fontSize: tabLayout
                                                               ? 20
-                                                              : 14),
+                                                              : largeLayout
+                                                                  ? 14
+                                                                  : 12),
                                                     ),
                                                   ))
                                             ],
@@ -264,7 +283,10 @@ class ProfileState extends State<Profile> {
                                             children: [
                                               Container(
                                                   width: width * 0.4,
-                                                  height: height * 0.045,
+                                                  height:
+                                                      !tabLayout && !largeLayout
+                                                          ? height * 0.05
+                                                          : height * 0.045,
                                                   decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       boxShadow: const [
@@ -291,7 +313,9 @@ class ProfileState extends State<Profile> {
                                                               FontWeight.bold,
                                                           fontSize: tabLayout
                                                               ? 20
-                                                              : 14),
+                                                              : largeLayout
+                                                                  ? 14
+                                                                  : 11),
                                                     ),
                                                   )),
                                               SizedBox(width: width * 0.02),
@@ -302,7 +326,10 @@ class ProfileState extends State<Profile> {
                                                             '/change-location'),
                                                 child: Container(
                                                     width: width * 0.4,
-                                                    height: height * 0.045,
+                                                    height: !tabLayout &&
+                                                            !largeLayout
+                                                        ? height * 0.05
+                                                        : height * 0.045,
                                                     decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         boxShadow: const [
@@ -331,7 +358,9 @@ class ProfileState extends State<Profile> {
                                                                 FontWeight.bold,
                                                             fontSize: tabLayout
                                                                 ? 20
-                                                                : 14),
+                                                                : largeLayout
+                                                                    ? 14
+                                                                    : 12),
                                                       ),
                                                     )),
                                               )
@@ -348,7 +377,9 @@ class ProfileState extends State<Profile> {
                         ],
                       ),
                       Positioned(
-                        top: height * 0.04,
+                        top: !tabLayout && !largeLayout
+                            ? height * 0.01
+                            : height * 0.04,
                         left: 0,
                         right: 0,
                         child: Column(
@@ -365,7 +396,11 @@ class ProfileState extends State<Profile> {
                               child: profileProvider['data']['profile_pic'] !=
                                       null
                                   ? CircleAvatar(
-                                      radius: tabLayout ? 80 : 70,
+                                      radius: tabLayout
+                                          ? 80
+                                          : largeLayout
+                                              ? 70
+                                              : 50,
                                       child: ClipRRect(
                                         borderRadius: tabLayout
                                             ? BorderRadius.circular(80)
@@ -408,8 +443,12 @@ class ProfileState extends State<Profile> {
                         ),
                       ),
                       Positioned(
-                        top: height * 0.17,
-                        left: width * 0.54,
+                        top: !tabLayout && !largeLayout
+                            ? height * 0.14
+                            : height * 0.17,
+                        left: !tabLayout && !largeLayout
+                            ? width * 0.5
+                            : width * 0.54,
                         child: InkWell(
                           onTap: () async {
                             pickImage(ImageSource.gallery).then((_) {
@@ -439,7 +478,11 @@ class ProfileState extends State<Profile> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: tabLayout ? 25 : 14),
+                            fontSize: tabLayout
+                                ? 25
+                                : largeLayout
+                                    ? 14
+                                    : 12),
                       ),
                     ),
                     SizedBox(width: width * 0.2),
@@ -450,7 +493,11 @@ class ProfileState extends State<Profile> {
                         // // textScaleFactor: textScaleFactor,
                         style: TextStyle(
                             color: Colors.grey[700],
-                            fontSize: tabLayout ? 25 : 14),
+                            fontSize: tabLayout
+                                ? 25
+                                : largeLayout
+                                    ? 14
+                                    : 12),
                       ),
                     )
                   ],
@@ -467,7 +514,11 @@ class ProfileState extends State<Profile> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: tabLayout ? 25 : 14),
+                            fontSize: tabLayout
+                                ? 25
+                                : largeLayout
+                                    ? 14
+                                    : 12),
                       ),
                     ),
                     SizedBox(width: width * 0.044),
@@ -476,7 +527,11 @@ class ProfileState extends State<Profile> {
                       // // textScaleFactor: textScaleFactor,
                       style: TextStyle(
                           color: Colors.grey[700],
-                          fontSize: tabLayout ? 25 : 14),
+                          fontSize: tabLayout
+                              ? 25
+                              : largeLayout
+                                  ? 14
+                                  : 12),
                     )
                   ],
                 ),
@@ -492,7 +547,11 @@ class ProfileState extends State<Profile> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: tabLayout ? 25 : 14),
+                            fontSize: tabLayout
+                                ? 25
+                                : largeLayout
+                                    ? 14
+                                    : 12),
                       ),
                     ),
                     SizedBox(width: width * 0.044),
@@ -501,7 +560,11 @@ class ProfileState extends State<Profile> {
                       // // textScaleFactor: textScaleFactor,
                       style: TextStyle(
                           color: Colors.grey[700],
-                          fontSize: tabLayout ? 25 : 14),
+                          fontSize: tabLayout
+                              ? 25
+                              : largeLayout
+                                  ? 14
+                                  : 12),
                     )
                   ],
                 )

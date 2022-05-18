@@ -57,15 +57,14 @@ class CheckOutState extends State<CheckOut> {
           .postRazorPayOrder()
           .then((_) {
         var options = {
-          'key': 'rzp_test_xGrQHFJAeQY8uD',
+          'key': 'rzp_test_EK1Fh8he18fUGa',
           'amount': Provider.of<OrderProvider>(context, listen: false)
                   .orderId['data']['amount_due'] /
               100,
           'name': 'Tanvee Order',
-          'order_id': Provider.of<OrderProvider>(context, listen: false)
-              .orderId['data']['id'],
-          // 'order_id': Provider.of<OrderIdProvider>(context, listen: false)
-          //     .orderId['id'],
+          // 'order_id': Provider.of<OrderProvider>(context, listen: false)
+          //     .orderId['data']['id'],
+          'order_id': 'order_JWg1YWglJjXPak',
           // 'description': 'Fine T-Shirt',
           'prefill': {'contact': '+919831405393', 'email': 'siddc.8@gmail.com'}
         };

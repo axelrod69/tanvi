@@ -94,14 +94,22 @@ class CategoryListState extends State<CategoryList> {
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: tabLayout ? width * 0.24 : width * 0.12),
+                  left: tabLayout
+                      ? width * 0.24
+                      : largeLayout
+                          ? width * 0.16
+                          : width * 0.12),
               child: Text(
                 widget.categoryName,
                 // // textScaleFactor: textScaleFactor,
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: tabLayout ? 35 : 14),
+                    fontSize: tabLayout
+                        ? 35
+                        : largeLayout
+                            ? 18
+                            : 14),
               ),
             )
           ],
@@ -210,7 +218,7 @@ class CategoryListState extends State<CategoryList> {
                                         fontSize: tabLayout
                                             ? 25
                                             : largeLayout
-                                                ? 20
+                                                ? 18
                                                 : 16,
                                       )),
                                 ),

@@ -29,6 +29,7 @@ import './model/popularDeals/popularDealsProducts.dart';
 import './model/products/productsProvider.dart';
 import './model/topProducts/topProductsProvider.dart';
 import './model/profile/profileProvider.dart';
+import './screens/orderScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -112,6 +113,7 @@ class MyAppState extends State<MyApp> {
           '/checkout-screen': (context) => CheckOut(),
           '/otp-screen': (context) => OtpScreen(),
           '/change-location': (context) => ChangeLocation(),
+          '/order-screen': (context) => PageViewScreenOrder(),
         },
       ),
     );

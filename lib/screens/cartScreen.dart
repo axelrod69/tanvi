@@ -14,6 +14,7 @@ class CartScreenState extends State<CartScreen> {
   Map<String, dynamic> updatedProducts = {};
   double totalPrice = 0.0;
   double totalAmount = 0.0;
+  double grand = 0.0;
   int index = 0;
   double tax = 0.0;
   Map<String, dynamic> _cartList = {};
@@ -25,11 +26,13 @@ class CartScreenState extends State<CartScreen> {
         .getCartProducts()
         .then((_) {
       setState(() {
-        // totalPrice = Provider.of<AddToCartProvider>(context, listen: false)
-        //     .cartData['data']['grandTotal'];
+        totalAmount = Provider.of<AddToCartProvider>(context, listen: false)
+            .cartData['data']['grandTotal'];
+
         isLoading = false;
         // totalPrice = response['data']['grandTotal'];
       });
+      print('Total Price: $totalPrice');
     });
     // getTotalPriceCalculation();
     // updateCart;
@@ -59,57 +62,39 @@ class CartScreenState extends State<CartScreen> {
         .getCartProducts();
   }
 
-  void updateCartIncrease(
-      String id, int quantity, double amount, double grandTotal) async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    print('Called');
-    print('Quantity $quantity');
-    // totalPrice = grandTotal;
+  void updateCartIncrease(Map<String, dynamic> data, double grandTotal) async {
+    print('Data: $data');
+    print('Grand Total: $grandTotal');
     setState(() {
-      // totalPrice = grandTotal;
-
-      // totalPrice += amount * 1.0;
-      totalPrice += amount;
-      // totalAmount = totalPrice + grandTotal;
-      // localStorage.setDouble('counter', totalPrice);
-      // totalPrice = localStorage.getDouble('counter')!;
-      print('Total Priceeeeeeeeeeeeeeeee $totalPrice');
+      if (totalAmount > 0) {
+        totalAmount += data['price'];
+      } else {
+        totalAmount = grandTotal + data['price'];
+      }
+      print('Total Priceeeeeeeeeeeeeeeee D $totalAmount');
     });
-    totalAmount = totalPrice + grandTotal;
-    // localStorage.setDouble('totalAmount', totalPrice);
-    // totalAmount = localStorage.getDouble('totalAmount');
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
-            .editCartItem(id, quantity);
+            .editCartItem(data['id'], data['quantity']);
   }
 
-  void updateCartDecrease(
-      String id, int quantity, double amount, double grandTotal) async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    double itemTotal = 0.0;
-    print('Called');
-    print('Quantity $quantity');
+  void updateCartDecrease(Map<String, dynamic> data, double grandTotal) async {
+    print('Data: $data');
+    print('Grand Total: $grandTotal');
     setState(() {
-      // totalPrice = grandTotal;
-
-      // totalPrice = grandTotal;
-      // totalPrice -= amount * 1.0;
-      itemTotal += amount;
-      totalAmount = totalAmount > 0.0 ? totalAmount - itemTotal : 0.0;
-
-      // localStorage.setDouble('counter', totalPrice);
-      // totalPrice = localStorage.getDouble('counter')!;
-      // totalPrice = grandTotal;
-      print('Total Priceeeeeeeeeeeeeeeee D $totalPrice');
+      if (totalAmount > 0) {
+        totalAmount -= data['price'];
+      } else {
+        if (data['quantity'] > 0) {
+          totalAmount = grandTotal - data['price'];
+        }
+      }
+      print('Total Priceeeeeeeeeeeeeeeee D $totalAmount');
     });
 
-    // totalPrice = grandTotal;
-
-    // localStorage.setDouble('totalAmount', totalPrice);
-    // totalAmount = localStorage.getDouble('totalAmount');
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
-            .editCartItem(id, quantity);
+            .editCartItem(data['id'], data['quantity']);
   }
 
   @override
@@ -118,6 +103,7 @@ class CartScreenState extends State<CartScreen> {
     final width = MediaQuery.of(context).size.width;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final provider = Provider.of<AddToCartProvider>(context).cartData;
+
     var price = 0.0;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
@@ -143,8 +129,8 @@ class CartScreenState extends State<CartScreen> {
       ),
       body: isLoading
           ? const Center(
-              child: CircularProgressIndicator(
-                color: Colors.green,
+              child: Text(
+                'Cart Is Empty',
               ),
             )
           : Container(
@@ -307,21 +293,12 @@ class CartScreenState extends State<CartScreen> {
                                           setState(() {
                                             if (provider['data']['cartItem']
                                                     [index]['quantity'] >
-                                                0) {
+                                                1) {
                                               provider['data']['cartItem']
                                                   [index]['quantity']--;
-                                              print(provider['data']['cartItem']
-                                                  [index]['quantity']);
-                                              print(
-                                                  'Item Total ${provider['data']['cartItem'][index]['totalPrice']}');
                                               updateCartDecrease(
                                                   provider['data']['cartItem']
-                                                          [index]['id']
-                                                      .toString(),
-                                                  provider['data']['cartItem']
-                                                      [index]['quantity'],
-                                                  provider['data']['cartItem']
-                                                      [index]['price'],
+                                                      [index],
                                                   provider['data']
                                                       ['grandTotal']);
                                             } else {
@@ -332,6 +309,7 @@ class CartScreenState extends State<CartScreen> {
                                                       provider['data']
                                                               ['cartItem']
                                                           [index]['id']);
+
                                               print('Rachhel Sekh');
                                             }
                                           });
@@ -383,21 +361,10 @@ class CartScreenState extends State<CartScreen> {
                                                 ['quantity']++;
                                             print(provider['data']['cartItem']
                                                 [index]['quantity']);
-                                            // print(
-                                            //     'Increase ${provider['data']['grandTotal']}');
-                                            // totalPrice +=
-                                            //     provider['data']['totalPrice'];
-                                            // print('total $totalPrice');
                                             updateCartIncrease(
                                                 provider['data']['cartItem']
-                                                        [index]['id']
-                                                    .toString(),
-                                                provider['data']['cartItem']
-                                                    [index]['quantity'],
-                                                provider['data']['cartItem']
-                                                    [index]['price'],
+                                                    [index],
                                                 provider['data']['grandTotal']);
-                                            // updateCall();
                                           });
                                         },
                                         child: Icon(Icons.add,
@@ -469,18 +436,8 @@ class CartScreenState extends State<CartScreen> {
                               Padding(
                                 padding: EdgeInsets.only(right: width * 0.04),
                                 child: Text(
-                                    // '₹500',
-                                    // provider['data']['grandTotal'].toString(),
-                                    // totalPrice == 0.0
-                                    //     ? provider['data']['grandTotal']
-                                    //         .toString()
-                                    //     : totalPrice.toString(),
-                                    totalAmount == 0.0
-                                        ? '₹${provider['data']['grandTotal']}'
-                                        : '₹$totalAmount',
-                                    // '₹$totalPrice',
-                                    // price.toString(),
-                                    // // textScaleFactor: textScaleFactor,
+                                    // '₹${provider['data']['grandTotal']}',
+                                    '₹$totalAmount',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,

@@ -60,7 +60,11 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: tabLayout ? 25 : 18),
+                fontSize: tabLayout
+                    ? 25
+                    : largeLayout
+                        ? 18
+                        : 12),
           ),
           SizedBox(height: height * 0.005),
           Expanded(
@@ -71,7 +75,11 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Container(
                   width: double.infinity,
-                  height: tabLayout ? height * 0.1 : height * 0.08,
+                  height: tabLayout
+                      ? height * 0.1
+                      : largeLayout
+                          ? height * 0.08
+                          : height * 0.1,
                   margin: EdgeInsets.only(bottom: height * 0.01),
                   padding:
                       EdgeInsets.only(left: width * 0.01, right: width * 0.01),

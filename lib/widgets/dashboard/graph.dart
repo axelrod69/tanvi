@@ -12,7 +12,11 @@ class Graph extends StatelessWidget {
     // TODO: implement build
     return Container(
       width: double.infinity,
-      height: tabLayout ? height * 0.25 : height * 0.2,
+      height: tabLayout
+          ? height * 0.25
+          : largeLayout
+              ? height * 0.2
+              : height * 0.28,
       decoration: BoxDecoration(
           image: const DecorationImage(
               image: AssetImage('assets/images/Rectangle 392.png'),
@@ -32,7 +36,11 @@ class Graph extends StatelessWidget {
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: tabLayout ? 18 : 14),
+                  fontSize: tabLayout
+                      ? 18
+                      : largeLayout
+                          ? 14
+                          : 12),
             ),
           )
         ],

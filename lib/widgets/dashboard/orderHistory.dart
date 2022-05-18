@@ -64,7 +64,11 @@ class OrderHistoryState extends State<OrderHistory> {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: tabLayout ? 25 : 18),
+                      fontSize: tabLayout
+                          ? 25
+                          : largeLayout
+                              ? 18
+                              : 12),
                 ),
               ),
               Padding(
@@ -76,7 +80,11 @@ class OrderHistoryState extends State<OrderHistory> {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: tabLayout ? 16 : 12),
+                      fontSize: tabLayout
+                          ? 16
+                          : largeLayout
+                              ? 12
+                              : 10),
                 ),
               )
             ],
@@ -90,13 +98,17 @@ class OrderHistoryState extends State<OrderHistory> {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => Container(
                 width: double.infinity,
-                height: tabLayout ? height * 0.14 : height * 0.1,
+                height: tabLayout
+                    ? height * 0.14
+                    : largeLayout
+                        ? height * 0.1
+                        : height * 0.155,
                 margin: EdgeInsets.only(bottom: height * 0.005),
                 // color: Colors.blue,
                 child: Row(
                   children: [
                     Flexible(
-                      flex: 1,
+                      flex: !tabLayout && !largeLayout ? 2 : 1,
                       child: Container(
                         height: double.infinity,
                         // color: Colors.pink,
@@ -141,7 +153,11 @@ class OrderHistoryState extends State<OrderHistory> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout ? 25 : 16),
+                                  fontSize: tabLayout
+                                      ? 25
+                                      : largeLayout
+                                          ? 16
+                                          : 12),
                             ),
                             Text(
                               'No. of Item = ${_orderHistory[index]['quantity'].toString()}',
@@ -149,7 +165,11 @@ class OrderHistoryState extends State<OrderHistory> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout ? 20 : 12),
+                                  fontSize: tabLayout
+                                      ? 20
+                                      : largeLayout
+                                          ? 12
+                                          : 10),
                             ),
                             Text(
                               _orderHistory[index]['status'],
@@ -163,7 +183,11 @@ class OrderHistoryState extends State<OrderHistory> {
                                           ? Colors.amber
                                           : Colors.red,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout ? 20 : 16),
+                                  fontSize: tabLayout
+                                      ? 20
+                                      : largeLayout
+                                          ? 16
+                                          : 12),
                             )
                           ],
                         ),

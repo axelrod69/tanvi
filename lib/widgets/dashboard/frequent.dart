@@ -53,7 +53,11 @@ class FrequentState extends State<Frequent> {
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: tabLayout ? 25 : 18),
+                fontSize: tabLayout
+                    ? 25
+                    : largeLayout
+                        ? 18
+                        : 12),
           ),
           SizedBox(height: height * 0.01),
           Expanded(
@@ -74,8 +78,16 @@ class FrequentState extends State<Frequent> {
                   child: Column(
                     children: [
                       Container(
-                        width: tabLayout ? height * 0.25 : height * 0.12,
-                        height: tabLayout ? height * 0.175 : height * 0.12,
+                        width: tabLayout
+                            ? height * 0.25
+                            : largeLayout
+                                ? height * 0.12
+                                : height * 0.18,
+                        height: tabLayout
+                            ? height * 0.175
+                            : largeLayout
+                                ? height * 0.12
+                                : height * 0.15,
                         // padding: EdgeInsets.symmetric(
                         //     vertical: height * 0.02, horizontal: width * 0.02),
                         decoration: BoxDecoration(
@@ -100,7 +112,11 @@ class FrequentState extends State<Frequent> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: tabLayout ? 18 : 14),
+                            fontSize: tabLayout
+                                ? 18
+                                : largeLayout
+                                    ? 14
+                                    : 12),
                       )
                     ],
                   ),

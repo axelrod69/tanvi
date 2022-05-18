@@ -7,6 +7,8 @@ import '../widgets/dashboard/referFriend.dart';
 import '../widgets/dashboard/notification.dart';
 import '../widgets/dashboard/reviewAndRating.dart';
 import '../widgets/bottomNavigation.dart';
+import 'package:provider/provider.dart';
+import '../model/profile/profileProvider.dart';
 
 class Dashboard extends StatefulWidget {
   DashboardState createState() => DashboardState();
@@ -19,6 +21,7 @@ class DashboardState extends State<Dashboard> {
     final width = MediaQuery.of(context).size.width;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    final provider = Provider.of<ProfileProvider>(context).profile;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
@@ -34,7 +37,11 @@ class DashboardState extends State<Dashboard> {
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
-              fontSize: tabLayout ? 35 : 14),
+              fontSize: tabLayout
+                  ? 35
+                  : largeLayout
+                      ? 14
+                      : 18),
         ),
       ),
       body: Container(
@@ -80,8 +87,8 @@ class DashboardState extends State<Dashboard> {
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20))),
-                      child: Image.asset(
-                        'assets/images/egpa9l0l.png',
+                      child: Image.network(
+                        'http://3.109.206.91:8000${provider['data']['profile_pic']}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -99,23 +106,40 @@ class DashboardState extends State<Dashboard> {
                         Row(
                           children: [
                             Text(
-                              'Eli Avon',
+                              '${provider['data']['first_name']} ${provider['data']['last_name']}',
                               // textScaleFactor: textScaleFactor,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout ? 45 : 25),
+                                  fontSize: tabLayout
+                                      ? 45
+                                      : largeLayout
+                                          ? 20
+                                          : 14),
                             ),
-                            Icon(Icons.edit,
-                                color: Colors.black, size: tabLayout ? 35 : 30)
+                            InkWell(
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed('/order-screen'),
+                              child: Icon(Icons.edit,
+                                  color: Colors.black,
+                                  size: tabLayout
+                                      ? 35
+                                      : largeLayout
+                                          ? 20
+                                          : 14),
+                            )
                           ],
                         ),
                         Text(
-                          'somewhere@somewhat.com',
+                          provider['data']['email'],
                           // textScaleFactor: textScaleFactor,
                           style: TextStyle(
                               color: Colors.grey[700],
-                              fontSize: tabLayout ? 22 : 14),
+                              fontSize: tabLayout
+                                  ? 22
+                                  : largeLayout
+                                      ? 14
+                                      : 12),
                         )
                       ],
                     ),
@@ -132,7 +156,9 @@ class DashboardState extends State<Dashboard> {
                   padding:
                       EdgeInsets.only(left: width * 0.04, right: width * 0.04),
                   child: Container(
-                    height: height * 0.06,
+                    height: !tabLayout && !largeLayout
+                        ? height * 0.07
+                        : height * 0.06,
                     padding: EdgeInsets.only(left: width * 0.02),
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -145,24 +171,37 @@ class DashboardState extends State<Dashboard> {
                         ]),
                     child: Row(
                       children: [
-                        const Icon(Icons.location_pin,
-                            color: Colors.green, size: 30),
+                        Icon(Icons.location_pin,
+                            color: Colors.green,
+                            size: !tabLayout && !largeLayout ? 18 : 30),
                         Text(
                           '48, Tarun Sengupta Sarani',
                           // textScaleFactor: textScaleFactor,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: tabLayout ? 20 : 15),
+                              fontSize: tabLayout
+                                  ? 20
+                                  : largeLayout
+                                      ? 15
+                                      : 10),
                         ),
                         SizedBox(
-                            width: tabLayout ? width * 0.52 : width * 0.15),
+                            width: tabLayout
+                                ? width * 0.52
+                                : largeLayout
+                                    ? width * 0.15
+                                    : width * 0.34),
                         Text(
                           'Change',
                           // textScaleFactor: textScaleFactor,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: tabLayout ? 18 : 15),
+                              fontSize: tabLayout
+                                  ? 18
+                                  : largeLayout
+                                      ? 15
+                                      : 10),
                         )
                       ],
                     ),
@@ -177,7 +216,11 @@ class DashboardState extends State<Dashboard> {
             ),
             SizedBox(height: height * 0.02),
             Container(
-              height: tabLayout ? height * 0.5 : height * 0.4,
+              height: tabLayout
+                  ? height * 0.5
+                  : largeLayout
+                      ? height * 0.4
+                      : height * 0.55,
               width: width * 0.6,
               // padding: EdgeInsets.symmetric(
               //     vertical: height * 0.02, horizontal: width * 0.02),
@@ -200,7 +243,11 @@ class DashboardState extends State<Dashboard> {
             SizedBox(height: height * 0.02),
             Container(
               width: double.infinity,
-              height: tabLayout ? height * 0.29 : height * 0.25,
+              height: tabLayout
+                  ? height * 0.29
+                  : largeLayout
+                      ? height * 0.25
+                      : height * 0.28,
               padding: EdgeInsets.only(
                   left: width * 0.02,
                   top: height * 0.01,
@@ -226,7 +273,8 @@ class DashboardState extends State<Dashboard> {
             Flexible(
               flex: 1,
               child: Container(
-                height: height * 0.28,
+                height:
+                    !tabLayout && !largeLayout ? height * 0.32 : height * 0.28,
                 // color: Colors.blue,
                 padding: EdgeInsets.only(
                     left: width * 0.02,
@@ -239,7 +287,11 @@ class DashboardState extends State<Dashboard> {
             SizedBox(height: height * 0.02),
             Container(
               width: width * 1,
-              height: tabLayout ? height * 0.35 : height * 0.33,
+              height: tabLayout
+                  ? height * 0.35
+                  : largeLayout
+                      ? height * 0.33
+                      : height * 0.38,
               // color: Colors.red,
               padding: EdgeInsets.only(
                   left: width * 0.02,

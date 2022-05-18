@@ -47,7 +47,11 @@ class DashboardNotificationState extends State<DashboardNotification> {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: tabLayout ? 25 : 18),
+                      fontSize: tabLayout
+                          ? 25
+                          : largeLayout
+                              ? 18
+                              : 12),
                 ),
               ),
               Padding(
@@ -58,7 +62,11 @@ class DashboardNotificationState extends State<DashboardNotification> {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: tabLayout ? 18 : 10),
+                      fontSize: tabLayout
+                          ? 18
+                          : largeLayout
+                              ? 10
+                              : 8),
                 ),
               )
             ],
@@ -71,7 +79,11 @@ class DashboardNotificationState extends State<DashboardNotification> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Container(
                   width: double.infinity,
-                  height: tabLayout ? height * 0.07 : height * 0.06,
+                  height: tabLayout
+                      ? height * 0.07
+                      : largeLayout
+                          ? height * 0.06
+                          : height * 0.08,
                   // color: Colors.green,
                   margin: EdgeInsets.only(bottom: height * 0.01),
                   child: Row(
@@ -89,7 +101,11 @@ class DashboardNotificationState extends State<DashboardNotification> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout ? 15 : 8),
+                                  fontSize: tabLayout
+                                      ? 15
+                                      : largeLayout
+                                          ? 8
+                                          : 10),
                             ),
                             Text(
                               _notification[index]['time'],
@@ -97,7 +113,11 @@ class DashboardNotificationState extends State<DashboardNotification> {
                               style: TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout ? 15 : 8),
+                                  fontSize: tabLayout
+                                      ? 15
+                                      : largeLayout
+                                          ? 8
+                                          : 10),
                             )
                           ],
                         ),
