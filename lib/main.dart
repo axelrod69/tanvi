@@ -30,6 +30,7 @@ import './model/products/productsProvider.dart';
 import './model/topProducts/topProductsProvider.dart';
 import './model/profile/profileProvider.dart';
 import './screens/orderScreen.dart';
+import './screens/searchScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -114,6 +115,8 @@ class MyAppState extends State<MyApp> {
           '/otp-screen': (context) => OtpScreen(),
           '/change-location': (context) => ChangeLocation(),
           '/order-screen': (context) => PageViewScreenOrder(),
+          '/search-screen': (context) => Search(),
+          // '/payment-verification': (context) => PaymentLoadingScreen(),
         },
       ),
     );

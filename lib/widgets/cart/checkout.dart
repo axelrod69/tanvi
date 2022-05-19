@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../model/order/orderProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import '../../screens/paymentLoadingScreen.dart';
 
 class CheckOut extends StatefulWidget {
   CheckOutState createState() => CheckOutState();
@@ -19,10 +19,15 @@ class CheckOutState extends State<CheckOut> {
   String? couponCode;
   double amount = 0;
   String? minOrder;
+  String? responseOrderId;
+  String? responsePaymentId;
+  String? responseSignature;
+  String? receipt;
 
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     getCoupon();
     razorpay = Razorpay();
@@ -40,15 +45,28 @@ class CheckOutState extends State<CheckOut> {
     print('Min Order: $amount');
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse paymentSuccessResponse) {
+  void _handlePaymentSuccess(
+      PaymentSuccessResponse paymentSuccessResponse) async {
     Fluttertoast.showToast(
         msg: "SUCCESS: " + paymentSuccessResponse.paymentId!,
         toastLength: Toast.LENGTH_LONG);
 
-    print('Payment Success Order ID ${paymentSuccessResponse.orderId}');
-    print('Payment Success Payment ID ${paymentSuccessResponse.paymentId}');
-    print('Payment Success Signature ${paymentSuccessResponse.signature}');
-    // Navigator.of(context).pushNamed('/my-order-screen');
+    responseOrderId = paymentSuccessResponse.orderId;
+    responsePaymentId = paymentSuccessResponse.paymentId;
+    responseSignature = paymentSuccessResponse.signature;
+
+    print('Payment Response Order ID ${paymentSuccessResponse.orderId}');
+    print('Payment Response Payment ID ${paymentSuccessResponse.paymentId}');
+    print('Payment Response Signature ${paymentSuccessResponse.signature}');
+
+    print('Recipt : $receipt');
+    print('Payment Success Order ID: $responseOrderId');
+    print('Payment Success Payment ID: $responsePaymentId');
+    print('Payment Success Signature: $responseSignature');
+
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => PaymentLoadingScreen(receipt!, responseOrderId!,
+            responsePaymentId!, responseSignature!)));
   }
 
   Future<void> razorPayCheckout() async {
@@ -56,15 +74,17 @@ class CheckOutState extends State<CheckOut> {
       Provider.of<OrderProvider>(context, listen: false)
           .postRazorPayOrder()
           .then((_) {
+        receipt = Provider.of<OrderProvider>(context, listen: false)
+            .orderId['data']['receipt'];
         var options = {
           'key': 'rzp_test_EK1Fh8he18fUGa',
           'amount': Provider.of<OrderProvider>(context, listen: false)
                   .orderId['data']['amount_due'] /
               100,
           'name': 'Tanvee Order',
-          // 'order_id': Provider.of<OrderProvider>(context, listen: false)
-          //     .orderId['data']['id'],
-          'order_id': 'order_JWg1YWglJjXPak',
+          'order_id': Provider.of<OrderProvider>(context, listen: false)
+              .orderId['data']['id'],
+          // 'order_id': 'order_JWg1YWglJjXPak',
           // 'description': 'Fine T-Shirt',
           'prefill': {'contact': '+919831405393', 'email': 'siddc.8@gmail.com'}
         };
@@ -106,10 +126,15 @@ class CheckOutState extends State<CheckOut> {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    // final provider = Provider.of<OrderProvider>(context).orderId;
 
     final data = routes['data'];
 
     print('DATA: $data');
+
+    print('Payment Success Order ID $responseOrderId');
+    print('Payment Success Payment ID $responsePaymentId');
+    print('Payment Success Signature $responseSignature');
 
     // print('Min Order Amount: ${double.parse(selectedCoupon['min_order_amt'])}');
 
@@ -573,8 +598,9 @@ class CheckOutState extends State<CheckOut> {
             Padding(
               padding: EdgeInsets.only(left: width * 0.3, right: width * 0.3),
               child: InkWell(
-                onTap: () =>
-                    selectedValue == 1 ? codCheckOut() : razorPayCheckout(),
+                onTap: () async {
+                  selectedValue == 1 ? codCheckOut() : razorPayCheckout();
+                },
                 child: Container(
                   width: width * 0.1,
                   height: !tabLayout && !largeLayout

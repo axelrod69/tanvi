@@ -123,45 +123,49 @@ class HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   Center(
-                    child: Container(
-                      width: width * 0.8,
-                      height: !tabLayout && !largeLayout
-                          ? height * 0.075
-                          : height * 0.055,
-                      margin: EdgeInsets.only(
-                        top: height * 0.02,
-                      ),
-                      padding: EdgeInsets.only(left: width * 0.02),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.greenAccent,
-                                // spreadRadius: 5,
-                                blurRadius: 5,
-                                offset: Offset(0, 2))
-                          ]),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.search_outlined,
-                            color: Colors.grey,
-                            size: !tabLayout && !largeLayout ? 22 : 30,
-                          ),
-                          SizedBox(width: width * 0.04),
-                          Text(
-                            'Search',
-                            // textScaleFactor: textScaleFactor,
-                            style: TextStyle(
-                                color: Colors.grey.withOpacity(0.6),
-                                fontSize: tabLayout
-                                    ? width * 0.03
-                                    : largeLayout
-                                        ? 25
-                                        : 18),
-                          )
-                        ],
+                    child: InkWell(
+                      onTap: () =>
+                          Navigator.of(context).pushNamed('/search-screen'),
+                      child: Container(
+                        width: width * 0.8,
+                        height: !tabLayout && !largeLayout
+                            ? height * 0.075
+                            : height * 0.055,
+                        margin: EdgeInsets.only(
+                          top: height * 0.02,
+                        ),
+                        padding: EdgeInsets.only(left: width * 0.02),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.greenAccent,
+                                  // spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 2))
+                            ]),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.search_outlined,
+                              color: Colors.grey,
+                              size: !tabLayout && !largeLayout ? 22 : 30,
+                            ),
+                            SizedBox(width: width * 0.04),
+                            Text(
+                              'Search',
+                              // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  fontSize: tabLayout
+                                      ? width * 0.03
+                                      : largeLayout
+                                          ? 25
+                                          : 18),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   )
