@@ -85,7 +85,7 @@ class CategoryScreenState extends State<CategoryScreen> {
                             size: tabLayout
                                 ? 40
                                 : largeLayout
-                                    ? 14
+                                    ? 20
                                     : 18,
                             color: Colors.green),
                       ),
@@ -104,14 +104,14 @@ class CategoryScreenState extends State<CategoryScreen> {
                         fontSize: tabLayout
                             ? 35
                             : largeLayout
-                                ? 14
+                                ? 20
                                 : 18),
                   ),
                 )
               ],
             ),
             Container(
-              width: !tabLayout && !largeLayout ? width * 0.8 : width * 0.65,
+              width: !tabLayout && !largeLayout ? width * 0.8 : width * 0.75,
               height:
                   !tabLayout && !largeLayout ? height * 0.075 : height * 0.055,
               margin: EdgeInsets.only(

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/products/productsProvider.dart';
 
-class Search extends StatefulWidget {
-  SearchState createState() => SearchState();
+class CategorySearch extends StatefulWidget {
+  CategorySearchState createState() => CategorySearchState();
 }
 
-class SearchState extends State<Search> {
+class CategorySearchState extends State<CategorySearch> {
   final _controller = TextEditingController();
   bool switchState = true;
   bool isLoading = true;
