@@ -117,17 +117,13 @@ class DashboardState extends State<Dashboard> {
                                           ? 20
                                           : 14),
                             ),
-                            InkWell(
-                              onTap: () => Navigator.of(context)
-                                  .pushNamed('/order-screen'),
-                              child: Icon(Icons.edit,
-                                  color: Colors.black,
-                                  size: tabLayout
-                                      ? 35
-                                      : largeLayout
-                                          ? 20
-                                          : 14),
-                            )
+                            Icon(Icons.edit,
+                                color: Colors.black,
+                                size: tabLayout
+                                    ? 35
+                                    : largeLayout
+                                        ? 20
+                                        : 14)
                           ],
                         ),
                         Text(
@@ -209,11 +205,11 @@ class DashboardState extends State<Dashboard> {
                 ))
               ],
             ),
-            SizedBox(height: height * 0.04),
-            Padding(
-              padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
-              child: Graph(),
-            ),
+            SizedBox(height: height * 0.01),
+            // Padding(
+            //   padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
+            //   child: Graph(),
+            // ),
             SizedBox(height: height * 0.02),
             Container(
               height: tabLayout

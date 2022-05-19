@@ -110,41 +110,46 @@ class CategoryScreenState extends State<CategoryScreen> {
                 )
               ],
             ),
-            Container(
-              width: !tabLayout && !largeLayout ? width * 0.8 : width * 0.75,
-              height:
-                  !tabLayout && !largeLayout ? height * 0.075 : height * 0.055,
-              margin: EdgeInsets.only(
-                // left: width * 0.05,
-                top: height * 0.02,
-                // right: width * 0.05,
-              ),
-              padding: EdgeInsets.only(left: width * 0.02),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.greenAccent,
-                        // spreadRadius: 5,
-                        blurRadius: 5,
-                        offset: Offset(0, 2))
-                  ]),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.search_outlined,
-                    color: Colors.grey,
-                    size: 30,
-                  ),
-                  SizedBox(width: width * 0.04),
-                  Text(
-                    'Search',
-                    // textScaleFactor: textScaleFactor,
-                    style: TextStyle(
-                        color: Colors.grey.withOpacity(0.6), fontSize: 25),
-                  )
-                ],
+            InkWell(
+              onTap: () =>
+                  Navigator.of(context).pushNamed('/categories-search'),
+              child: Container(
+                width: !tabLayout && !largeLayout ? width * 0.8 : width * 0.75,
+                height: !tabLayout && !largeLayout
+                    ? height * 0.075
+                    : height * 0.055,
+                margin: EdgeInsets.only(
+                  // left: width * 0.05,
+                  top: height * 0.02,
+                  // right: width * 0.05,
+                ),
+                padding: EdgeInsets.only(left: width * 0.02),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.greenAccent,
+                          // spreadRadius: 5,
+                          blurRadius: 5,
+                          offset: Offset(0, 2))
+                    ]),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.search_outlined,
+                      color: Colors.grey,
+                      size: 30,
+                    ),
+                    SizedBox(width: width * 0.04),
+                    Text(
+                      'Search',
+                      // textScaleFactor: textScaleFactor,
+                      style: TextStyle(
+                          color: Colors.grey.withOpacity(0.6), fontSize: 25),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

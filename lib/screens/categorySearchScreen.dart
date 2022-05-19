@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../model/products/productsProvider.dart';
+import 'package:tanvi/widgets/categories/categoryList.dart';
+import '../model/category/categoryProvider.dart';
 
 class CategorySearch extends StatefulWidget {
   CategorySearchState createState() => CategorySearchState();
@@ -18,13 +19,13 @@ class CategorySearchState extends State<CategorySearch> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<ProductsProvider>(context, listen: false)
-        .searchProduct()
+    Provider.of<CategoryProvider>(context, listen: false)
+        .getSearchCategory()
         .then((_) {
       setState(() {
         isLoading = false;
-        data = Provider.of<ProductsProvider>(context, listen: false)
-            .searchProducts;
+        data = Provider.of<CategoryProvider>(context, listen: false)
+            .categoriesList;
         query = data;
       });
     });
@@ -121,7 +122,7 @@ class CategorySearchState extends State<CategorySearch> {
                               fontSize: !tabLayout && !largeLayout ? 14 : 20),
                           decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Search Products',
+                            hintText: 'Search Categories',
                             hintStyle: TextStyle(color: Colors.grey),
                           ),
                         ),
@@ -153,15 +154,10 @@ class CategorySearchState extends State<CategorySearch> {
                 // color: Colors.red,
                 child: ListView.builder(
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () => Navigator.of(context)
-                        .pushNamed('/item-details', arguments: {
-                      'id': query[index]['id'],
-                      'image': query[index]['main_image'],
-                      'name': query[index]['name'],
-                      'description': query[index]['description'],
-                      'price': query[index]['price'],
-                      'quantity': 0
-                    }),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CategoryList(
+                          query[index]['id'], query[index]['name']),
+                    )),
                     child: Container(
                       width: double.infinity,
                       height: tabLayout
@@ -191,7 +187,7 @@ class CategorySearchState extends State<CategorySearch> {
                                       offset: Offset(1, 2))
                                 ]),
                             child: Image.network(
-                              'http://3.109.206.91:8000${query[index]['main_image']}',
+                              query[index]['categoryImage'],
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -215,25 +211,6 @@ class CategorySearchState extends State<CategorySearch> {
                                               ? 18
                                               : 14),
                                 ),
-                                SizedBox(height: height * 0.01),
-                                Text(
-                                    'Category: ${query[index]['category']['name']}',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: tabLayout
-                                            ? 18
-                                            : largeLayout
-                                                ? 16
-                                                : 12)),
-                                SizedBox(height: height * 0.01),
-                                Text('Price: ₹${query[index]['price']}',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: tabLayout
-                                            ? 18
-                                            : largeLayout
-                                                ? 16
-                                                : 12)),
                               ],
                             ),
                           ))

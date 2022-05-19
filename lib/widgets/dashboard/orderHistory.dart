@@ -74,17 +74,20 @@ class OrderHistoryState extends State<OrderHistory> {
               Padding(
                 padding:
                     EdgeInsets.only(right: width * 0.02, top: height * 0.01),
-                child: Text(
-                  'View All',
-                  // // textScaleFactor: textScaleFactor,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: tabLayout
-                          ? 16
-                          : largeLayout
-                              ? 12
-                              : 10),
+                child: InkWell(
+                  onTap: () => Navigator.of(context).pushNamed('/order-screen'),
+                  child: Text(
+                    'View All',
+                    // // textScaleFactor: textScaleFactor,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: tabLayout
+                            ? 16
+                            : largeLayout
+                                ? 12
+                                : 10),
+                  ),
                 ),
               )
             ],

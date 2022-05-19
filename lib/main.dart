@@ -32,6 +32,7 @@ import './model/profile/profileProvider.dart';
 import './screens/orderScreen.dart';
 import './screens/searchScreen.dart';
 import './screens/categorySearchScreen.dart';
+import './model/orderHistory/orderHistory.dart';
 
 void main() => runApp(MyApp());
 
@@ -92,6 +93,7 @@ class MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => ProductsProvider()),
         ChangeNotifierProvider(create: (context) => TopProductsProvider()),
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
+        ChangeNotifierProvider(create: (context) => OrderHistoryProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
