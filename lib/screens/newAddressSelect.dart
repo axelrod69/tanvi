@@ -4,11 +4,11 @@ import 'package:provider/provider.dart';
 import '../model/changeLocation/changeLocation.dart';
 import '../model/location/location.dart';
 
-class ChangeLocation extends StatefulWidget {
-  ChangeLocationState createState() => ChangeLocationState();
+class ChangeNewLocation extends StatefulWidget {
+  ChangeNewLocationState createState() => ChangeNewLocationState();
 }
 
-class ChangeLocationState extends State<ChangeLocation> {
+class ChangeNewLocationState extends State<ChangeNewLocation> {
   final _controller = TextEditingController();
   List<dynamic> _placesList = [];
   Map<String, dynamic> _placesId = {};
@@ -127,16 +127,16 @@ class ChangeLocationState extends State<ChangeLocation> {
         // color: Colors.red,
         child: ListView.builder(
           itemBuilder: (context, index) => InkWell(
-            // onTap: () {
-            //   setPlaceId(_placesList[index]['place_id']);
-            //   Provider.of<LocationProvider>(context, listen: false)
-            //       .setNewAddress(latitude, longitude)
-            //       .then((_) {
-            //     // Provider.of<LocationProvider>(context, listen: false)
-            //     //     .setAddress();
-            //     Navigator.of(context).pop();
-            //   });
-            // },
+            onTap: () {
+              setPlaceId(_placesList[index]['place_id']);
+              Provider.of<LocationProvider>(context, listen: false)
+                  .setNewAddress(latitude, longitude)
+                  .then((_) {
+                Provider.of<LocationProvider>(context, listen: false)
+                    .newAddress(latitude, longitude);
+                Navigator.of(context).pop();
+              });
+            },
             child: Container(
               padding: EdgeInsets.only(left: width * 0.02, right: width * 0.02),
               width: double.infinity,

@@ -33,6 +33,9 @@ import './screens/orderScreen.dart';
 import './screens/searchScreen.dart';
 import './screens/categorySearchScreen.dart';
 import './model/orderHistory/orderHistory.dart';
+import './model/address/addressProvider.dart';
+import './screens/addressList.dart';
+import './screens/newAddressSelect.dart';
 
 void main() => runApp(MyApp());
 
@@ -94,6 +97,7 @@ class MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => TopProductsProvider()),
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
         ChangeNotifierProvider(create: (context) => OrderHistoryProvider()),
+        ChangeNotifierProvider(create: (context) => AddressProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -119,7 +123,9 @@ class MyAppState extends State<MyApp> {
           '/change-location': (context) => ChangeLocation(),
           '/order-screen': (context) => PageViewScreenOrder(),
           '/search-screen': (context) => Search(),
-          '/categories-search': (context) => CategorySearch()
+          '/categories-search': (context) => CategorySearch(),
+          '/address-list': (context) => AddressList(),
+          '/new-address-select': (context) => ChangeNewLocation(),
           // '/payment-verification': (context) => PaymentLoadingScreen(),
         },
       ),

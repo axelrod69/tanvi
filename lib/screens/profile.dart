@@ -499,6 +499,13 @@ class ProfileState extends State<Profile> {
                                     ? 14
                                     : 12),
                       ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: width * 0.04),
+                      child: InkWell(
+                          onTap: () =>
+                              Navigator.of(context).pushNamed('/address-list'),
+                          child: const Icon(Icons.edit, color: Colors.green)),
                     )
                   ],
                 ),

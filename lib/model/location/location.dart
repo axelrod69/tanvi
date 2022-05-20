@@ -31,6 +31,7 @@ class LocationProvider with ChangeNotifier {
   }
 
   String _address = '';
+  String _newAddressSet = '';
   String _deliveryAddress = '';
   String? _state = '';
 
@@ -40,6 +41,10 @@ class LocationProvider with ChangeNotifier {
 
   String get address {
     return _address;
+  }
+
+  String get newAddressSet {
+    return _newAddressSet;
   }
 
   String get deliveryAddress {
@@ -134,28 +139,69 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setAddress() async {
+  Future<void> selectNewAddress(String id) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    final url = Uri.parse(baseUrl + '/api/customer/shipping-address-update/');
+    final response = await http
+        .post(url, body: json.encode({'id': id, 'is_default': true}), headers: {
+      'Authorization': 'Bearer ${localStorage.getString('token')}',
+      'Content-Type': 'application/json'
+    });
+    print(json.decode(response.body));
+  }
+
+  Future<void> newAddress(double latitude, double longitude) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
+    print(placemarks);
+    Placemark place = placemarks[0];
+    _newAddressSet =
+        '${place.street}, ${place.thoroughfare} ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.administrativeArea} ${place.country}';
+    postCode = place.postalCode!;
+    addressLine = '${place.street} ${place.thoroughfare}';
+    locality = place.subLocality!;
+    city = place.locality!;
+    selectedState = place.administrativeArea!;
+    print('Initial Address $postCode');
+    print('Initial Address $addressLine');
+    print('Initial Address $locality');
+    print('Initial Address $city');
+    print('Initial Address $selectedState');
+    print('New Address $_deliveryAddress');
+    // setState(() {});
+    _state = place.administrativeArea;
+    _coorDinates['lat'] = latitude;
+    _coorDinates['lng'] = longitude;
+    notifyListeners();
+  }
+
+  Future<void> setAddress(String name, String mobileNumber) async {
+    print('${_coorDinates['lat']}');
+    print('${_coorDinates['lng']}');
+
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + '/api/customer/shipping-address/');
 
     final response = await http.post(url,
         body: json.encode({
-          'name': 'Siddhartha Chatterjee',
-          'contact_number': '+919831405393',
+          'name': name,
+          'contact_number': mobileNumber,
           'postcode': postCode,
           'address_line': addressLine,
           'locality': locality,
           'city': city,
           'state': selectedState,
           'save_address_as': 'home',
-          'is_default': true
+          'is_default': false,
+          'map_lat': _coorDinates['lat'],
+          'map_lng': _coorDinates['lng']
         }),
         headers: {
           'Authorization': 'Bearer ${localStorage.getString('token')}',
           'Content-Type': 'application/json'
         });
 
-    print(json.decode(response.body));
+    print('Response Body ${json.decode(response.body)}');
   }
 
   Future<void> getAddress() async {
