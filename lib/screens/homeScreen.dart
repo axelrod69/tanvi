@@ -71,7 +71,7 @@ class HomeScreenState extends State<HomeScreen> {
                             fontSize: tabLayout
                                 ? 50
                                 : largeLayout
-                                    ? 40
+                                    ? 35
                                     : 25),
                       ),
                       Container(

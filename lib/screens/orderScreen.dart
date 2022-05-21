@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tanvi/widgets/dashboard/orderHistory.dart';
 import '../widgets/orders/currentOrders.dart';
 import '../widgets/orders/allOrders.dart';
+import 'package:provider/provider.dart';
+import '../model/orderHistory/orderHistory.dart';
 
 class PageViewScreenOrder extends StatefulWidget {
   PageViewScreenOrderState createState() => PageViewScreenOrderState();
@@ -9,10 +12,18 @@ class PageViewScreenOrder extends StatefulWidget {
 class PageViewScreenOrderState extends State<PageViewScreenOrder>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  bool isLoading = true;
 
   @override
   void initState() {
     // TODO: implement initState
+    Provider.of<OrderHistoryProvider>(context, listen: false)
+        .getOrderHistory()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
     super.initState();
     tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     tabController.addListener(() {
@@ -24,7 +35,10 @@ class PageViewScreenOrderState extends State<PageViewScreenOrder>
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    final textScale = MediaQuery.of(context).textScaleFactor * 1.2;
+    final provider = Provider.of<OrderHistoryProvider>(context).orderHistory;
+    final pendingHistory =
+        Provider.of<OrderHistoryProvider>(context).pendingHistory;
+    // final textScale = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
     return Scaffold(
@@ -37,7 +51,7 @@ class PageViewScreenOrderState extends State<PageViewScreenOrder>
         title: Padding(
           padding: EdgeInsets.only(left: width * 0.17),
           child: Text('My Orders',
-              textScaleFactor: textScale,
+              // textScaleFactor: textScale,
               style: const TextStyle(
                   color: Colors.black, fontWeight: FontWeight.bold)),
         ),

@@ -5,10 +5,15 @@ import 'dart:convert';
 
 class OrderHistoryProvider with ChangeNotifier {
   String baseUrl = 'http://3.109.206.91:8000/';
-  Map<String, dynamic> _orderHistory = {};
+  List<dynamic> _orderHistory = [];
+  Map<String, dynamic> _pendingHistory = {};
 
-  Map<String, dynamic> get orderHistory {
-    return {..._orderHistory};
+  List<dynamic> get orderHistory {
+    return [..._orderHistory];
+  }
+
+  Map<String, dynamic> get pendingHistory {
+    return {..._pendingHistory};
   }
 
   Future<void> getOrderHistory() async {
@@ -22,6 +27,15 @@ class OrderHistoryProvider with ChangeNotifier {
 
     var res = json.decode(response.body);
     _orderHistory = res;
+
+    for (final order in res) {
+      if (order['order']['payment_status'] == 'Pending' &&
+          order['order']['order_status'] == 'Order Placed') {
+        _pendingHistory = order;
+      }
+    }
+
+    print('Pending History: $_pendingHistory');
 
     print('Order History: $_orderHistory');
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanvi/model/address/addressProvider.dart';
+import 'package:tanvi/model/orderHistory/orderHistory.dart';
 import '../widgets/dashboard/graph.dart';
 import '../widgets/dashboard/orderHistory.dart';
 import '../widgets/dashboard/paymentMethod.dart';
@@ -154,9 +155,6 @@ class DashboardState extends State<Dashboard> {
                   padding:
                       EdgeInsets.only(left: width * 0.04, right: width * 0.04),
                   child: Container(
-                    // height: !tabLayout && !largeLayout
-                    //     ? height * 0.07
-                    //     : height * 0.06,
                     padding: EdgeInsets.only(
                         left: width * 0.02,
                         top: height * 0.01,
@@ -179,8 +177,6 @@ class DashboardState extends State<Dashboard> {
                         Expanded(
                           child: Text(
                             defaultAddress!,
-                            // textScaleFactor: textScaleFactor,
-                            // overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: tabLayout
@@ -190,24 +186,6 @@ class DashboardState extends State<Dashboard> {
                                         : 10),
                           ),
                         ),
-                        // SizedBox(
-                        //     width: tabLayout
-                        //         ? width * 0.52
-                        //         : largeLayout
-                        //             ? width * 0.15
-                        //             : width * 0.34),
-                        // Text(
-                        //   'Change',
-                        //   // textScaleFactor: textScaleFactor,
-                        //   style: TextStyle(
-                        //       color: Colors.black,
-                        //       fontWeight: FontWeight.bold,
-                        //       fontSize: tabLayout
-                        //           ? 18
-                        //           : largeLayout
-                        //               ? 15
-                        //               : 10),
-                        // )
                       ],
                     ),
                   ),
@@ -215,10 +193,6 @@ class DashboardState extends State<Dashboard> {
               ],
             ),
             SizedBox(height: height * 0.01),
-            // Padding(
-            //   padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
-            //   child: Graph(),
-            // ),
             SizedBox(height: height * 0.02),
             Container(
               height: tabLayout
@@ -227,8 +201,6 @@ class DashboardState extends State<Dashboard> {
                       ? height * 0.4
                       : height * 0.55,
               width: width * 0.6,
-              // padding: EdgeInsets.symmetric(
-              //     vertical: height * 0.02, horizontal: width * 0.02),
               padding: EdgeInsets.only(
                   left: width * 0.02,
                   top: height * 0.02,
@@ -237,14 +209,6 @@ class DashboardState extends State<Dashboard> {
               // color: Colors.red,
               child: OrderHistory(),
             ),
-            // Container(
-            //       height: height * 0.3,
-            //       width: width * 0.4,
-            //       // color: Colors.pink,
-            //       padding: EdgeInsets.symmetric(
-            //           vertical: height * 0.02, horizontal: width * 0.02),
-            //       child: PaymentMethod(),
-            //     )
             SizedBox(height: height * 0.02),
             Container(
               width: double.infinity,
@@ -262,19 +226,6 @@ class DashboardState extends State<Dashboard> {
               child: Frequent(),
             ),
             SizedBox(height: height * 0.02),
-            // Flexible(
-            //       flex: 1,
-            //       child: Container(
-            //         height: height * 0.28,
-            //         // color: Colors.red,
-            //         padding: EdgeInsets.only(
-            //             left: width * 0.02,
-            //             top: height * 0.01,
-            //             right: width * 0.02,
-            //             bottom: height * 0.01),
-            //         child: ReferFriend(),
-            //       ),
-            //     ),
             Flexible(
               flex: 1,
               child: Container(
@@ -309,8 +260,6 @@ class DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: CustomBottomNavigation(),
     );
   }
 }

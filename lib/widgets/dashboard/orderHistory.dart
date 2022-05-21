@@ -52,6 +52,10 @@ class OrderHistoryState extends State<OrderHistory> {
     final width = MediaQuery.of(context).size.width;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    final orderHistory =
+        Provider.of<OrderHistoryProvider>(context).orderHistory;
+    final pendingOrders =
+        Provider.of<OrderHistoryProvider>(context).pendingHistory;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
@@ -110,115 +114,123 @@ class OrderHistoryState extends State<OrderHistory> {
             ],
           ),
           // SizedBox(height: height * 0.02),
-          Expanded(
-              child: Container(
-            width: double.infinity,
-            // color: Colors.amber,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => Container(
-                width: double.infinity,
-                height: tabLayout
-                    ? height * 0.14
-                    : largeLayout
-                        ? height * 0.1
-                        : height * 0.155,
-                margin: EdgeInsets.only(bottom: height * 0.005),
-                // color: Colors.blue,
-                child: Row(
-                  children: [
-                    Flexible(
-                      flex: !tabLayout && !largeLayout ? 2 : 1,
-                      child: Container(
-                        height: double.infinity,
-                        // color: Colors.pink,
-                        padding: EdgeInsets.symmetric(
-                            vertical: height * 0.01, horizontal: width * 0.01),
-                        child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            padding: EdgeInsets.symmetric(
-                                vertical: height * 0.01,
-                                horizontal: width * 0.01),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                border:
-                                    Border.all(color: Colors.green, width: 2),
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 5,
-                                      offset: Offset(0, 2))
-                                ]),
-                            child: Image.asset(
-                              _orderHistory[index]['image'],
-                              // fit: BoxFit.cover,
-                            )),
+          isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.green,
+                  ),
+                )
+              : Expanded(
+                  child: Container(
+                  width: double.infinity,
+                  // color: Colors.amber,
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => Container(
+                      width: double.infinity,
+                      height: tabLayout
+                          ? height * 0.14
+                          : largeLayout
+                              ? height * 0.1
+                              : height * 0.155,
+                      margin: EdgeInsets.only(bottom: height * 0.005),
+                      // color: Colors.blue,
+                      child: Row(
+                        children: [
+                          Flexible(
+                            flex: !tabLayout && !largeLayout ? 2 : 1,
+                            child: Container(
+                              height: double.infinity,
+                              // color: Colors.pink,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: height * 0.01,
+                                  horizontal: width * 0.01),
+                              child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: height * 0.01,
+                                      horizontal: width * 0.01),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: Colors.green, width: 2),
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 2))
+                                      ]),
+                                  child: Image.network(orderHistory[index]
+                                      ['product']['main_image'])),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 3,
+                            child: Container(
+                              height: double.infinity,
+                              // color: Colors.purple,
+                              padding: EdgeInsets.only(top: height * 0.01),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    orderHistory[index]['product']['name'],
+                                    // // textScaleFactor: textScaleFactor,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: tabLayout
+                                            ? 25
+                                            : largeLayout
+                                                ? 16
+                                                : 12),
+                                  ),
+                                  Text(
+                                    'Order No = ${orderHistory[index]['order']['order_number']}',
+                                    // // textScaleFactor: textScaleFactor,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: tabLayout
+                                            ? 20
+                                            : largeLayout
+                                                ? 12
+                                                : 10),
+                                  ),
+                                  Text(
+                                    orderHistory[index]['order']
+                                        ['order_status'],
+                                    // // textScaleFactor: textScaleFactor,
+                                    style: TextStyle(
+                                        color: orderHistory[index]['order']
+                                                    ['order_status'] ==
+                                                'Order Placed'
+                                            ? Colors.blue
+                                            : orderHistory[index]['order']
+                                                        ['order_status'] ==
+                                                    'On The Way'
+                                                ? Colors.amber
+                                                : Colors.green,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: tabLayout
+                                            ? 20
+                                            : largeLayout
+                                                ? 16
+                                                : 12),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    Flexible(
-                      flex: 3,
-                      child: Container(
-                        height: double.infinity,
-                        // color: Colors.purple,
-                        padding: EdgeInsets.only(top: height * 0.01),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _orderHistory[index]['name'],
-                              // // textScaleFactor: textScaleFactor,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout
-                                      ? 25
-                                      : largeLayout
-                                          ? 16
-                                          : 12),
-                            ),
-                            Text(
-                              'No. of Item = ${_orderHistory[index]['quantity'].toString()}',
-                              // // textScaleFactor: textScaleFactor,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout
-                                      ? 20
-                                      : largeLayout
-                                          ? 12
-                                          : 10),
-                            ),
-                            Text(
-                              _orderHistory[index]['status'],
-                              // // textScaleFactor: textScaleFactor,
-                              style: TextStyle(
-                                  color: _orderHistory[index]['status'] ==
-                                          'Delivered'
-                                      ? Colors.green
-                                      : _orderHistory[index]['status'] ==
-                                              'On The Way'
-                                          ? Colors.amber
-                                          : Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout
-                                      ? 20
-                                      : largeLayout
-                                          ? 16
-                                          : 12),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              itemCount: 3,
-            ),
-          ))
+                    itemCount: 3,
+                  ),
+                ))
         ],
       ),
     );
