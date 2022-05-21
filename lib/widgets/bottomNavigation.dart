@@ -10,6 +10,7 @@ import '../model/addToCart/addToCart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import '../model/profile/profileProvider.dart';
+import '../model/address/addressProvider.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
   CustomBottomNavigationState createState() => CustomBottomNavigationState();
@@ -29,8 +30,12 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
       Provider.of<ProfileProvider>(context, listen: false)
           .getProfileDetails()
           .then((_) {
-        setState(() {
-          isLoading = false;
+        Provider.of<AddressProvider>(context, listen: false)
+            .getDefaultAddress()
+            .then((_) {
+          setState(() {
+            isLoading = false;
+          });
         });
       });
     });

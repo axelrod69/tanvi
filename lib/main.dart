@@ -104,7 +104,7 @@ class MyAppState extends State<MyApp> {
         theme: ThemeData(
             scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
         home: isAuth ? CustomBottomNavigation() : SignIn(),
-        // home: CustomBottomNavigation(),
+        // home: SignIn(),
         routes: {
           '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),

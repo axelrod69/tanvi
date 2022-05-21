@@ -150,6 +150,32 @@ class LocationProvider with ChangeNotifier {
     print(json.decode(response.body));
   }
 
+  Future<void> editAddress(
+      String? id, String name, String contactNumber) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    final url = Uri.parse(baseUrl + '/api/customer/shipping-address-update/');
+    final response = await http.post(url,
+        body: json.encode({
+          'id': id,
+          'name': name,
+          'contact_number': contactNumber,
+          'postcode': postCode,
+          'address_line': addressLine,
+          'locality': locality,
+          'city': city,
+          'state': state,
+          // 'save_address_as': 'Home',
+          'is_default': false,
+          'map_lat': _coorDinates['lat'],
+          'map_lng': _coorDinates['lng']
+        }),
+        headers: {
+          'Authorization': 'Bearer ${localStorage.getString('token')}',
+          'Content-Type': 'application/json'
+        });
+    print(json.decode(response.body));
+  }
+
   Future<void> newAddress(double latitude, double longitude) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(latitude, longitude);
@@ -216,13 +242,6 @@ class LocationProvider with ChangeNotifier {
     _addressData = fetchedAddress.toJson();
     print('Address Data Print $_addressData');
   }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   getLocation();
-  // }
 
   Future<void> getLocation() async {
     Position position = await _getGeoLocationPosition();

@@ -3,16 +3,18 @@ import 'package:provider/provider.dart';
 import '../model/location/location.dart';
 
 class NewAddress extends StatefulWidget {
+  final String? id;
   final String? name;
   final String? mobileNumber;
   final String? address;
+  final bool? flag;
   NewAddressState createState() => NewAddressState();
 
-  NewAddress(this.name, this.mobileNumber, this.address);
+  NewAddress(this.id, this.name, this.mobileNumber, this.address, this.flag);
 }
 
 class NewAddressState extends State<NewAddress> {
-  final GlobalKey<FormState> _formkey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   String? firstName;
   String? phoneNumber;
   final _focusFirst = FocusNode();
@@ -32,7 +34,8 @@ class NewAddressState extends State<NewAddress> {
     final width = MediaQuery.of(context).size.width;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
-    final provider = Provider.of<LocationProvider>(context).newAddressSet;
+    dynamic provider = '';
+    provider = Provider.of<LocationProvider>(context).newAddressSet;
 
     // TODO: implement build
     return Scaffold(
@@ -58,7 +61,6 @@ class NewAddressState extends State<NewAddress> {
                   boxShadow: const [
                     BoxShadow(
                         color: Colors.greenAccent,
-                        // spreadRadius: 5,
                         blurRadius: 5,
                         offset: Offset(0, 2))
                   ]),
@@ -72,7 +74,6 @@ class NewAddressState extends State<NewAddress> {
                   SizedBox(width: width * 0.04),
                   Text(
                     'Enter Address Here',
-                    // textScaleFactor: textScaleFactor,
                     style: TextStyle(
                         color: Colors.grey.withOpacity(0.6),
                         fontSize: tabLayout
@@ -98,7 +99,6 @@ class NewAddressState extends State<NewAddress> {
                 padding:
                     EdgeInsets.only(left: width * 0.02, right: width * 0.02),
                 child: Container(
-                  // margin: EdgeInsets.only(bottom: height * 0.04),
                   margin: EdgeInsets.only(top: height * 0.02),
                   padding:
                       EdgeInsets.only(left: width * 0.02, top: height * 0.0045),
@@ -110,10 +110,10 @@ class NewAddressState extends State<NewAddress> {
                             color: Colors.grey,
                             spreadRadius: 2,
                             blurRadius: 5,
-                            // color: Color.fromRGBO(227, 189, 255, 0.5),
                             offset: Offset(1, 2))
                       ]),
                   child: TextFormField(
+                    initialValue: widget.name,
                     style: TextStyle(
                         fontSize: tabLayout
                             ? width * 0.04
@@ -121,14 +121,9 @@ class NewAddressState extends State<NewAddress> {
                                 ? 18
                                 : 16),
                     keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                        hintText: 'Enter Name',
-                        // suffixIcon:
-                        //     Icon(Icons.check_circle, color: Colors.green),
-                        // label: Text(
-                        //   'Enter Your Phone Number',
-                        // textScaleFactor: textScaleFactor,
-                        //   style: const TextStyle(color: Colors.grey),
+                    decoration: InputDecoration(
+                        hintText:
+                            widget.name == '' ? 'Enter Name' : widget.name,
                         // ),
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none),
@@ -150,7 +145,6 @@ class NewAddressState extends State<NewAddress> {
                 padding:
                     EdgeInsets.only(left: width * 0.02, right: width * 0.02),
                 child: Container(
-                  // margin: EdgeInsets.only(bottom: height * 0.04),
                   padding:
                       EdgeInsets.only(left: width * 0.02, top: height * 0.0045),
                   decoration: BoxDecoration(
@@ -161,10 +155,10 @@ class NewAddressState extends State<NewAddress> {
                             color: Colors.grey,
                             spreadRadius: 2,
                             blurRadius: 5,
-                            // color: Color.fromRGBO(227, 189, 255, 0.5),
                             offset: Offset(1, 2))
                       ]),
                   child: TextFormField(
+                    initialValue: widget.mobileNumber,
                     style: TextStyle(
                         fontSize: tabLayout
                             ? width * 0.04
@@ -172,15 +166,10 @@ class NewAddressState extends State<NewAddress> {
                                 ? 18
                                 : 16),
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        hintText: 'Enter Mobile Number',
-                        // suffixIcon:
-                        //     Icon(Icons.check_circle, color: Colors.green),
-                        // label: Text(
-                        //   'Enter Your Phone Number',
-                        // textScaleFactor: textScaleFactor,
-                        //   style: const TextStyle(color: Colors.grey),
-                        // ),
+                    decoration: InputDecoration(
+                        hintText: widget.mobileNumber == ''
+                            ? 'Enter Mobile Number'
+                            : widget.mobileNumber,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none),
                     onFieldSubmitted: (_) =>
@@ -189,7 +178,7 @@ class NewAddressState extends State<NewAddress> {
                       if (number!.isEmpty) {
                         return 'Please Enter Mobile Number';
                       } else {
-                        phoneNumber = '+91' + number;
+                        phoneNumber = number;
                         return null;
                       }
                     },
@@ -197,25 +186,54 @@ class NewAddressState extends State<NewAddress> {
                 ),
               ),
               SizedBox(height: height * 0.02),
+              Text('Previous Address'),
               Padding(
                 padding:
                     EdgeInsets.only(left: width * 0.02, right: width * 0.02),
                 child: Container(
-                  padding: EdgeInsets.all(10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 10,
-                            offset: Offset(1, 2))
-                      ]),
-                  child:
-                      Text(provider.isEmpty ? 'No Address Selected' : provider),
-                ),
+                    padding: EdgeInsets.all(10),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 10,
+                              offset: Offset(1, 2))
+                        ]),
+                    child:
+                        // Text(provider.isEmpty ? 'No Address Selected' : provider),
+                        Text(widget.address!)),
               ),
+              SizedBox(height: height * 0.02),
+              provider.isEmpty
+                  ? Container()
+                  : Container(
+                      child: Column(
+                      children: [
+                        Text('New Address'),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: width * 0.02, right: width * 0.02),
+                          child: Container(
+                              padding: EdgeInsets.all(10),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 10,
+                                        offset: Offset(1, 2))
+                                  ]),
+                              child:
+                                  // Text(provider.isEmpty ? 'No Address Selected' : provider),
+                                  Text(provider)),
+                        ),
+                      ],
+                    )),
               SizedBox(height: height * 0.04),
               Padding(
                 padding:
@@ -223,26 +241,18 @@ class NewAddressState extends State<NewAddress> {
                 child: InkWell(
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
-                      Provider.of<LocationProvider>(context, listen: false)
-                          .setAddress(firstName!, phoneNumber!)
-                          .then((_) =>
-                              Navigator.of(context).pushNamed('/address-list'));
+                      widget.flag == true
+                          ? Provider.of<LocationProvider>(context,
+                                  listen: false)
+                              .editAddress(widget.id, firstName!, phoneNumber!)
+                              .then((_) => Navigator.of(context)
+                                  .pushNamed('/address-list'))
+                          : Provider.of<LocationProvider>(context,
+                                  listen: false)
+                              .setAddress(firstName!, phoneNumber!)
+                              .then((_) => Navigator.of(context)
+                                  .pushNamed('/address-list'));
                     }
-                    // else {
-                    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    //     content: const Text(
-                    //       'Please Enter Your OTP',
-                    //       style: TextStyle(
-                    //         color: Colors.black,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     ),
-                    //     backgroundColor: Colors.white,
-                    //     action: SnackBarAction(
-                    //         label: 'Ok',
-                    //         onPressed: () => Navigator.of(context).pop()),
-                    //   ));
-                    // }
                   },
                   child: Container(
                     width: double.infinity,

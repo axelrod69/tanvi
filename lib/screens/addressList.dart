@@ -25,6 +25,16 @@ class AddressListState extends State<AddressList> {
     super.initState();
   }
 
+  Future<void> getDefaultAddress() async {
+    Provider.of<AddressProvider>(context, listen: false)
+        .getAddressList()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -46,13 +56,13 @@ class AddressListState extends State<AddressList> {
                 padding: EdgeInsets.only(top: height * 0.02),
                 child: InkWell(
                     onTap: () =>
-                        Navigator.of(context).pushNamed('/profile-screen'),
-                    child: Icon(Icons.arrow_back_ios,
+                        Navigator.of(context).pushNamed('/landing-page'),
+                    child: const Icon(Icons.arrow_back_ios,
                         color: Colors.green, size: 35))),
             Center(
               child: InkWell(
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => NewAddress('', '', ''))),
+                    builder: (context) => NewAddress('', '', '', '', false))),
                 child: Container(
                   width: width * 0.8,
                   height: !tabLayout && !largeLayout
@@ -153,14 +163,21 @@ class AddressListState extends State<AddressList> {
                                         child: Row(
                                           children: [
                                             InkWell(
-                                              onTap: () {
-                                                Provider.of<LocationProvider>(
+                                              onTap: () async {
+                                                await Provider.of<
+                                                            LocationProvider>(
                                                         context,
                                                         listen: false)
                                                     .selectNewAddress(
                                                         provider['data'][index]
                                                                 ['id']
                                                             .toString());
+                                                // loadingIndicator();
+                                                setState(() {
+                                                  isLoading = true;
+                                                });
+                                                getDefaultAddress();
+                                                // isLoading = false;
                                               },
                                               child: const Text('Select',
                                                   style: TextStyle(
@@ -168,10 +185,25 @@ class AddressListState extends State<AddressList> {
                                                           FontWeight.bold)),
                                             ),
                                             SizedBox(width: width * 0.04),
-                                            const Text('Edit',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold))
+                                            InkWell(
+                                              onTap: () => Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                      builder: (context) => NewAddress(
+                                                          provider['data']
+                                                                  [index]['id']
+                                                              .toString(),
+                                                          provider['data']
+                                                              [index]['name'],
+                                                          provider['data']
+                                                                  [index][
+                                                              'contact_number'],
+                                                          '${provider['data'][index]['address_line']}, ${provider['data'][index]['locality']}, ${provider['data'][index]['city']}, ${provider['data'][index]['state']}, ${provider['data'][index]['postcode']}',
+                                                          true))),
+                                              child: const Text('Edit',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            )
                                           ],
                                         ),
                                       )

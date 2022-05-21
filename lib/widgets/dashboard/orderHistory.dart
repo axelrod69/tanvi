@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../model/orderHistory/orderHistory.dart';
 
 class OrderHistory extends StatefulWidget {
   OrderHistoryState createState() => OrderHistoryState();
 }
 
 class OrderHistoryState extends State<OrderHistory> {
+  bool isLoading = true;
+
   final List<dynamic> _orderHistory = [
     {
       'id': 1,
@@ -28,6 +32,19 @@ class OrderHistoryState extends State<OrderHistory> {
       'status': 'Cancelled'
     }
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<OrderHistoryProvider>(context, listen: false)
+        .getOrderHistory()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

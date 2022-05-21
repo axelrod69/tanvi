@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tanvi/model/address/addressProvider.dart';
 import '../widgets/dashboard/graph.dart';
 import '../widgets/dashboard/orderHistory.dart';
 import '../widgets/dashboard/paymentMethod.dart';
@@ -22,6 +23,7 @@ class DashboardState extends State<Dashboard> {
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
     final provider = Provider.of<ProfileProvider>(context).profile;
+    final defaultAddress = Provider.of<AddressProvider>(context).defaultAddress;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
@@ -152,10 +154,14 @@ class DashboardState extends State<Dashboard> {
                   padding:
                       EdgeInsets.only(left: width * 0.04, right: width * 0.04),
                   child: Container(
-                    height: !tabLayout && !largeLayout
-                        ? height * 0.07
-                        : height * 0.06,
-                    padding: EdgeInsets.only(left: width * 0.02),
+                    // height: !tabLayout && !largeLayout
+                    //     ? height * 0.07
+                    //     : height * 0.06,
+                    padding: EdgeInsets.only(
+                        left: width * 0.02,
+                        top: height * 0.01,
+                        right: width * 0.02,
+                        bottom: height * 0.01),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -170,35 +176,38 @@ class DashboardState extends State<Dashboard> {
                         Icon(Icons.location_pin,
                             color: Colors.green,
                             size: !tabLayout && !largeLayout ? 18 : 30),
-                        Text(
-                          '48, Tarun Sengupta Sarani',
-                          // textScaleFactor: textScaleFactor,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: tabLayout
-                                  ? 20
-                                  : largeLayout
-                                      ? 15
-                                      : 10),
+                        Expanded(
+                          child: Text(
+                            defaultAddress!,
+                            // textScaleFactor: textScaleFactor,
+                            // overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: tabLayout
+                                    ? 20
+                                    : largeLayout
+                                        ? 15
+                                        : 10),
+                          ),
                         ),
-                        SizedBox(
-                            width: tabLayout
-                                ? width * 0.52
-                                : largeLayout
-                                    ? width * 0.15
-                                    : width * 0.34),
-                        Text(
-                          'Change',
-                          // textScaleFactor: textScaleFactor,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: tabLayout
-                                  ? 18
-                                  : largeLayout
-                                      ? 15
-                                      : 10),
-                        )
+                        // SizedBox(
+                        //     width: tabLayout
+                        //         ? width * 0.52
+                        //         : largeLayout
+                        //             ? width * 0.15
+                        //             : width * 0.34),
+                        // Text(
+                        //   'Change',
+                        //   // textScaleFactor: textScaleFactor,
+                        //   style: TextStyle(
+                        //       color: Colors.black,
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: tabLayout
+                        //           ? 18
+                        //           : largeLayout
+                        //               ? 15
+                        //               : 10),
+                        // )
                       ],
                     ),
                   ),
