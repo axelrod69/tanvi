@@ -181,7 +181,7 @@ class ProfileState extends State<Profile> {
                                             fontSize: tabLayout
                                                 ? 55
                                                 : largeLayout
-                                                    ? 35
+                                                    ? 30
                                                     : 20),
                                       ),
                                       Text(
@@ -340,10 +340,10 @@ class ProfileState extends State<Profile> {
                                                                     FontWeight
                                                                         .bold,
                                                                 fontSize: tabLayout
-                                                                    ? 20
+                                                                    ? 18
                                                                     : largeLayout
-                                                                        ? 14
-                                                                        : 11),
+                                                                        ? 12
+                                                                        : 9),
                                                           ),
                                                         )),
                                                     SizedBox(
@@ -352,7 +352,7 @@ class ProfileState extends State<Profile> {
                                                       onTap: () => Navigator.of(
                                                               context)
                                                           .pushNamed(
-                                                              '/change-location'),
+                                                              '/address-list'),
                                                       child: Container(
                                                           width: width * 0.4,
                                                           height: !tabLayout &&
@@ -383,7 +383,7 @@ class ProfileState extends State<Profile> {
                                                                       .green)),
                                                           child: Center(
                                                             child: Text(
-                                                              'Add Address',
+                                                              'Add/Change Address',
                                                               // textScaleFactor:
                                                               // textScaleFactor,
                                                               style: TextStyle(
@@ -393,10 +393,10 @@ class ProfileState extends State<Profile> {
                                                                       FontWeight
                                                                           .bold,
                                                                   fontSize: tabLayout
-                                                                      ? 20
+                                                                      ? 18
                                                                       : largeLayout
-                                                                          ? 14
-                                                                          : 12),
+                                                                          ? 12
+                                                                          : 10),
                                                             ),
                                                           )),
                                                     )
@@ -542,14 +542,14 @@ class ProfileState extends State<Profile> {
                                           : 12),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(right: width * 0.04),
-                            child: InkWell(
-                                onTap: () => Navigator.of(context)
-                                    .pushNamed('/address-list'),
-                                child: const Icon(Icons.edit,
-                                    color: Colors.green)),
-                          )
+                          // Padding(
+                          //   padding: EdgeInsets.only(right: width * 0.04),
+                          //   child: InkWell(
+                          //       onTap: () => Navigator.of(context)
+                          //           .pushNamed('/address-list'),
+                          //       child: const Icon(Icons.edit,
+                          //           color: Colors.green)),
+                          // )
                         ],
                       ),
                       SizedBox(height: height * 0.02),

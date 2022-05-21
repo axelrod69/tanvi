@@ -145,43 +145,99 @@ class CheckOutState extends State<CheckOut> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         automaticallyImplyLeading: false,
-        toolbarHeight: tabLayout ? height * 0.05 : height * 0.1,
-        leading: InkWell(
-          onTap: () => Navigator.of(context).pop(),
-          child: Container(
-            height: tabLayout ? height * 0.07 : height * 0.05,
-            width: width * 0.1,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
-                ]),
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.only(left: width * 0.02),
-                child: Icon(Icons.arrow_back_ios,
-                    size: tabLayout
-                        ? 40
-                        : largeLayout
-                            ? 14
-                            : 18,
-                    color: Colors.green),
+        toolbarHeight: tabLayout ? height * 0.05 : height * 0.07,
+        title: Row(
+          children: [
+            InkWell(
+              onTap: () => Navigator.of(context).pop(),
+              child: Container(
+                height: tabLayout
+                    ? height * 0.07
+                    : largeLayout
+                        ? height * 0.05
+                        : height * 0.08,
+                width: !tabLayout && !largeLayout ? width * 0.12 : width * 0.1,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 5,
+                          offset: Offset(0, 2))
+                    ]),
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: width * 0.02),
+                    child: Icon(Icons.arrow_back_ios,
+                        size: tabLayout
+                            ? 40
+                            : largeLayout
+                                ? 14
+                                : 18,
+                        color: Colors.green),
+                  ),
+                ),
               ),
             ),
-          ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: tabLayout
+                      ? width * 0.33
+                      : largeLayout
+                          ? width * 0.25
+                          : width * 0.21),
+              child: Text(
+                'Checkout',
+                // // textScaleFactor: textScaleFactor,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: tabLayout
+                        ? 35
+                        : largeLayout
+                            ? 18
+                            : 14),
+              ),
+            )
+          ],
         ),
-        title: Text('Checkout',
-            // // textScaleFactor: textScaleFactor,
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: tabLayout
-                    ? 35
-                    : largeLayout
-                        ? 14
-                        : 18)),
+        // leading: InkWell(
+        //   onTap: () => Navigator.of(context).pop(),
+        //   child: Container(
+        //     height: tabLayout ? height * 0.07 : height * 0.05,
+        //     width: width * 0.1,
+        //     decoration: BoxDecoration(
+        //         color: Colors.white,
+        //         borderRadius: BorderRadius.circular(10),
+        //         boxShadow: const [
+        //           BoxShadow(
+        //               color: Colors.grey, blurRadius: 5, offset: Offset(0, 2))
+        //         ]),
+        //     child: Center(
+        //       child: Padding(
+        //         padding: EdgeInsets.only(left: width * 0.02),
+        //         child: Icon(Icons.arrow_back_ios,
+        //             size: tabLayout
+        //                 ? 40
+        //                 : largeLayout
+        //                     ? 14
+        //                     : 18,
+        //             color: Colors.green),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // title: Text('Checkout',
+        //     // // textScaleFactor: textScaleFactor,
+        //     style: TextStyle(
+        //         color: Colors.black,
+        //         fontWeight: FontWeight.bold,
+        //         fontSize: tabLayout
+        //             ? 35
+        //             : largeLayout
+        //                 ? 14
+        //                 : 18)),
       ),
       body: Container(
         height: height * 1,
@@ -444,17 +500,20 @@ class CheckOutState extends State<CheckOut> {
                               ? 18
                               : 16),
                 ),
-                Text(
-                  'Change Location',
-                  // // textScaleFactor: textScaleFactor,
-                  style: TextStyle(
-                      color: Colors.black,
-                      // fontWeight: FontWeight.bold,
-                      fontSize: tabLayout
-                          ? 20
-                          : largeLayout
-                              ? 14
-                              : 12),
+                InkWell(
+                  onTap: () => Navigator.of(context).pushNamed('/address-list'),
+                  child: Text(
+                    'Change Location',
+                    // // textScaleFactor: textScaleFactor,
+                    style: TextStyle(
+                        color: Colors.black,
+                        // fontWeight: FontWeight.bold,
+                        fontSize: tabLayout
+                            ? 20
+                            : largeLayout
+                                ? 14
+                                : 12),
+                  ),
                 ),
               ],
             ),
@@ -584,7 +643,7 @@ class CheckOutState extends State<CheckOut> {
                             width: double.infinity,
                             height: !tabLayout && !largeLayout
                                 ? height * 0.01
-                                : height * 0.006,
+                                : height * 0.005,
                             color: Colors.green,
                             // margin: EdgeInsets.only(bottom: height * 0.002)
                           ),

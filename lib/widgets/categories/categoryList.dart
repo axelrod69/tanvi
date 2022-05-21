@@ -224,7 +224,7 @@ class CategoryListState extends State<CategoryList> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: height * 0.01),
+                            // SizedBox(height: height * 0.01),
                             Container(
                               padding: EdgeInsets.only(left: width * 0.04),
                               child: Row(

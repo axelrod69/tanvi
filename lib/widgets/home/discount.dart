@@ -119,7 +119,7 @@ class DiscountState extends State<Discount> {
                       Positioned(
                         left: 0,
                         right: 0,
-                        top: tabLayout ? height * 0.12 : height * 0.12,
+                        top: tabLayout ? height * 0.12 : height * 0.105,
                         child: InkWell(
                           onTap: () => showAlertDialog(
                               context,

@@ -223,6 +223,32 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                               ],
                             ),
                           ),
+                          Positioned(
+                            left: width * 0.08,
+                            child: CircleAvatar(
+                              radius: tabLayout
+                                  ? 13
+                                  : largeLayout
+                                      ? 9
+                                      : 8,
+                              backgroundColor: Colors.green,
+                              child: Text(
+                                provider['data']['cartItem'].length > 9
+                                    ? '9+'
+                                    : provider['data']['cartItem']
+                                        .length
+                                        .toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: tabLayout
+                                        ? 14
+                                        : largeLayout
+                                            ? 12
+                                            : 10,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),

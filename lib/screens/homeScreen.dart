@@ -92,15 +92,15 @@ class HomeScreenState extends State<HomeScreen> {
                                   padding:
                                       EdgeInsets.only(top: height * 0.0098),
                                   child: Text(
-                                    'Estimated Time',
+                                    'Current Location',
                                     // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: tabLayout
-                                            ? 18
+                                            ? 15
                                             : largeLayout
-                                                ? 15
-                                                : 10),
+                                                ? 14
+                                                : 9),
                                   ),
                                 ),
                                 // SizedBox(height: height * 0.01),
