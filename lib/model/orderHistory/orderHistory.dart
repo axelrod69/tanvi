@@ -7,6 +7,7 @@ class OrderHistoryProvider with ChangeNotifier {
   String baseUrl = 'http://3.109.206.91:8000/';
   List<dynamic> _orderHistory = [];
   Map<String, dynamic> _pendingHistory = {};
+  List<dynamic> _history = [];
 
   List<dynamic> get orderHistory {
     return [..._orderHistory];
@@ -14,6 +15,10 @@ class OrderHistoryProvider with ChangeNotifier {
 
   Map<String, dynamic> get pendingHistory {
     return {..._pendingHistory};
+  }
+
+  List<dynamic> get history {
+    return [..._history];
   }
 
   Future<void> getOrderHistory() async {

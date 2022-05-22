@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
+import '../../model/rating/ratingProvider.dart';
 
 class ReviewAndRating extends StatefulWidget {
   ReviewAndRatingState createState() => ReviewAndRatingState();
@@ -7,6 +9,19 @@ class ReviewAndRating extends StatefulWidget {
 
 class ReviewAndRatingState extends State<ReviewAndRating> {
   double rating = 0;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<RatingProvider>(context, listen: false).getRatings().then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
+
   final List<dynamic> _review = [
     {
       'name': 'Super Market',
@@ -35,6 +50,7 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    final provider = Provider.of<RatingProvider>(context).ratings;
 
     // TODO: implement build
     return Container(
@@ -55,7 +71,7 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Review and Rating',
+            'Your Ratings',
             // // textScaleFactor: textScaleFactor,
             style: TextStyle(
                 color: Colors.black,
@@ -86,9 +102,9 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                   // color: Colors.blue,
                   child: Row(
                     children: [
-                      Image.asset(
-                        _review[index]['image'],
-                        fit: BoxFit.cover,
+                      Image.network(
+                        'http://3.109.206.91:8000${provider['data'][index]['product']['main_image']}',
+                        // fit: BoxFit.cover,
                         scale: 0.6,
                       ),
                       Column(
@@ -96,42 +112,35 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            _review[index]['name'],
+                            provider['data'][index]['product']['name'],
                             // // textScaleFactor: textScaleFactor,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: tabLayout ? 22 : 14),
                           ),
-                          Text(
-                            _review[index]['description'],
-                            // // textScaleFactor: textScaleFactor,
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: tabLayout ? 20 : 14),
-                          ),
+                          // Text(
+                          //   _review[index]['description'],
+                          //   // // textScaleFactor: textScaleFactor,
+                          //   style: TextStyle(
+                          //       color: Colors.grey,
+                          //       fontWeight: FontWeight.bold,
+                          //       fontSize: tabLayout ? 20 : 14),
+                          // ),
                           SizedBox(height: height * 0.005),
                           Row(
                             children: [
-                              RatingBar.builder(
-                                allowHalfRating: true,
-                                minRating: 1,
-                                itemSize: tabLayout ? 18 : 12,
-                                // itemPadding: EdgeInsets.symmetric(
-                                //     horizontal: 0.05, vertical: 0.05),
-                                itemBuilder: (context, _) => const Icon(
-                                    Icons.star,
-                                    color: Colors.yellow),
-                                onRatingUpdate: (double value) {
-                                  setState(() {
-                                    rating = value;
-                                  });
-                                },
+                              Text(
+                                'Rating:',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: tabLayout ? 20 : 12),
                               ),
                               SizedBox(width: width * 0.01),
+                              const Icon(Icons.star, color: Colors.yellow),
                               Text(
-                                '(${_review[index]['totalRatings'].toString()})',
+                                '(${provider['data'][index]['rating']})',
                                 // // textScaleFactor: textScaleFactor,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -145,7 +154,8 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                     ],
                   ),
                 ),
-                itemCount: _review.length,
+                itemCount:
+                    provider['data'].length < 3 ? provider['data'].length : 3,
               ),
             ),
           )

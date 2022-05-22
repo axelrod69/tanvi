@@ -36,6 +36,7 @@ import './model/orderHistory/orderHistory.dart';
 import './model/address/addressProvider.dart';
 import './screens/addressList.dart';
 import './screens/newAddressSelect.dart';
+import './model/rating/ratingProvider.dart';
 
 void main() => runApp(MyApp());
 
@@ -98,6 +99,7 @@ class MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
         ChangeNotifierProvider(create: (context) => OrderHistoryProvider()),
         ChangeNotifierProvider(create: (context) => AddressProvider()),
+        ChangeNotifierProvider(create: (context) => RatingProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

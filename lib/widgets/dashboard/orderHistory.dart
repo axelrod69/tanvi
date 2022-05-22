@@ -9,30 +9,6 @@ class OrderHistory extends StatefulWidget {
 class OrderHistoryState extends State<OrderHistory> {
   bool isLoading = true;
 
-  final List<dynamic> _orderHistory = [
-    {
-      'id': 1,
-      'name': 'The Super Store',
-      'quantity': 10,
-      'image': 'assets/images/kindpng_1606870.png',
-      'status': 'Delivered'
-    },
-    {
-      'id': 2,
-      'name': 'The Super Store',
-      'quantity': 10,
-      'image': 'assets/images/kindpng_1606870.png',
-      'status': 'On The Way'
-    },
-    {
-      'id': 3,
-      'name': 'The Super Store',
-      'quantity': 10,
-      'image': 'assets/images/kindpng_1606870.png',
-      'status': 'Cancelled'
-    }
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -228,7 +204,8 @@ class OrderHistoryState extends State<OrderHistory> {
                         ],
                       ),
                     ),
-                    itemCount: 3,
+                    itemCount:
+                        orderHistory.length < 3 ? orderHistory.length : 3,
                   ),
                 ))
         ],

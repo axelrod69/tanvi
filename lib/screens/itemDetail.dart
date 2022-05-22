@@ -8,6 +8,7 @@ import 'dart:convert';
 import '../model/wishList/wishList.dart';
 import '../model/addToCart/addToCart.dart';
 import '../model/products/productsProvider.dart';
+import '../model/rating/ratingProvider.dart';
 
 class ItemDetails extends StatefulWidget {
   ItemDetailsState createState() => ItemDetailsState();
@@ -248,11 +249,15 @@ class ItemDetailsState extends State<ItemDetails> {
                                     //     horizontal: 0.05, vertical: 0.05),
                                     itemBuilder: (context, _) => const Icon(
                                         Icons.star,
-                                        color: Colors.black),
+                                        color: Colors.yellow),
                                     onRatingUpdate: (double value) {
                                       setState(() {
                                         rating = value;
                                       });
+                                      Provider.of<RatingProvider>(context,
+                                              listen: false)
+                                          .postRating(
+                                              id.toString(), value.toString());
                                     },
                                   ),
                                   Text('($rating)',
