@@ -37,15 +37,25 @@ class AddressProvider with ChangeNotifier {
     });
     _defaultAddressSearch = json.decode(response.body);
 
-    for (int i = 0; i < _defaultAddressSearch['data'].length; i++) {
-      if (_defaultAddressSearch['data'][i]['is_default'] == true) {
-        _defaultAddress =
-            '${_defaultAddressSearch['data'][i]['address_line']}, ${_defaultAddressSearch['data'][i]['locality']}, ${_defaultAddressSearch['data'][i]['city']}, ${_defaultAddressSearch['data'][i]['state']}, ${_defaultAddressSearch['data'][i]['postcode']}';
-        break;
-      } else {
-        continue;
+    print('Default Address: $_defaultAddressSearch');
+
+    // if (_defaultAddress!.isEmpty) {
+    //   _defaultAddress = 'No Default Address Selected';
+    // }
+
+    if (_defaultAddressSearch['message'] ==
+        'You don\'t have any saved addresses!') {
+      _defaultAddress = 'No Default Address Selected';
+    } else {
+      for (int i = 0; i < _defaultAddressSearch['data'].length; i++) {
+        if (_defaultAddressSearch['data'][i]['is_default'] == true) {
+          _defaultAddress =
+              '${_defaultAddressSearch['data'][i]['address_line']}, ${_defaultAddressSearch['data'][i]['locality']}, ${_defaultAddressSearch['data'][i]['city']}, ${_defaultAddressSearch['data'][i]['state']}, ${_defaultAddressSearch['data'][i]['postcode']}';
+          break;
+        } else {
+          continue;
+        }
       }
     }
-    print('Default Address: $_defaultAddressSearch');
   }
 }
