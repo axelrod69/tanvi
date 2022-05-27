@@ -75,7 +75,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
             : screens[index],
         extendBody: true,
         bottomNavigationBar: isLoading
-            ? Text('Loading...')
+            ? const Text('Loading...')
             : Container(
                 height: height * 0.06,
                 width: double.infinity,
@@ -200,22 +200,45 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                           });
                                         },
                                         child: tabLayout
-                                            ? CircleAvatar(
-                                                radius: width * 0.06,
-                                                child: Image.network(
-                                                    'http://3.109.206.91:8000${profileProvider['data']['profile_pic']}'))
+                                            ? provider['data']['profile_pic'] ==
+                                                    null
+                                                ? CircleAvatar(
+                                                    radius: width * 0.06,
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                  )
+                                                : CircleAvatar(
+                                                    radius: width * 0.06,
+                                                    child: Image.network(
+                                                        'http://192.168.0.111:3000${profileProvider['data']['profile_pic']}'))
                                             : largeLayout
                                                 // ? Image.asset(
                                                 //     'assets/images/rkwxkca7.png',
                                                 //   )
-                                                ? CircleAvatar(
-                                                    radius: 16,
-                                                    child: Image.network(
-                                                        'http://3.109.206.91:8000${profileProvider['data']['profile_pic']}'))
-                                                : CircleAvatar(
-                                                    radius: width * 0.09,
-                                                    child: Image.network(
-                                                        'http://3.109.206.91:8000${profileProvider['data']['profile_pic']}')),
+                                                ? provider['data']
+                                                            ['profile_pic'] ==
+                                                        null
+                                                    ? const CircleAvatar(
+                                                        radius: 16,
+                                                        backgroundColor:
+                                                            Colors.green,
+                                                      )
+                                                    : CircleAvatar(
+                                                        radius: 16,
+                                                        child: Image.network(
+                                                            'http://192.168.0.111:3000${profileProvider['data']['profile_pic']}'))
+                                                : provider['data']
+                                                            ['profile_pic'] ==
+                                                        null
+                                                    ? CircleAvatar(
+                                                        radius: width * 0.09,
+                                                        backgroundColor:
+                                                            Colors.green,
+                                                      )
+                                                    : CircleAvatar(
+                                                        radius: width * 0.09,
+                                                        child: Image.network(
+                                                            'http://192.168.0.111:3000${profileProvider['data']['profile_pic']}')),
                                       )
                                     ],
                                   ),
@@ -233,6 +256,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                       : 8,
                               backgroundColor: Colors.green,
                               child: Text(
+                                // '0',
                                 provider['data']['cartItem'].length > 9
                                     ? '9+'
                                     : provider['data']['cartItem']

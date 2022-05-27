@@ -4,16 +4,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class AddressProvider with ChangeNotifier {
-  String baseUrl = 'http://3.109.206.91:8000/';
+  String baseUrl = 'http://192.168.0.111:3000/';
   Map<String, dynamic> _addressList = {};
   Map<String, dynamic> _defaultAddressSearch = {};
-  String? _defaultAddress;
+  String _defaultAddress = '';
 
   Map<String, dynamic> get addressList {
     return {..._addressList};
   }
 
-  String? get defaultAddress {
+  String get defaultAddress {
     return _defaultAddress;
   }
 
@@ -35,27 +35,35 @@ class AddressProvider with ChangeNotifier {
       'Authorization': 'Bearer ${localStorage.getString('token')}',
       'Content-Type': 'application/json'
     });
-    _defaultAddressSearch = json.decode(response.body);
 
-    print('Default Address: $_defaultAddressSearch');
+    print('Delivery Status Code: ${response.statusCode}');
 
-    // if (_defaultAddress!.isEmpty) {
-    //   _defaultAddress = 'No Default Address Selected';
-    // }
+    if (response.statusCode == 200) {
+      _defaultAddressSearch = json.decode(response.body);
 
-    if (_defaultAddressSearch['message'] ==
-        'You don\'t have any saved addresses!') {
-      _defaultAddress = 'No Default Address Selected';
-    } else {
-      for (int i = 0; i < _defaultAddressSearch['data'].length; i++) {
-        if (_defaultAddressSearch['data'][i]['is_default'] == true) {
-          _defaultAddress =
-              '${_defaultAddressSearch['data'][i]['address_line']}, ${_defaultAddressSearch['data'][i]['locality']}, ${_defaultAddressSearch['data'][i]['city']}, ${_defaultAddressSearch['data'][i]['state']}, ${_defaultAddressSearch['data'][i]['postcode']}';
-          break;
-        } else {
-          continue;
+      print('Default Address: $_defaultAddressSearch');
+
+      // if (_defaultAddress!.isEmpty) {
+      //   _defaultAddress = 'No Default Address Selected';
+      // }
+
+      if (_defaultAddressSearch['message'] ==
+          'You don\'t have any saved addresses!') {
+        _defaultAddress = 'No Default Address Selected';
+      } else {
+        for (int i = 0; i < _defaultAddressSearch['data'].length; i++) {
+          if (_defaultAddressSearch['data'][i]['is_default'] == true) {
+            _defaultAddress =
+                '${_defaultAddressSearch['data'][i]['address_line']}, ${_defaultAddressSearch['data'][i]['locality']}, ${_defaultAddressSearch['data'][i]['city']}, ${_defaultAddressSearch['data'][i]['state']}, ${_defaultAddressSearch['data'][i]['postcode']}';
+            break;
+          } else {
+            continue;
+          }
         }
       }
+    } else {
+      _defaultAddress = 'No Address Selected';
+      return;
     }
   }
 }

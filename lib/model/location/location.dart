@@ -11,7 +11,7 @@ class LocationProvider with ChangeNotifier {
     getLocation();
   }
 
-  String baseUrl = 'http://3.109.206.91:8000';
+  String baseUrl = 'http://192.168.0.111:3000';
 
   bool isLoading = true;
 
@@ -141,12 +141,17 @@ class LocationProvider with ChangeNotifier {
 
   Future<void> selectNewAddress(String id) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    final url = Uri.parse(baseUrl + '/api/customer/shipping-address-update/');
-    final response = await http
-        .post(url, body: json.encode({'id': id, 'is_default': true}), headers: {
-      'Authorization': 'Bearer ${localStorage.getString('token')}',
-      'Content-Type': 'application/json'
-    });
+    final url =
+        Uri.parse(baseUrl + '/api/customer/shipping-address-update/$id/');
+    final response = await http.put(url,
+        body: json.encode({
+          // 'id': id,
+          'is_default': true
+        }),
+        headers: {
+          'Authorization': 'Bearer ${localStorage.getString('token')}',
+          'Content-Type': 'application/json'
+        });
     print(json.decode(response.body));
   }
 

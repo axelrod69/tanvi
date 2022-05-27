@@ -22,38 +22,38 @@ class TopSellerState extends State<TopSeller> {
     super.initState();
   }
 
-  final List<dynamic> _popularDeals = [
-    {
-      'id': 1,
-      'image': 'assets/images/wkhkz8ky.png',
-      'name': 'Meat',
-      'price': '₹250/kg'
-    },
-    {
-      'id': 2,
-      'image': 'assets/images/jmic18a2.png',
-      'name': 'Vegetables',
-      'price': '₹25/kg'
-    },
-    {
-      'id': 3,
-      'image': 'assets/images/jux6dfoh.png',
-      'name': 'Meat',
-      'price': '₹200/kg'
-    },
-    {
-      'id': 4,
-      'image': 'assets/images/Rectangle 260.png',
-      'name': 'Fruits',
-      'price': '₹100/kg'
-    },
-    {
-      'id': 5,
-      'image': 'assets/images/Rectangle 259.png',
-      'name': 'Cosmetics',
-      'price': '₹100/kg'
-    },
-  ];
+  // final List<dynamic> _popularDeals = [
+  //   {
+  //     'id': 1,
+  //     'image': 'assets/images/wkhkz8ky.png',
+  //     'name': 'Meat',
+  //     'price': '₹250/kg'
+  //   },
+  //   {
+  //     'id': 2,
+  //     'image': 'assets/images/jmic18a2.png',
+  //     'name': 'Vegetables',
+  //     'price': '₹25/kg'
+  //   },
+  //   {
+  //     'id': 3,
+  //     'image': 'assets/images/jux6dfoh.png',
+  //     'name': 'Meat',
+  //     'price': '₹200/kg'
+  //   },
+  //   {
+  //     'id': 4,
+  //     'image': 'assets/images/Rectangle 260.png',
+  //     'name': 'Fruits',
+  //     'price': '₹100/kg'
+  //   },
+  //   {
+  //     'id': 5,
+  //     'image': 'assets/images/Rectangle 259.png',
+  //     'name': 'Cosmetics',
+  //     'price': '₹100/kg'
+  //   },
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +136,12 @@ class TopSellerState extends State<TopSeller> {
                                           offset: Offset(1, 2))
                                     ]),
                                 child: Image.network(
-                                  'http://3.109.206.91:8000${firstProvider[index]['main_image']}',
+                                  'http://192.168.0.111:3000${firstProvider[index]['main_image']}',
                                   // scale: 0.6,
                                   // fit: BoxFit.contain,
                                 ),
                               ),
+                              SizedBox(height: height * 0.01),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
                                 child: Text(
@@ -230,10 +231,11 @@ class TopSellerState extends State<TopSeller> {
                                           offset: Offset(1, 2))
                                     ]),
                                 child: Image.network(
-                                  'http://3.109.206.91:8000${secondProvider[index]['main_image']}',
+                                  'http://192.168.0.111:3000${secondProvider[index]['main_image']}',
                                   // fit: BoxFit.contain,
                                 ),
                               ),
+                              SizedBox(height: height * 0.01),
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.03),
                                 child: Text(

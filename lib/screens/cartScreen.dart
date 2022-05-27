@@ -58,8 +58,9 @@ class CartScreenState extends State<CartScreen> {
   }
 
   void updateCall() async {
-    _cartList = await Provider.of<AddToCartProvider>(context, listen: false)
-        .getCartProducts();
+    // _cartList = await Provider.of<AddToCartProvider>(context, listen: false)
+    //     .getCartProducts();
+    Provider.of<AddToCartProvider>(context, listen: false).getCartProducts();
   }
 
   void updateCartIncrease(Map<String, dynamic> data, double grandTotal) async {
@@ -94,7 +95,7 @@ class CartScreenState extends State<CartScreen> {
 
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
-            .editCartItem(data['id'], data['quantity']);
+            .editCartItem(data['id'].toString(), data['quantity']);
   }
 
   @override

@@ -104,7 +104,7 @@ class CategoriesState extends State<Categories> {
                     )
                   : Container(
                       width: double.infinity,
-                      // height: height * 0.1,
+                      height: height * 0.1,
                       margin: EdgeInsets.only(top: height * 0.01),
                       padding: EdgeInsets.only(
                           left: width * 0.02,

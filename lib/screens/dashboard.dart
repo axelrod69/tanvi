@@ -91,7 +91,7 @@ class DashboardState extends State<Dashboard> {
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20))),
                       child: Image.network(
-                        'http://3.109.206.91:8000${provider['data']['profile_pic']}',
+                        'http://192.168.0.111:3000${provider['data']['profile_pic']}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -176,7 +176,9 @@ class DashboardState extends State<Dashboard> {
                             size: !tabLayout && !largeLayout ? 18 : 30),
                         Expanded(
                           child: Text(
-                            defaultAddress!,
+                            defaultAddress,
+                            // defaultAddress!,
+                            // 'Default Address',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: tabLayout
@@ -226,19 +228,16 @@ class DashboardState extends State<Dashboard> {
               child: Frequent(),
             ),
             SizedBox(height: height * 0.02),
-            Flexible(
-              flex: 1,
-              child: Container(
-                height:
-                    !tabLayout && !largeLayout ? height * 0.32 : height * 0.28,
-                // color: Colors.blue,
-                padding: EdgeInsets.only(
-                    left: width * 0.02,
-                    top: height * 0.01,
-                    right: width * 0.02,
-                    bottom: height * 0.01),
-                child: DashboardNotification(),
-              ),
+            Container(
+              height:
+                  !tabLayout && !largeLayout ? height * 0.32 : height * 0.28,
+              // color: Colors.blue,
+              padding: EdgeInsets.only(
+                  left: width * 0.02,
+                  top: height * 0.01,
+                  right: width * 0.02,
+                  bottom: height * 0.01),
+              child: DashboardNotification(),
             ),
             SizedBox(height: height * 0.02),
             Container(

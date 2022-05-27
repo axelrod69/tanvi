@@ -3,7 +3,7 @@ import './categoryProductsModel.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryProductsProvider with ChangeNotifier {
-  String baseUrl = 'http://3.109.206.91:8000/';
+  String baseUrl = 'http://192.168.0.111:3000/';
   Map<String, dynamic> _categoryProducts = {};
 
   Map<String, dynamic> get categoryProducts {

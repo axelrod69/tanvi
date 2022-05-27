@@ -4,28 +4,58 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class AddToCartProvider with ChangeNotifier {
-  String baseUrl = 'http://3.109.206.91:8000/';
+  String baseUrl = 'http://192.168.0.111:3000/';
   Map<String, dynamic> _cartData = {};
+  Map<String, String> _cart = {};
 
   Map<String, dynamic> get cartData {
     return {..._cartData};
   }
 
-  Future<Map<String, dynamic>> getCartProducts() async {
+  // Future<Map<String, dynamic>> getCartProducts() async {
+  //   SharedPreferences localStorage = await SharedPreferences.getInstance();
+  //   final url = Uri.parse(baseUrl + 'api/add-to-cart/');
+  //   final response = await http.get(url, headers: {
+  //     'Authorization': 'Bearer ${localStorage.getString('token')}',
+  //     'Content-Type': 'application/json'
+  //   });
+  //   // print(response.body);
+  //   var res = json.decode(response.body);
+  //   _cartData = res;
+  //   // AddToCartData addToCartData = addToCartDataFromJson(response.body);
+  //   // _cartData = addToCartData.toJson();
+  //   // print('Add To Cart: $_cartData');
+  //   print('Calleddddddddddddddddd');
+  //   return res;
+  // }
+
+  Future<void> getCartProducts() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/add-to-cart/');
     final response = await http.get(url, headers: {
       'Authorization': 'Bearer ${localStorage.getString('token')}',
       'Content-Type': 'application/json'
     });
-    // print(response.body);
-    var res = json.decode(response.body);
-    _cartData = res;
+    print('Response ${response.statusCode}');
+    // var res = json.decode(response.body);
+    // _cartData = res;
     // AddToCartData addToCartData = addToCartDataFromJson(response.body);
     // _cartData = addToCartData.toJson();
     // print('Add To Cart: $_cartData');
-    print('Calleddddddddddddddddd');
-    return res;
+    // var res = response.body;
+    // print('Cart Data $res');
+    if (response.statusCode == 200) {
+      _cartData = json.decode(response.body);
+    } else {
+      _cartData = {
+        'data': {'cartItem': []}
+      };
+      return;
+    }
+    // _cartData = res as Map<String, dynamic>;
+
+    print('Cart Data: $_cartData');
+    // return res;
   }
 
   dynamic postToCart(int productId, int quantity) async {

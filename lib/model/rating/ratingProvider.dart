@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class RatingProvider with ChangeNotifier {
-  String baseUrl = 'http://3.109.206.91:8000/';
+  String baseUrl = 'http://192.168.0.111:3000/';
   Map<String, dynamic> _ratings = {};
 
   Map<String, dynamic> get ratings {
@@ -34,10 +34,15 @@ class RatingProvider with ChangeNotifier {
       'Authorization': 'Bearer ${localStorage.getString('token')}',
       'Content-Type': 'application/json'
     });
-    var res = json.decode(response.body);
 
-    _ratings = res;
+    if (response.statusCode == 200) {
+      var res = json.decode(response.body);
 
-    print('Ratings $_ratings');
+      _ratings = res;
+
+      print('Ratings $_ratings');
+    } else {
+      _ratings = {'data': []};
+    }
   }
 }

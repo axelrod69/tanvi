@@ -45,8 +45,8 @@ class PopularDealsState extends State<PopularDeals> {
               height: tabLayout
                   ? height * 0.34
                   : largeLayout
-                      ? height * 0.31
-                      : height * 0.32,
+                      ? height * 0.32
+                      : height * 0.33,
               margin: EdgeInsets.only(bottom: height * 0.04),
               decoration: BoxDecoration(
                   color: Colors.green[50],
@@ -111,6 +111,7 @@ class PopularDealsState extends State<PopularDeals> {
                           width: tabLayout ? width * 0.35 : width * 0.45,
                           height: double.infinity,
                           margin: EdgeInsets.only(right: width * 0.02),
+                          padding: EdgeInsets.all(5),
                           // color: Colors.amber,
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,11 +123,11 @@ class PopularDealsState extends State<PopularDeals> {
                                       boxShadow: const [
                                         BoxShadow(
                                             color: Colors.grey,
-                                            blurRadius: 10,
+                                            blurRadius: 5,
                                             offset: Offset(1, 2))
                                       ]),
                                   child: Image.network(
-                                    'http://3.109.206.91:8000${provider['data'][index][0]['main_image']}',
+                                    'http://192.168.0.111:3000${provider['data'][index][0]['main_image']}',
                                     fit: BoxFit.contain,
                                     width: tabLayout
                                         ? width * 0.35
@@ -140,6 +141,7 @@ class PopularDealsState extends State<PopularDeals> {
                                             : height * 0.22,
                                   ),
                                 ),
+                                SizedBox(height: height * 0.01),
                                 Padding(
                                   padding: EdgeInsets.only(left: width * 0.03),
                                   child: Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../authentication/network.dart';
+import 'dart:convert';
 
 class SignUp extends StatefulWidget {
   SignUpState createState() => SignUpState();
@@ -357,7 +358,7 @@ class SignUpState extends State<SignUp> {
                           //     Navigator.of(context).pushNamed('/home-screen'),
                           onTap: () {
                             if (_globalKey.currentState!.validate()) {
-                              _signUp();
+                              _signUp(context);
                             }
                           },
                           child: Container(
@@ -429,7 +430,7 @@ class SignUpState extends State<SignUp> {
     );
   }
 
-  void _signUp() async {
+  void _signUp(BuildContext context) async {
     var data = {
       'first_name': firstName.toString(),
       'last_name': lastName.toString(),
@@ -441,7 +442,41 @@ class SignUpState extends State<SignUp> {
     var response = await Provider.of<Network>(context, listen: false)
         .signUp(data, 'api/register/');
     print(response.body);
-    Navigator.of(context)
-        .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
+
+    var res = json.decode(response.body);
+
+    if (res == "Otp send your Register Mobile Number sucessfully.") {
+      Navigator.of(context)
+          .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
+    } else if (res['errors']['first_name'][0] ==
+        "Last Name must be 2 char long or more") {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text(
+              'First Name and Last Name must be more than 2 characters',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+              label: 'OK',
+              textColor: Colors.white,
+              onPressed: () =>
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar())));
+    } else if (res['context']['message'] ==
+        'Hello! siddc.8@gmail.com This Email already exists') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text('This Email Already Exists',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+              label: 'OK',
+              textColor: Colors.white,
+              onPressed: () =>
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar())));
+    }
   }
 }

@@ -443,7 +443,7 @@ class ProfileState extends State<Profile> {
                                                   ? BorderRadius.circular(80)
                                                   : BorderRadius.circular(70),
                                               child: Image.network(
-                                                  'http://3.109.206.91:8000${profileProvider['data']['profile_pic']}'),
+                                                  'http://192.168.0.111:3000${profileProvider['data']['profile_pic']}'),
                                             ),
                                           )
                                         : image != null
@@ -528,10 +528,13 @@ class ProfileState extends State<Profile> {
                           SizedBox(width: width * 0.2),
                           Expanded(
                             child: Text(
-                              // '48, Tarun Sengupta Sarani, Dum Dum, Kolkata: 700079, West Bengal, India',
-                              defaultAddressProvider!.isEmpty
+                              defaultAddressProvider.isEmpty
                                   ? 'No Address Selected'
                                   : defaultAddressProvider,
+                              // '48, Tarun Sengupta Sarani, Dum Dum, Kolkata: 700079, West Bengal, India',
+                              // defaultAddressProvider!.isEmpty
+                              //     ? 'No Address Selected'
+                              //     : defaultAddressProvider,
                               // // textScaleFactor: textScaleFactor,
                               style: TextStyle(
                                   color: Colors.grey[700],
