@@ -119,26 +119,38 @@ class TopSellerState extends State<TopSeller> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: width * 0.45,
-                                height: tabLayout
-                                    ? height * 0.27
-                                    : largeLayout
-                                        ? height * 0.2
-                                        : height * 0.22,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 5,
-                                          offset: Offset(1, 2))
-                                    ]),
-                                child: Image.network(
-                                  'http://192.168.0.111:3000${firstProvider[index]['main_image']}',
-                                  // scale: 0.6,
-                                  // fit: BoxFit.contain,
+                              InkWell(
+                                onTap: () => Navigator.of(context)
+                                    .pushNamed('/item-details', arguments: {
+                                  'id': firstProvider[index]['id'],
+                                  'image': firstProvider[index]['main_image'],
+                                  'name': firstProvider[index]['name'],
+                                  'quantity': 0,
+                                  'description': firstProvider[index]
+                                      ['description'],
+                                  'price': firstProvider[index]['price']
+                                }),
+                                child: Container(
+                                  width: width * 0.45,
+                                  height: tabLayout
+                                      ? height * 0.27
+                                      : largeLayout
+                                          ? height * 0.2
+                                          : height * 0.22,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(30),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 5,
+                                            offset: Offset(1, 2))
+                                      ]),
+                                  child: Image.network(
+                                    'http://127.0.0.1:8000${firstProvider[index]['main_image']}',
+                                    // scale: 0.6,
+                                    // fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
                               SizedBox(height: height * 0.01),
@@ -214,25 +226,37 @@ class TopSellerState extends State<TopSeller> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: width * 0.45,
-                                height: tabLayout
-                                    ? height * 0.27
-                                    : largeLayout
-                                        ? height * 0.2
-                                        : height * 0.22,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 5,
-                                          offset: Offset(1, 2))
-                                    ]),
-                                child: Image.network(
-                                  'http://192.168.0.111:3000${secondProvider[index]['main_image']}',
-                                  // fit: BoxFit.contain,
+                              InkWell(
+                                onTap: () => Navigator.of(context)
+                                    .pushNamed('/item-details', arguments: {
+                                  'id': secondProvider[index]['id'],
+                                  'image': secondProvider[index]['main_image'],
+                                  'name': secondProvider[index]['name'],
+                                  'quantity': 0,
+                                  'description': secondProvider[index]
+                                      ['description'],
+                                  'price': secondProvider[index]['price']
+                                }),
+                                child: Container(
+                                  width: width * 0.45,
+                                  height: tabLayout
+                                      ? height * 0.27
+                                      : largeLayout
+                                          ? height * 0.2
+                                          : height * 0.22,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(30),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 5,
+                                            offset: Offset(1, 2))
+                                      ]),
+                                  child: Image.network(
+                                    'http://127.0.0.1:8000${secondProvider[index]['main_image']}',
+                                    // fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
                               SizedBox(height: height * 0.01),

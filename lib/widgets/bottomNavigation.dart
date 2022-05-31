@@ -20,11 +20,13 @@ class CustomBottomNavigation extends StatefulWidget {
 class CustomBottomNavigationState extends State<CustomBottomNavigation> {
   int index = 2;
   bool isLoading = true;
+  int length = 0;
 
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     Provider.of<Network>(context, listen: false).getToken();
+    Provider.of<AddToCartProvider>(context, listen: false).length;
     Provider.of<AddToCartProvider>(context, listen: false)
         .getCartProducts()
         .then((_) {
@@ -43,7 +45,13 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
           // });
         });
       });
+      setState(() {
+        length = Provider.of<AddToCartProvider>(context, listen: false)
+            .cartData['data']['cartItem']
+            .length;
+      });
     });
+
     super.didChangeDependencies();
   }
 
@@ -61,6 +69,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
     final width = MediaQuery.of(context).size.width;
     final provider = Provider.of<AddToCartProvider>(context).cartData;
     final profileProvider = Provider.of<ProfileProvider>(context).profile;
+    final cartLength =
+        Provider.of<AddToCartProvider>(context, listen: false).length;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
 
@@ -200,7 +210,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                           });
                                         },
                                         child: tabLayout
-                                            ? provider['data']['profile_pic'] ==
+                                            ? profileProvider['data']
+                                                        ['profile_pic'] ==
                                                     null
                                                 ? CircleAvatar(
                                                     radius: width * 0.06,
@@ -210,12 +221,12 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                 : CircleAvatar(
                                                     radius: width * 0.06,
                                                     child: Image.network(
-                                                        'http://192.168.0.111:3000${profileProvider['data']['profile_pic']}'))
+                                                        'http://127.0.0.1:8000${profileProvider['data']['profile_pic']}'))
                                             : largeLayout
                                                 // ? Image.asset(
                                                 //     'assets/images/rkwxkca7.png',
                                                 //   )
-                                                ? provider['data']
+                                                ? profileProvider['data']
                                                             ['profile_pic'] ==
                                                         null
                                                     ? const CircleAvatar(
@@ -226,8 +237,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                     : CircleAvatar(
                                                         radius: 16,
                                                         child: Image.network(
-                                                            'http://192.168.0.111:3000${profileProvider['data']['profile_pic']}'))
-                                                : provider['data']
+                                                            'http://127.0.0.1:8000${profileProvider['data']['profile_pic']}'))
+                                                : profileProvider['data']
                                                             ['profile_pic'] ==
                                                         null
                                                     ? CircleAvatar(
@@ -238,7 +249,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                     : CircleAvatar(
                                                         radius: width * 0.09,
                                                         child: Image.network(
-                                                            'http://192.168.0.111:3000${profileProvider['data']['profile_pic']}')),
+                                                            'http://127.0.0.1:8000${profileProvider['data']['profile_pic']}')),
                                       )
                                     ],
                                   ),
@@ -257,11 +268,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                               backgroundColor: Colors.green,
                               child: Text(
                                 // '0',
-                                provider['data']['cartItem'].length > 9
-                                    ? '9+'
-                                    : provider['data']['cartItem']
-                                        .length
-                                        .toString(),
+                                // cartLength > 9 ? '9+' : cartLength.toString(),
+                                length > 9 ? '9+' : length.toString(),
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: tabLayout

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../widgets/categories/categoryList.dart';
 import '../../model/category/categoryProvider.dart';
 
 class Categories extends StatefulWidget {
@@ -43,6 +44,7 @@ class CategoriesState extends State<Categories> {
     final largeLayout = width > 350 && width < 600;
     final provider =
         Provider.of<CategoryProvider>(context, listen: false).category;
+
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
     // TODO: implement build
@@ -131,19 +133,27 @@ class CategoriesState extends State<Categories> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(top: height * 0.004),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: tabLayout
-                                      ? height * 0.14
-                                      : largeLayout
-                                          ? height * 0.12
-                                          : height * 0.15,
-                                  decoration: BoxDecoration(
-                                    color: Colors.green[100],
-                                    borderRadius: BorderRadius.circular(20),
+                                child: InkWell(
+                                  onTap: () => Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                    builder: (context) => CategoryList(
+                                        provider[index]['id'],
+                                        provider[index]['name']),
+                                  )),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: tabLayout
+                                        ? height * 0.14
+                                        : largeLayout
+                                            ? height * 0.12
+                                            : height * 0.15,
+                                    decoration: BoxDecoration(
+                                      color: Colors.green[100],
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Image.network(
+                                        provider[index]['categoryImage']),
                                   ),
-                                  child: Image.network(
-                                      provider[index]['categoryImage']),
                                 ),
                               ),
                               SizedBox(height: height * 0.01),

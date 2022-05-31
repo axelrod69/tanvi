@@ -443,7 +443,7 @@ class ProfileState extends State<Profile> {
                                                   ? BorderRadius.circular(80)
                                                   : BorderRadius.circular(70),
                                               child: Image.network(
-                                                  'http://192.168.0.111:3000${profileProvider['data']['profile_pic']}'),
+                                                  'http://127.0.0.1:8000${profileProvider['data']['profile_pic']}'),
                                             ),
                                           )
                                         : image != null

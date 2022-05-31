@@ -91,7 +91,7 @@ class DashboardState extends State<Dashboard> {
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20))),
                       child: Image.network(
-                        'http://192.168.0.111:3000${provider['data']['profile_pic']}',
+                        'http://127.0.0.1:8000${provider['data']['profile_pic']}',
                         fit: BoxFit.cover,
                       ),
                     ),

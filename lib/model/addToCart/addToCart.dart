@@ -4,12 +4,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class AddToCartProvider with ChangeNotifier {
-  String baseUrl = 'http://192.168.0.111:3000/';
+  String baseUrl = 'http://127.0.0.1:8000/';
   Map<String, dynamic> _cartData = {};
-  Map<String, String> _cart = {};
+  int _length = 0;
+  // Map<String, String> _cart = {};
 
   Map<String, dynamic> get cartData {
     return {..._cartData};
+  }
+
+  int get length {
+    return _length;
   }
 
   // Future<Map<String, dynamic>> getCartProducts() async {
@@ -29,6 +34,12 @@ class AddToCartProvider with ChangeNotifier {
   //   return res;
   // }
 
+  // void cartlength(int lengthOfCart) {
+  //   _length = lengthOfCart;
+  //   print('Length Of Cart: $_length');
+  //   notifyListeners();
+  // }
+
   Future<void> getCartProducts() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/add-to-cart/');
@@ -46,7 +57,12 @@ class AddToCartProvider with ChangeNotifier {
     // print('Cart Data $res');
     if (response.statusCode == 200) {
       _cartData = json.decode(response.body);
+      _length = _cartData['data']['cartItem'].length;
+      print(
+          'Length Of Cartttttttttttttttttttttttttttttttttttttttttttttttttttttt: $_length');
+      // notifyListeners();
     } else {
+      // if() {}
       _cartData = {
         'data': {'cartItem': []}
       };
@@ -71,6 +87,9 @@ class AddToCartProvider with ChangeNotifier {
       'Authorization': 'Bearer ${localStorage.getString('token')}',
       // 'Content-Type': 'application/json'
     });
+    print('Lengthhhhhhhhhhhhhhhhhhhhhhhh Of Cart: $_length');
+    _length = length;
+    notifyListeners();
     // print('Added To Cart: ${response.body}');
     // final responseData = json.decode(response.body);
     return response;

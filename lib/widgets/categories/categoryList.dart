@@ -15,7 +15,7 @@ class CategoryListState extends State<CategoryList> {
   int count = 0;
   bool isLoading = true;
   bool isClicked = false;
-  String baseUrl = 'http://192.168.0.111:3000';
+  String baseUrl = 'http://127.0.0.1:8000';
 
   @override
   void initState() {
@@ -144,6 +144,7 @@ class CategoryListState extends State<CategoryList> {
                     crossAxisSpacing: 0,
                     mainAxisSpacing: 1,
                     crossAxisCount: 2,
+                    childAspectRatio: 0.95,
                   ),
                   itemBuilder: (context, index) => Container(
                     decoration: const BoxDecoration(
@@ -200,10 +201,10 @@ class CategoryListState extends State<CategoryList> {
                                 // child: Image.asset(
                                 //     _categoryItems[index]['image'])
                                 child: Image.network(
-                                    'http://192.168.0.111:3000${provider['data'][index]['main_image']}'),
+                                    'http://127.0.0.1:8000${provider['data'][index]['main_image']}'),
                               ),
                             ),
-                            SizedBox(height: height * 0.01),
+                            SizedBox(height: height * 0.03),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -262,7 +263,7 @@ class CategoryListState extends State<CategoryList> {
                           top: tabLayout
                               ? height * 0.26
                               : largeLayout
-                                  ? height * 0.152
+                                  ? height * 0.165
                                   : height * 0.192,
                           right: width * 0.01,
                           child: Container(

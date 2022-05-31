@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../model/popularDeals/popularDealsProducts.dart';
+import '../../model/categoryProducts/categoryProductsProvider.dart';
 
 class PopularDeals extends StatefulWidget {
   PopularDealsState createState() => PopularDealsState();
@@ -19,7 +20,13 @@ class PopularDealsState extends State<PopularDeals> {
         isLoading = false;
       });
     });
+    itemDetail;
     super.initState();
+  }
+
+  void itemDetail(int categoryId) async {
+    Provider.of<CategoryProductsProvider>(context, listen: false)
+        .getCategoryProducts(categoryId);
   }
 
   @override
@@ -30,6 +37,8 @@ class PopularDealsState extends State<PopularDeals> {
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
     final provider = Provider.of<PopularDealsProvider>(context).popularDeals;
+    final productsProvider =
+        Provider.of<CategoryProductsProvider>(context).categoryProducts;
 
     // TODO: implement build
     return isLoading
@@ -111,7 +120,7 @@ class PopularDealsState extends State<PopularDeals> {
                           width: tabLayout ? width * 0.35 : width * 0.45,
                           height: double.infinity,
                           margin: EdgeInsets.only(right: width * 0.02),
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           // color: Colors.amber,
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,19 +135,34 @@ class PopularDealsState extends State<PopularDeals> {
                                             blurRadius: 5,
                                             offset: Offset(1, 2))
                                       ]),
-                                  child: Image.network(
-                                    'http://192.168.0.111:3000${provider['data'][index][0]['main_image']}',
-                                    fit: BoxFit.contain,
-                                    width: tabLayout
-                                        ? width * 0.35
-                                        : largeLayout
-                                            ? width * 0.45
-                                            : width * 0.46,
-                                    height: tabLayout
-                                        ? height * 0.24
-                                        : largeLayout
-                                            ? height * 0.2
-                                            : height * 0.22,
+                                  child: InkWell(
+                                    onTap: () => Navigator.of(context)
+                                        .pushNamed('/item-details', arguments: {
+                                      'id': provider['data'][index][0]['id'],
+                                      'image': provider['data'][index][0]
+                                          ['main_image'],
+                                      'name': provider['data'][index][0]
+                                          ['name'],
+                                      'quantity': 0,
+                                      'description': provider['data'][index][0]
+                                          ['description'],
+                                      'price': provider['data'][index][0]
+                                          ['price']
+                                    }),
+                                    child: Image.network(
+                                      'http://127.0.0.1:8000${provider['data'][index][0]['main_image']}',
+                                      fit: BoxFit.contain,
+                                      width: tabLayout
+                                          ? width * 0.35
+                                          : largeLayout
+                                              ? width * 0.45
+                                              : width * 0.46,
+                                      height: tabLayout
+                                          ? height * 0.24
+                                          : largeLayout
+                                              ? height * 0.2
+                                              : height * 0.22,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: height * 0.01),
