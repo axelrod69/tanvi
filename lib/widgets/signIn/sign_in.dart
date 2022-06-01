@@ -303,7 +303,7 @@ class FormWidgetState extends State<FormWidget> {
                                   ]),
                               child: TextFormField(
                                 showCursor: true,
-                                cursorHeight: 45,
+                                cursorHeight: 50,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(1)
                                 ],
@@ -405,7 +405,7 @@ class FormWidgetState extends State<FormWidget> {
                                   ]),
                               child: TextFormField(
                                 showCursor: true,
-                                cursorHeight: 45,
+                                cursorHeight: 50,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(1)
                                 ],
@@ -507,7 +507,7 @@ class FormWidgetState extends State<FormWidget> {
                                   ]),
                               child: TextFormField(
                                 showCursor: true,
-                                cursorHeight: 45,
+                                cursorHeight: 50,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(1)
                                 ],

@@ -221,7 +221,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                 : CircleAvatar(
                                                     radius: width * 0.06,
                                                     child: Image.network(
-                                                        'http://192.168.0.154:3000${profileProvider['data']['profile_pic']}'))
+                                                        'http://10.0.2.2:8000${profileProvider['data']['profile_pic']}'))
                                             : largeLayout
                                                 // ? Image.asset(
                                                 //     'assets/images/rkwxkca7.png',
@@ -237,7 +237,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                     : CircleAvatar(
                                                         radius: 16,
                                                         child: Image.network(
-                                                            'http://192.168.0.154:3000${profileProvider['data']['profile_pic']}'))
+                                                            'http://10.0.2.2:8000${profileProvider['data']['profile_pic']}'))
                                                 : profileProvider['data']
                                                             ['profile_pic'] ==
                                                         null
@@ -249,7 +249,7 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                     : CircleAvatar(
                                                         radius: width * 0.09,
                                                         child: Image.network(
-                                                            'http://192.168.0.154:3000${profileProvider['data']['profile_pic']}')),
+                                                            'http://10.0.2.2:8000${profileProvider['data']['profile_pic']}')),
                                       )
                                     ],
                                   ),

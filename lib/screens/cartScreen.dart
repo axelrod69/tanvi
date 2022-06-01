@@ -49,7 +49,8 @@ class CartScreenState extends State<CartScreen> {
   // }
 
   double get taxCalculation {
-    final taxCalculation = Provider.of<AddToCartProvider>(context).cartData;
+    final taxCalculation =
+        Provider.of<AddToCartProvider>(context, listen: false).cartData;
     for (final cartItem in taxCalculation['data']['cartItem']) {
       tax += (cartItem['tax'] as num) / 100.0;
     }
@@ -125,7 +126,7 @@ class CartScreenState extends State<CartScreen> {
                 fontSize: tabLayout
                     ? 35
                     : largeLayout
-                        ? 14
+                        ? 19
                         : 16)),
       ),
       body: isLoading
@@ -397,10 +398,9 @@ class CartScreenState extends State<CartScreen> {
                     padding: EdgeInsets.only(
                         left: width * 0.082, right: height * 0.04),
                     child: InkWell(
-                      onTap: () => Navigator.of(context)
-                          .pushNamed('/checkout-screen', arguments: {
-                        'data': provider,
-                      }),
+                      onTap: () => Navigator.of(context).pushNamed(
+                          '/checkout-screen',
+                          arguments: {'data': provider, 'tax': taxCalculation}),
                       child: Container(
                           width: double.infinity,
                           height: tabLayout
@@ -409,7 +409,9 @@ class CartScreenState extends State<CartScreen> {
                                   ? height * 0.06
                                   : height * 0.07,
                           margin: EdgeInsets.only(
-                              top: height * 0.04, bottom: height * 0.04),
+                              top:
+                                  height > 800 ? height * 0.04 : height * 0.012,
+                              bottom: height > 800 ? height * 0.04 : 0),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(30),

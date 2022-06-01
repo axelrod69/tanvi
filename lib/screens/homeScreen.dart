@@ -25,6 +25,8 @@ class HomeScreenState extends State<HomeScreen> {
 
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
 
+    print('Height Of Screen: $height');
+
     // TODO: implement build
     return Scaffold(
       extendBody: true,

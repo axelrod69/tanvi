@@ -129,6 +129,7 @@ class CheckOutState extends State<CheckOut> {
     // final provider = Provider.of<OrderProvider>(context).orderId;
 
     final data = routes['data'];
+    final taxAmount = routes['tax'];
 
     print('DATA: $data');
 
@@ -196,7 +197,7 @@ class CheckOutState extends State<CheckOut> {
                     fontSize: tabLayout
                         ? 35
                         : largeLayout
-                            ? 18
+                            ? 19
                             : 14),
               ),
             )
@@ -345,9 +346,11 @@ class CheckOutState extends State<CheckOut> {
                               fontWeight: FontWeight.bold,
                               fontSize: tabLayout ? 20 : 13)),
                       Text(
-                          amount <= data['data']['grandTotal']
-                              ? '$couponCode Applied'
-                              : 'Not Applicable',
+                          couponCode == null
+                              ? 'No Coupon Selected'
+                              : amount <= data['data']['grandTotal']
+                                  ? '$couponCode Applied'
+                                  : 'Not Applicable',
                           // // textScaleFactor: textScaleFactor,
                           style: TextStyle(
                               color: Colors.black,
@@ -383,7 +386,7 @@ class CheckOutState extends State<CheckOut> {
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: tabLayout ? 20 : 13)),
-                      Text('₹10',
+                      Text('₹${taxAmount.toString()}',
                           // // textScaleFactor: textScaleFactor,
                           style: TextStyle(
                               color: Colors.black,
@@ -414,7 +417,9 @@ class CheckOutState extends State<CheckOut> {
                 height: tabLayout
                     ? height * 0.1
                     : largeLayout
-                        ? height * 0.12
+                        ? height > 800
+                            ? height * 0.12
+                            : height * 0.14
                         : height * 0.18,
                 padding:
                     EdgeInsets.only(left: width * 0.04, right: height * 0.02),

@@ -112,18 +112,21 @@ class CategorySearchState extends State<CategorySearch> {
                       Flexible(
                         flex: 9,
                         fit: FlexFit.tight,
-                        child: TextField(
-                          controller: _controller,
-                          onChanged: (value) => searchByQuery(value),
-                          autofocus: true,
-                          cursorColor: Colors.grey,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: !tabLayout && !largeLayout ? 14 : 20),
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Search Categories',
-                            hintStyle: TextStyle(color: Colors.grey),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: height * 0.025),
+                          child: TextField(
+                            controller: _controller,
+                            onChanged: (value) => searchByQuery(value),
+                            autofocus: true,
+                            cursorColor: Colors.grey,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: !tabLayout && !largeLayout ? 14 : 20),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Search Categories',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
                           ),
                         ),
                       )

@@ -15,7 +15,7 @@ class CategoryListState extends State<CategoryList> {
   int count = 0;
   bool isLoading = true;
   bool isClicked = false;
-  String baseUrl = 'http://192.168.0.154:3000';
+  String baseUrl = 'http://10.0.2.2:8000';
 
   @override
   void initState() {
@@ -201,10 +201,13 @@ class CategoryListState extends State<CategoryList> {
                                 // child: Image.asset(
                                 //     _categoryItems[index]['image'])
                                 child: Image.network(
-                                    'http://192.168.0.154:3000${provider['data'][index]['main_image']}'),
+                                    'http://10.0.2.2:8000${provider['data'][index]['main_image']}'),
                               ),
                             ),
-                            SizedBox(height: height * 0.03),
+                            SizedBox(
+                                height: height > 800
+                                    ? height * 0.03
+                                    : height * 0.06),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -263,7 +266,10 @@ class CategoryListState extends State<CategoryList> {
                           top: tabLayout
                               ? height * 0.26
                               : largeLayout
-                                  ? height * 0.165
+                                  // ? height * 0.165
+                                  ? height > 800
+                                      ? height * 0.165
+                                      : height * 0.198
                                   : height * 0.192,
                           right: width * 0.01,
                           child: Container(
@@ -271,7 +277,10 @@ class CategoryListState extends State<CategoryList> {
                             height: tabLayout
                                 ? height * 0.1
                                 : largeLayout
-                                    ? height * 0.08
+                                    // ? height * 0.08
+                                    ? height > 800
+                                        ? height * 0.08
+                                        : height * 0.095
                                     : height * 0.1,
                             padding: EdgeInsets.only(top: height * 0.005),
                             decoration: const BoxDecoration(

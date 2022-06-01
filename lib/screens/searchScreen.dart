@@ -62,7 +62,7 @@ class SearchState extends State<Search> {
         title: Container(
           height: 70,
           width: double.infinity,
-          // color: Colors.red,
+          color: Colors.red,
           child: Row(
             children: [
               Padding(
@@ -111,18 +111,21 @@ class SearchState extends State<Search> {
                       Flexible(
                         flex: 9,
                         fit: FlexFit.tight,
-                        child: TextField(
-                          controller: _controller,
-                          onChanged: (value) => searchByQuery(value),
-                          autofocus: true,
-                          cursorColor: Colors.grey,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: !tabLayout && !largeLayout ? 14 : 20),
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Search Products',
-                            hintStyle: TextStyle(color: Colors.grey),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: height * 0.025),
+                          child: TextField(
+                            controller: _controller,
+                            onChanged: (value) => searchByQuery(value),
+                            autofocus: true,
+                            cursorColor: Colors.grey,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: !tabLayout && !largeLayout ? 14 : 20),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Search Products',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
                           ),
                         ),
                       )
@@ -191,7 +194,7 @@ class SearchState extends State<Search> {
                                       offset: Offset(1, 2))
                                 ]),
                             child: Image.network(
-                              'http://192.168.0.154:3000${query[index]['main_image']}',
+                              'http://10.0.2.2:8000${query[index]['main_image']}',
                               fit: BoxFit.contain,
                             ),
                           ),

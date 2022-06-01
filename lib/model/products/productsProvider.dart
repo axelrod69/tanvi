@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ProductsProvider with ChangeNotifier {
-  String baseUrl = 'http://192.168.0.154:3000/';
+  String baseUrl = 'http://10.0.2.2:8000/';
   Map<String, dynamic> _products = {};
   Map<String, dynamic> _search = {};
   Map<String, dynamic> _productsTest = {};

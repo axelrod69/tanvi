@@ -43,7 +43,7 @@ class DashboardState extends State<Dashboard> {
               fontSize: tabLayout
                   ? 35
                   : largeLayout
-                      ? 14
+                      ? 19
                       : 18),
         ),
       ),
@@ -90,10 +90,14 @@ class DashboardState extends State<Dashboard> {
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20))),
-                      child: Image.network(
-                        'http://192.168.0.154:3000${provider['data']['profile_pic']}',
-                        fit: BoxFit.cover,
-                      ),
+                      child: provider['data']['profile_pic'] == null
+                          ? const Center(
+                              child: Text('No Image Selected'),
+                            )
+                          : Image.network(
+                              'http://10.0.2.2:8000${provider['data']['profile_pic']}',
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ),
                   Expanded(

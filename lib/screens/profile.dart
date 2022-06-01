@@ -415,7 +415,9 @@ class ProfileState extends State<Profile> {
                             Positioned(
                               top: !tabLayout && !largeLayout
                                   ? height * 0.01
-                                  : height * 0.04,
+                                  : height > 800
+                                      ? height * 0.04
+                                      : height * 0.01,
                               left: 0,
                               right: 0,
                               child: Column(
@@ -443,7 +445,7 @@ class ProfileState extends State<Profile> {
                                                   ? BorderRadius.circular(80)
                                                   : BorderRadius.circular(70),
                                               child: Image.network(
-                                                  'http://192.168.0.154:3000${profileProvider['data']['profile_pic']}'),
+                                                  'http://10.0.2.2:8000${profileProvider['data']['profile_pic']}'),
                                             ),
                                           )
                                         : image != null
@@ -484,7 +486,9 @@ class ProfileState extends State<Profile> {
                             Positioned(
                               top: !tabLayout && !largeLayout
                                   ? height * 0.14
-                                  : height * 0.17,
+                                  : height > 800
+                                      ? height * 0.17
+                                      : height * 0.16,
                               left: !tabLayout && !largeLayout
                                   ? width * 0.5
                                   : width * 0.54,
