@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class RatingProvider with ChangeNotifier {
-  String baseUrl = 'http://127.0.0.1:8000/';
+  String baseUrl = 'http://192.168.0.154:3000/';
   Map<String, dynamic> _ratings = {};
 
   Map<String, dynamic> get ratings {

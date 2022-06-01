@@ -15,7 +15,7 @@ class CategoryListState extends State<CategoryList> {
   int count = 0;
   bool isLoading = true;
   bool isClicked = false;
-  String baseUrl = 'http://127.0.0.1:8000';
+  String baseUrl = 'http://192.168.0.154:3000';
 
   @override
   void initState() {
@@ -201,7 +201,7 @@ class CategoryListState extends State<CategoryList> {
                                 // child: Image.asset(
                                 //     _categoryItems[index]['image'])
                                 child: Image.network(
-                                    'http://127.0.0.1:8000${provider['data'][index]['main_image']}'),
+                                    'http://192.168.0.154:3000${provider['data'][index]['main_image']}'),
                               ),
                             ),
                             SizedBox(height: height * 0.03),

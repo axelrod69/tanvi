@@ -200,7 +200,7 @@ class FormWidgetState extends State<FormWidget> {
                                   ]),
                               child: TextFormField(
                                 showCursor: true,
-                                cursorHeight: 45,
+                                cursorHeight: 50,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(1)
                                 ],
@@ -640,65 +640,66 @@ class FormWidgetState extends State<FormWidget> {
           ],
         ),
         SizedBox(height: height * 0.04),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: facebookLogin,
-              child: Container(
-                width: tabLayout ? width * 0.12 : width * 0.18,
-                height: tabLayout
-                    ? height * 0.065
-                    : largeLayout
-                        ? height * 0.065
-                        : height * 0.075,
-                padding:
-                    EdgeInsets.only(top: height * 0.02, bottom: height * 0.02),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.grey,
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                          offset: Offset(0, 1))
-                    ]),
-                child: Center(
-                  child: Image.asset(
-                      'assets/images/facebook-logo-transparent.png'),
-                ),
-              ),
-            ),
-            SizedBox(width: width * 0.04),
-            InkWell(
-              onTap: googleLogin,
-              child: Container(
-                width: tabLayout ? width * 0.12 : width * 0.18,
-                height: tabLayout
-                    ? height * 0.065
-                    : largeLayout
-                        ? height * 0.065
-                        : height * 0.075,
-                padding:
-                    EdgeInsets.only(top: height * 0.02, bottom: height * 0.02),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.grey,
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                          offset: Offset(0, 1))
-                    ]),
-                child: Center(
-                  child: Image.asset('assets/images/google-logo.png'),
-                ),
-              ),
-            )
-          ],
-        )
+        //To Be Done Later
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     InkWell(
+        //       onTap: facebookLogin,
+        //       child: Container(
+        //         width: tabLayout ? width * 0.12 : width * 0.18,
+        //         height: tabLayout
+        //             ? height * 0.065
+        //             : largeLayout
+        //                 ? height * 0.065
+        //                 : height * 0.075,
+        //         padding:
+        //             EdgeInsets.only(top: height * 0.02, bottom: height * 0.02),
+        //         decoration: BoxDecoration(
+        //             color: Colors.white,
+        //             borderRadius: BorderRadius.circular(10),
+        //             boxShadow: const [
+        //               BoxShadow(
+        //                   color: Colors.grey,
+        //                   spreadRadius: 2,
+        //                   blurRadius: 4,
+        //                   offset: Offset(0, 1))
+        //             ]),
+        //         child: Center(
+        //           child: Image.asset(
+        //               'assets/images/facebook-logo-transparent.png'),
+        //         ),
+        //       ),
+        //     ),
+        //     SizedBox(width: width * 0.04),
+        //     InkWell(
+        //       onTap: googleLogin,
+        //       child: Container(
+        //         width: tabLayout ? width * 0.12 : width * 0.18,
+        //         height: tabLayout
+        //             ? height * 0.065
+        //             : largeLayout
+        //                 ? height * 0.065
+        //                 : height * 0.075,
+        //         padding:
+        //             EdgeInsets.only(top: height * 0.02, bottom: height * 0.02),
+        //         decoration: BoxDecoration(
+        //             color: Colors.white,
+        //             borderRadius: BorderRadius.circular(10),
+        //             boxShadow: const [
+        //               BoxShadow(
+        //                   color: Colors.grey,
+        //                   spreadRadius: 2,
+        //                   blurRadius: 4,
+        //                   offset: Offset(0, 1))
+        //             ]),
+        //         child: Center(
+        //           child: Image.asset('assets/images/google-logo.png'),
+        //         ),
+        //       ),
+        //     )
+        //   ],
+        // )
       ],
     );
   }

@@ -37,6 +37,7 @@ import './model/address/addressProvider.dart';
 import './screens/addressList.dart';
 import './screens/newAddressSelect.dart';
 import './model/rating/ratingProvider.dart';
+import './screens/onBoardingScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -105,8 +106,8 @@ class MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
-        home: isAuth ? CustomBottomNavigation() : SignIn(),
-        // home: SignIn(),
+        home: isAuth ? CustomBottomNavigation() : OnBoardingScreen(),
+        // home: OnBoardingScreen(),
         routes: {
           '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),

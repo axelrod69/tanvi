@@ -91,7 +91,7 @@ class DashboardState extends State<Dashboard> {
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20))),
                       child: Image.network(
-                        'http://127.0.0.1:8000${provider['data']['profile_pic']}',
+                        'http://192.168.0.154:3000${provider['data']['profile_pic']}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -212,22 +212,23 @@ class DashboardState extends State<Dashboard> {
               child: OrderHistory(),
             ),
             SizedBox(height: height * 0.02),
-            Container(
-              width: double.infinity,
-              height: tabLayout
-                  ? height * 0.29
-                  : largeLayout
-                      ? height * 0.25
-                      : height * 0.28,
-              padding: EdgeInsets.only(
-                  left: width * 0.02,
-                  top: height * 0.01,
-                  right: width * 0.02,
-                  bottom: height * 0.01),
-              // color: Colors.red,
-              child: Frequent(),
-            ),
-            SizedBox(height: height * 0.02),
+            //To Be Done Later
+            // Container(
+            //   width: double.infinity,
+            //   height: tabLayout
+            //       ? height * 0.29
+            //       : largeLayout
+            //           ? height * 0.25
+            //           : height * 0.28,
+            //   padding: EdgeInsets.only(
+            //       left: width * 0.02,
+            //       top: height * 0.01,
+            //       right: width * 0.02,
+            //       bottom: height * 0.01),
+            //   // color: Colors.red,
+            //   child: Frequent(),
+            // ),
+            // SizedBox(height: height * 0.02),
             Container(
               height:
                   !tabLayout && !largeLayout ? height * 0.32 : height * 0.28,

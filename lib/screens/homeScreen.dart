@@ -76,7 +76,7 @@ class HomeScreenState extends State<HomeScreen> {
                       ),
                       Container(
                         width: width * 0.4,
-                        height: height * 0.06,
+                        height: height * 0.062,
                         // color: Colors.pink,
                         child: Row(
                           children: [
@@ -193,7 +193,7 @@ class HomeScreenState extends State<HomeScreen> {
             SizedBox(height: height * 0.025),
             PopularDeals(),
             TopSeller(),
-            SizedBox(height: height * 0.025),
+            SizedBox(height: height * 0.001),
             WishListScreen(),
             SizedBox(height: height * 0.025),
             RecentItems(),

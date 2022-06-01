@@ -52,10 +52,10 @@ class PopularDealsState extends State<PopularDeals> {
             child: Container(
               width: width * 0.9,
               height: tabLayout
-                  ? height * 0.34
+                  ? height * 0.35
                   : largeLayout
-                      ? height * 0.32
-                      : height * 0.33,
+                      ? height * 0.34
+                      : height * 0.35,
               margin: EdgeInsets.only(bottom: height * 0.04),
               decoration: BoxDecoration(
                   color: Colors.green[50],
@@ -150,7 +150,7 @@ class PopularDealsState extends State<PopularDeals> {
                                           ['price']
                                     }),
                                     child: Image.network(
-                                      'http://127.0.0.1:8000${provider['data'][index][0]['main_image']}',
+                                      'http://192.168.0.154:3000${provider['data'][index][0]['main_image']}',
                                       fit: BoxFit.contain,
                                       width: tabLayout
                                           ? width * 0.35

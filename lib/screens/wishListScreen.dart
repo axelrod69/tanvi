@@ -35,7 +35,7 @@ class WishListScreenState extends State<WishListScreen> {
       padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       child: Container(
         width: width * 0.9,
-        height: height * 0.31,
+        height: height * 0.33,
         margin: EdgeInsets.only(bottom: height * 0.04),
         decoration: BoxDecoration(
             color: Colors.green[50],

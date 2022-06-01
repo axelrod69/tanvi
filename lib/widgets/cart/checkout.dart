@@ -255,9 +255,9 @@ class CheckOutState extends State<CheckOut> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: tabLayout ? 26 : 18)),
-            Text('12 product(s) from Wee Food',
-                // // textScaleFactor: textScaleFactor,
-                style: TextStyle(fontSize: tabLayout ? 20 : 15)),
+            // Text('12 product(s) from Wee Food',
+            //     // // textScaleFactor: textScaleFactor,
+            //     style: TextStyle(fontSize: tabLayout ? 20 : 15)),
             SizedBox(height: height * 0.015),
             Container(
               width: double.infinity,

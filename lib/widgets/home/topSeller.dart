@@ -88,10 +88,10 @@ class TopSellerState extends State<TopSeller> {
           Container(
             width: width * 0.9,
             height: tabLayout
-                ? height * 0.33
+                ? height * 0.35
                 : largeLayout
-                    ? height * 0.28
-                    : height * 0.3,
+                    ? height * 0.3
+                    : height * 0.32,
             // color: Colors.red,
             margin: EdgeInsets.only(bottom: height * 0.04),
             child: Column(
@@ -147,7 +147,7 @@ class TopSellerState extends State<TopSeller> {
                                             offset: Offset(1, 2))
                                       ]),
                                   child: Image.network(
-                                    'http://127.0.0.1:8000${firstProvider[index]['main_image']}',
+                                    'http://192.168.0.154:3000${firstProvider[index]['main_image']}',
                                     // scale: 0.6,
                                     // fit: BoxFit.contain,
                                   ),
@@ -195,10 +195,10 @@ class TopSellerState extends State<TopSeller> {
           Container(
             width: width * 0.9,
             height: tabLayout
-                ? height * 0.33
+                ? height * 0.35
                 : largeLayout
-                    ? height * 0.28
-                    : height * 0.3,
+                    ? height * 0.3
+                    : height * 0.32,
             // color: Colors.red,
             margin: EdgeInsets.only(bottom: height * 0.04),
             child: Column(
@@ -254,7 +254,7 @@ class TopSellerState extends State<TopSeller> {
                                             offset: Offset(1, 2))
                                       ]),
                                   child: Image.network(
-                                    'http://127.0.0.1:8000${secondProvider[index]['main_image']}',
+                                    'http://192.168.0.154:3000${secondProvider[index]['main_image']}',
                                     // fit: BoxFit.contain,
                                   ),
                                 ),

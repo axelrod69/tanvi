@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class CategoryProvider with ChangeNotifier {
-  String baseUrl = 'http://127.0.0.1:8000/';
+  String baseUrl = 'http://192.168.0.154:3000/';
   List<dynamic> _category = [];
   List<dynamic> _categoriesList = [];
   List<dynamic> _catList = [];

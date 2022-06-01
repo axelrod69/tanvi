@@ -42,6 +42,14 @@ dependencies:
   image_picker: ^0.8.5+3
   dio: ^4.0.6
   file_picker: ^4.5.1
+  flutter_native_splash: ^2.2.2
+  smooth_page_indicator: ^1.0.0+2
+
+flutter_native_splash:
+  color: '#f3f2f2'
+  image: assets/images/tanveeLogo.png
+  android: true
+  ios: true
 
 
   # The following adds the Cupertino Icons font to your application.
