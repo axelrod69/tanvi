@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class AddToCartProvider with ChangeNotifier {
-  String baseUrl = 'http://10.0.2.2:8000/';
+  String baseUrl = 'http://54.80.135.220/';
   Map<String, dynamic> _cartData = {};
   int _length = 0;
   // Map<String, String> _cart = {};

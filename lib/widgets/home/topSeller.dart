@@ -147,7 +147,7 @@ class TopSellerState extends State<TopSeller> {
                                             offset: Offset(1, 2))
                                       ]),
                                   child: Image.network(
-                                    'http://10.0.2.2:8000${firstProvider[index]['main_image']}',
+                                    'http://54.80.135.220${firstProvider[index]['main_image']}',
                                     // scale: 0.6,
                                     // fit: BoxFit.contain,
                                   ),
@@ -254,7 +254,7 @@ class TopSellerState extends State<TopSeller> {
                                             offset: Offset(1, 2))
                                       ]),
                                   child: Image.network(
-                                    'http://10.0.2.2:8000${secondProvider[index]['main_image']}',
+                                    'http://54.80.135.220${secondProvider[index]['main_image']}',
                                     // fit: BoxFit.contain,
                                   ),
                                 ),

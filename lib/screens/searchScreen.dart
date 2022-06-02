@@ -194,7 +194,7 @@ class SearchState extends State<Search> {
                                       offset: Offset(1, 2))
                                 ]),
                             child: Image.network(
-                              'http://10.0.2.2:8000${query[index]['main_image']}',
+                              'http://54.80.135.220${query[index]['main_image']}',
                               fit: BoxFit.contain,
                             ),
                           ),

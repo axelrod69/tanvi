@@ -150,7 +150,7 @@ class PopularDealsState extends State<PopularDeals> {
                                           ['price']
                                     }),
                                     child: Image.network(
-                                      'http://10.0.2.2:8000${provider['data'][index][0]['main_image']}',
+                                      'http://54.80.135.220${provider['data'][index][0]['main_image']}',
                                       fit: BoxFit.contain,
                                       width: tabLayout
                                           ? width * 0.35

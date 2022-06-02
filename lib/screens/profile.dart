@@ -445,7 +445,7 @@ class ProfileState extends State<Profile> {
                                                   ? BorderRadius.circular(80)
                                                   : BorderRadius.circular(70),
                                               child: Image.network(
-                                                  'http://10.0.2.2:8000${profileProvider['data']['profile_pic']}'),
+                                                  'http://54.80.135.220${profileProvider['data']['profile_pic']}'),
                                             ),
                                           )
                                         : image != null

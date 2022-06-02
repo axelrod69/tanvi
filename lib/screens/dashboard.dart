@@ -95,7 +95,7 @@ class DashboardState extends State<Dashboard> {
                               child: Text('No Image Selected'),
                             )
                           : Image.network(
-                              'http://10.0.2.2:8000${provider['data']['profile_pic']}',
+                              'http://54.80.135.220${provider['data']['profile_pic']}',
                               fit: BoxFit.cover,
                             ),
                     ),
