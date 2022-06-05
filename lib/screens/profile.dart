@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../model/profile/profileProvider.dart';
 import '../model/address/addressProvider.dart';
+import './onBoardingScreen.dart';
 
 class Profile extends StatefulWidget {
   ProfileState createState() => ProfileState();
@@ -643,8 +644,10 @@ class ProfileState extends State<Profile> {
     print(response.body);
     localStorage.remove('token');
 
-    Navigator.of(context).pushNamed('/sign-in').then((_) {
-      localStorage.remove('refresh');
-    });
+    // Navigator.of(context).pushNamed('/sign-in').then((_) {
+    //   localStorage.remove('refresh');
+    // });
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => OnBoardingScreen()));
   }
 }

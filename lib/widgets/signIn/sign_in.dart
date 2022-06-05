@@ -178,6 +178,11 @@ class FormWidgetState extends State<FormWidget> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusFirst),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (first) {
                               firstOtp = first;
                               return null;
@@ -212,6 +217,11 @@ class FormWidgetState extends State<FormWidget> {
                                     enabledBorder: InputBorder.none),
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_focusFirst),
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
                                 validator: (first) {
                                   firstOtp = first;
                                   return null;
@@ -246,6 +256,11 @@ class FormWidgetState extends State<FormWidget> {
                                     enabledBorder: InputBorder.none),
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_focusFirst),
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
                                 validator: (first) {
                                   firstOtp = first;
                                   return null;
@@ -281,6 +296,11 @@ class FormWidgetState extends State<FormWidget> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusSecond),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (second) {
                               secondOtp = second;
                               return null;
@@ -315,6 +335,11 @@ class FormWidgetState extends State<FormWidget> {
                                     enabledBorder: InputBorder.none),
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_focusSecond),
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
                                 validator: (second) {
                                   secondOtp = second;
                                   return null;
@@ -348,6 +373,11 @@ class FormWidgetState extends State<FormWidget> {
                                     enabledBorder: InputBorder.none),
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_focusSecond),
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
                                 validator: (second) {
                                   secondOtp = second;
                                   return null;
@@ -383,6 +413,11 @@ class FormWidgetState extends State<FormWidget> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusThird),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (third) {
                               thirdOtp = third;
                               return null;
@@ -417,6 +452,11 @@ class FormWidgetState extends State<FormWidget> {
                                     enabledBorder: InputBorder.none),
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_focusThird),
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
                                 validator: (third) {
                                   thirdOtp = third;
                                   return null;
@@ -450,6 +490,11 @@ class FormWidgetState extends State<FormWidget> {
                                     enabledBorder: InputBorder.none),
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_focusThird),
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
                                 validator: (third) {
                                   thirdOtp = third;
                                   return null;
@@ -485,6 +530,11 @@ class FormWidgetState extends State<FormWidget> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusFourth),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (fourth) {
                               fourthOtp = fourth;
                               return null;
@@ -519,6 +569,11 @@ class FormWidgetState extends State<FormWidget> {
                                     enabledBorder: InputBorder.none),
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_focusFourth),
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
                                 validator: (fourth) {
                                   fourthOtp = fourth;
                                   return null;
@@ -552,6 +607,11 @@ class FormWidgetState extends State<FormWidget> {
                                     enabledBorder: InputBorder.none),
                                 onFieldSubmitted: (_) => FocusScope.of(context)
                                     .requestFocus(_focusFourth),
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
                                 validator: (fourth) {
                                   fourthOtp = fourth;
                                   return null;

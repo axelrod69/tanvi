@@ -106,8 +106,8 @@ class MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
-        home: isAuth ? CustomBottomNavigation() : OnBoardingScreen(),
-        // home: OnBoardingScreen(),
+        // home: isAuth ? CustomBottomNavigation() : OnBoardingScreen(),
+        home: OnBoardingScreen(),
         routes: {
           '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),

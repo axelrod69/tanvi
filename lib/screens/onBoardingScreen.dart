@@ -22,6 +22,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen> {
     final width = MediaQuery.of(context).size.width;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    final tabLayoutHeight = height > 600;
 
     // TODO: implement build
     return Scaffold(
@@ -52,11 +53,12 @@ class OnBoardingScreenState extends State<OnBoardingScreen> {
             ],
           ),
           Positioned(
-            top: tabLayout
-                ? height * 0.40
-                : largeLayout
-                    ? height * 0.40
-                    : height * 0.5,
+            // top: tabLayout
+            //     ? height * 0.40
+            //     : largeLayout
+            //         ? height * 0.40
+            //         : height * 0.5,
+            top: height * 0.44,
             left: 0,
             right: 0,
             child: Center(
