@@ -40,111 +40,116 @@ class DiscountState extends State<Discount> {
               color: Colors.green,
             ),
           )
-        : Padding(
-            padding: EdgeInsets.only(left: width * 0.01, right: width * 0.01),
-            child: Container(
-                width: width * 0.95,
-                height: tabLayout
-                    ? height * 0.26
-                    : largeLayout
-                        ? height * 0.22
-                        : height * 0.24,
-                padding: EdgeInsets.only(
-                  left: width * 0.02,
-                  top: height * 0.01,
-                  right: width * 0.02,
-                  // bottom: height * 0.01
-                ),
-                // color: Colors.red,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Stack(
-                    children: [
-                      InkWell(
-                        onTap: () => showAlertDialog(
-                            context,
-                            provider['data'][index]['offer_short_desc'],
-                            provider['data'][index]['id'].toString(),
-                            provider['data'][index]['offer_code']),
-                        child: Container(
-                          margin: EdgeInsets.only(right: width * 0.02),
-                          width: width * 0.75,
-                          height: tabLayout
-                              ? height * 0.24
-                              : largeLayout
-                                  ? height * 0.2
-                                  : height * 0.28,
-                          decoration: BoxDecoration(
-                              color: Colors.greenAccent[100],
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 2))
-                              ]),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(
-                              'http://54.80.135.220${provider['data'][index]['offer_banner']}',
-                              fit: BoxFit.cover,
+        : provider['data'].length == 0
+            ? const Center(
+                child: Text('No Offers Available'),
+              )
+            : Padding(
+                padding:
+                    EdgeInsets.only(left: width * 0.01, right: width * 0.01),
+                child: Container(
+                    width: width * 0.95,
+                    height: tabLayout
+                        ? height * 0.26
+                        : largeLayout
+                            ? height * 0.22
+                            : height * 0.24,
+                    padding: EdgeInsets.only(
+                      left: width * 0.02,
+                      top: height * 0.01,
+                      right: width * 0.02,
+                      // bottom: height * 0.01
+                    ),
+                    // color: Colors.red,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => Stack(
+                        children: [
+                          InkWell(
+                            onTap: () => showAlertDialog(
+                                context,
+                                provider['data'][index]['offer_short_desc'],
+                                provider['data'][index]['id'].toString(),
+                                provider['data'][index]['offer_code']),
+                            child: Container(
+                              margin: EdgeInsets.only(right: width * 0.02),
+                              width: width * 0.75,
+                              height: tabLayout
+                                  ? height * 0.24
+                                  : largeLayout
+                                      ? height * 0.2
+                                      : height * 0.28,
+                              decoration: BoxDecoration(
+                                  color: Colors.greenAccent[100],
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 5,
+                                        offset: Offset(0, 2))
+                                  ]),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  'http://54.80.135.220${provider['data'][index]['offer_banner']}',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            top: tabLayout ? height * 0.1 : height * 0.08,
+                            child: InkWell(
+                              onTap: () => showAlertDialog(
+                                  context,
+                                  provider['data'][index]['offer_full_desc'],
+                                  provider['data'][index]['id'].toString(),
+                                  provider['data'][index]['offer_code']),
+                              child: Center(
+                                child: Text(
+                                  provider['data'][index]['offer_code'],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: tabLayout
+                                          ? width * 0.04
+                                          : largeLayout
+                                              ? 25
+                                              : 18),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            top: tabLayout ? height * 0.12 : height * 0.105,
+                            child: InkWell(
+                              onTap: () => showAlertDialog(
+                                  context,
+                                  provider['data'][index]['offer_full_desc'],
+                                  provider['data'][index]['id'].toString(),
+                                  provider['data'][index]['offer_code']),
+                              child: Center(
+                                child: Text(
+                                  'Discounts upto ${provider['data'][index]['discount']}%',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: tabLayout
+                                          ? width * 0.04
+                                          : largeLayout
+                                              ? 24
+                                              : 18),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        top: tabLayout ? height * 0.1 : height * 0.08,
-                        child: InkWell(
-                          onTap: () => showAlertDialog(
-                              context,
-                              provider['data'][index]['offer_full_desc'],
-                              provider['data'][index]['id'].toString(),
-                              provider['data'][index]['offer_code']),
-                          child: Center(
-                            child: Text(
-                              provider['data'][index]['offer_code'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout
-                                      ? width * 0.04
-                                      : largeLayout
-                                          ? 25
-                                          : 18),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        top: tabLayout ? height * 0.12 : height * 0.105,
-                        child: InkWell(
-                          onTap: () => showAlertDialog(
-                              context,
-                              provider['data'][index]['offer_full_desc'],
-                              provider['data'][index]['id'].toString(),
-                              provider['data'][index]['offer_code']),
-                          child: Center(
-                            child: Text(
-                              'Discounts upto ${provider['data'][index]['discount']}%',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout
-                                      ? width * 0.04
-                                      : largeLayout
-                                          ? 25
-                                          : 18),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  itemCount: provider['data'].length,
-                )),
-          );
+                      itemCount: provider['data'].length,
+                    )),
+              );
   }
 
   void showAlertDialog(

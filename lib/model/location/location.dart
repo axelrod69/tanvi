@@ -114,11 +114,13 @@ class LocationProvider with ChangeNotifier {
   }
 
   Future<void> setNewAddress(double latitude, double longitude) async {
+    print('Baaaaaaaaaaaal Baaaaaaraaaaaa');
     List<Placemark> placemarks =
         await placemarkFromCoordinates(latitude, longitude);
     print(placemarks);
     Placemark place = placemarks[0];
     // _address = '${place.subLocality}';
+    print('Aro Baaaaaaaaaaaal Baaaaaaraaaaaa');
     _deliveryAddress =
         '${place.street}, ${place.thoroughfare} ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.administrativeArea} ${place.country}';
     postCode = place.postalCode!;
@@ -207,8 +209,11 @@ class LocationProvider with ChangeNotifier {
   }
 
   Future<void> setAddress(String name, String mobileNumber) async {
-    print('${_coorDinates['lat']}');
-    print('${_coorDinates['lng']}');
+    var latitude = _coorDinates['lat'];
+    var longitude = _coorDinates['lng'];
+
+    print('Latitude Set Address $latitude');
+    print('Longitude Set Address $longitude');
 
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + '/api/customer/shipping-address/');
@@ -223,9 +228,9 @@ class LocationProvider with ChangeNotifier {
           'city': city,
           'state': selectedState,
           'save_address_as': 'home',
-          'is_default': false,
-          'map_lat': _coorDinates['lat'],
-          'map_lng': _coorDinates['lng']
+          'is_default': true,
+          'map_lat': latitude,
+          'map_lng': longitude
         }),
         headers: {
           'Authorization': 'Bearer ${localStorage.getString('token')}',

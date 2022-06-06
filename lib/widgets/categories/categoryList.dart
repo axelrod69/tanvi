@@ -144,7 +144,7 @@ class CategoryListState extends State<CategoryList> {
                     crossAxisSpacing: 0,
                     mainAxisSpacing: 1,
                     crossAxisCount: 2,
-                    childAspectRatio: 0.95,
+                    childAspectRatio: 0.91,
                   ),
                   itemBuilder: (context, index) => Container(
                     decoration: const BoxDecoration(

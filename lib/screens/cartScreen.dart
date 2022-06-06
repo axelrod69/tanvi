@@ -18,6 +18,9 @@ class CartScreenState extends State<CartScreen> {
   int index = 0;
   double tax = 0.0;
   Map<String, dynamic> _cartList = {};
+  String? couponCode;
+  double amount = 0;
+  String? minOrder;
 
   @override
   void didChangeDependencies() {
@@ -34,6 +37,7 @@ class CartScreenState extends State<CartScreen> {
       });
       print('Total Price: $totalPrice');
     });
+    getCoupon();
     // getTotalPriceCalculation();
     // updateCart;
     // updateCall;
@@ -56,6 +60,15 @@ class CartScreenState extends State<CartScreen> {
     }
     print('Tax: $tax');
     return tax;
+  }
+
+  Future<void> getCoupon() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    couponCode = localStorage.getString('couponCode');
+    minOrder = localStorage.getString('couponAmount');
+    amount = double.parse(minOrder!);
+    print('Code: $couponCode');
+    print('Min Order: $amount');
   }
 
   void updateCall() async {
@@ -398,9 +411,12 @@ class CartScreenState extends State<CartScreen> {
                     padding: EdgeInsets.only(
                         left: width * 0.082, right: height * 0.04),
                     child: InkWell(
-                      onTap: () => Navigator.of(context).pushNamed(
-                          '/checkout-screen',
-                          arguments: {'data': provider, 'tax': taxCalculation}),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed('/checkout-screen', arguments: {
+                        'data': provider,
+                        'tax': taxCalculation,
+                        'discountCode': couponCode
+                      }),
                       child: Container(
                           width: double.infinity,
                           height: tabLayout

@@ -35,7 +35,7 @@ class ChangeNewLocationState extends State<ChangeNewLocation> {
     });
   }
 
-  void setPlaceId(String placeId) async {
+  Future<void> setPlaceId(String placeId) async {
     _placesId =
         await Provider.of<ChangeLocationProvider>(context, listen: false)
             .getLatLong(placeId);
@@ -128,13 +128,16 @@ class ChangeNewLocationState extends State<ChangeNewLocation> {
         child: ListView.builder(
           itemBuilder: (context, index) => InkWell(
             onTap: () {
-              setPlaceId(_placesList[index]['place_id']);
-              Provider.of<LocationProvider>(context, listen: false)
-                  .setNewAddress(latitude, longitude)
-                  .then((_) {
+              setPlaceId(_placesList[index]['place_id']).then((_) {
+                print('Here Goes The Lat: $latitude');
+                print('Here Goes The Lng: $longitude');
                 Provider.of<LocationProvider>(context, listen: false)
-                    .newAddress(latitude, longitude);
-                Navigator.of(context).pop();
+                    .setNewAddress(latitude, longitude)
+                    .then((_) {
+                  Provider.of<LocationProvider>(context, listen: false)
+                      .newAddress(latitude, longitude);
+                  Navigator.of(context).pop();
+                });
               });
             },
             child: Container(

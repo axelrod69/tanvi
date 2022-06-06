@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../model/order/orderProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../screens/paymentLoadingScreen.dart';
+import '../../model/address/addressProvider.dart';
 
 class CheckOut extends StatefulWidget {
   CheckOutState createState() => CheckOutState();
@@ -127,9 +128,11 @@ class CheckOutState extends State<CheckOut> {
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
     // final provider = Provider.of<OrderProvider>(context).orderId;
+    final defaultAddress = Provider.of<AddressProvider>(context).defaultAddress;
 
     final data = routes['data'];
     final taxAmount = routes['tax'];
+    final couponCode = routes['discountCode'];
 
     print('DATA: $data');
 
@@ -251,7 +254,7 @@ class CheckOutState extends State<CheckOut> {
         child: ListView(
           children: [
             SizedBox(height: height * 0.03),
-            Text('Your order',
+            Text('Your order(s)',
                 // // textScaleFactor: textScaleFactor,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -534,34 +537,34 @@ class CheckOutState extends State<CheckOut> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: Colors.black, width: 2)),
-                            child: CircleAvatar(
-                              radius: tabLayout ? 25 : 18,
-                              backgroundColor: Colors.white,
-                              child: Icon(Icons.assistant_direction_rounded,
-                                  color: Colors.green,
-                                  size: tabLayout ? 40 : 24),
-                            ),
-                          ),
-                          SizedBox(width: width * 0.03),
-                          Expanded(
-                            child: Text(
-                              '124, Park Street, Kolkata: 700016, West Bengal',
-                              // overflow: TextOverflow.ellipsis,
-                              // // textScaleFactor: textScaleFactor,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: tabLayout ? 20 : 12),
-                            ),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       decoration: BoxDecoration(
+                      //           shape: BoxShape.circle,
+                      //           border:
+                      //               Border.all(color: Colors.black, width: 2)),
+                      //       child: CircleAvatar(
+                      //         radius: tabLayout ? 25 : 18,
+                      //         backgroundColor: Colors.white,
+                      //         child: Icon(Icons.assistant_direction_rounded,
+                      //             color: Colors.green,
+                      //             size: tabLayout ? 40 : 24),
+                      //       ),
+                      //     ),
+                      //     SizedBox(width: width * 0.03),
+                      //     Expanded(
+                      //       child: Text(
+                      //         '124, Park Street, Kolkata: 700016, West Bengal',
+                      //         // overflow: TextOverflow.ellipsis,
+                      //         // // textScaleFactor: textScaleFactor,
+                      //         style: TextStyle(
+                      //             color: Colors.black,
+                      //             fontSize: tabLayout ? 20 : 12),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
                       Row(
                         children: [
                           Container(
@@ -580,9 +583,10 @@ class CheckOutState extends State<CheckOut> {
                           SizedBox(width: width * 0.03),
                           Expanded(
                             child: Text(
-                              '48, Tarun Sengupta Sarani, Dum Dum, Kolkata: 700079, West Bengal',
+                              // '48, Tarun Sengupta Sarani, Dum Dum, Kolkata: 700079, West Bengal',
                               // overflow: TextOverflow.ellipsis,
                               // // textScaleFactor: textScaleFactor,
+                              defaultAddress,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: tabLayout ? 20 : 12),
@@ -592,70 +596,70 @@ class CheckOutState extends State<CheckOut> {
                       ),
                     ],
                   ),
-                  Positioned(
-                    top: !tabLayout && !largeLayout
-                        ? height * 0.07
-                        : height * 0.0472,
-                    left: tabLayout
-                        ? width * 0.026
-                        : largeLayout
-                            ? width * 0.042
-                            : width * 0.055,
-                    child: Container(
-                      width: width * 0.01,
-                      height: !tabLayout && !largeLayout
-                          ? height * 0.07
-                          : height * 0.045,
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Container(
-                              width: double.infinity,
-                              height: !tabLayout && !largeLayout
-                                  ? height * 0.01
-                                  : height * 0.006,
-                              color: Colors.green,
-                              margin: EdgeInsets.only(bottom: height * 0.002)),
-                          Container(
-                              width: double.infinity,
-                              height: !tabLayout && !largeLayout
-                                  ? height * 0.01
-                                  : height * 0.006,
-                              color: Colors.green,
-                              margin: EdgeInsets.only(bottom: height * 0.002)),
-                          Container(
-                              width: double.infinity,
-                              height: !tabLayout && !largeLayout
-                                  ? height * 0.01
-                                  : height * 0.006,
-                              color: Colors.green,
-                              margin: EdgeInsets.only(bottom: height * 0.002)),
-                          Container(
-                              width: double.infinity,
-                              height: !tabLayout && !largeLayout
-                                  ? height * 0.01
-                                  : height * 0.006,
-                              color: Colors.green,
-                              margin: EdgeInsets.only(bottom: height * 0.002)),
-                          Container(
-                              width: double.infinity,
-                              height: !tabLayout && !largeLayout
-                                  ? height * 0.01
-                                  : height * 0.006,
-                              color: Colors.green,
-                              margin: EdgeInsets.only(bottom: height * 0.002)),
-                          Container(
-                            width: double.infinity,
-                            height: !tabLayout && !largeLayout
-                                ? height * 0.01
-                                : height * 0.005,
-                            color: Colors.green,
-                            // margin: EdgeInsets.only(bottom: height * 0.002)
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                  // Positioned(
+                  //   top: !tabLayout && !largeLayout
+                  //       ? height * 0.07
+                  //       : height * 0.0472,
+                  //   left: tabLayout
+                  //       ? width * 0.026
+                  //       : largeLayout
+                  //           ? width * 0.042
+                  //           : width * 0.055,
+                  //   child: Container(
+                  //     width: width * 0.01,
+                  //     height: !tabLayout && !largeLayout
+                  //         ? height * 0.07
+                  //         : height * 0.045,
+                  //     color: Colors.white,
+                  //     child: Column(
+                  //       children: [
+                  //         Container(
+                  //             width: double.infinity,
+                  //             height: !tabLayout && !largeLayout
+                  //                 ? height * 0.01
+                  //                 : height * 0.006,
+                  //             color: Colors.green,
+                  //             margin: EdgeInsets.only(bottom: height * 0.002)),
+                  //         Container(
+                  //             width: double.infinity,
+                  //             height: !tabLayout && !largeLayout
+                  //                 ? height * 0.01
+                  //                 : height * 0.006,
+                  //             color: Colors.green,
+                  //             margin: EdgeInsets.only(bottom: height * 0.002)),
+                  //         Container(
+                  //             width: double.infinity,
+                  //             height: !tabLayout && !largeLayout
+                  //                 ? height * 0.01
+                  //                 : height * 0.006,
+                  //             color: Colors.green,
+                  //             margin: EdgeInsets.only(bottom: height * 0.002)),
+                  //         Container(
+                  //             width: double.infinity,
+                  //             height: !tabLayout && !largeLayout
+                  //                 ? height * 0.01
+                  //                 : height * 0.006,
+                  //             color: Colors.green,
+                  //             margin: EdgeInsets.only(bottom: height * 0.002)),
+                  //         Container(
+                  //             width: double.infinity,
+                  //             height: !tabLayout && !largeLayout
+                  //                 ? height * 0.01
+                  //                 : height * 0.006,
+                  //             color: Colors.green,
+                  //             margin: EdgeInsets.only(bottom: height * 0.002)),
+                  //         Container(
+                  //           width: double.infinity,
+                  //           height: !tabLayout && !largeLayout
+                  //               ? height * 0.01
+                  //               : height * 0.005,
+                  //           color: Colors.green,
+                  //           // margin: EdgeInsets.only(bottom: height * 0.002)
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),

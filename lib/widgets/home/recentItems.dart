@@ -144,7 +144,7 @@ class RecentItemsState extends State<RecentItems> {
                                   provider[index]['product']['main_image']),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: width * 0.04),
+                              margin: EdgeInsets.only(left: width * 0.02),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +181,7 @@ class RecentItemsState extends State<RecentItems> {
                                 width: tabLayout
                                     ? width * 0.3
                                     : largeLayout
-                                        ? width * 0.15
+                                        ? width * 0.1
                                         : width * 0.25),
                             Text(
                               '₹${provider[index]['product']['price']}',
