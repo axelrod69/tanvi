@@ -98,7 +98,9 @@ class CheckOutState extends State<CheckOut> {
   }
 
   Future<void> codCheckOut() async {
-    Provider.of<OrderProvider>(context, listen: false).postCodOrder();
+    Provider.of<OrderProvider>(context, listen: false)
+        .postCodOrder()
+        .then((_) => Navigator.of(context).pushNamed('/landing-page'));
   }
 
   void _handlePaymentError(PaymentFailureResponse paymentFailureResponse) {

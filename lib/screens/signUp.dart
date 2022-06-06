@@ -445,38 +445,53 @@ class SignUpState extends State<SignUp> {
 
     var res = json.decode(response.body);
 
-    if (res == "Otp send your Register Mobile Number sucessfully.") {
+    if (res['status'] == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 10000),
+        content: Text(res['message']),
+        action: SnackBarAction(
+            label: 'OK',
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+      ));
       Navigator.of(context)
           .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
-    } else if (res['errors']['first_name'][0] ==
-        "Last Name must be 2 char long or more") {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: const Text(
-              'First Name and Last Name must be more than 2 characters',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          backgroundColor: Colors.green,
-          action: SnackBarAction(
-              label: 'OK',
-              textColor: Colors.white,
-              onPressed: () =>
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar())));
-    } else if (res['context']['message'] ==
-        'Hello! siddc.8@gmail.com This Email already exists') {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: const Text('This Email Already Exists',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          backgroundColor: Colors.green,
-          action: SnackBarAction(
-              label: 'OK',
-              textColor: Colors.white,
-              onPressed: () =>
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar())));
     }
+
+    // if (res == "Otp send your Register Mobile Number sucessfully.") {
+    // Navigator.of(context)
+    //     .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
+    // }
+    // else if (res['errors']['first_name'][0] ==
+    //     "Last Name must be 2 char long or more") {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       content: const Text(
+    //           'First Name and Last Name must be more than 2 characters',
+    //           style: TextStyle(
+    //             color: Colors.white,
+    //             fontWeight: FontWeight.bold,
+    //           )),
+    //       backgroundColor: Colors.green,
+    //       action: SnackBarAction(
+    //           label: 'OK',
+    //           textColor: Colors.white,
+    //           onPressed: () =>
+    //               ScaffoldMessenger.of(context).hideCurrentSnackBar())));
+    // } else if (res['context']['message'] ==
+    //     'Hello! siddc.8@gmail.com This Email already exists') {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       content: const Text('This Email Already Exists',
+    //           style: TextStyle(
+    //             color: Colors.white,
+    //             fontWeight: FontWeight.bold,
+    //           )),
+    //       backgroundColor: Colors.green,
+    //       action: SnackBarAction(
+    //           label: 'OK',
+    //           textColor: Colors.white,
+    //           onPressed: () =>
+    //               ScaffoldMessenger.of(context).hideCurrentSnackBar())));
+    // }
   }
 }

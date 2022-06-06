@@ -624,13 +624,13 @@ class FormWidgetState extends State<FormWidget> {
           ],
         ),
         SizedBox(height: height * 0.06),
-        Text(
-          'Forgot your password?',
-          textAlign: TextAlign.center,
-          // // textScaleFactor: textScaleFactor,
-          style: TextStyle(
-              color: Colors.grey, fontSize: tabLayout ? width * 0.03 : 14),
-        ),
+        // Text(
+        //   'Forgot your password?',
+        //   textAlign: TextAlign.center,
+        //   // // textScaleFactor: textScaleFactor,
+        //   style: TextStyle(
+        //       color: Colors.grey, fontSize: tabLayout ? width * 0.03 : 14),
+        // ),
         Padding(
           padding: EdgeInsets.only(left: width * 0.08, right: width * 0.08),
           child: InkWell(
@@ -772,7 +772,7 @@ class FormWidgetState extends State<FormWidget> {
     var responseCode = json.decode(response.body);
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('OTP Sent To Your Email',
+      content: Text(responseCode['message'],
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       backgroundColor: Colors.green,
       action: SnackBarAction(
