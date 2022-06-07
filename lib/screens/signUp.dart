@@ -133,6 +133,8 @@ class SignUpState extends State<SignUp> {
                                 validator: (fName) {
                                   if (fName!.isEmpty) {
                                     return 'Please Enter First Name';
+                                  } else if (fName.length < 3) {
+                                    return 'First Name must be 3 char long or more';
                                   } else {
                                     firstName = fName;
                                     return null;
@@ -201,6 +203,8 @@ class SignUpState extends State<SignUp> {
                                 validator: (lName) {
                                   if (lName!.isEmpty) {
                                     return 'Please Enter Last Name';
+                                  } else if (lName.length < 3) {
+                                    return 'Last Name must be 3 char long or more';
                                   } else {
                                     lastName = lName;
                                     return null;
@@ -452,11 +456,22 @@ class SignUpState extends State<SignUp> {
         content: Text(res['message']),
         action: SnackBarAction(
             label: 'OK',
+            textColor: Colors.white,
             onPressed: () =>
                 ScaffoldMessenger.of(context).hideCurrentSnackBar()),
       ));
       Navigator.of(context)
           .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(res['context']['message']),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+            label: 'OK',
+            textColor: Colors.white,
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+          )));
     }
 
     // if (res == "Otp send your Register Mobile Number sucessfully.") {

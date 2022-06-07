@@ -777,6 +777,7 @@ class FormWidgetState extends State<FormWidget> {
       backgroundColor: Colors.green,
       action: SnackBarAction(
           label: 'Close',
+          textColor: Colors.white,
           onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar()),
     ));
   }
@@ -805,6 +806,7 @@ class FormWidgetState extends State<FormWidget> {
         backgroundColor: Colors.green,
         action: SnackBarAction(
             label: 'Close',
+            textColor: Colors.white,
             onPressed: () =>
                 ScaffoldMessenger.of(context).hideCurrentSnackBar()),
       ));
@@ -815,6 +817,7 @@ class FormWidgetState extends State<FormWidget> {
         backgroundColor: Colors.green,
         action: SnackBarAction(
             label: 'Close',
+            textColor: Colors.white,
             onPressed: () =>
                 ScaffoldMessenger.of(context).hideCurrentSnackBar()),
       ));

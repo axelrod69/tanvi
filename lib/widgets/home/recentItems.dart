@@ -92,18 +92,18 @@ class RecentItemsState extends State<RecentItems> {
                                     ? 17
                                     : 12),
                       ),
-                      Text(
-                        'View All',
-                        // // textScaleFactor: textScaleFactor,
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: tabLayout
-                                ? 18
-                                : largeLayout
-                                    ? 14
-                                    : 10),
-                      )
+                      // Text(
+                      //   'View All',
+                      //   // // textScaleFactor: textScaleFactor,
+                      //   style: TextStyle(
+                      //       color: Colors.green,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: tabLayout
+                      //           ? 18
+                      //           : largeLayout
+                      //               ? 14
+                      //               : 10),
+                      // )
                     ],
                   ),
                   SizedBox(height: height * 0.04),

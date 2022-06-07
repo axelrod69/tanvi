@@ -62,7 +62,7 @@ class SearchState extends State<Search> {
         title: Container(
           height: 70,
           width: double.infinity,
-          color: Colors.red,
+          // color: Colors.red,
           child: Row(
             children: [
               Padding(
