@@ -44,6 +44,7 @@ dependencies:
   file_picker: ^4.5.1
   flutter_native_splash: ^2.2.2
   smooth_page_indicator: ^1.0.0+2
+  auto_size_text: ^3.0.0
 
 flutter_native_splash:
   color: '#f3f2f2'
