@@ -160,7 +160,7 @@ class LocationProvider with ChangeNotifier {
   Future<void> editAddress(
       String? id, String name, String contactNumber) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    final url = Uri.parse(baseUrl + '/api/customer/shipping-address-update/');
+    final url = Uri.parse(baseUrl + '/api/customer/address/details/');
     final response = await http.post(url,
         body: json.encode({
           'id': id,
@@ -180,6 +180,7 @@ class LocationProvider with ChangeNotifier {
           'Authorization': 'Bearer ${localStorage.getString('token')}',
           'Content-Type': 'application/json'
         });
+
     print(json.decode(response.body));
   }
 

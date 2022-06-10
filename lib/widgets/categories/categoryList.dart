@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../model/addToCart/addToCart.dart';
 import '../../model/categoryProducts/categoryProductsProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -44,6 +47,7 @@ class CategoryListState extends State<CategoryList> {
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final cartProvider = Provider.of<AddToCartProvider>(context).cartData;
     final provider =
         Provider.of<CategoryProductsProvider>(context).categoryProducts;
 
@@ -138,317 +142,341 @@ class CategoryListState extends State<CategoryList> {
                             width: double.infinity,
                             // height: height * 0.2,
                             padding: const EdgeInsets.all(8),
+                            margin: EdgeInsets.only(top: height * 0.01),
                             // margin: EdgeInsets.only(bottom: height * 0.02),
-                            // color: Colors.red,
-                            child: Row(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 8,
+                                      offset: Offset(1, 2))
+                                ]),
+                            child: Column(
                               children: [
-                                Flexible(
-                                  flex: 2,
-                                  fit: FlexFit.tight,
-                                  child: Container(
-                                    height: height * 0.17,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                'http://54.80.135.220${provider['data'][index]['main_image']}'),
-                                            // scale: 1.5,
-                                            fit: BoxFit.cover),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                              color: Colors.grey,
-                                              blurRadius: 8,
-                                              offset: Offset(1, 2))
-                                        ]),
-                                  ),
-                                ),
-                                SizedBox(width: width * 0.02),
-                                Flexible(
-                                  flex: 3,
-                                  fit: FlexFit.tight,
-                                  child: Container(
-                                    height: height * 0.17,
-                                    // color: Colors.amber,
-                                    child: Column(
-                                      children: [
-                                        Flexible(
-                                            flex: 3,
-                                            fit: FlexFit.tight,
-                                            child: Container(
-                                              width: double.infinity,
-                                              // color: Colors.red,
-                                              padding: EdgeInsets.only(
-                                                  left: width * 0.02,
-                                                  top: height * 0.005,
-                                                  bottom: height * 0.005),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  AutoSizeText(
-                                                    provider['data'][index]
-                                                        ['name'],
-                                                    style: const TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Container(
-                                                    width: double.infinity,
-                                                    height: height * 0.03,
-                                                    padding: EdgeInsets.only(
-                                                        left: width * 0.02),
-                                                    color: const Color.fromARGB(
-                                                        255, 214, 214, 214),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        AutoSizeText(
-                                                            '1 ${provider['data'][index]['uom']['short_name']}',
-                                                            style: TextStyle(
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    Colors.grey[
-                                                                        600])),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  AutoSizeText(
-                                                      '₹${provider['data'][index]['price']}',
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 18))
-                                                ],
-                                              ),
-                                            )),
-                                        Flexible(
-                                            flex: 1,
-                                            fit: FlexFit.tight,
-                                            child:
-                                                provider['data'][index]
-                                                            ['isClicked'] ==
-                                                        false
-                                                    ? Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              print('Clicked');
-                                                              setState(() {
-                                                                provider['data']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'isClicked'] ==
-                                                                    true;
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              width:
-                                                                  width * 0.25,
-                                                              height:
-                                                                  height * 0.06,
-                                                              decoration: BoxDecoration(
-                                                                  color:
-                                                                      const Color.fromARGB(
-                                                                          255,
-                                                                          209,
-                                                                          94,
-                                                                          86),
-                                                                  borderRadius: BorderRadius.circular(10),
-                                                                  boxShadow: const [
-                                                                    BoxShadow(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        blurRadius:
-                                                                            8,
-                                                                        offset: Offset(
-                                                                            1,
-                                                                            2))
-                                                                  ]),
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  'Add',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    : Container(
-                                                        width: width * 0.45,
-                                                        height: !tabLayout &&
-                                                                !largeLayout
-                                                            ? height * 0.05
-                                                            : height * 0.06,
-                                                        color: Colors.amber,
+                                Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 2,
+                                      fit: FlexFit.tight,
+                                      child: Container(
+                                        height: height * 0.17,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border: Border.all(
+                                                color: Colors.green,
+                                                width: 2.5),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    'http://54.80.135.220${provider['data'][index]['main_image']}'),
+                                                // scale: 1.5,
+                                                fit: BoxFit.cover),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: Colors.grey,
+                                                  blurRadius: 8,
+                                                  offset: Offset(1, 2))
+                                            ]),
+                                      ),
+                                    ),
+                                    SizedBox(width: width * 0.02),
+                                    Flexible(
+                                      flex: 3,
+                                      fit: FlexFit.tight,
+                                      child: Container(
+                                        height: height * 0.17,
+                                        // color: Colors.amber,
+                                        child: Column(
+                                          children: [
+                                            Flexible(
+                                                flex: 3,
+                                                fit: FlexFit.tight,
+                                                child: Container(
+                                                  width: double.infinity,
+                                                  // color: Colors.red,
+                                                  padding: EdgeInsets.only(
+                                                      left: width * 0.02,
+                                                      top: height * 0.005,
+                                                      bottom: height * 0.005),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      AutoSizeText(
+                                                        provider['data'][index]
+                                                            ['name'],
+                                                        style: const TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Container(
+                                                        width: double.infinity,
+                                                        height: height * 0.03,
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: width *
+                                                                    0.02),
+                                                        color: const Color
+                                                                .fromARGB(
+                                                            255, 214, 214, 214),
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .end,
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
                                                           children: [
-                                                            InkWell(
-                                                              onTap: () async {
-                                                                SharedPreferences
-                                                                    localStorage =
-                                                                    await SharedPreferences
-                                                                        .getInstance();
-                                                                setState(() {
-                                                                  // if (route['quantity'] != 0) {
-                                                                  //   // route['quantity']--;
-                                                                  //   itemPrice =
-                                                                  //       price * --route['quantity'];
-                                                                  // } else {
-                                                                  //   route['quantity'] = 0;
-                                                                  // }
-                                                                  // print(route['quantity']);
-                                                                  provider['data']
+                                                            AutoSizeText(
+                                                                '1 ${provider['data'][index]['uom']['short_name']}',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                            .grey[
+                                                                        600])),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Row(children: [
+                                                        AutoSizeText(
+                                                            '₹${provider['data'][index]['price']}',
+                                                            style: const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 18)),
+                                                        Expanded(
+                                                            child: Container(
+                                                          // color: Colors.red,
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: height *
+                                                                      0.004,
+                                                                  bottom:
+                                                                      height *
+                                                                          0.004),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .end,
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  if (provider['data']
+                                                                              [
+                                                                              index]
                                                                           [
-                                                                          index]
-                                                                      [
-                                                                      'selectedQuantity']--;
-                                                                });
-                                                              },
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(18),
-                                                                    boxShadow: const [
-                                                                      BoxShadow(
-                                                                          color: Colors
-                                                                              .grey,
-                                                                          blurRadius:
-                                                                              10,
-                                                                          offset: Offset(
-                                                                              0,
-                                                                              1))
-                                                                    ]),
+                                                                          'selectedQuantity'] <
+                                                                      1) {
+                                                                    provider['data']
+                                                                            [
+                                                                            index]
+                                                                        [
+                                                                        'selectedQuantity'] = 0;
+                                                                  } else {
+                                                                    setState(
+                                                                        () {
+                                                                      provider['data']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'selectedQuantity']--;
+                                                                    });
+                                                                  }
+                                                                },
                                                                 child:
-                                                                    CircleAvatar(
-                                                                  radius: tabLayout
-                                                                      ? 28
-                                                                      : largeLayout
-                                                                          ? 18
-                                                                          : 16,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  child: Icon(
-                                                                      Icons
-                                                                          .remove_sharp,
-                                                                      color: Colors
-                                                                          .black,
-                                                                      size: tabLayout
-                                                                          ? 40
-                                                                          : largeLayout
-                                                                              ? 30
-                                                                              : 25),
+                                                                    Container(
+                                                                  decoration: const BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                            color: Colors
+                                                                                .grey,
+                                                                            blurRadius:
+                                                                                8,
+                                                                            offset:
+                                                                                Offset(1, 1))
+                                                                      ]),
+                                                                  child:
+                                                                      CircleAvatar(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    radius: tabLayout
+                                                                        ? 14
+                                                                        : largeLayout
+                                                                            ? 12
+                                                                            : 10,
+                                                                    child: const Icon(
+                                                                        Icons
+                                                                            .remove,
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            SizedBox(
-                                                                width: width *
-                                                                    0.04),
-                                                            Text(
+                                                              SizedBox(
+                                                                  width: width *
+                                                                      0.02),
+                                                              Text(
                                                                 provider['data']
                                                                             [
                                                                             index]
                                                                         [
                                                                         'selectedQuantity']
                                                                     .toString(),
-                                                                // textScaleFactor: textScaleFactor,
                                                                 style: TextStyle(
                                                                     color: Colors.black,
                                                                     fontWeight: FontWeight.bold,
                                                                     fontSize: tabLayout
-                                                                        ? 40
+                                                                        ? 25
                                                                         : largeLayout
-                                                                            ? 22
-                                                                            : 18)),
-                                                            SizedBox(
-                                                                width: width *
-                                                                    0.04),
-                                                            InkWell(
-                                                              onTap: () async {
-                                                                SharedPreferences
-                                                                    localStorage =
-                                                                    await SharedPreferences
-                                                                        .getInstance();
-                                                                setState(() {
-                                                                  // route['quantity']++;
-                                                                  // itemPrice = price *
-                                                                  //     ++route['quantity'];
-                                                                  // print(route['quantity']);
-                                                                  provider['data']
-                                                                          [
-                                                                          index]
-                                                                      [
-                                                                      'selectedQuantity']++;
-                                                                });
-                                                              },
-                                                              child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(18),
-                                                                    boxShadow: const [
-                                                                      BoxShadow(
-                                                                          color: Colors
-                                                                              .grey,
-                                                                          blurRadius:
-                                                                              10,
-                                                                          offset: Offset(
-                                                                              0,
-                                                                              1))
-                                                                    ]),
+                                                                            ? 18
+                                                                            : 10),
+                                                              ),
+                                                              SizedBox(
+                                                                  width: width *
+                                                                      0.02),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    provider['data']
+                                                                            [
+                                                                            index]
+                                                                        [
+                                                                        'selectedQuantity']++;
+                                                                  });
+                                                                },
                                                                 child:
-                                                                    CircleAvatar(
-                                                                  radius: tabLayout
-                                                                      ? 28
-                                                                      : largeLayout
-                                                                          ? 18
-                                                                          : 16,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  child: Icon(
-                                                                      Icons.add,
-                                                                      color: Colors
-                                                                          .black,
-                                                                      size: tabLayout
-                                                                          ? 40
-                                                                          : largeLayout
-                                                                              ? 30
-                                                                              : 18),
+                                                                    Container(
+                                                                  decoration: const BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                            color: Colors
+                                                                                .grey,
+                                                                            blurRadius:
+                                                                                8,
+                                                                            offset:
+                                                                                Offset(1, 1))
+                                                                      ]),
+                                                                  child:
+                                                                      CircleAvatar(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    radius: tabLayout
+                                                                        ? 14
+                                                                        : largeLayout
+                                                                            ? 12
+                                                                            : 10,
+                                                                    child: const Icon(
+                                                                        Icons
+                                                                            .add,
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            )
-                                                          ],
+                                                              SizedBox(
+                                                                  width: width *
+                                                                      0.035),
+                                                            ],
+                                                          ),
+                                                        ))
+                                                      ])
+                                                    ],
+                                                  ),
+                                                )),
+                                            Flexible(
+                                                flex: 1,
+                                                fit: FlexFit.tight,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Container(
+                                                      width: width * 0.25,
+                                                      height: height * 0.06,
+                                                      decoration: BoxDecoration(
+                                                          color: const Color
+                                                                  .fromARGB(
+                                                              255, 209, 94, 86),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          boxShadow: const [
+                                                            BoxShadow(
+                                                                color:
+                                                                    Colors.grey,
+                                                                blurRadius: 8,
+                                                                offset: Offset(
+                                                                    1, 2))
+                                                          ]),
+                                                      child: Center(
+                                                        child: InkWell(
+                                                          onTap: () => cartAdd(
+                                                              provider['data']
+                                                                  [index]['id'],
+                                                              provider['data']
+                                                                      [index][
+                                                                  'selectedQuantity'],
+                                                              context,
+                                                              cartProvider),
+                                                          child: Text(
+                                                            provider['data'][
+                                                                            index]
+                                                                        [
+                                                                        'selectedQuantity'] ==
+                                                                    0
+                                                                ? 'Add'
+                                                                : 'Add x${provider['data'][index]['selectedQuantity']}',
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
                                                         ),
-                                                      ))
-                                      ],
-                                    ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ))
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: height * 0.015),
+                                Container(
+                                  width: double.infinity,
+                                  // color: Colors.red,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text('View Details',
+                                          style: TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                          ))
+                                    ],
                                   ),
                                 )
                               ],
@@ -767,5 +795,43 @@ class CategoryListState extends State<CategoryList> {
         //   ),
         // ),
         );
+  }
+
+  void cartAdd(int productId, int quantity, BuildContext context,
+      Map<String, dynamic> provider) async {
+    final response =
+        await Provider.of<AddToCartProvider>(context, listen: false)
+            .postToCart(productId, quantity);
+    final res = json.decode(response.body);
+
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setInt('cartLength', provider['data']['cartItem'].length);
+
+    print(res);
+    if (res['data']['message'] == 'Product added to cart.') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Product Added To Cart',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.green,
+        action: SnackBarAction(
+            textColor: Colors.white,
+            label: 'OK',
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+      ));
+    }
+    if (res['data']['message'] == 'Product available in cart.') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text('Product Already Available In Cart',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+            textColor: Colors.white,
+            label: 'OK',
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+          )));
+    }
   }
 }

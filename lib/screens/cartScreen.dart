@@ -90,7 +90,7 @@ class CartScreenState extends State<CartScreen> {
     });
     final response =
         await Provider.of<AddToCartProvider>(context, listen: false)
-            .editCartItem(data['id'], data['quantity']);
+            .editCartItem(data['id'].toString(), data['quantity']);
   }
 
   void updateCartDecrease(Map<String, dynamic> data, double grandTotal) async {

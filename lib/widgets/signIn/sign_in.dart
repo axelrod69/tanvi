@@ -768,18 +768,34 @@ class FormWidgetState extends State<FormWidget> {
     var data = {'mobile': number.toString()};
     var response = await Provider.of<Network>(context, listen: false)
         .logIn(data, 'api/login/');
-    print(response.body);
-    var responseCode = json.decode(response.body);
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(responseCode['message'],
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-      backgroundColor: Colors.green,
-      action: SnackBarAction(
-          label: 'Close',
-          textColor: Colors.white,
-          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar()),
-    ));
+    if (response.statusCode == 204) {
+      Navigator.of(context).pushNamed('/sign-up');
+    } else if (response.statusCode == 200) {
+      var responseCode = json.decode(response.body);
+      print(response.body);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(responseCode['message'],
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.green,
+        action: SnackBarAction(
+            label: 'Close',
+            textColor: Colors.white,
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Something Went Wrong',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        action: SnackBarAction(
+            label: 'Close',
+            textColor: Colors.white,
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+      ));
+    }
   }
 
   void login(String firstOtp, String secondOtp, String thirdOtp,
