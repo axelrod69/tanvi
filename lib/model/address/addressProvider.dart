@@ -55,6 +55,7 @@ class AddressProvider with ChangeNotifier {
           if (_defaultAddressSearch['data'][i]['is_default'] == true) {
             _defaultAddress =
                 '${_defaultAddressSearch['data'][i]['address_line']}, ${_defaultAddressSearch['data'][i]['locality']}, ${_defaultAddressSearch['data'][i]['city']}, ${_defaultAddressSearch['data'][i]['state']}, ${_defaultAddressSearch['data'][i]['postcode']}';
+            notifyListeners();
             break;
           } else {
             continue;

@@ -58,8 +58,10 @@ class CartScreenState extends State<CartScreen> {
     for (final cartItem in taxCalculation['data']['cartItem']) {
       tax += (cartItem['tax'] as num) / 100.0;
     }
+
     print('Tax: $tax');
-    return tax;
+    double overAll = taxCalculation['data']['grandTotal'] * tax;
+    return overAll;
   }
 
   Future<void> getCoupon() async {

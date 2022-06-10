@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../model/orderHistory/orderHistory.dart';
+import '../../screens/pendingOrdersPage.dart';
 
 class RecentItems extends StatefulWidget {
   RecentItemsState createState() => RecentItemsState();
@@ -8,36 +9,6 @@ class RecentItems extends StatefulWidget {
 
 class RecentItemsState extends State<RecentItems> {
   bool isLoading = true;
-  final List<dynamic> _recentItems = [
-    {
-      'id': 1,
-      'image': 'assets/images/coffee.png',
-      'name': 'Nestle Coffee',
-      'category': 'Beverage',
-      'price': '₹60'
-    },
-    {
-      'id': 2,
-      'image': 'assets/images/PngItem_2867603.png',
-      'name': 'Nestle Coffee',
-      'category': 'Beverage',
-      'price': '₹60'
-    },
-    {
-      'id': 3,
-      'image': 'assets/images/pngegg(3).png',
-      'name': 'Nestle Coffee',
-      'category': 'Beverage',
-      'price': '₹60'
-    },
-    {
-      'id': 4,
-      'image': 'assets/images/pngegg(4).png',
-      'name': 'Nestle Coffee',
-      'category': 'Beverage',
-      'price': '₹60'
-    },
-  ];
 
   @override
   void initState() {
@@ -92,18 +63,23 @@ class RecentItemsState extends State<RecentItems> {
                                     ? 17
                                     : 12),
                       ),
-                      // Text(
-                      //   'View All',
-                      //   // // textScaleFactor: textScaleFactor,
-                      //   style: TextStyle(
-                      //       color: Colors.green,
-                      //       fontWeight: FontWeight.bold,
-                      //       fontSize: tabLayout
-                      //           ? 18
-                      //           : largeLayout
-                      //               ? 14
-                      //               : 10),
-                      // )
+                      InkWell(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => PendingOrders())),
+                        child: Text(
+                          'View All',
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: tabLayout
+                                  ? 18
+                                  : largeLayout
+                                      ? 14
+                                      : 10),
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(height: height * 0.04),
@@ -199,7 +175,7 @@ class RecentItemsState extends State<RecentItems> {
                         ),
                       ),
                     ),
-                    itemCount: provider.length,
+                    itemCount: provider.length > 3 ? 3 : provider.length,
                   )
                 ],
               ),

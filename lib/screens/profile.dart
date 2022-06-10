@@ -19,6 +19,7 @@ class ProfileState extends State<Profile> {
   var index = 0;
   String? address;
   File? image;
+  TextEditingController emailController = TextEditingController();
 
   Future pickImage(ImageSource source) async {
     try {
@@ -207,45 +208,52 @@ class ProfileState extends State<Profile> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.end,
                                                   children: [
-                                                    Container(
-                                                      width: width * 0.4,
-                                                      height: !tabLayout &&
-                                                              !largeLayout
-                                                          ? height * 0.05
-                                                          : height * 0.045,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.white,
-                                                          boxShadow: const [
-                                                            BoxShadow(
-                                                                color:
-                                                                    Colors.grey,
-                                                                blurRadius: 5,
-                                                                offset: Offset(
-                                                                    0, 2))
-                                                          ],
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(30),
-                                                          border: Border.all(
-                                                              width: 2,
-                                                              color: Colors
-                                                                  .green)),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Change Email',
-                                                          // textScaleFactor:
-                                                          // textScaleFactor,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: tabLayout
-                                                                  ? 20
-                                                                  : largeLayout
-                                                                      ? 14
-                                                                      : 12),
+                                                    InkWell(
+                                                      onTap: () => changeEmail(
+                                                          context,
+                                                          profileProvider),
+                                                      child: Container(
+                                                        width: width * 0.4,
+                                                        height: !tabLayout &&
+                                                                !largeLayout
+                                                            ? height * 0.05
+                                                            : height * 0.045,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            boxShadow: const [
+                                                              BoxShadow(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  blurRadius: 5,
+                                                                  offset:
+                                                                      Offset(
+                                                                          0, 2))
+                                                            ],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30),
+                                                            border: Border.all(
+                                                                width: 2,
+                                                                color: Colors
+                                                                    .green)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Change Email',
+                                                            // textScaleFactor:
+                                                            // textScaleFactor,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: tabLayout
+                                                                    ? 20
+                                                                    : largeLayout
+                                                                        ? 14
+                                                                        : 12),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -278,7 +286,7 @@ class ProfileState extends State<Profile> {
                                                                     .green)),
                                                         child: Center(
                                                           child: Text(
-                                                            'Change Payment',
+                                                            'Change Profile Picture',
                                                             // textScaleFactor:
                                                             // textScaleFactor,
                                                             style: TextStyle(
@@ -649,5 +657,47 @@ class ProfileState extends State<Profile> {
     // });
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => OnBoardingScreen()));
+  }
+
+  Future<void> changeEmail(
+      BuildContext context, dynamic profileProvider) async {
+    String? valueText;
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text('Change Email Address'),
+              content: TextField(
+                controller: TextEditingController(
+                    text: profileProvider['data']['email']),
+                onChanged: (value) {
+                  setState(() {
+                    valueText = value;
+                  });
+                },
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () async {
+                      final response = await Provider.of<ProfileProvider>(
+                              context,
+                              listen: false)
+                          .updateEmail(valueText!);
+                      // ScaffoldMessenger.of(context)
+                      //     .showSnackBar(SnackBar(
+                      //       content: ));
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(color: Colors.green),
+                    )),
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text(
+                      'Close',
+                      style: TextStyle(color: Colors.red),
+                    ))
+              ],
+            ));
   }
 }

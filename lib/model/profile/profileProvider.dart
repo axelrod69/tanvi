@@ -46,4 +46,21 @@ class ProfileProvider with ChangeNotifier {
 
     return response;
   }
+
+  Future<dynamic> updateEmail(String email) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    final url = Uri.parse(baseUrl + 'api/customer/my-details/');
+    final response = await http.post(url,
+        headers: {
+          'Authorization': 'Bearer ${localStorage.getString('token')}',
+          'Content-Type': 'application/json'
+        },
+        body: json.encode({'email': email}));
+
+    var res = json.decode(response.body);
+
+    print('Update Email: $res');
+
+    return res;
+  }
 }

@@ -145,6 +145,7 @@ class LocationProvider with ChangeNotifier {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url =
         Uri.parse(baseUrl + '/api/customer/shipping-address-update/$id/');
+    // Uri.parse(baseUrl + '/api/customer/address/details/$id/');
     final response = await http.put(url,
         body: json.encode({
           // 'id': id,

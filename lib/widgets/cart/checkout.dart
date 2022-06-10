@@ -98,9 +98,24 @@ class CheckOutState extends State<CheckOut> {
   }
 
   Future<void> codCheckOut() async {
-    Provider.of<OrderProvider>(context, listen: false)
-        .postCodOrder()
-        .then((_) => Navigator.of(context).pushNamed('/landing-page'));
+    final response =
+        await Provider.of<OrderProvider>(context, listen: false).postCodOrder();
+
+    if (response['status'] == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+          'Thank You!! Your order is successfully placed!',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.green,
+        action: SnackBarAction(
+            label: 'OK',
+            textColor: Colors.white,
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+      ));
+    }
+    Navigator.of(context).pushNamed('/landing-page');
   }
 
   void _handlePaymentError(PaymentFailureResponse paymentFailureResponse) {
