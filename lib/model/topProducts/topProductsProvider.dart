@@ -23,14 +23,17 @@ class TopProductsProvider with ChangeNotifier {
 
     var firstResponse = json.decode(response.body);
 
-    for (i = 0; i < firstResponse['data'].length / 2; i++) {
-      // _topProductsFirst = firstResponse['data'][i].toList();
-      _topProductsFirst.add(firstResponse['data'][i]);
-    }
+    for (i = 0; i < firstResponse['data'].length; i++) {
+      if (i == 0) {
+        _topProductsFirst = [];
+        _topProductsSecond = [];
+      }
 
-    for (int j = i; j < firstResponse['data'].length; j++) {
-      // _topProductsSecond = firstResponse['data'][j];
-      _topProductsSecond.add(firstResponse['data'][j]);
+      if (i < firstResponse['data'].length / 2) {
+        _topProductsFirst.add(firstResponse['data'][i]);
+      } else {
+        _topProductsSecond.add(firstResponse['data'][i]);
+      }
     }
 
     print('Top Products First: $_topProductsFirst');

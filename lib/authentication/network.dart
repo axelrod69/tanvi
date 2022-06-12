@@ -31,6 +31,16 @@ class Network with ChangeNotifier {
         body: json.encode(data), headers: {'Content-Type': 'application/json'});
   }
 
+  dynamic fcmToken(fcmToken) async {
+    final fullUrl = baseUrl + 'api/fcm-token/';
+    return await http.post(Uri.parse(fullUrl),
+        body: json.encode({'fcm_token': fcmToken}),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        });
+  }
+
   dynamic logOut(data, url) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final fullUrl = baseUrl + url;

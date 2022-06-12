@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -6,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../authentication/network.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:http/http.dart' as http;
 
 class FormWidget extends StatefulWidget {
   FormWidgetState createState() => FormWidgetState();
@@ -24,6 +26,19 @@ class FormWidgetState extends State<FormWidget> {
   String? secondOtp;
   String? thirdOtp;
   String? fourthOtp;
+  String? fcm;
+
+  Future<void> fcmCodeGenerate() async {
+    fcm = await FirebaseMessaging.instance.getToken();
+    print('FCM Code $fcm');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fcmCodeGenerate();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -806,12 +821,26 @@ class FormWidgetState extends State<FormWidget> {
 
     var response = await Provider.of<Network>(context, listen: false)
         .loginOtp(data, 'api/login-otp/');
+
     print(response.body);
     var receivedResponse = json.decode(response.body);
 
     if (receivedResponse['message'] == 'User login Successfully.') {
       await localStorage.setString('token', receivedResponse['access']);
       await localStorage.setString('refresh', receivedResponse['refresh']);
+
+      final url = Uri.parse('http://54.80.135.220/' + 'api/fcm-token/');
+
+      // var responseFcm =
+      //     await Provider.of<Network>(context, listen: false).fcmToken(fcm);
+
+      var responseFcm =
+          await http.post(url, body: json.encode({'fcm_token': fcm}), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${localStorage.getString('token')}'
+      });
+
+      print(responseFcm.body);
 
       Navigator.of(context).pushNamed('/landing-page');
     } else if (receivedResponse['context']['message'] ==

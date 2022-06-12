@@ -18,9 +18,15 @@ class CategoryProvider with ChangeNotifier {
 
   Future<void> getCategory() async {
     final url = Uri.parse(baseUrl + 'api/category-list/');
-    final response = await http.get(url);
-    _category = json.decode(response.body);
-    print('Category $_category');
+    print('Before Category API Call: $_category');
+    if (_category.length < 1) {
+      final response = await http.get(url);
+      _category = json.decode(response.body);
+
+      print('CATEGORY API CALLLLLLLLL');
+    }
+
+    print('Categoryssssssssssssss $_category');
   }
 
   Future<void> getSearchCategory() async {

@@ -18,14 +18,23 @@ class CouponProvider with ChangeNotifier {
   }
 
   Future<void> fetchCoupons() async {
+    print('Before API CALLL $_couponDetails');
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/offer/offer-list/');
+
     final response = await http.get(url, headers: {
       'Authorization': 'Bearer ${localStorage.getString('token')}'
     });
-    Coupon couponModel = couponFromJson(response.body);
-    _coupon = couponModel.toJson();
+    // Coupon couponModel = couponFromJson(response.body);
+    // _coupon = couponModel.toJson();
+    var res = json.decode(response.body);
+    _coupon = res;
+
+    print('Coupon API Called');
+
     print('Coupons $_coupon');
+
+    // print('After API CALLL ${_couponDetails}');
   }
 
   applyCoupon(String code) async {

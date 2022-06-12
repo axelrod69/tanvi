@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "801415306466",
+    "project_id": "tanvee-8093e",
+    "storage_bucket": "tanvee-8093e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801415306466:android:4a31d236e48d6933b6d2bb",
+        "android_client_info": {
+          "package_name": "com.example.tanvi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801415306466-gjae590c8s6g69etb74np7gurdsg2qjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL5Be_D8qp7IJeHE0SQTObZ1dAj2fBzyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801415306466-gjae590c8s6g69etb74np7gurdsg2qjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

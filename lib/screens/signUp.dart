@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../authentication/network.dart';
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class SignUp extends StatefulWidget {
   SignUpState createState() => SignUpState();
@@ -16,6 +17,19 @@ class SignUpState extends State<SignUp> {
   String? lastName;
   String? phoneNumber;
   String? email;
+  String? fcm;
+
+  Future<void> fcmCodeGenerate() async {
+    fcm = await FirebaseMessaging.instance.getToken();
+    print('FCM Code $fcm');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fcmCodeGenerate();
+    super.initState();
+  }
 
   @override
   void dispose() {

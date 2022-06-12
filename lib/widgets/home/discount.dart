@@ -41,6 +41,7 @@ class DiscountState extends State<Discount> {
             ),
           )
         : provider['data'].length == 0
+            // : provider['data'] == []
             ? const Center(
                 child: Text('No Offers Available'),
               )

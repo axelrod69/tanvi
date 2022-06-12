@@ -55,8 +55,9 @@ class AddressListState extends State<AddressList> {
             Padding(
                 padding: EdgeInsets.only(top: height * 0.02),
                 child: InkWell(
-                    onTap: () =>
-                        Navigator.of(context).pushNamed('/landing-page'),
+                    // onTap: () =>
+                    //     Navigator.of(context).pushNamed('/landing-page'),
+                    onTap: () => Navigator.of(context).pop(),
                     child: const Icon(Icons.arrow_back_ios,
                         color: Colors.green, size: 35))),
             Center(
@@ -175,8 +176,17 @@ class AddressListState extends State<AddressList> {
                                                 // loadingIndicator();
                                                 setState(() {
                                                   isLoading = true;
+                                                  // Provider.of<AddressProvider>(
+                                                  //         context,
+                                                  //         listen: false)
+                                                  //     .getAddressList();
+                                                  Provider.of<AddressProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .getDefaultAddress();
+                                                  getDefaultAddress();
                                                 });
-                                                getDefaultAddress();
+                                                // getDefaultAddress();
                                                 // isLoading = false;
                                               },
                                               child: const Text('Select',

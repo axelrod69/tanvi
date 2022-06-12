@@ -10,19 +10,6 @@ class Categories extends StatefulWidget {
 class CategoriesState extends State<Categories> {
   bool isLoading = true;
 
-  // final List<dynamic> _categories = [
-  //   {'id': 1, 'image': 'assets/images/Layer_3.png', 'name': 'Vegetables'},
-  //   {'id': 2, 'image': 'assets/images/Layer_4.png', 'name': 'Fruits'},
-  //   {'id': 3, 'image': 'assets/images/Layer_5.png', 'name': 'Meat'},
-  //   {'id': 4, 'image': 'assets/images/Layer_6.png', 'name': 'Seafood'},
-  //   {'id': 5, 'image': 'assets/images/Layer_7.png', 'name': 'Groceries'},
-  //   {'id': 6, 'image': 'assets/images/Layer_3.png', 'name': 'Vegetables'},
-  //   {'id': 7, 'image': 'assets/images/Layer_4.png', 'name': 'Fruits'},
-  //   {'id': 8, 'image': 'assets/images/Layer_5.png', 'name': 'Meat'},
-  //   {'id': 9, 'image': 'assets/images/Layer_6.png', 'name': 'Seafood'},
-  //   {'id': 10, 'image': 'assets/images/Layer_7.png', 'name': 'Groceries'}
-  // ];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -45,9 +32,6 @@ class CategoriesState extends State<Categories> {
     final provider =
         Provider.of<CategoryProvider>(context, listen: false).category;
 
-    // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
-
-    // TODO: implement build
     return Padding(
       padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
       child: Container(

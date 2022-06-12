@@ -11,6 +11,8 @@ class PopularDealsProvider with ChangeNotifier {
   }
 
   Future<void> getPopularDeals() async {
+    print('Before API Call: $_popularDeals');
+
     final url = Uri.parse(baseUrl + 'api/dashboard/popular/ordered-product/');
 
     final response = await http.get(url);
@@ -18,6 +20,8 @@ class PopularDealsProvider with ChangeNotifier {
     var res = json.decode(response.body);
 
     _popularDeals = res;
+
+    print('API Called');
 
     print('PopularDeals $_popularDeals');
   }

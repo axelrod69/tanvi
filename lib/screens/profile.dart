@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import '../model/profile/profileProvider.dart';
 import '../model/address/addressProvider.dart';
 import './onBoardingScreen.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Profile extends StatefulWidget {
   ProfileState createState() => ProfileState();
@@ -20,6 +21,18 @@ class ProfileState extends State<Profile> {
   String? address;
   File? image;
   TextEditingController emailController = TextEditingController();
+
+  @override
+  void initState() {
+    Provider.of<AddressProvider>(context, listen: false)
+        .getDefaultAddress()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
 
   Future pickImage(ImageSource source) async {
     try {
@@ -33,18 +46,6 @@ class ProfileState extends State<Profile> {
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
-  }
-
-  @override
-  void initState() {
-    Provider.of<AddressProvider>(context, listen: false)
-        .getDefaultAddress()
-        .then((_) {
-      setState(() {
-        isLoading = false;
-      });
-    });
-    super.initState();
   }
 
   @override
@@ -259,49 +260,74 @@ class ProfileState extends State<Profile> {
                                                     ),
                                                     SizedBox(
                                                         width: width * 0.02),
-                                                    Container(
-                                                        width: width * 0.4,
-                                                        height: !tabLayout &&
-                                                                !largeLayout
-                                                            ? height * 0.05
-                                                            : height * 0.045,
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            boxShadow: const [
-                                                              BoxShadow(
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        pickImage(ImageSource
+                                                                .gallery)
+                                                            .then((_) {
+                                                          Provider.of<ProfileProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .updateProfilePicture(
+                                                                  image)
+                                                              .then((_) {
+                                                            setState(() {
+                                                              Provider.of<ProfileProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .getProfileDetails();
+                                                            });
+                                                          });
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                          width: width * 0.4,
+                                                          height: !tabLayout &&
+                                                                  !largeLayout
+                                                              ? height * 0.05
+                                                              : height * 0.045,
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              boxShadow: const [
+                                                                BoxShadow(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    blurRadius:
+                                                                        5,
+                                                                    offset:
+                                                                        Offset(
+                                                                            0,
+                                                                            2))
+                                                              ],
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                              border: Border.all(
+                                                                  width: 2,
                                                                   color: Colors
-                                                                      .grey,
-                                                                  blurRadius: 5,
-                                                                  offset:
-                                                                      Offset(
-                                                                          0, 2))
-                                                            ],
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        30),
-                                                            border: Border.all(
-                                                                width: 2,
-                                                                color: Colors
-                                                                    .green)),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'Change Profile Picture',
-                                                            // textScaleFactor:
-                                                            // textScaleFactor,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: tabLayout
-                                                                    ? 20
-                                                                    : largeLayout
-                                                                        ? 14
-                                                                        : 12),
-                                                          ),
-                                                        ))
+                                                                      .green)),
+                                                          child: Center(
+                                                            child: AutoSizeText(
+                                                              'Change Profile Picture',
+                                                              // textScaleFactor:
+                                                              // textScaleFactor,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: tabLayout
+                                                                      ? 20
+                                                                      : largeLayout
+                                                                          ? 14
+                                                                          : 12),
+                                                            ),
+                                                          )),
+                                                    )
                                                   ],
                                                 ),
                                               ),
@@ -312,49 +338,57 @@ class ProfileState extends State<Profile> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Container(
-                                                        width: width * 0.4,
-                                                        height: !tabLayout &&
-                                                                !largeLayout
-                                                            ? height * 0.05
-                                                            : height * 0.045,
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            boxShadow: const [
-                                                              BoxShadow(
+                                                    InkWell(
+                                                      onTap: () => changeMobile(
+                                                          context,
+                                                          profileProvider),
+                                                      child: Container(
+                                                          width: width * 0.4,
+                                                          height: !tabLayout &&
+                                                                  !largeLayout
+                                                              ? height * 0.05
+                                                              : height * 0.045,
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              boxShadow: const [
+                                                                BoxShadow(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    blurRadius:
+                                                                        5,
+                                                                    offset:
+                                                                        Offset(
+                                                                            0,
+                                                                            2))
+                                                              ],
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                              border: Border.all(
+                                                                  width: 2,
                                                                   color: Colors
-                                                                      .grey,
-                                                                  blurRadius: 5,
-                                                                  offset:
-                                                                      Offset(
-                                                                          0, 2))
-                                                            ],
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        30),
-                                                            border: Border.all(
-                                                                width: 2,
-                                                                color: Colors
-                                                                    .green)),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'Change Mobile Number',
-                                                            // textScaleFactor:
-                                                            // textScaleFactor,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: tabLayout
-                                                                    ? 18
-                                                                    : largeLayout
-                                                                        ? 12
-                                                                        : 9),
-                                                          ),
-                                                        )),
+                                                                      .green)),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Change Mobile Number',
+                                                              // textScaleFactor:
+                                                              // textScaleFactor,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: tabLayout
+                                                                      ? 18
+                                                                      : largeLayout
+                                                                          ? 12
+                                                                          : 9),
+                                                            ),
+                                                          )),
+                                                    ),
                                                     SizedBox(
                                                         width: width * 0.02),
                                                     InkWell(
@@ -440,43 +474,45 @@ class ProfileState extends State<Profile> {
                                               blurRadius: 5,
                                               offset: Offset(0, 2))
                                         ]),
-                                    child: profileProvider['data']
-                                                ['profile_pic'] !=
-                                            null
+                                    child: image != null
                                         ? CircleAvatar(
-                                            radius: tabLayout
-                                                ? 80
-                                                : largeLayout
-                                                    ? 70
-                                                    : 50,
-                                            child: ClipRRect(
-                                              borderRadius: tabLayout
-                                                  ? BorderRadius.circular(80)
-                                                  : BorderRadius.circular(70),
-                                              child: Image.network(
-                                                  'http://54.80.135.220${profileProvider['data']['profile_pic']}'),
-                                            ),
+                                            radius: tabLayout ? 80 : 70,
+                                            backgroundImage: FileImage(image!),
+                                            // child: ClipRRect(
+                                            //   borderRadius: tabLayout
+                                            //       ? BorderRadius
+                                            //           .circular(80)
+                                            //       : BorderRadius
+                                            //           .circular(70),
+                                            //   child: Image.file(image!,
+                                            //       fit: BoxFit.fill),
+                                            // )
                                           )
-                                        : image != null
-                                            ? InkWell(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                child: CircleAvatar(
-                                                    radius: tabLayout ? 80 : 70,
-                                                    child: ClipRRect(
-                                                      borderRadius: tabLayout
-                                                          ? BorderRadius
-                                                              .circular(80)
-                                                          : BorderRadius
-                                                              .circular(70),
-                                                      child: Image.file(image!,
-                                                          fit: BoxFit.fill),
-                                                    )))
-                                            : CircleAvatar(
+                                        : image == null &&
+                                                profileProvider['data']
+                                                        ['profile_pic'] ==
+                                                    null
+                                            ? CircleAvatar(
                                                 radius: tabLayout ? 80 : 70,
                                                 backgroundColor: Colors.amber,
                                                 // child: Image.asset(
                                                 //   'assets/images/rkwxkca7.png',
+                                                // ),
+                                              )
+                                            : CircleAvatar(
+                                                radius: tabLayout
+                                                    ? 80
+                                                    : largeLayout
+                                                        ? 70
+                                                        : 50,
+                                                backgroundImage: NetworkImage(
+                                                    'http://54.80.135.220${profileProvider['data']['profile_pic']}'),
+                                                // child: ClipRRect(
+                                                //   borderRadius: tabLayout
+                                                //       ? BorderRadius.circular(80)
+                                                //       : BorderRadius.circular(70),
+                                                //   child: Image.network(
+                                                //       'http://54.80.135.220${profileProvider['data']['profile_pic']}'),
                                                 // ),
                                               ),
                                   ),
@@ -492,31 +528,31 @@ class ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
-                            Positioned(
-                              top: !tabLayout && !largeLayout
-                                  ? height * 0.14
-                                  : height > 800
-                                      ? height * 0.17
-                                      : height * 0.16,
-                              left: !tabLayout && !largeLayout
-                                  ? width * 0.5
-                                  : width * 0.54,
-                              child: InkWell(
-                                onTap: () async {
-                                  pickImage(ImageSource.gallery).then((_) {
-                                    Provider.of<ProfileProvider>(context,
-                                            listen: false)
-                                        .postProfileUpdate(
-                                            image,
-                                            profileProvider['data']['email'],
-                                            profileProvider['data']['mobile']);
-                                  });
-                                },
-                                child: Icon(Icons.camera,
-                                    color: Colors.green,
-                                    size: tabLayout ? 34 : 30),
-                              ),
-                            )
+                            // Positioned(
+                            //   top: !tabLayout && !largeLayout
+                            //       ? height * 0.14
+                            //       : height > 800
+                            //           ? height * 0.17
+                            //           : height * 0.16,
+                            //   left: !tabLayout && !largeLayout
+                            //       ? width * 0.5
+                            //       : width * 0.54,
+                            //   child: InkWell(
+                            //     onTap: () async {
+                            //       pickImage(ImageSource.gallery).then((_) {
+                            //         Provider.of<ProfileProvider>(context,
+                            //                 listen: false)
+                            //             .postProfileUpdate(
+                            //                 image,
+                            //                 profileProvider['data']['email'],
+                            //                 profileProvider['data']['mobile']);
+                            //       });
+                            //     },
+                            //     child: Icon(Icons.camera,
+                            //         color: Colors.green,
+                            //         size: tabLayout ? 34 : 30),
+                            //   ),
+                            // )
                           ],
                         ),
                       ),
@@ -685,6 +721,106 @@ class ProfileState extends State<Profile> {
                       // ScaffoldMessenger.of(context)
                       //     .showSnackBar(SnackBar(
                       //       content: ));
+                      // var res = json.decode(response.body);
+
+                      if (response['status'] == 'success') {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.green,
+                          content: const Text('Email Updated',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          action: SnackBarAction(
+                              label: 'CLOSE',
+                              textColor: Colors.white,
+                              onPressed: () => ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar()),
+                        ));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Text(response['message'],
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          action: SnackBarAction(
+                              label: 'CLOSE',
+                              textColor: Colors.white,
+                              onPressed: () => ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar()),
+                        ));
+                      }
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(color: Colors.green),
+                    )),
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text(
+                      'Close',
+                      style: TextStyle(color: Colors.red),
+                    ))
+              ],
+            ));
+  }
+
+  Future<void> changeMobile(
+      BuildContext context, dynamic profileProvider) async {
+    String? valueText;
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text('Change Mobile Number'),
+              content: TextField(
+                controller: TextEditingController(
+                    text: profileProvider['data']['mobile']),
+                onChanged: (value) {
+                  setState(() {
+                    valueText = value;
+                  });
+                },
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () async {
+                      final response = await Provider.of<ProfileProvider>(
+                              context,
+                              listen: false)
+                          .updateNumber(valueText!);
+                      // ScaffoldMessenger.of(context)
+                      //     .showSnackBar(SnackBar(
+                      //       content: ));
+                      // var res = json.decode(response.body);
+
+                      if (response['status'] == 'success') {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.green,
+                          content: const Text('Mobile Number Updated',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          action: SnackBarAction(
+                              label: 'CLOSE',
+                              textColor: Colors.white,
+                              onPressed: () => ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar()),
+                        ));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Text(response['message'],
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          action: SnackBarAction(
+                              label: 'CLOSE',
+                              textColor: Colors.white,
+                              onPressed: () => ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar()),
+                        ));
+                      }
                       Navigator.of(context).pop();
                     },
                     child: const Text(

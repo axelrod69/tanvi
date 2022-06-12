@@ -161,15 +161,16 @@ class LocationProvider with ChangeNotifier {
   Future<void> editAddress(
       String? id, String name, String contactNumber) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    final url = Uri.parse(baseUrl + '/api/customer/address/details/');
-    final response = await http.post(url,
+    final url =
+        Uri.parse(baseUrl + '/api/customer/shipping-address-update/$id/');
+    final response = await http.put(url,
         body: json.encode({
           'id': id,
           'name': name,
           'contact_number': contactNumber,
           'postcode': postCode,
           'address_line': addressLine,
-          'locality': locality,
+          'locality': locality == '' ? '.' : locality,
           'city': city,
           'state': state,
           // 'save_address_as': 'Home',

@@ -9,20 +9,6 @@ class CategoryScreen extends StatefulWidget {
 
 class CategoryScreenState extends State<CategoryScreen> {
   bool isLoading = true;
-  // final List<dynamic> _categoryImages = [
-  //   {'image': 'assets/images/Layer_3.png', 'name': 'Fruites and Vegetables'},
-  //   {'image': 'assets/images/Layer_4.png', 'name': 'Grocery and Staples'},
-  //   {'image': 'assets/images/Layer_5.png', 'name': 'Biscuits and Snacks'},
-  //   {'image': 'assets/images/Layer_6.png', 'name': 'Bakery and Beverages'},
-  //   {'image': 'assets/images/Layer_7.png', 'name': 'Dairy Products'},
-  //   {'image': 'assets/images/Layer_3.png', 'name': 'Beauty and Personal Needs'},
-  //   {'image': 'assets/images/Layer_4.png', 'name': 'Rice Packets Special'},
-  //   {'image': 'assets/images/Layer_5.png', 'name': 'Non Veg'},
-  //   {'image': 'assets/images/Layer_6.png', 'name': 'Baby Care'},
-  //   {'image': 'assets/images/Layer_7.png', 'name': 'Othes'},
-  //   // {'image': 'assets/images/Layer_3.png', 'name': 'Ice Cream'},
-  //   // {'image': 'assets/images/Layer_4.png', 'name': 'Juice'}
-  // ];
 
   @override
   void initState() {
