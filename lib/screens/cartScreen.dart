@@ -55,13 +55,14 @@ class CartScreenState extends State<CartScreen> {
   double get taxCalculation {
     final taxCalculation =
         Provider.of<AddToCartProvider>(context, listen: false).cartData;
+    tax = 0.0;
     for (final cartItem in taxCalculation['data']['cartItem']) {
-      tax += (cartItem['tax'] as num) / 100.0;
+      tax += (cartItem['totalPrice'] as num) * (cartItem['tax'] as num) / 100.0;
     }
 
     print('Tax: $tax');
-    double overAll = taxCalculation['data']['grandTotal'] * tax;
-    return overAll;
+    //double overAll = taxCalculation['data']['grandTotal'] * tax;
+    return tax;
   }
 
   Future<void> getCoupon() async {

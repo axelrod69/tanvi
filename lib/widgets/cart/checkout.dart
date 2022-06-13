@@ -98,6 +98,7 @@ class CheckOutState extends State<CheckOut> {
   }
 
   Future<void> codCheckOut() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
     final response =
         await Provider.of<OrderProvider>(context, listen: false).postCodOrder();
 
@@ -114,6 +115,7 @@ class CheckOutState extends State<CheckOut> {
             onPressed: () =>
                 ScaffoldMessenger.of(context).hideCurrentSnackBar()),
       ));
+      localStorage.remove('couponCode');
     }
     Navigator.of(context).pushNamed('/landing-page');
   }
