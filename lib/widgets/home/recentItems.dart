@@ -52,7 +52,7 @@ class RecentItemsState extends State<RecentItems> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Recent Items',
+                        'Recent Orders',
                         // // textScaleFactor: textScaleFactor,
                         style: TextStyle(
                             color: Colors.black,
@@ -109,16 +109,17 @@ class RecentItemsState extends State<RecentItems> {
                                   offset: Offset(0, 2))
                             ]),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              height: double.infinity,
-                              width: width * 0.2,
-                              decoration: BoxDecoration(
-                                  color: Colors.green[100],
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Image.network(
-                                  provider[index]['product']['main_image']),
-                            ),
+                            // Container(
+                            //   height: double.infinity,
+                            //   width: width * 0.2,
+                            //   decoration: BoxDecoration(
+                            //       color: Colors.green[100],
+                            //       borderRadius: BorderRadius.circular(15)),
+                            //   child: Image.network(
+                            //       provider[index]['product']['main_image']),
+                            // ),
                             Container(
                               margin: EdgeInsets.only(left: width * 0.02),
                               child: Column(
@@ -126,7 +127,8 @@ class RecentItemsState extends State<RecentItems> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    provider[index]['product']['name'],
+                                    provider['data'][index]['order_details']
+                                        ['order_number'],
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -139,16 +141,17 @@ class RecentItemsState extends State<RecentItems> {
                                   ),
                                   SizedBox(height: height * 0.01),
                                   Text(
-                                    provider[index]['order']['order_number'],
+                                    provider['data'][index]['order_details']
+                                        ['created_at'],
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.grey[600],
                                         fontWeight: FontWeight.bold,
                                         fontSize: tabLayout
-                                            ? 22
+                                            ? 18
                                             : largeLayout
-                                                ? 15
-                                                : 10),
+                                                ? 12
+                                                : 8),
                                   )
                                 ],
                               ),
@@ -159,23 +162,28 @@ class RecentItemsState extends State<RecentItems> {
                                     : largeLayout
                                         ? width * 0.1
                                         : width * 0.25),
-                            Text(
-                              '₹${provider[index]['product']['price']}',
-                              // // textScaleFactor: textScaleFactor,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: tabLayout
-                                      ? 50
-                                      : largeLayout
-                                          ? 17
-                                          : 12),
+                            Padding(
+                              padding: EdgeInsets.only(right: width * 0.02),
+                              child: Text(
+                                '₹${provider['data'][index]['order_details']['grand_total']}',
+                                // // textScaleFactor: textScaleFactor,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: tabLayout
+                                        ? 50
+                                        : largeLayout
+                                            ? 17
+                                            : 12),
+                              ),
                             )
                           ],
                         ),
                       ),
                     ),
-                    itemCount: provider.length > 3 ? 3 : provider.length,
+                    itemCount: provider['data'].length > 3
+                        ? 3
+                        : provider['data'].length,
                   )
                 ],
               ),

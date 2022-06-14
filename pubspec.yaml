@@ -48,6 +48,7 @@ dependencies:
   firebase_core: ^1.17.1
   firebase_messaging: ^11.4.1
   flutter_local_notifications: ^9.6.0
+  expandable: ^5.0.1
 
 flutter_native_splash:
   color: '#f3f2f2'

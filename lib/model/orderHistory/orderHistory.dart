@@ -5,12 +5,12 @@ import 'dart:convert';
 
 class OrderHistoryProvider with ChangeNotifier {
   String baseUrl = 'http://54.80.135.220/';
-  List<dynamic> _orderHistory = [];
+  Map<String, dynamic> _orderHistory = {};
   Map<String, dynamic> _pendingHistory = {};
   List<dynamic> _history = [];
 
-  List<dynamic> get orderHistory {
-    return [..._orderHistory];
+  Map<String, dynamic> get orderHistory {
+    return {..._orderHistory};
   }
 
   Map<String, dynamic> get pendingHistory {
@@ -23,7 +23,7 @@ class OrderHistoryProvider with ChangeNotifier {
 
   Future<void> getOrderHistory() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    final url = Uri.parse(baseUrl + 'api/customer/my-order-history/');
+    final url = Uri.parse(baseUrl + 'api/customer/my-order/history/');
 
     final response = await http.get(url, headers: {
       'Authorization': 'Bearer ${localStorage.getString('token')}',
@@ -33,12 +33,12 @@ class OrderHistoryProvider with ChangeNotifier {
     var res = json.decode(response.body);
     _orderHistory = res;
 
-    for (final order in res) {
-      if (order['order']['payment_status'] == 'Pending' &&
-          order['order']['order_status'] == 'Order Placed') {
-        _pendingHistory = order;
-      }
-    }
+    // for (final order in res) {
+    //   if (order['order']['payment_status'] == 'Pending' &&
+    //       order['order']['order_status'] == 'Order Placed') {
+    //     _pendingHistory = order;
+    //   }
+    // }
 
     print('Pending History: $_pendingHistory');
 
