@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../authentication/network.dart';
 import 'dart:convert';
+import '../model/location/location.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
+  final String address;
   SignUpState createState() => SignUpState();
+
+  SignUp(this.address);
 }
 
 class SignUpState extends State<SignUp> {
@@ -47,6 +52,10 @@ class SignUpState extends State<SignUp> {
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     bool tabLayout = width > 600;
     bool largeLayout = width > 350 && width < 600;
+    final addressProvider =
+        Provider.of<LocationProvider>(context, listen: false).deliveryAddress;
+
+    print('Initial Address: $addressProvider');
 
     // TODO: implement build
     return Scaffold(
@@ -367,7 +376,78 @@ class SignUpState extends State<SignUp> {
                           ],
                         ),
                       ),
-                      SizedBox(height: height * 0.04),
+                      SizedBox(height: height * 0.03),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: width * 0.08, right: width * 0.08),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Address',
+                              // // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: tabLayout
+                                      ? width * 0.03
+                                      : largeLayout
+                                          ? 14
+                                          : 12),
+                            ),
+                            // SizedBox(width: width * 0.01),
+                            SizedBox(height: height * 0.02),
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left: width * 0.02, top: height * 0.0045),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(18),
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        spreadRadius: 2,
+                                        blurRadius: 10,
+                                        // color: Color.fromRGBO(227, 189, 255, 0.5),
+                                        offset: Offset(1, 2))
+                                  ]),
+                              child: TextFormField(
+                                initialValue: widget.address,
+                                maxLines: 2,
+                                enabled: false,
+                                style: TextStyle(
+                                    fontSize: tabLayout
+                                        ? width * 0.04
+                                        : largeLayout
+                                            ? 18
+                                            : 16),
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: const InputDecoration(
+                                    // hintText: 'Enter Your Address',
+                                    // suffixIcon:
+                                    //     Icon(Icons.check_circle, color: Colors.green),
+                                    // label: Text(
+                                    //   'Enter Your Phone Number',
+                                    // textScaleFactor: textScaleFactor,
+                                    //   style: const TextStyle(color: Colors.grey),
+                                    // ),
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none),
+                                // onFieldSubmitted: (_) => FocusScope.of(context)
+                                //     .requestFocus(_focusFirst),
+                                // validator: (mail) {
+                                //   if (mail!.isEmpty) {
+                                //     return 'Please Enter Email';
+                                //   } else {
+                                //     email = mail;
+                                //     return null;
+                                //   }
+                                // },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.only(
                             left: width * 0.08, right: width * 0.08),
@@ -466,16 +546,19 @@ class SignUpState extends State<SignUp> {
     if (res['status'] == 'success') {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.green,
-        duration: const Duration(seconds: 10000),
-        content: Text(res['message']),
+        // duration: const Duration(seconds: 10000),
+        content: const Text('An OTP has been sent to your Mobile'),
         action: SnackBarAction(
             label: 'OK',
             textColor: Colors.white,
             onPressed: () =>
                 ScaffoldMessenger.of(context).hideCurrentSnackBar()),
       ));
-      Navigator.of(context)
-          .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
+      Navigator.of(context).pushNamed('/otp-screen', arguments: {
+        'mobile': data['mobile'],
+        // 'address': widget.address
+        'name': '${data['first_name']} ${data['last_name']}'
+      });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(res['context']['message']),
@@ -487,40 +570,5 @@ class SignUpState extends State<SignUp> {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar(),
           )));
     }
-
-    // if (res == "Otp send your Register Mobile Number sucessfully.") {
-    // Navigator.of(context)
-    //     .pushNamed('/otp-screen', arguments: {'mobile': data['mobile']});
-    // }
-    // else if (res['errors']['first_name'][0] ==
-    //     "Last Name must be 2 char long or more") {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //       content: const Text(
-    //           'First Name and Last Name must be more than 2 characters',
-    //           style: TextStyle(
-    //             color: Colors.white,
-    //             fontWeight: FontWeight.bold,
-    //           )),
-    //       backgroundColor: Colors.green,
-    //       action: SnackBarAction(
-    //           label: 'OK',
-    //           textColor: Colors.white,
-    //           onPressed: () =>
-    //               ScaffoldMessenger.of(context).hideCurrentSnackBar())));
-    // } else if (res['context']['message'] ==
-    //     'Hello! siddc.8@gmail.com This Email already exists') {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //       content: const Text('This Email Already Exists',
-    //           style: TextStyle(
-    //             color: Colors.white,
-    //             fontWeight: FontWeight.bold,
-    //           )),
-    //       backgroundColor: Colors.green,
-    //       action: SnackBarAction(
-    //           label: 'OK',
-    //           textColor: Colors.white,
-    //           onPressed: () =>
-    //               ScaffoldMessenger.of(context).hideCurrentSnackBar())));
-    // }
   }
 }

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../model/orderHistory/orderHistory.dart';
+import '../../../model/orderHistory/orderHistory.dart';
+import '../../../screens/pendingOrdersPage.dart';
 
-class PendingOrders extends StatefulWidget {
-  PendingOrdersState createState() => PendingOrdersState();
+class ViewRecent extends StatefulWidget {
+  ViewRecentState createState() => ViewRecentState();
 }
 
-class PendingOrdersState extends State<PendingOrders> {
+class ViewRecentState extends State<ViewRecent> {
   bool isLoading = true;
+  // bool isExpanded = false;
 
   @override
   void initState() {
@@ -32,96 +34,62 @@ class PendingOrdersState extends State<PendingOrders> {
     final provider = Provider.of<OrderHistoryProvider>(context).orderHistory;
 
     // TODO: implement build
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: const Color.fromRGBO(236, 236, 248, 1),
-          toolbarHeight: tabLayout
-              ? 100
-              : largeLayout
-                  ? 55
-                  : 60,
-          centerTitle: true,
-          title: Row(
-            children: [
-              InkWell(
-                onTap: () => Navigator.of(context).pop(),
-                child: Container(
-                  height: tabLayout
-                      ? height * 0.07
-                      : largeLayout
-                          ? height * 0.05
-                          : height * 0.08,
-                  width:
-                      !tabLayout && !largeLayout ? width * 0.12 : width * 0.1,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 5,
-                            offset: Offset(0, 2))
-                      ]),
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: width * 0.02),
-                      child: Icon(Icons.arrow_back_ios,
-                          size: tabLayout
-                              ? 40
-                              : largeLayout
-                                  ? 14
-                                  : 18,
-                          color: Colors.green),
-                    ),
-                  ),
-                ),
+    return Padding(
+      padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
+      child: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.green,
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: tabLayout
-                        ? width * 0.32
-                        : largeLayout
-                            ? width * 0.24
-                            : width * 0.2),
-                child: Text(
-                  'Recent Items',
-                  // // textScaleFactor: textScaleFactor,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: tabLayout
-                          ? 35
-                          : largeLayout
-                              ? 18
-                              : 14),
-                ),
-              )
-            ],
-          ),
-        ),
-        body: Padding(
-          padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
-          child: isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.green,
+            )
+          : Container(
+              width: double.infinity,
+              // height: height * 0.7,
+              // color: Colors.red,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Recent Orders',
+                        // // textScaleFactor: textScaleFactor,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: tabLayout
+                                ? 25
+                                : largeLayout
+                                    ? 17
+                                    : 12),
+                      ),
+                      InkWell(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => PendingOrders())),
+                        child: Text(
+                          'View All',
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: tabLayout
+                                  ? 18
+                                  : largeLayout
+                                      ? 14
+                                      : 10),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              : Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  // height: height * 0.7,
-                  // color: Colors.red,
-                  child: ListView.builder(
+                  SizedBox(height: height * 0.04),
+                  ListView.builder(
                     shrinkWrap: true,
-                    // physics: const NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => Padding(
                       padding: EdgeInsets.only(
-                          left: width * 0.02,
-                          top: height * 0.02,
-                          right: width * 0.02),
+                          left: width * 0.02, right: width * 0.02),
                       child: Column(
                         children: [
                           Container(
@@ -271,80 +239,125 @@ class PendingOrdersState extends State<PendingOrders> {
                                         offset: Offset(0, 2))
                                   ]),
                               child: Container(
-                                  width: double.infinity,
-                                  height: height * 0.18,
-                                  padding: const EdgeInsets.all(5),
-                                  // color: Colors.red,
-                                  child: ListView(
-                                      scrollDirection: Axis.horizontal,
-                                      // provider['data'][index]['order_products']
+                                width: double.infinity,
+                                height: height * 0.2,
+                                padding: const EdgeInsets.all(5),
+                                // color: Colors.red,
+                                child: ListView(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        for (int itemIndex = 0;
-                                            itemIndex <
+                                        for (int itemDetails = 0;
+                                            itemDetails <
                                                 provider['data'][index]
                                                         ['order_products']
                                                     .length;
-                                            itemIndex++)
-                                          Column(
-                                            children: [
-                                              Container(
-                                                width: width * 0.25,
-                                                height: height * 0.1,
-                                                // color: Colors.red,
-                                                margin: EdgeInsets.only(
-                                                    bottom: height * 0.01,
-                                                    right: width * 0.02),
-                                                decoration: BoxDecoration(
+                                            itemDetails++)
+                                          Container(
+                                            width: width * 0.2,
+                                            height: height * 0.06,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
                                                     color: Colors.green,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    border: Border.all(
-                                                        color: Colors.green,
-                                                        width: 2,
-                                                        style:
-                                                            BorderStyle.solid),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                          color: Colors.grey,
-                                                          blurRadius: 8,
-                                                          offset: Offset(1, 2))
-                                                    ]),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  child: Image.network(
-                                                    'http://54.80.135.220${provider['data'][index]['order_products'][itemIndex]['product']['main_image']}',
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
+                                                    width: 2)),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.network(
+                                                'http://54.80.135.220${provider['data'][index]['order_products'][itemDetails]['product']['main_image']}',
+                                                fit: BoxFit.cover,
                                               ),
-                                              SizedBox(width: width * 0.03),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '${provider['data'][index]['order_products'][itemIndex]['product']['name']} ${provider['data'][index]['order_products'][itemIndex]['product']['weight']}${provider['data'][index]['order_products'][itemIndex]['product']['uom']['short_name']}',
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 16),
-                                                  ),
-                                                  Text(
-                                                      '₹${provider['data'][index]['order_products'][itemIndex]['price']} x${provider['data'][index]['order_products'][itemIndex]['quantity']}'),
-                                                ],
-                                              )
-                                            ],
+                                            ),
                                           ),
-                                      ])),
+                                        SizedBox(width: width * 0.02),
+                                        Column(
+                                          children: [
+                                            for (var itemDetails
+                                                in provider['data'][index]
+                                                    ['order_products'])
+                                              Text(
+                                                '${itemDetails['product']['name']} ${itemDetails['product']['weight']}${itemDetails['product']['uom']['short_name']}',
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            for (int itemDetails = 0;
+                                                itemDetails <
+                                                    provider['data'][index]
+                                                            ['order_products']
+                                                        .length;
+                                                itemDetails++)
+                                              Text(
+                                                  '₹${provider['data'][index]['order_products'][itemDetails]['price']} x ${provider['data'][index]['order_products'][itemDetails]['quantity']} ')
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                // child: ListView.builder(
+                                //     itemBuilder: (context, index) => Row(
+                                //           children: [
+                                //             // for (var itemDetails
+                                //             //     in provider['data'][index]
+                                //             //         ['order_products'])
+                                //             Container(
+                                //               width: width * 0.2,
+                                //               height: height * 0.06,
+                                //               decoration: BoxDecoration(
+                                //                   borderRadius:
+                                //                       BorderRadius.circular(10),
+                                //                   border: Border.all(
+                                //                       color: Colors.green,
+                                //                       width: 2),
+                                //                   boxShadow: const [
+                                //                     BoxShadow(
+                                //                         color: Colors.grey,
+                                //                         blurRadius: 5,
+                                //                         offset: Offset(1, 2))
+                                //                   ]),
+                                //               child: ClipRRect(
+                                //                 borderRadius:
+                                //                     BorderRadius.circular(10),
+                                //                 child: Image.network(
+                                //                   'http://54.80.135.220${provider['data'][index]['order_products'][index]['product']['main_image']}',
+                                //                   fit: BoxFit.cover,
+                                //                 ),
+                                //               ),
+                                //             ),
+                                //             SizedBox(width: width * 0.02),
+                                //             // for (var itemDetails
+                                //             //     in provider['data'][index]
+                                //             //         ['order_products'])
+                                //             Column(
+                                //               mainAxisAlignment:
+                                //                   MainAxisAlignment.start,
+                                //               children: [
+                                // Text(
+                                //     '${provider['data'][index]['order_products'][index]['product']['name']} ${provider['data'][index]['order_products'][index]['product']['weight']}${provider['data'][index]['order_products'][index]['product']['uom']['short_name']}'),
+                                // Text(
+                                //     '₹${provider['data'][index]['order_products'][index]['price']} x ${provider['data'][index]['order_products'][index]['quantity']} ')
+                                //               ],
+                                //             )
+                                //           ],
+                                //         ),
+                                //     itemCount: provider['data'][index]
+                                //             ['order_products']
+                                //         .length),
+                              ),
                             )
                         ],
                       ),
                     ),
                     itemCount: provider['data'].length,
-                  ),
-                ),
-        ));
+                  )
+                ],
+              ),
+            ),
+    );
   }
 }

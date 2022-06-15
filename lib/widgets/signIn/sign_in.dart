@@ -8,6 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../authentication/network.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:http/http.dart' as http;
+import '../../model/location/location.dart';
+import '../../screens/address.dart';
+import '../../screens/newAddressSelect.dart';
+import '../../screens/signUp.dart';
 
 class FormWidget extends StatefulWidget {
   FormWidgetState createState() => FormWidgetState();
@@ -27,6 +31,7 @@ class FormWidgetState extends State<FormWidget> {
   String? thirdOtp;
   String? fourthOtp;
   String? fcm;
+  // bool isLoading = true;
 
   Future<void> fcmCodeGenerate() async {
     fcm = await FirebaseMessaging.instance.getToken();
@@ -39,6 +44,16 @@ class FormWidgetState extends State<FormWidget> {
     fcmCodeGenerate();
     super.initState();
   }
+
+  // void getDefault() {
+  //   Provider.of<LocationProvider>(context, listen: false)
+  //       .getDefaultAddress()
+  //       .then((_) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
+  // }
 
   @override
   void dispose() {
@@ -58,6 +73,13 @@ class FormWidgetState extends State<FormWidget> {
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     bool tabLayout = width > 600;
     bool largeLayout = width > 350 && width < 600;
+    final addressProvider =
+        Provider.of<LocationProvider>(context).deliveryAddress;
+    final coOrdinates = Provider.of<LocationProvider>(context).coorDinates;
+    // final newAddressProvider =
+    //     Provider.of<LocationProvider>(context).newAddressSet;
+
+    // print('New Address: $newAddressProvider');
 
     // TODO: implement build
     return Column(
@@ -133,7 +155,8 @@ class FormWidgetState extends State<FormWidget> {
                   child: InkWell(
                     onTap: () {
                       if (_numberKey.currentState!.validate()) {
-                        validateNumber(mobileNumber!, context);
+                        validateNumber(mobileNumber!, context, addressProvider,
+                            coOrdinates);
                       }
                     },
                     child: Text('Request OTP',
@@ -690,30 +713,30 @@ class FormWidgetState extends State<FormWidget> {
           ),
         ),
         SizedBox(height: height * 0.04),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Dont\'t have an account?',
-              textAlign: TextAlign.center,
-              // // textScaleFactor: textScaleFactor,
-              style: TextStyle(
-                  color: Colors.grey, fontSize: tabLayout ? width * 0.025 : 14),
-            ),
-            InkWell(
-              onTap: () => Navigator.of(context).pushNamed('/sign-up'),
-              child: Text(
-                'Sign Up',
-                textAlign: TextAlign.center,
-                // // textScaleFactor: textScaleFactor,
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: tabLayout ? width * 0.025 : 14),
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Text(
+        //       'Dont\'t have an account?',
+        //       textAlign: TextAlign.center,
+        //       // // textScaleFactor: textScaleFactor,
+        //       style: TextStyle(
+        //           color: Colors.grey, fontSize: tabLayout ? width * 0.025 : 14),
+        //     ),
+        //     InkWell(
+        //       onTap: () => Navigator.of(context).pushNamed('/sign-up'),
+        //       child: Text(
+        //         'Sign Up',
+        //         textAlign: TextAlign.center,
+        //         // // textScaleFactor: textScaleFactor,
+        //         style: TextStyle(
+        //             color: Colors.grey,
+        //             fontWeight: FontWeight.bold,
+        //             fontSize: tabLayout ? width * 0.025 : 14),
+        //       ),
+        //     ),
+        //   ],
+        // ),
         SizedBox(height: height * 0.04),
         //To Be Done Later
         // Row(
@@ -779,13 +802,64 @@ class FormWidgetState extends State<FormWidget> {
     );
   }
 
-  void validateNumber(String number, BuildContext context) async {
+  void validateNumber(String number, BuildContext context,
+      String addressProvider, Map<String, dynamic> coOrdinates) async {
     var data = {'mobile': number.toString()};
     var response = await Provider.of<Network>(context, listen: false)
         .logIn(data, 'api/login/');
 
     if (response.statusCode == 204) {
-      Navigator.of(context).pushNamed('/sign-up');
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: const Text(
+                  'Enter Delivery Address',
+                  style: TextStyle(
+                      color: Colors.green, fontWeight: FontWeight.bold),
+                ),
+                content: Expanded(
+                  child: Text(addressProvider == ''
+                      ? 'Choose Address'
+                      : addressProvider),
+                ),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Provider.of<LocationProvider>(context, listen: false)
+                            .setNewAddress(
+                                coOrdinates['lat'], coOrdinates['lng'])
+                            .then((_) {
+                          Provider.of<LocationProvider>(context, listen: false)
+                              .newAddress(
+                                  coOrdinates['lat'], coOrdinates['lng']);
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'Choose Current Location',
+                        style: TextStyle(
+                          color: Colors.green,
+                        ),
+                      )),
+                  TextButton(
+                      onPressed: () => Navigator.of(context)
+                          .push(MaterialPageRoute(
+                              builder: (context) => ChangeNewLocation()))
+                          .then((_) => Navigator.of(context).pop()),
+                      child: const Text('Choose Another Address',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 36, 71, 100)))),
+                  TextButton(
+                      onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SignUp(addressProvider))),
+                      child: const Text(
+                        'Continue',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 38, 255, 5)),
+                      ))
+                ],
+              ));
     } else if (response.statusCode == 200) {
       var responseCode = json.decode(response.body);
       print(response.body);

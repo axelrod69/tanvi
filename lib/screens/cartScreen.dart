@@ -160,35 +160,35 @@ class CartScreenState extends State<CartScreen> {
                       fit: BoxFit.cover)),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: !tabLayout && !largeLayout
-                                ? height * 0.008
-                                : height * 0.02,
-                            right: width * 0.02),
-                        child: Row(
-                          children: [
-                            Icon(Icons.delete_forever,
-                                color: Colors.red,
-                                size: tabLayout
-                                    ? 40
-                                    : largeLayout
-                                        ? 24
-                                        : 20),
-                            Text('Remove All',
-                                // // textScaleFactor: textScaleFactor,
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: tabLayout ? 25 : 14))
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     Container(
+                  //       margin: EdgeInsets.only(
+                  //           top: !tabLayout && !largeLayout
+                  //               ? height * 0.008
+                  //               : height * 0.02,
+                  //           right: width * 0.02),
+                  //       child: Row(
+                  //         children: [
+                  //           Icon(Icons.delete_forever,
+                  //               color: Colors.red,
+                  //               size: tabLayout
+                  //                   ? 40
+                  //                   : largeLayout
+                  //                       ? 24
+                  //                       : 20),
+                  //           Text('Remove All',
+                  //               // // textScaleFactor: textScaleFactor,
+                  //               style: TextStyle(
+                  //                   color: Colors.red,
+                  //                   fontWeight: FontWeight.bold,
+                  //                   fontSize: tabLayout ? 25 : 14))
+                  //         ],
+                  //       ),
+                  //     )
+                  //   ],
+                  // ),
                   Container(
                     height: !tabLayout && !largeLayout
                         ? height * 0.52
@@ -221,11 +221,12 @@ class CartScreenState extends State<CartScreen> {
                                           bottom: height * 0.012),
                                       child: Container(
                                         width: width * 0.25,
+                                        height: height * 0.1,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             border: Border.all(
                                                 color: Colors.green,
-                                                width: 1,
+                                                width: 3,
                                                 style: BorderStyle.solid),
                                             boxShadow: const [
                                               BoxShadow(
@@ -239,8 +240,16 @@ class CartScreenState extends State<CartScreen> {
                                                         Radius.circular(10),
                                                     bottomRight:
                                                         Radius.circular(10))),
-                                        child: Image.network(provider['data']
-                                            ['cartItem'][index]['mainImage']),
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                              topRight: Radius.circular(10),
+                                              bottomRight: Radius.circular(10)),
+                                          child: Image.network(
+                                            provider['data']['cartItem'][index]
+                                                ['mainImage'],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     Expanded(
@@ -410,6 +419,32 @@ class CartScreenState extends State<CartScreen> {
                     indent: !tabLayout && !largeLayout ? 20 : 30,
                     endIndent: !tabLayout && !largeLayout ? 20 : 30,
                   ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 32, right: 32, top: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Total',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: tabLayout
+                                    ? 35
+                                    : largeLayout
+                                        ? 22
+                                        : 18)),
+                        Text('₹$totalAmount',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: tabLayout
+                                    ? 35
+                                    : largeLayout
+                                        ? 22
+                                        : 18))
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                         left: width * 0.082, right: height * 0.04),
@@ -441,11 +476,11 @@ class CartScreenState extends State<CartScreen> {
                                     offset: Offset(0, 2))
                               ]),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(left: width * 0.04),
-                                child: Text('Checkout',
+                                child: Text('Proceed To Checkout',
                                     // // textScaleFactor: textScaleFactor,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -455,20 +490,20 @@ class CartScreenState extends State<CartScreen> {
                                                 ? 22
                                                 : 18)),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(right: width * 0.04),
-                                child: Text(
-                                    // '₹${provider['data']['grandTotal']}',
-                                    '₹$totalAmount',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: tabLayout
-                                            ? 35
-                                            : largeLayout
-                                                ? 22
-                                                : 18)),
-                              )
+                              // Padding(
+                              //   padding: EdgeInsets.only(right: width * 0.04),
+                              //   child: Text(
+                              //       // '₹${provider['data']['grandTotal']}',
+                              //       '₹$totalAmount',
+                              //       style: TextStyle(
+                              //           color: Colors.black,
+                              //           fontWeight: FontWeight.bold,
+                              //           fontSize: tabLayout
+                              //               ? 35
+                              //               : largeLayout
+                              //                   ? 22
+                              //                   : 18)),
+                              // )
                             ],
                           )),
                     ),

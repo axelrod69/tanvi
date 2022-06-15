@@ -303,21 +303,26 @@ class CheckOutState extends State<CheckOut> {
                       Container(
                           height: tabLayout ? height * 0.14 : height * 0.1,
                           width: tabLayout ? height * 0.14 : height * 0.1,
-                          padding: EdgeInsets.symmetric(
-                              vertical: height * 0.01,
-                              horizontal: width * 0.01),
+                          // padding: EdgeInsets.symmetric(
+                          //     vertical: height * 0.01,
+                          //     horizontal: width * 0.01),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.green, width: 2),
+                              border: Border.all(color: Colors.green, width: 3),
                               boxShadow: const [
                                 BoxShadow(
                                     color: Colors.grey,
                                     blurRadius: 5,
                                     offset: Offset(0, 2))
                               ]),
-                          child: Image.network(
-                              data['data']['cartItem'][index]['mainImage'])),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              data['data']['cartItem'][index]['mainImage'],
+                              fit: BoxFit.cover,
+                            ),
+                          )),
                       Text(
                         data['data']['cartItem'][index]['productName'],
                         // // textScaleFactor: textScaleFactor,

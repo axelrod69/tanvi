@@ -125,7 +125,7 @@ class MyAppState extends State<MyApp> {
         routes: {
           '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),
-          '/sign-up': (context) => SignUp(),
+          // '/sign-up': (context) => SignUp(),
           '/home-screen': (context) => HomeScreen(),
           '/category-screen': (context) => CategoryScreen(),
           // '/category-list': (context) => CategoryList(),

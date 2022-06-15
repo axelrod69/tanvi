@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../model/orderHistory/orderHistory.dart';
+import '../../../model/orderHistory/orderHistory.dart';
+import '../../../screens/pendingOrdersPage.dart';
+import './viewRecent.dart';
 
-class PendingOrders extends StatefulWidget {
-  PendingOrdersState createState() => PendingOrdersState();
+class RecentItems extends StatefulWidget {
+  RecentItemsState createState() => RecentItemsState();
 }
 
-class PendingOrdersState extends State<PendingOrders> {
+class RecentItemsState extends State<RecentItems> {
   bool isLoading = true;
+  // bool isExpanded = false;
 
   @override
   void initState() {
@@ -32,96 +35,62 @@ class PendingOrdersState extends State<PendingOrders> {
     final provider = Provider.of<OrderHistoryProvider>(context).orderHistory;
 
     // TODO: implement build
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: const Color.fromRGBO(236, 236, 248, 1),
-          toolbarHeight: tabLayout
-              ? 100
-              : largeLayout
-                  ? 55
-                  : 60,
-          centerTitle: true,
-          title: Row(
-            children: [
-              InkWell(
-                onTap: () => Navigator.of(context).pop(),
-                child: Container(
-                  height: tabLayout
-                      ? height * 0.07
-                      : largeLayout
-                          ? height * 0.05
-                          : height * 0.08,
-                  width:
-                      !tabLayout && !largeLayout ? width * 0.12 : width * 0.1,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 5,
-                            offset: Offset(0, 2))
-                      ]),
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: width * 0.02),
-                      child: Icon(Icons.arrow_back_ios,
-                          size: tabLayout
-                              ? 40
-                              : largeLayout
-                                  ? 14
-                                  : 18,
-                          color: Colors.green),
-                    ),
-                  ),
-                ),
+    return Padding(
+      padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
+      child: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.green,
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: tabLayout
-                        ? width * 0.32
-                        : largeLayout
-                            ? width * 0.24
-                            : width * 0.2),
-                child: Text(
-                  'Recent Items',
-                  // // textScaleFactor: textScaleFactor,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: tabLayout
-                          ? 35
-                          : largeLayout
-                              ? 18
-                              : 14),
-                ),
-              )
-            ],
-          ),
-        ),
-        body: Padding(
-          padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
-          child: isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.green,
+            )
+          : Container(
+              width: double.infinity,
+              // height: height * 0.7,
+              // color: Colors.red,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Recent Orders',
+                        // // textScaleFactor: textScaleFactor,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: tabLayout
+                                ? 25
+                                : largeLayout
+                                    ? 17
+                                    : 12),
+                      ),
+                      InkWell(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => PendingOrders())),
+                        child: Text(
+                          'View All',
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: tabLayout
+                                  ? 18
+                                  : largeLayout
+                                      ? 14
+                                      : 10),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              : Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  // height: height * 0.7,
-                  // color: Colors.red,
-                  child: ListView.builder(
+                  SizedBox(height: height * 0.04),
+                  ListView.builder(
                     shrinkWrap: true,
-                    // physics: const NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => Padding(
                       padding: EdgeInsets.only(
-                          left: width * 0.02,
-                          top: height * 0.02,
-                          right: width * 0.02),
+                          left: width * 0.02, right: width * 0.02),
                       child: Column(
                         children: [
                           Container(
@@ -156,15 +125,6 @@ class PendingOrdersState extends State<PendingOrders> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // Container(
-                                //   height: double.infinity,
-                                //   width: width * 0.2,
-                                //   decoration: BoxDecoration(
-                                //       color: Colors.green[100],
-                                //       borderRadius: BorderRadius.circular(15)),
-                                //   child: Image.network(
-                                //       provider[index]['product']['main_image']),
-                                // ),
                                 Container(
                                   margin: EdgeInsets.only(left: width * 0.02),
                                   child: Column(
@@ -214,10 +174,6 @@ class PendingOrdersState extends State<PendingOrders> {
                                       fit: BoxFit.scaleDown,
                                       child: Text(
                                         '₹${provider['data'][index]['order_details']['grand_total']}',
-                                        // // textScaleFactor: textScaleFactor,
-                                        // textScaleFactor:
-                                        //     MediaQuery.of(context).textScaleFactor *
-                                        //         1.2,
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
@@ -342,9 +298,13 @@ class PendingOrdersState extends State<PendingOrders> {
                         ],
                       ),
                     ),
-                    itemCount: provider['data'].length,
-                  ),
-                ),
-        ));
+                    itemCount: provider['data'].length > 3
+                        ? 3
+                        : provider['data'].length,
+                  )
+                ],
+              ),
+            ),
+    );
   }
 }

@@ -5,7 +5,7 @@ import '../widgets/home/categories.dart';
 import '../widgets/home/discount.dart';
 import '../widgets/home/popularDeals.dart';
 import '../widgets/home/topSeller.dart';
-import '../widgets/home/recentItems.dart';
+import '../widgets/home/recentItemsWidget/recentItems.dart';
 import '../model/location/location.dart';
 import 'package:provider/provider.dart';
 import '../screens/wishListScreen.dart';

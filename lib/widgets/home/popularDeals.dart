@@ -86,18 +86,18 @@ class PopularDealsState extends State<PopularDeals> {
                                       ? 17
                                       : 12),
                         ),
-                        Text(
-                          'View All',
-                          // // textScaleFactor: textScaleFactor,
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                              fontSize: tabLayout
-                                  ? 18
-                                  : largeLayout
-                                      ? 14
-                                      : 10),
-                        )
+                        // Text(
+                        //   'View All',
+                        //   // // textScaleFactor: textScaleFactor,
+                        //   style: TextStyle(
+                        //       color: Colors.green,
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: tabLayout
+                        //           ? 18
+                        //           : largeLayout
+                        //               ? 14
+                        //               : 10),
+                        // )
                       ],
                     ),
                   ),
@@ -149,19 +149,22 @@ class PopularDealsState extends State<PopularDeals> {
                                       'price': provider['data'][index][0]
                                           ['price']
                                     }),
-                                    child: Image.network(
-                                      'http://54.80.135.220${provider['data'][index][0]['main_image']}',
-                                      fit: BoxFit.contain,
-                                      width: tabLayout
-                                          ? width * 0.35
-                                          : largeLayout
-                                              ? width * 0.45
-                                              : width * 0.46,
-                                      height: tabLayout
-                                          ? height * 0.24
-                                          : largeLayout
-                                              ? height * 0.2
-                                              : height * 0.22,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(30),
+                                      child: Image.network(
+                                        'http://54.80.135.220${provider['data'][index][0]['main_image']}',
+                                        fit: BoxFit.cover,
+                                        width: tabLayout
+                                            ? width * 0.35
+                                            : largeLayout
+                                                ? width * 0.45
+                                                : width * 0.46,
+                                        height: tabLayout
+                                            ? height * 0.24
+                                            : largeLayout
+                                                ? height * 0.2
+                                                : height * 0.22,
+                                      ),
                                     ),
                                   ),
                                 ),

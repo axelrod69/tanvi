@@ -36,7 +36,7 @@ class OtpScreenState extends State<OtpScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'An OTP has been sent to your Email',
+              'An OTP has been sent to your Mobile',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,

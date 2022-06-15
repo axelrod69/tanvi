@@ -30,8 +30,16 @@ class OrderHistoryProvider with ChangeNotifier {
       'Content-Type': 'application/json'
     });
 
-    var res = json.decode(response.body);
-    _orderHistory = res;
+    // var res = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      _orderHistory = json.decode(response.body);
+      for (int index = 0; index < _orderHistory['data'].length; index++) {
+        _orderHistory['data'][index]['order_details']['isExpanded'] = false;
+      }
+    } else {
+      _orderHistory = {'data': []};
+    }
 
     // for (final order in res) {
     //   if (order['order']['payment_status'] == 'Pending' &&

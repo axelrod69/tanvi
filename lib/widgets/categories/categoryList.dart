@@ -16,9 +16,9 @@ class CategoryList extends StatefulWidget {
 }
 
 class CategoryListState extends State<CategoryList> {
-  int count = 0;
+  // int count = 1;
   bool isLoading = true;
-  bool isClicked = false;
+  // bool isClicked = false;
   String baseUrl = 'http://54.80.135.220';
 
   @override
@@ -237,7 +237,7 @@ class CategoryListState extends State<CategoryList> {
                                                                   .center,
                                                           children: [
                                                             AutoSizeText(
-                                                                '1 ${provider['data'][index]['uom']['short_name']}',
+                                                                '${provider['data'][index]['weight']} ${provider['data'][index]['uom']['short_name']}',
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         15,

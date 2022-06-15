@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/location/location.dart';
+import 'newAddressSelect.dart';
 
 class NewAddress extends StatefulWidget {
   final String? id;
@@ -36,6 +37,9 @@ class NewAddressState extends State<NewAddress> {
     final largeLayout = width > 350 && width < 600;
     dynamic provider = '';
     provider = Provider.of<LocationProvider>(context).newAddressSet;
+    final addressProvider =
+        Provider.of<LocationProvider>(context).deliveryAddress;
+    final coOrdinates = Provider.of<LocationProvider>(context).coorDinates;
 
     // TODO: implement build
     return Scaffold(
@@ -46,7 +50,64 @@ class NewAddressState extends State<NewAddress> {
         automaticallyImplyLeading: false,
         title: Center(
           child: InkWell(
-            onTap: () => Navigator.of(context).pushNamed('/new-address-select'),
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: const Text(
+                          'Enter Delivery Address',
+                          style: TextStyle(
+                              color: Colors.green, fontWeight: FontWeight.bold),
+                        ),
+                        content: Expanded(
+                          child: Text(addressProvider == ''
+                              ? 'Choose Address'
+                              : addressProvider),
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Provider.of<LocationProvider>(context,
+                                        listen: false)
+                                    .setNewAddress(
+                                        coOrdinates['lat'], coOrdinates['lng'])
+                                    .then((_) {
+                                  Provider.of<LocationProvider>(context,
+                                          listen: false)
+                                      .newAddress(coOrdinates['lat'],
+                                          coOrdinates['lng']);
+                                });
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                'Choose Current Location',
+                                style: TextStyle(
+                                  color: Colors.green,
+                                ),
+                              )),
+                          TextButton(
+                              onPressed: () => Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChangeNewLocation()))
+                                  .then((_) => Navigator.of(context).pop()),
+                              child: const Text('Choose Another Address',
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 36, 71, 100)))),
+                          // TextButton(
+                          //     onPressed: () => Navigator.of(context).push(
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 SignUp(addressProvider))),
+                          //     child: const Text(
+                          //       'Continue',
+                          //       style: TextStyle(
+                          //           color: Color.fromARGB(255, 38, 255, 5)),
+                          //     ))
+                        ],
+                      ));
+            },
             child: Container(
               width: width * 0.8,
               height:
@@ -186,27 +247,27 @@ class NewAddressState extends State<NewAddress> {
                 ),
               ),
               SizedBox(height: height * 0.02),
-              Text('Previous Address'),
-              Padding(
-                padding:
-                    EdgeInsets.only(left: width * 0.02, right: width * 0.02),
-                child: Container(
-                    padding: EdgeInsets.all(10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 10,
-                              offset: Offset(1, 2))
-                        ]),
-                    child:
-                        // Text(provider.isEmpty ? 'No Address Selected' : provider),
-                        Text(widget.address!)),
-              ),
-              SizedBox(height: height * 0.02),
+              // Text('Previous Address'),
+              // Padding(
+              //   padding:
+              //       EdgeInsets.only(left: width * 0.02, right: width * 0.02),
+              //   child: Container(
+              //       padding: EdgeInsets.all(10),
+              //       width: double.infinity,
+              //       decoration: BoxDecoration(
+              //           color: Colors.white,
+              //           borderRadius: BorderRadius.circular(15),
+              //           boxShadow: const [
+              //             BoxShadow(
+              //                 color: Colors.grey,
+              //                 blurRadius: 10,
+              //                 offset: Offset(1, 2))
+              //           ]),
+              //       child:
+              //           // Text(provider.isEmpty ? 'No Address Selected' : provider),
+              //           Text(widget.address!)),
+              // ),
+              // SizedBox(height: height * 0.02),
               provider.isEmpty
                   ? Container()
                   : Container(

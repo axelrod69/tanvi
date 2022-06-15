@@ -81,6 +81,11 @@ class LocationProvider with ChangeNotifier {
         desiredAccuracy: LocationAccuracy.high);
   }
 
+  Future<void> getDefaultAddress() async {
+    GetAddressFromLatLong;
+    notifyListeners();
+  }
+
   // ignore: non_constant_identifier_names
   Future<void> GetAddressFromLatLong(Position position) async {
     List<Placemark> placemarks =
@@ -122,6 +127,8 @@ class LocationProvider with ChangeNotifier {
     // _address = '${place.subLocality}';
     print('Aro Baaaaaaaaaaaal Baaaaaaraaaaaa');
     _deliveryAddress =
+        '${place.street}, ${place.thoroughfare} ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.administrativeArea} ${place.country}';
+    _newAddressSet =
         '${place.street}, ${place.thoroughfare} ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.administrativeArea} ${place.country}';
     postCode = place.postalCode!;
     addressLine = '${place.street} ${place.thoroughfare}';

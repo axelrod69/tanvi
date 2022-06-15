@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 import '../../authentication/network.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../bottomNavigation.dart';
+import '../../model/location/location.dart';
+import 'package:http/http.dart' as http;
+// import '../bottomNavigation.dart';
 
 class InputOTP extends StatefulWidget {
   InputOTPState createState() => InputOTPState();
@@ -45,8 +46,10 @@ class InputOTPState extends State<InputOTP> {
     final routes =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final mobile = routes['mobile'];
+    final name = routes['name'];
 
-    print(mobile);
+    print('mobile: $mobile');
+    print('name: $name');
 
     // TODO: implement build
     return Column(
@@ -83,6 +86,11 @@ class InputOTPState extends State<InputOTP> {
                             enabledBorder: InputBorder.none),
                         onFieldSubmitted: (_) =>
                             FocusScope.of(context).requestFocus(_focusFirst),
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          }
+                        },
                         validator: (first) {
                           _firstPin = first;
                           return null;
@@ -117,6 +125,11 @@ class InputOTPState extends State<InputOTP> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusFirst),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (first) {
                               _firstPin = first;
                               return null;
@@ -150,6 +163,11 @@ class InputOTPState extends State<InputOTP> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusFirst),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (first) {
                               _firstPin = first;
                               return null;
@@ -183,6 +201,11 @@ class InputOTPState extends State<InputOTP> {
                             enabledBorder: InputBorder.none),
                         onFieldSubmitted: (_) =>
                             FocusScope.of(context).requestFocus(_focusSecond),
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          }
+                        },
                         validator: (second) {
                           _secondPin = second;
                           return null;
@@ -217,6 +240,11 @@ class InputOTPState extends State<InputOTP> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusSecond),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (second) {
                               _secondPin = second;
                               return null;
@@ -250,6 +278,11 @@ class InputOTPState extends State<InputOTP> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusSecond),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (second) {
                               _secondPin = second;
                               return null;
@@ -283,6 +316,11 @@ class InputOTPState extends State<InputOTP> {
                             enabledBorder: InputBorder.none),
                         onFieldSubmitted: (_) =>
                             FocusScope.of(context).requestFocus(_focusThird),
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          }
+                        },
                         validator: (third) {
                           _thirdPin = third;
                           return null;
@@ -317,6 +355,11 @@ class InputOTPState extends State<InputOTP> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusThird),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (third) {
                               _thirdPin = third;
                               return null;
@@ -350,6 +393,11 @@ class InputOTPState extends State<InputOTP> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusThird),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (third) {
                               _thirdPin = third;
                               return null;
@@ -383,6 +431,11 @@ class InputOTPState extends State<InputOTP> {
                             enabledBorder: InputBorder.none),
                         onFieldSubmitted: (_) =>
                             FocusScope.of(context).requestFocus(_focusFourth),
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          }
+                        },
                         validator: (fourth) {
                           _fourthPin = fourth;
                           return null;
@@ -417,6 +470,11 @@ class InputOTPState extends State<InputOTP> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusFourth),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (fourth) {
                               _fourthPin = fourth;
                               return null;
@@ -450,6 +508,11 @@ class InputOTPState extends State<InputOTP> {
                                 enabledBorder: InputBorder.none),
                             onFieldSubmitted: (_) => FocusScope.of(context)
                                 .requestFocus(_focusFourth),
+                            onChanged: (value) {
+                              if (value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              }
+                            },
                             validator: (fourth) {
                               _fourthPin = fourth;
                               return null;
@@ -605,7 +668,7 @@ class InputOTPState extends State<InputOTP> {
         InkWell(
           onTap: () {
             if (_key.currentState!.validate()) {
-              checkOtp(mobile, context);
+              checkOtp(mobile, context, name);
             }
           },
           child: Container(
@@ -635,7 +698,7 @@ class InputOTPState extends State<InputOTP> {
     );
   }
 
-  void checkOtp(String mobile, BuildContext context) async {
+  void checkOtp(String mobile, BuildContext context, String name) async {
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
     var otp = _firstPin! + _secondPin! + _thirdPin! + _fourthPin!;
     var data = {'otp': otp, 'mobile': mobile};
@@ -653,6 +716,23 @@ class InputOTPState extends State<InputOTP> {
       // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
       await localStorage.setString('token', receivedResponse['access']);
       await localStorage.setString('refresh', receivedResponse['refresh']);
+
+      Provider.of<LocationProvider>(context, listen: false)
+          .setAddress(name, mobile);
+
+      // final url =
+      //     Uri.parse('http://54.80.135.220/api/customer/shipping-address/');
+
+      // await http.post(url,
+      //     body: json.encode({
+      //       'mobile': mobile,
+      //       'name': name,
+      //     }),
+      //     headers: {
+      //       'Authorization': 'Bearer ${localStorage.getString('token')}',
+      //       'Content-Type': 'application/json'
+      //     });
+
       Navigator.of(context).pushNamed('/landing-page');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

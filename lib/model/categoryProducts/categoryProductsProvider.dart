@@ -22,7 +22,7 @@ class CategoryProductsProvider with ChangeNotifier {
       _categoryProducts = json.decode(response.body);
 
       for (int index = 0; index < _categoryProducts['data'].length; index++) {
-        _categoryProducts['data'][index]['selectedQuantity'] = 0;
+        _categoryProducts['data'][index]['selectedQuantity'] = 1;
         _categoryProducts['data'][index]['isClicked'] = false;
         print(
             'Quantity: ${_categoryProducts['data'][index]['selectedQuantity']}');

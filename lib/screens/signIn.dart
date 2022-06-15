@@ -44,7 +44,7 @@ class SignIn extends StatelessWidget {
             ),
             Center(
               child: Text(
-                'Login to start shopping',
+                'Login/Signup to start shopping',
                 // textScaleFactor: textScaleFactor,
                 style: TextStyle(
                     // fontWeight: FontWeight.bold,

@@ -135,8 +135,13 @@ class CategoriesState extends State<Categories> {
                                       color: Colors.green[100],
                                       borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: Image.network(
-                                        provider[index]['categoryImage']),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.network(
+                                        provider[index]['categoryImage'],
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

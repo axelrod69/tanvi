@@ -146,10 +146,13 @@ class TopSellerState extends State<TopSeller> {
                                             blurRadius: 5,
                                             offset: Offset(1, 2))
                                       ]),
-                                  child: Image.network(
-                                    'http://54.80.135.220${firstProvider[index]['main_image']}',
-                                    // scale: 0.6,
-                                    // fit: BoxFit.contain,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Image.network(
+                                      'http://54.80.135.220${firstProvider[index]['main_image']}',
+                                      // scale: 0.6,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -253,9 +256,12 @@ class TopSellerState extends State<TopSeller> {
                                             blurRadius: 5,
                                             offset: Offset(1, 2))
                                       ]),
-                                  child: Image.network(
-                                    'http://54.80.135.220${secondProvider[index]['main_image']}',
-                                    // fit: BoxFit.contain,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Image.network(
+                                      'http://54.80.135.220${secondProvider[index]['main_image']}',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),

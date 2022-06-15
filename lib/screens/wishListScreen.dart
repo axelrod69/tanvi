@@ -122,12 +122,16 @@ class WishListScreenState extends State<WishListScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Image.network(
-                                            provider['data'][index]
-                                                ['mainImage'],
-                                            fit: BoxFit.cover,
-                                            width: width * 0.45,
-                                            height: height * 0.2,
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            child: Image.network(
+                                              provider['data'][index]
+                                                  ['mainImage'],
+                                              fit: BoxFit.cover,
+                                              width: width * 0.45,
+                                              height: height * 0.2,
+                                            ),
                                           ),
                                           SizedBox(height: height * 0.005),
                                           Padding(
