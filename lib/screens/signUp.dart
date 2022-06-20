@@ -557,7 +557,8 @@ class SignUpState extends State<SignUp> {
       Navigator.of(context).pushNamed('/otp-screen', arguments: {
         'mobile': data['mobile'],
         // 'address': widget.address
-        'name': '${data['first_name']} ${data['last_name']}'
+        'name': '${data['first_name']} ${data['last_name']}',
+        'flag': '1'
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

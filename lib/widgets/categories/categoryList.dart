@@ -18,7 +18,7 @@ class CategoryList extends StatefulWidget {
 class CategoryListState extends State<CategoryList> {
   // int count = 1;
   bool isLoading = true;
-  // bool isClicked = false;
+  bool isClicked = false;
   String baseUrl = 'http://54.80.135.220';
 
   @override
@@ -258,147 +258,122 @@ class CategoryListState extends State<CategoryList> {
                                                                     FontWeight
                                                                         .bold,
                                                                 fontSize: 18)),
-                                                        Expanded(
-                                                            child: Container(
-                                                          // color: Colors.red,
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: height *
-                                                                      0.004,
-                                                                  bottom:
-                                                                      height *
-                                                                          0.004),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  if (provider['data']
-                                                                              [
-                                                                              index]
-                                                                          [
-                                                                          'selectedQuantity'] <
-                                                                      1) {
-                                                                    provider['data']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'selectedQuantity'] = 0;
-                                                                  } else {
-                                                                    setState(
-                                                                        () {
-                                                                      provider['data']
-                                                                              [
-                                                                              index]
-                                                                          [
-                                                                          'selectedQuantity']--;
-                                                                    });
-                                                                  }
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  decoration: const BoxDecoration(
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                            color: Colors
-                                                                                .grey,
-                                                                            blurRadius:
-                                                                                8,
-                                                                            offset:
-                                                                                Offset(1, 1))
-                                                                      ]),
-                                                                  child:
-                                                                      CircleAvatar(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    radius: tabLayout
-                                                                        ? 14
-                                                                        : largeLayout
-                                                                            ? 12
-                                                                            : 10,
-                                                                    child: const Icon(
-                                                                        Icons
-                                                                            .remove,
-                                                                        color: Colors
-                                                                            .black),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                  width: width *
-                                                                      0.02),
-                                                              Text(
-                                                                provider['data']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'selectedQuantity']
-                                                                    .toString(),
-                                                                style: TextStyle(
-                                                                    color: Colors.black,
-                                                                    fontWeight: FontWeight.bold,
-                                                                    fontSize: tabLayout
-                                                                        ? 25
-                                                                        : largeLayout
-                                                                            ? 18
-                                                                            : 10),
-                                                              ),
-                                                              SizedBox(
-                                                                  width: width *
-                                                                      0.02),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  setState(() {
-                                                                    provider['data']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'selectedQuantity']++;
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  decoration: const BoxDecoration(
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                            color: Colors
-                                                                                .grey,
-                                                                            blurRadius:
-                                                                                8,
-                                                                            offset:
-                                                                                Offset(1, 1))
-                                                                      ]),
-                                                                  child:
-                                                                      CircleAvatar(
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    radius: tabLayout
-                                                                        ? 14
-                                                                        : largeLayout
-                                                                            ? 12
-                                                                            : 10,
-                                                                    child: const Icon(
-                                                                        Icons
-                                                                            .add,
-                                                                        color: Colors
-                                                                            .black),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                  width: width *
-                                                                      0.035),
-                                                            ],
-                                                          ),
-                                                        ))
+                                                        // provider['data'][index][
+                                                        //             'isClicked'] ==
+                                                        //         false
+                                                        //     ? Container()
+                                                        //     : Expanded(
+                                                        //         child:
+                                                        //             Container(
+                                                        //         color:
+                                                        //             Colors.red,
+                                                        //         padding: EdgeInsets.only(
+                                                        //             top: height *
+                                                        //                 0.004,
+                                                        //             bottom:
+                                                        //                 height *
+                                                        //                     0.004),
+                                                        //         child: Row(
+                                                        //           mainAxisAlignment:
+                                                        //               MainAxisAlignment
+                                                        //                   .end,
+                                                        //           children: [
+                                                        //             InkWell(
+                                                        //               onTap:
+                                                        //                   () {
+                                                        //                 if (provider['data'][index]['selectedQuantity'] <
+                                                        //                     1) {
+                                                        //                   provider['data'][index]['selectedQuantity'] =
+                                                        //                       0;
+                                                        //                 } else {
+                                                        //                   setState(
+                                                        //                       () {
+                                                        //                     provider['data'][index]['selectedQuantity']--;
+                                                        //                   });
+                                                        //                 }
+                                                        //               },
+                                                        //               child:
+                                                        //                   Container(
+                                                        //                 decoration: const BoxDecoration(
+                                                        //                     shape:
+                                                        //                         BoxShape.circle,
+                                                        //                     boxShadow: [
+                                                        //                       BoxShadow(color: Colors.grey, blurRadius: 8, offset: Offset(1, 1))
+                                                        //                     ]),
+                                                        //                 child:
+                                                        //                     CircleAvatar(
+                                                        //                   backgroundColor:
+                                                        //                       Colors.white,
+                                                        //                   radius: tabLayout
+                                                        //                       ? 14
+                                                        //                       : largeLayout
+                                                        //                           ? 12
+                                                        //                           : 10,
+                                                        //                   child: const Icon(
+                                                        //                       Icons.remove,
+                                                        //                       color: Colors.black),
+                                                        //                 ),
+                                                        //               ),
+                                                        //             ),
+                                                        //             SizedBox(
+                                                        //                 width: width *
+                                                        //                     0.02),
+                                                        //             Text(
+                                                        //               provider['data'][index]
+                                                        //                       [
+                                                        //                       'selectedQuantity']
+                                                        //                   .toString(),
+                                                        //               style: TextStyle(
+                                                        //                   color: Colors.black,
+                                                        //                   fontWeight: FontWeight.bold,
+                                                        //                   fontSize: tabLayout
+                                                        //                       ? 25
+                                                        //                       : largeLayout
+                                                        //                           ? 18
+                                                        //                           : 10),
+                                                        //             ),
+                                                        //             SizedBox(
+                                                        //                 width: width *
+                                                        //                     0.02),
+                                                        //             InkWell(
+                                                        //               onTap:
+                                                        //                   () {
+                                                        //                 setState(
+                                                        //                     () {
+                                                        //                   provider['data'][index]
+                                                        //                       [
+                                                        //                       'selectedQuantity']++;
+                                                        //                 });
+                                                        //               },
+                                                        //               child:
+                                                        //                   Container(
+                                                        //                 decoration: const BoxDecoration(
+                                                        //                     shape:
+                                                        //                         BoxShape.circle,
+                                                        //                     boxShadow: [
+                                                        //                       BoxShadow(color: Colors.grey, blurRadius: 8, offset: Offset(1, 1))
+                                                        //                     ]),
+                                                        //                 child:
+                                                        //                     CircleAvatar(
+                                                        //                   backgroundColor:
+                                                        //                       Colors.white,
+                                                        //                   radius: tabLayout
+                                                        //                       ? 14
+                                                        //                       : largeLayout
+                                                        //                           ? 12
+                                                        //                           : 10,
+                                                        //                   child: const Icon(
+                                                        //                       Icons.add,
+                                                        //                       color: Colors.black),
+                                                        //                 ),
+                                                        //               ),
+                                                        //             ),
+                                                        //             SizedBox(
+                                                        //                 width: width *
+                                                        //                     0.035),
+                                                        //           ],
+                                                        //         ),
+                                                        //       ))
                                                       ])
                                                     ],
                                                   ),
@@ -410,52 +385,258 @@ class CategoryListState extends State<CategoryList> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
-                                                    Container(
-                                                      width: width * 0.25,
-                                                      height: height * 0.06,
-                                                      decoration: BoxDecoration(
-                                                          color: const Color
-                                                                  .fromARGB(
-                                                              255, 209, 94, 86),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          boxShadow: const [
-                                                            BoxShadow(
-                                                                color:
-                                                                    Colors.grey,
-                                                                blurRadius: 8,
-                                                                offset: Offset(
-                                                                    1, 2))
-                                                          ]),
-                                                      child: Center(
-                                                        child: InkWell(
-                                                          onTap: () => cartAdd(
-                                                              provider['data']
-                                                                  [index]['id'],
-                                                              provider['data']
-                                                                      [index][
-                                                                  'selectedQuantity'],
-                                                              context,
-                                                              cartProvider),
-                                                          child: Text(
-                                                            provider['data'][
+                                                    provider['data'][index][
+                                                                    'selectedQuantity'] <
+                                                                1 ||
+                                                            provider['data']
+                                                                        [index][
+                                                                    'isClicked'] ==
+                                                                true
+                                                        ? Container(
+                                                            // color: Colors.red,
+                                                            padding: EdgeInsets
+                                                                .only(
+                                                                    top: height *
+                                                                        0.004,
+                                                                    bottom:
+                                                                        height *
+                                                                            0.004),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    if (provider['data'][index]
+                                                                            [
+                                                                            'selectedQuantity'] <
+                                                                        2) {
+                                                                      provider['data']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'selectedQuantity'] = 1;
+                                                                    } else {
+                                                                      setState(
+                                                                          () {
+                                                                        provider['data'][index]
+                                                                            [
+                                                                            'selectedQuantity']--;
+                                                                      });
+                                                                    }
+                                                                    cartDecrease(
+                                                                        provider['data'][index]
+                                                                            [
+                                                                            'id'],
+                                                                        provider['data'][index]
+                                                                            [
+                                                                            'selectedQuantity'],
+                                                                        context,
+                                                                        cartProvider);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    decoration: const BoxDecoration(
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                              color: Colors.grey,
+                                                                              blurRadius: 8,
+                                                                              offset: Offset(1, 1))
+                                                                        ]),
+                                                                    child:
+                                                                        CircleAvatar(
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .white,
+                                                                      radius: tabLayout
+                                                                          ? 14
+                                                                          : largeLayout
+                                                                              ? 12
+                                                                              : 10,
+                                                                      child: const Icon(
+                                                                          Icons
+                                                                              .remove,
+                                                                          color:
+                                                                              Colors.black),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                    width: width *
+                                                                        0.02),
+                                                                Text(
+                                                                  provider['data']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'selectedQuantity']
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors.black,
+                                                                      fontWeight: FontWeight.bold,
+                                                                      fontSize: tabLayout
+                                                                          ? 25
+                                                                          : largeLayout
+                                                                              ? 18
+                                                                              : 10),
+                                                                ),
+                                                                SizedBox(
+                                                                    width: width *
+                                                                        0.02),
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    setState(
+                                                                        () {
+                                                                      provider['data']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'selectedQuantity']++;
+                                                                    });
+                                                                    cartIncrease(
+                                                                        provider['data'][index]
+                                                                            [
+                                                                            'id'],
+                                                                        provider['data'][index]
+                                                                            [
+                                                                            'selectedQuantity'],
+                                                                        context,
+                                                                        cartProvider);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    decoration: const BoxDecoration(
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                              color: Colors.grey,
+                                                                              blurRadius: 8,
+                                                                              offset: Offset(1, 1))
+                                                                        ]),
+                                                                    child:
+                                                                        CircleAvatar(
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .white,
+                                                                      radius: tabLayout
+                                                                          ? 14
+                                                                          : largeLayout
+                                                                              ? 12
+                                                                              : 10,
+                                                                      child: const Icon(
+                                                                          Icons
+                                                                              .add,
+                                                                          color:
+                                                                              Colors.black),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                    width: width *
+                                                                        0.035),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        : Container(
+                                                            width: width * 0.25,
+                                                            height:
+                                                                height * 0.06,
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .green,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                                boxShadow: const [
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      blurRadius:
+                                                                          8,
+                                                                      offset:
+                                                                          Offset(
+                                                                              1,
+                                                                              2))
+                                                                ]),
+                                                            child: Center(
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    provider['data']
+                                                                            [
                                                                             index]
                                                                         [
-                                                                        'selectedQuantity'] ==
-                                                                    0
-                                                                ? 'Add'
-                                                                : 'Add x${provider['data'][index]['selectedQuantity']}',
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                                        'isClicked'] = !provider['data']
+                                                                            [
+                                                                            index]
+                                                                        [
+                                                                        'isClicked'];
+                                                                    print(
+                                                                        'Clicked: ${provider['data'][index]['isClicked']}');
+                                                                  });
+                                                                  if (provider['data']
+                                                                              [
+                                                                              index]
+                                                                          [
+                                                                          'selectedQuantity'] ==
+                                                                      0) {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                            SnackBar(
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .green,
+                                                                      content:
+                                                                          const Text(
+                                                                        'Selected Quantity Must be 1 or more units',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontWeight: FontWeight.bold),
+                                                                      ),
+                                                                      action: SnackBarAction(
+                                                                          label:
+                                                                              'OK',
+                                                                          textColor: Colors
+                                                                              .white,
+                                                                          onPressed: () =>
+                                                                              ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+                                                                    ));
+                                                                  } else {
+                                                                    cartAdd(
+                                                                        provider['data'][index]
+                                                                            [
+                                                                            'id'],
+                                                                        provider['data'][index]
+                                                                            [
+                                                                            'selectedQuantity'],
+                                                                        context,
+                                                                        cartProvider);
+                                                                  }
+                                                                },
+                                                                child: Text(
+                                                                  provider['data'][index]
+                                                                              [
+                                                                              'selectedQuantity'] ==
+                                                                          0
+                                                                      ? 'Add'
+                                                                      : 'Add x${provider['data'][index]['selectedQuantity']}',
+                                                                  style: const TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                    ),
                                                   ],
                                                 ))
                                           ],
@@ -491,310 +672,29 @@ class CategoryListState extends State<CategoryList> {
                           color: Colors.grey[400],
                         ),
                     itemCount: provider['data'].length),
-              )
-        // Container(
-        //   width: width * 1,
-        //   height: height * 1,
-        //   // padding: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
-        //   decoration: const BoxDecoration(
-        //       // color: Colors.grey,
-        //       image: DecorationImage(
-        //           image: AssetImage('assets/images/Rectangle 392.png'),
-        //           fit: BoxFit.cover)),
-        //   child: Container(
-        //     // decoration: const BoxDecoration(
-        //     //     // gradient: RadialGradient(colors: [
-        //     //     //   Colors.grey,
-        //     //     //   const Color.fromRGBO(236, 236, 248, 1),
-        //     //     // ], radius: 0.85, focal: Alignment.center),
-        //     //     ),
-        //     padding: EdgeInsets.only(left: width * 0.011, right: height * 0.011),
-        //     child: isLoading
-        //         ? const Center(
-        //             child: CircularProgressIndicator(
-        //               color: Colors.green,
-        //             ),
-        //           )
-        //         : GridView.builder(
-        //             shrinkWrap: true,
-        //             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //               crossAxisSpacing: 0,
-        //               mainAxisSpacing: 1,
-        //               crossAxisCount: 2,
-        //               childAspectRatio: 0.91,
-        //             ),
-        //             itemBuilder: (context, index) => Container(
-        //               decoration: const BoxDecoration(
-        //                   color: Color.fromRGBO(236, 236, 248, 1),
-        //                   border: Border(
-        //                       bottom: BorderSide(
-        //                         color: Colors.grey,
-        //                       ),
-        //                       right: BorderSide(
-        //                         color: Colors.grey,
-        //                       ))
-        //                   // : const Border(
-        //                   //     bottom: BorderSide(
-        //                   //       color: Colors.grey,
-        //                   //     ),
-        //                   //     left: BorderSide(
-        //                   //       color: Colors.grey,
-        //                   //     )),
-        //                   ),
-        //               child: Stack(
-        //                 children: [
-        //                   Column(
-        //                     // mainAxisAlignment: MainAxisAlignment.center,
-        //                     children: [
-        //                       InkWell(
-        //                         onTap: () {
-        //                           Navigator.of(context)
-        //                               .pushNamed('/item-details', arguments: {
-        //                             'id': provider['data'][index]['id'],
-        //                             'image': provider['data'][index]
-        //                                 ['main_image'],
-        //                             'name': provider['data'][index]['name'],
-        //                             'quantity': provider['data'][index]
-        //                                 ['selectedQuantity'],
-        //                             'description': provider['data'][index]
-        //                                 ['description'],
-        //                             'price': provider['data'][index]['price']
-        //                           });
-        //                           // print(
-        //                           //     'Quantity Print ${_categoryItems[index]['quantity']}');
-        //                         },
-        //                         child: Container(
-        //                           margin: const EdgeInsets.only(top: 10),
-        //                           width: tabLayout
-        //                               ? width * 0.5
-        //                               : largeLayout
-        //                                   ? width * 0.4
-        //                                   : width * 0.45,
-        //                           height: tabLayout
-        //                               ? height * 0.28
-        //                               : largeLayout
-        //                                   ? height * 0.15
-        //                                   : height * 0.16,
-        //                           // child: Image.asset(
-        //                           //     _categoryItems[index]['image'])
-        //                           child: Image.network(
-        //                               'http://54.80.135.220${provider['data'][index]['main_image']}'),
-        //                         ),
-        //                       ),
-        //                       SizedBox(
-        //                           height: height > 800
-        //                               ? height * 0.03
-        //                               : height * 0.06),
-        //                       Row(
-        //                         mainAxisAlignment: MainAxisAlignment.start,
-        //                         children: [
-        //                           Padding(
-        //                             padding: EdgeInsets.only(left: width * 0.04),
-        //                             child: Text(provider['data'][index]['name'],
-        //                                 // _categoryItems[index]['name'],
-        //                                 // // textScaleFactor: textScaleFactor,
-        //                                 style: TextStyle(
-        //                                   color: Colors.black,
-        //                                   fontWeight: FontWeight.bold,
-        //                                   fontSize: tabLayout
-        //                                       ? 25
-        //                                       : largeLayout
-        //                                           ? 18
-        //                                           : 16,
-        //                                 )),
-        //                           ),
-        //                         ],
-        //                       ),
-        //                       // SizedBox(height: height * 0.01),
-        //                       Container(
-        //                         padding: EdgeInsets.only(left: width * 0.04),
-        //                         child: Row(
-        //                           children: [
-        //                             Text('₹',
-        //                                 // // textScaleFactor: textScaleFactor,
-        //                                 style: TextStyle(
-        //                                     fontSize: tabLayout
-        //                                         ? 22
-        //                                         : largeLayout
-        //                                             ? 18
-        //                                             : 16,
-        //                                     color: Colors.green,
-        //                                     fontWeight: FontWeight.bold)),
-        //                             SizedBox(width: width * 0.01),
-        //                             Text(
-        //                                 '${provider['data'][index]['price'].toString()}/${provider['data'][index]['uom']['short_name']}',
-        //                                 // // textScaleFactor: textScaleFactor,
-        //                                 style: TextStyle(
-        //                                     fontSize: tabLayout
-        //                                         ? 22
-        //                                         : largeLayout
-        //                                             ? 18
-        //                                             : 16,
-        //                                     color: Colors.green,
-        //                                     fontWeight: FontWeight.bold))
-        //                           ],
-        //                         ),
-        //                       ),
-        //                     ],
-        //                   ),
-        //                   // !isClicked
-        //                   // ?
-        //                   Positioned(
-        //                     top: tabLayout
-        //                         ? height * 0.26
-        //                         : largeLayout
-        //                             // ? height * 0.165
-        //                             ? height > 800
-        //                                 ? height * 0.165
-        //                                 : height * 0.198
-        //                             : height * 0.192,
-        //                     right: width * 0.01,
-        //                     child: Container(
-        //                       width: tabLayout ? width * 0.09 : width * 0.1,
-        //                       height: tabLayout
-        //                           ? height * 0.1
-        //                           : largeLayout
-        //                               // ? height * 0.08
-        //                               ? height > 800
-        //                                   ? height * 0.08
-        //                                   : height * 0.095
-        //                               : height * 0.1,
-        //                       padding: EdgeInsets.only(top: height * 0.005),
-        //                       decoration: const BoxDecoration(
-        //                           color: Colors.green,
-        //                           borderRadius: BorderRadius.only(
-        //                               topLeft: Radius.circular(10),
-        //                               topRight: Radius.circular(10))),
-        //                       child: Column(
-        //                         mainAxisAlignment: MainAxisAlignment.center,
-        //                         children: [
-        //                           InkWell(
-        //                             onTap: () async {
-        //                               SharedPreferences localStorage =
-        //                                   await SharedPreferences.getInstance();
-        //                               setState(() {
-        //                                 provider['data'][index]
-        //                                     ['selectedQuantity']++;
-        //                                 // localStorage.setInt(
-        //                                 //     'categoryCounter',
-        //                                 //     provider['data'][index]
-        //                                 //         ['selectedQuantity']++);
-        //                                 print('Increased');
-        //                               });
-        //                             },
-        //                             child: Text('+',
-        //                                 // // textScaleFactor: textScaleFactor,
-        //                                 style: TextStyle(
-        //                                     color: Colors.white,
-        //                                     fontSize: tabLayout
-        //                                         ? 30
-        //                                         : largeLayout
-        //                                             ? 18
-        //                                             : 12,
-        //                                     fontWeight: FontWeight.bold)),
-        //                           ),
-        //                           Text(
-        //                               provider['data'][index]['selectedQuantity']
-        //                                   .toString(),
-        //                               // count.toString(),
-        //                               // // textScaleFactor: textScaleFactor,
-        //                               style: TextStyle(
-        //                                   color: Colors.white,
-        //                                   fontSize: tabLayout
-        //                                       ? 30
-        //                                       : largeLayout
-        //                                           ? 18
-        //                                           : 12,
-        //                                   fontWeight: FontWeight.bold)),
-        //                           InkWell(
-        //                             onTap: () async {
-        //                               SharedPreferences localStorage =
-        //                                   await SharedPreferences.getInstance();
-        //                               setState(() {
-        //                                 // while (count > 0) {
-        //                                 //   count--;
-        //                                 // }
+              ));
+  }
 
-        //                                 if (provider['data'][index]
-        //                                         ['selectedQuantity'] >
-        //                                     0) {
-        //                                   // provider['data'][index]['qty']--;
-        //                                   provider['data'][index]
-        //                                       ['selectedQuantity']--;
-        //                                   // localStorage.setInt(
-        //                                   //     'categoryCounter',
-        //                                   //     provider['data'][index]
-        //                                   //         ['selectedQuantity']--);
-        //                                 } else {
-        //                                   // provider['data'][index]['qty'] =
-        //                                   //     0;
-        //                                   provider['data'][index]
-        //                                       ['selectedQuantity'] = 0;
-        //                                   // localStorage.setInt(
-        //                                   //     'categoryCounter', 0);
-        //                                 }
+  void cartIncrease(int productId, int quantity, BuildContext context,
+      Map<String, dynamic> provider) async {
+    final response =
+        await Provider.of<AddToCartProvider>(context, listen: false)
+            .postToCart(productId, quantity);
+    final res = json.decode(response.body);
 
-        //                                 print('Decreased');
-        //                               });
-        //                               // if (provider['data'][index]['qty'] ==
-        //                               //     0) {
-        //                               //   setState(() {
-        //                               // isClicked = false;
-        //                               //   });
-        //                               // }
-        //                             },
-        //                             child: Text('-',
-        //                                 // // textScaleFactor: textScaleFactor,
-        //                                 style: TextStyle(
-        //                                     color: Colors.white,
-        //                                     fontSize: tabLayout
-        //                                         ? 30
-        //                                         : largeLayout
-        //                                             ? 18
-        //                                             : 12,
-        //                                     fontWeight: FontWeight.bold)),
-        //                           )
-        //                         ],
-        //                       ),
-        //                     ),
-        //                   )
-        //                   // : Positioned(
-        //                   //     top: height * 0.2,
-        //                   //     right: width * 0.01,
-        //                   //     child: InkWell(
-        //                   //       onTap: () {
-        //                   //         setState(() {
-        //                   //           // isClicked = true;
-        //                   //           provider['data'][index]['qty']++;
-        //                   //         });
-        //                   //       },
-        //                   //       child: Container(
-        //                   //         width: width * 0.1,
-        //                   //         height: height * 0.035,
-        //                   //         decoration: const BoxDecoration(
-        //                   //             color: Colors.green,
-        //                   //             borderRadius: BorderRadius.only(
-        //                   //                 topLeft: Radius.circular(10),
-        //                   //                 topRight: Radius.circular(10))),
-        //                   //         child: const Center(
-        //                   //           child: Text('+',
-        //                   //               // // textScaleFactor: textScaleFactor,
-        //                   //               style: TextStyle(
-        //                   //                   color: Colors.white,
-        //                   //                   fontSize: 18,
-        //                   //                   fontWeight: FontWeight.bold)),
-        //                   //         ),
-        //                   //       ),
-        //                   //     ),
-        //                   //   ),
-        //                 ],
-        //               ),
-        //             ),
-        //             itemCount: provider['data'].length,
-        //           ),
-        //   ),
-        // ),
-        );
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setInt('cartLength', provider['data']['cartItem'].length);
+  }
+
+  void cartDecrease(int productId, int quantity, BuildContext context,
+      Map<String, dynamic> provider) async {
+    final response =
+        await Provider.of<AddToCartProvider>(context, listen: false)
+            .postToCart(productId, quantity);
+    final res = json.decode(response.body);
+
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.setInt('cartLength', provider['data']['cartItem'].length);
   }
 
   void cartAdd(int productId, int quantity, BuildContext context,

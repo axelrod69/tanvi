@@ -12,6 +12,7 @@ import '../../model/location/location.dart';
 import '../../screens/address.dart';
 import '../../screens/newAddressSelect.dart';
 import '../../screens/signUp.dart';
+import '../signUp/signUpOtp.dart';
 
 class FormWidget extends StatefulWidget {
   FormWidgetState createState() => FormWidgetState();
@@ -146,522 +147,525 @@ class FormWidgetState extends State<FormWidget> {
                 ),
               ),
             ),
-            SizedBox(height: height * 0.01),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: width * 0.08),
-                  child: InkWell(
-                    onTap: () {
-                      if (_numberKey.currentState!.validate()) {
-                        validateNumber(mobileNumber!, context, addressProvider,
-                            coOrdinates);
-                      }
-                    },
-                    child: Text('Request OTP',
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: tabLayout ? width * 0.02 : 14)),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: height * 0.025),
-            Padding(
-              padding: EdgeInsets.only(left: width * 0.12),
-              child: Text(
-                'OTP',
-                // // textScaleFactor: textScaleFactor,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: tabLayout ? width * 0.04 : 18),
-              ),
-            ),
-            SizedBox(height: height * 0.02),
-            Form(
-              key: _otpKey,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  tabLayout
-                      ? Container(
-                          // width: width * 0.15,
-                          // height: height * 0.1,
-                          width: width * 0.12,
-                          height: height * 0.08,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                    offset: Offset(1, 2))
-                              ]),
-                          child: TextFormField(
-                            showCursor: true,
-                            cursorHeight: height * 0.07,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(1)
-                            ],
-                            keyboardType: TextInputType.number,
-                            style: TextStyle(fontSize: width * 0.1),
-                            textAlign: TextAlign.center,
-                            decoration: const InputDecoration(
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none),
-                            onFieldSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(_focusFirst),
-                            onChanged: (value) {
-                              if (value.length == 1) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
-                            validator: (first) {
-                              firstOtp = first;
-                              return null;
-                            },
-                          ),
-                        )
-                      : largeLayout
-                          ? Container(
-                              width: width * 0.15,
-                              height: height * 0.075,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child: TextFormField(
-                                showCursor: true,
-                                cursorHeight: 50,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(1)
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 45),
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_focusFirst),
-                                onChanged: (value) {
-                                  if (value.length == 1) {
-                                    FocusScope.of(context).nextFocus();
-                                  }
-                                },
-                                validator: (first) {
-                                  firstOtp = first;
-                                  return null;
-                                },
-                              ),
-                            )
-                          : Container(
-                              width: width * 0.15,
-                              height: height * 0.092,
-                              // padding: EdgeInsets.only(top: height * 0.04),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child: TextFormField(
-                                showCursor: true,
-                                cursorHeight: height * 0.09,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(1)
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 40),
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_focusFirst),
-                                onChanged: (value) {
-                                  if (value.length == 1) {
-                                    FocusScope.of(context).nextFocus();
-                                  }
-                                },
-                                validator: (first) {
-                                  firstOtp = first;
-                                  return null;
-                                },
-                              ),
-                            ),
-                  SizedBox(width: width * 0.04),
-                  tabLayout
-                      ? Container(
-                          width: width * 0.12,
-                          height: height * 0.08,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                    offset: Offset(1, 2))
-                              ]),
-                          child: TextFormField(
-                            showCursor: true,
-                            cursorHeight: height * 0.07,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(1)
-                            ],
-                            keyboardType: TextInputType.number,
-                            style: TextStyle(fontSize: width * 0.1),
-                            textAlign: TextAlign.center,
-                            decoration: const InputDecoration(
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none),
-                            onFieldSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(_focusSecond),
-                            onChanged: (value) {
-                              if (value.length == 1) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
-                            validator: (second) {
-                              secondOtp = second;
-                              return null;
-                            },
-                          ),
-                        )
-                      : largeLayout
-                          ? Container(
-                              width: width * 0.15,
-                              height: height * 0.075,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child: TextFormField(
-                                showCursor: true,
-                                cursorHeight: 50,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(1)
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 45),
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_focusSecond),
-                                onChanged: (value) {
-                                  if (value.length == 1) {
-                                    FocusScope.of(context).nextFocus();
-                                  }
-                                },
-                                validator: (second) {
-                                  secondOtp = second;
-                                  return null;
-                                },
-                              ),
-                            )
-                          : Container(
-                              width: width * 0.15,
-                              height: height * 0.092,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child: TextFormField(
-                                showCursor: true,
-                                cursorHeight: height * 0.09,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(1)
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 40),
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_focusSecond),
-                                onChanged: (value) {
-                                  if (value.length == 1) {
-                                    FocusScope.of(context).nextFocus();
-                                  }
-                                },
-                                validator: (second) {
-                                  secondOtp = second;
-                                  return null;
-                                },
-                              ),
-                            ),
-                  SizedBox(width: width * 0.04),
-                  tabLayout
-                      ? Container(
-                          width: width * 0.12,
-                          height: height * 0.08,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                    offset: Offset(1, 2))
-                              ]),
-                          child: TextFormField(
-                            showCursor: true,
-                            cursorHeight: height * 0.07,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(1)
-                            ],
-                            keyboardType: TextInputType.number,
-                            style: TextStyle(fontSize: width * 0.1),
-                            textAlign: TextAlign.center,
-                            decoration: const InputDecoration(
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none),
-                            onFieldSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(_focusThird),
-                            onChanged: (value) {
-                              if (value.length == 1) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
-                            validator: (third) {
-                              thirdOtp = third;
-                              return null;
-                            },
-                          ),
-                        )
-                      : largeLayout
-                          ? Container(
-                              width: width * 0.15,
-                              height: height * 0.075,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child: TextFormField(
-                                showCursor: true,
-                                cursorHeight: 50,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(1)
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 45),
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_focusThird),
-                                onChanged: (value) {
-                                  if (value.length == 1) {
-                                    FocusScope.of(context).nextFocus();
-                                  }
-                                },
-                                validator: (third) {
-                                  thirdOtp = third;
-                                  return null;
-                                },
-                              ),
-                            )
-                          : Container(
-                              width: width * 0.15,
-                              height: height * 0.092,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child: TextFormField(
-                                showCursor: true,
-                                cursorHeight: height * 0.09,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(1)
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 40),
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_focusThird),
-                                onChanged: (value) {
-                                  if (value.length == 1) {
-                                    FocusScope.of(context).nextFocus();
-                                  }
-                                },
-                                validator: (third) {
-                                  thirdOtp = third;
-                                  return null;
-                                },
-                              ),
-                            ),
-                  SizedBox(width: width * 0.04),
-                  tabLayout
-                      ? Container(
-                          width: width * 0.12,
-                          height: height * 0.08,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                    offset: Offset(1, 2))
-                              ]),
-                          child: TextFormField(
-                            showCursor: true,
-                            cursorHeight: height * 0.07,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(1)
-                            ],
-                            keyboardType: TextInputType.number,
-                            style: TextStyle(fontSize: width * 0.1),
-                            textAlign: TextAlign.center,
-                            decoration: const InputDecoration(
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none),
-                            onFieldSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(_focusFourth),
-                            onChanged: (value) {
-                              if (value.length == 1) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
-                            validator: (fourth) {
-                              fourthOtp = fourth;
-                              return null;
-                            },
-                          ),
-                        )
-                      : largeLayout
-                          ? Container(
-                              width: width * 0.15,
-                              height: height * 0.075,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child: TextFormField(
-                                showCursor: true,
-                                cursorHeight: 50,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(1)
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 45),
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_focusFourth),
-                                onChanged: (value) {
-                                  if (value.length == 1) {
-                                    FocusScope.of(context).nextFocus();
-                                  }
-                                },
-                                validator: (fourth) {
-                                  fourthOtp = fourth;
-                                  return null;
-                                },
-                              ),
-                            )
-                          : Container(
-                              width: width * 0.15,
-                              height: height * 0.092,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child: TextFormField(
-                                showCursor: true,
-                                cursorHeight: height * 0.09,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(1)
-                                ],
-                                keyboardType: TextInputType.number,
-                                style: const TextStyle(fontSize: 40),
-                                textAlign: TextAlign.center,
-                                decoration: const InputDecoration(
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none),
-                                onFieldSubmitted: (_) => FocusScope.of(context)
-                                    .requestFocus(_focusFourth),
-                                onChanged: (value) {
-                                  if (value.length == 1) {
-                                    FocusScope.of(context).nextFocus();
-                                  }
-                                },
-                                validator: (fourth) {
-                                  fourthOtp = fourth;
-                                  return null;
-                                },
-                              ),
-                            ),
-                ],
-              ),
-            )
+            // SizedBox(height: height * 0.01),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     Padding(
+            //       padding: EdgeInsets.only(right: width * 0.08),
+            //       child: InkWell(
+            //         onTap: () {
+            //           if (_numberKey.currentState!.validate()) {
+            //             validateNumber(mobileNumber!, context, addressProvider,
+            //                 coOrdinates);
+            //           }
+            //         },
+            //         child: Text('Request OTP',
+            //             style: TextStyle(
+            //                 color: Colors.green,
+            //                 fontWeight: FontWeight.bold,
+            //                 fontSize: tabLayout ? width * 0.02 : 14)),
+            //       ),
+            //     )
+            //   ],
+            // ),
+            // SizedBox(height: height * 0.025),
+            // Padding(
+            //   padding: EdgeInsets.only(left: width * 0.12),
+            //   child: Text(
+            //     'OTP',
+            //     // // textScaleFactor: textScaleFactor,
+            //     style: TextStyle(
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.black,
+            //         fontSize: tabLayout ? width * 0.04 : 18),
+            //   ),
+            // ),
+            // SizedBox(height: height * 0.02),
+
+            //OTP Code
+
+            // Form(
+            //   key: _otpKey,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       tabLayout
+            //           ? Container(
+            //               // width: width * 0.15,
+            //               // height: height * 0.1,
+            //               width: width * 0.12,
+            //               height: height * 0.08,
+            //               decoration: BoxDecoration(
+            //                   color: Colors.white,
+            //                   borderRadius: BorderRadius.circular(10),
+            //                   boxShadow: const [
+            //                     BoxShadow(
+            //                         color: Colors.grey,
+            //                         spreadRadius: 2,
+            //                         blurRadius: 10,
+            //                         offset: Offset(1, 2))
+            //                   ]),
+            //               child: TextFormField(
+            //                 showCursor: true,
+            //                 cursorHeight: height * 0.07,
+            //                 inputFormatters: [
+            //                   LengthLimitingTextInputFormatter(1)
+            //                 ],
+            //                 keyboardType: TextInputType.number,
+            //                 style: TextStyle(fontSize: width * 0.1),
+            //                 textAlign: TextAlign.center,
+            //                 decoration: const InputDecoration(
+            //                     focusedBorder: InputBorder.none,
+            //                     enabledBorder: InputBorder.none),
+            //                 onFieldSubmitted: (_) => FocusScope.of(context)
+            //                     .requestFocus(_focusFirst),
+            //                 onChanged: (value) {
+            //                   if (value.length == 1) {
+            //                     FocusScope.of(context).nextFocus();
+            //                   }
+            //                 },
+            //                 validator: (first) {
+            //                   firstOtp = first;
+            //                   return null;
+            //                 },
+            //               ),
+            //             )
+            //           : largeLayout
+            //               ? Container(
+            //                   width: width * 0.15,
+            //                   height: height * 0.075,
+            //                   decoration: BoxDecoration(
+            //                       color: Colors.white,
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       boxShadow: const [
+            //                         BoxShadow(
+            //                             color: Colors.grey,
+            //                             spreadRadius: 2,
+            //                             blurRadius: 10,
+            //                             offset: Offset(1, 2))
+            //                       ]),
+            //                   child: TextFormField(
+            //                     showCursor: true,
+            //                     cursorHeight: 50,
+            //                     inputFormatters: [
+            //                       LengthLimitingTextInputFormatter(1)
+            //                     ],
+            //                     keyboardType: TextInputType.number,
+            //                     style: const TextStyle(fontSize: 45),
+            //                     textAlign: TextAlign.center,
+            //                     decoration: const InputDecoration(
+            //                         focusedBorder: InputBorder.none,
+            //                         enabledBorder: InputBorder.none),
+            //                     onFieldSubmitted: (_) => FocusScope.of(context)
+            //                         .requestFocus(_focusFirst),
+            //                     onChanged: (value) {
+            //                       if (value.length == 1) {
+            //                         FocusScope.of(context).nextFocus();
+            //                       }
+            //                     },
+            //                     validator: (first) {
+            //                       firstOtp = first;
+            //                       return null;
+            //                     },
+            //                   ),
+            //                 )
+            //               : Container(
+            //                   width: width * 0.15,
+            //                   height: height * 0.092,
+            //                   // padding: EdgeInsets.only(top: height * 0.04),
+            //                   decoration: BoxDecoration(
+            //                       color: Colors.white,
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       boxShadow: const [
+            //                         BoxShadow(
+            //                             color: Colors.grey,
+            //                             spreadRadius: 2,
+            //                             blurRadius: 10,
+            //                             offset: Offset(1, 2))
+            //                       ]),
+            //                   child: TextFormField(
+            //                     showCursor: true,
+            //                     cursorHeight: height * 0.09,
+            //                     inputFormatters: [
+            //                       LengthLimitingTextInputFormatter(1)
+            //                     ],
+            //                     keyboardType: TextInputType.number,
+            //                     style: const TextStyle(fontSize: 40),
+            //                     textAlign: TextAlign.center,
+            //                     decoration: const InputDecoration(
+            //                         focusedBorder: InputBorder.none,
+            //                         enabledBorder: InputBorder.none),
+            //                     onFieldSubmitted: (_) => FocusScope.of(context)
+            //                         .requestFocus(_focusFirst),
+            //                     onChanged: (value) {
+            //                       if (value.length == 1) {
+            //                         FocusScope.of(context).nextFocus();
+            //                       }
+            //                     },
+            //                     validator: (first) {
+            //                       firstOtp = first;
+            //                       return null;
+            //                     },
+            //                   ),
+            //                 ),
+            //       SizedBox(width: width * 0.04),
+            //       tabLayout
+            //           ? Container(
+            //               width: width * 0.12,
+            //               height: height * 0.08,
+            //               decoration: BoxDecoration(
+            //                   color: Colors.white,
+            //                   borderRadius: BorderRadius.circular(10),
+            //                   boxShadow: const [
+            //                     BoxShadow(
+            //                         color: Colors.grey,
+            //                         spreadRadius: 2,
+            //                         blurRadius: 10,
+            //                         offset: Offset(1, 2))
+            //                   ]),
+            //               child: TextFormField(
+            //                 showCursor: true,
+            //                 cursorHeight: height * 0.07,
+            //                 inputFormatters: [
+            //                   LengthLimitingTextInputFormatter(1)
+            //                 ],
+            //                 keyboardType: TextInputType.number,
+            //                 style: TextStyle(fontSize: width * 0.1),
+            //                 textAlign: TextAlign.center,
+            //                 decoration: const InputDecoration(
+            //                     focusedBorder: InputBorder.none,
+            //                     enabledBorder: InputBorder.none),
+            //                 onFieldSubmitted: (_) => FocusScope.of(context)
+            //                     .requestFocus(_focusSecond),
+            //                 onChanged: (value) {
+            //                   if (value.length == 1) {
+            //                     FocusScope.of(context).nextFocus();
+            //                   }
+            //                 },
+            //                 validator: (second) {
+            //                   secondOtp = second;
+            //                   return null;
+            //                 },
+            //               ),
+            //             )
+            //           : largeLayout
+            //               ? Container(
+            //                   width: width * 0.15,
+            //                   height: height * 0.075,
+            //                   decoration: BoxDecoration(
+            //                       color: Colors.white,
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       boxShadow: const [
+            //                         BoxShadow(
+            //                             color: Colors.grey,
+            //                             spreadRadius: 2,
+            //                             blurRadius: 10,
+            //                             offset: Offset(1, 2))
+            //                       ]),
+            //                   child: TextFormField(
+            //                     showCursor: true,
+            //                     cursorHeight: 50,
+            //                     inputFormatters: [
+            //                       LengthLimitingTextInputFormatter(1)
+            //                     ],
+            //                     keyboardType: TextInputType.number,
+            //                     style: const TextStyle(fontSize: 45),
+            //                     textAlign: TextAlign.center,
+            //                     decoration: const InputDecoration(
+            //                         focusedBorder: InputBorder.none,
+            //                         enabledBorder: InputBorder.none),
+            //                     onFieldSubmitted: (_) => FocusScope.of(context)
+            //                         .requestFocus(_focusSecond),
+            //                     onChanged: (value) {
+            //                       if (value.length == 1) {
+            //                         FocusScope.of(context).nextFocus();
+            //                       }
+            //                     },
+            //                     validator: (second) {
+            //                       secondOtp = second;
+            //                       return null;
+            //                     },
+            //                   ),
+            //                 )
+            //               : Container(
+            //                   width: width * 0.15,
+            //                   height: height * 0.092,
+            //                   decoration: BoxDecoration(
+            //                       color: Colors.white,
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       boxShadow: const [
+            //                         BoxShadow(
+            //                             color: Colors.grey,
+            //                             spreadRadius: 2,
+            //                             blurRadius: 10,
+            //                             offset: Offset(1, 2))
+            //                       ]),
+            //                   child: TextFormField(
+            //                     showCursor: true,
+            //                     cursorHeight: height * 0.09,
+            //                     inputFormatters: [
+            //                       LengthLimitingTextInputFormatter(1)
+            //                     ],
+            //                     keyboardType: TextInputType.number,
+            //                     style: const TextStyle(fontSize: 40),
+            //                     textAlign: TextAlign.center,
+            //                     decoration: const InputDecoration(
+            //                         focusedBorder: InputBorder.none,
+            //                         enabledBorder: InputBorder.none),
+            //                     onFieldSubmitted: (_) => FocusScope.of(context)
+            //                         .requestFocus(_focusSecond),
+            //                     onChanged: (value) {
+            //                       if (value.length == 1) {
+            //                         FocusScope.of(context).nextFocus();
+            //                       }
+            //                     },
+            //                     validator: (second) {
+            //                       secondOtp = second;
+            //                       return null;
+            //                     },
+            //                   ),
+            //                 ),
+            //       SizedBox(width: width * 0.04),
+            //       tabLayout
+            //           ? Container(
+            //               width: width * 0.12,
+            //               height: height * 0.08,
+            //               decoration: BoxDecoration(
+            //                   color: Colors.white,
+            //                   borderRadius: BorderRadius.circular(10),
+            //                   boxShadow: const [
+            //                     BoxShadow(
+            //                         color: Colors.grey,
+            //                         spreadRadius: 2,
+            //                         blurRadius: 10,
+            //                         offset: Offset(1, 2))
+            //                   ]),
+            //               child: TextFormField(
+            //                 showCursor: true,
+            //                 cursorHeight: height * 0.07,
+            //                 inputFormatters: [
+            //                   LengthLimitingTextInputFormatter(1)
+            //                 ],
+            //                 keyboardType: TextInputType.number,
+            //                 style: TextStyle(fontSize: width * 0.1),
+            //                 textAlign: TextAlign.center,
+            //                 decoration: const InputDecoration(
+            //                     focusedBorder: InputBorder.none,
+            //                     enabledBorder: InputBorder.none),
+            //                 onFieldSubmitted: (_) => FocusScope.of(context)
+            //                     .requestFocus(_focusThird),
+            //                 onChanged: (value) {
+            //                   if (value.length == 1) {
+            //                     FocusScope.of(context).nextFocus();
+            //                   }
+            //                 },
+            //                 validator: (third) {
+            //                   thirdOtp = third;
+            //                   return null;
+            //                 },
+            //               ),
+            //             )
+            //           : largeLayout
+            //               ? Container(
+            //                   width: width * 0.15,
+            //                   height: height * 0.075,
+            //                   decoration: BoxDecoration(
+            //                       color: Colors.white,
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       boxShadow: const [
+            //                         BoxShadow(
+            //                             color: Colors.grey,
+            //                             spreadRadius: 2,
+            //                             blurRadius: 10,
+            //                             offset: Offset(1, 2))
+            //                       ]),
+            //                   child: TextFormField(
+            //                     showCursor: true,
+            //                     cursorHeight: 50,
+            //                     inputFormatters: [
+            //                       LengthLimitingTextInputFormatter(1)
+            //                     ],
+            //                     keyboardType: TextInputType.number,
+            //                     style: const TextStyle(fontSize: 45),
+            //                     textAlign: TextAlign.center,
+            //                     decoration: const InputDecoration(
+            //                         focusedBorder: InputBorder.none,
+            //                         enabledBorder: InputBorder.none),
+            //                     onFieldSubmitted: (_) => FocusScope.of(context)
+            //                         .requestFocus(_focusThird),
+            //                     onChanged: (value) {
+            //                       if (value.length == 1) {
+            //                         FocusScope.of(context).nextFocus();
+            //                       }
+            //                     },
+            //                     validator: (third) {
+            //                       thirdOtp = third;
+            //                       return null;
+            //                     },
+            //                   ),
+            //                 )
+            //               : Container(
+            //                   width: width * 0.15,
+            //                   height: height * 0.092,
+            //                   decoration: BoxDecoration(
+            //                       color: Colors.white,
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       boxShadow: const [
+            //                         BoxShadow(
+            //                             color: Colors.grey,
+            //                             spreadRadius: 2,
+            //                             blurRadius: 10,
+            //                             offset: Offset(1, 2))
+            //                       ]),
+            //                   child: TextFormField(
+            //                     showCursor: true,
+            //                     cursorHeight: height * 0.09,
+            //                     inputFormatters: [
+            //                       LengthLimitingTextInputFormatter(1)
+            //                     ],
+            //                     keyboardType: TextInputType.number,
+            //                     style: const TextStyle(fontSize: 40),
+            //                     textAlign: TextAlign.center,
+            //                     decoration: const InputDecoration(
+            //                         focusedBorder: InputBorder.none,
+            //                         enabledBorder: InputBorder.none),
+            //                     onFieldSubmitted: (_) => FocusScope.of(context)
+            //                         .requestFocus(_focusThird),
+            //                     onChanged: (value) {
+            //                       if (value.length == 1) {
+            //                         FocusScope.of(context).nextFocus();
+            //                       }
+            //                     },
+            //                     validator: (third) {
+            //                       thirdOtp = third;
+            //                       return null;
+            //                     },
+            //                   ),
+            //                 ),
+            //       SizedBox(width: width * 0.04),
+            //       tabLayout
+            //           ? Container(
+            //               width: width * 0.12,
+            //               height: height * 0.08,
+            //               decoration: BoxDecoration(
+            //                   color: Colors.white,
+            //                   borderRadius: BorderRadius.circular(10),
+            //                   boxShadow: const [
+            //                     BoxShadow(
+            //                         color: Colors.grey,
+            //                         spreadRadius: 2,
+            //                         blurRadius: 10,
+            //                         offset: Offset(1, 2))
+            //                   ]),
+            //               child: TextFormField(
+            //                 showCursor: true,
+            //                 cursorHeight: height * 0.07,
+            //                 inputFormatters: [
+            //                   LengthLimitingTextInputFormatter(1)
+            //                 ],
+            //                 keyboardType: TextInputType.number,
+            //                 style: TextStyle(fontSize: width * 0.1),
+            //                 textAlign: TextAlign.center,
+            //                 decoration: const InputDecoration(
+            //                     focusedBorder: InputBorder.none,
+            //                     enabledBorder: InputBorder.none),
+            //                 onFieldSubmitted: (_) => FocusScope.of(context)
+            //                     .requestFocus(_focusFourth),
+            //                 onChanged: (value) {
+            //                   if (value.length == 1) {
+            //                     FocusScope.of(context).nextFocus();
+            //                   }
+            //                 },
+            //                 validator: (fourth) {
+            //                   fourthOtp = fourth;
+            //                   return null;
+            //                 },
+            //               ),
+            //             )
+            //           : largeLayout
+            //               ? Container(
+            //                   width: width * 0.15,
+            //                   height: height * 0.075,
+            //                   decoration: BoxDecoration(
+            //                       color: Colors.white,
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       boxShadow: const [
+            //                         BoxShadow(
+            //                             color: Colors.grey,
+            //                             spreadRadius: 2,
+            //                             blurRadius: 10,
+            //                             offset: Offset(1, 2))
+            //                       ]),
+            //                   child: TextFormField(
+            //                     showCursor: true,
+            //                     cursorHeight: 50,
+            //                     inputFormatters: [
+            //                       LengthLimitingTextInputFormatter(1)
+            //                     ],
+            //                     keyboardType: TextInputType.number,
+            //                     style: const TextStyle(fontSize: 45),
+            //                     textAlign: TextAlign.center,
+            //                     decoration: const InputDecoration(
+            //                         focusedBorder: InputBorder.none,
+            //                         enabledBorder: InputBorder.none),
+            //                     onFieldSubmitted: (_) => FocusScope.of(context)
+            //                         .requestFocus(_focusFourth),
+            //                     onChanged: (value) {
+            //                       if (value.length == 1) {
+            //                         FocusScope.of(context).nextFocus();
+            //                       }
+            //                     },
+            //                     validator: (fourth) {
+            //                       fourthOtp = fourth;
+            //                       return null;
+            //                     },
+            //                   ),
+            //                 )
+            //               : Container(
+            //                   width: width * 0.15,
+            //                   height: height * 0.092,
+            //                   decoration: BoxDecoration(
+            //                       color: Colors.white,
+            //                       borderRadius: BorderRadius.circular(10),
+            //                       boxShadow: const [
+            //                         BoxShadow(
+            //                             color: Colors.grey,
+            //                             spreadRadius: 2,
+            //                             blurRadius: 10,
+            //                             offset: Offset(1, 2))
+            //                       ]),
+            //                   child: TextFormField(
+            //                     showCursor: true,
+            //                     cursorHeight: height * 0.09,
+            //                     inputFormatters: [
+            //                       LengthLimitingTextInputFormatter(1)
+            //                     ],
+            //                     keyboardType: TextInputType.number,
+            //                     style: const TextStyle(fontSize: 40),
+            //                     textAlign: TextAlign.center,
+            //                     decoration: const InputDecoration(
+            //                         focusedBorder: InputBorder.none,
+            //                         enabledBorder: InputBorder.none),
+            //                     onFieldSubmitted: (_) => FocusScope.of(context)
+            //                         .requestFocus(_focusFourth),
+            //                     onChanged: (value) {
+            //                       if (value.length == 1) {
+            //                         FocusScope.of(context).nextFocus();
+            //                       }
+            //                     },
+            //                     validator: (fourth) {
+            //                       fourthOtp = fourth;
+            //                       return null;
+            //                     },
+            //                   ),
+            //                 ),
+            //     ],
+            //   ),
+            // )
           ],
         ),
-        SizedBox(height: height * 0.06),
+        SizedBox(height: height * 0.03),
         // Text(
         //   'Forgot your password?',
         //   textAlign: TextAlign.center,
@@ -673,35 +677,38 @@ class FormWidgetState extends State<FormWidget> {
           padding: EdgeInsets.only(left: width * 0.08, right: width * 0.08),
           child: InkWell(
             onTap: () {
-              if (_otpKey.currentState!.validate()) {
-                login(firstOtp!, secondOtp!, thirdOtp!, fourthOtp!,
-                    mobileNumber!, context);
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: const Text(
-                    'Please Enter Your OTP',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  backgroundColor: Colors.white,
-                  action: SnackBarAction(
-                      label: 'Ok',
-                      onPressed: () => Navigator.of(context).pop()),
-                ));
+              if (_numberKey.currentState!.validate()) {
+                // login(firstOtp!, secondOtp!, thirdOtp!, fourthOtp!,
+                //     mobileNumber!, context);
+                validateNumber(
+                    mobileNumber!, context, addressProvider, coOrdinates);
               }
+              // else {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: const Text(
+              //       'Please Enter Your OTP',
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //     backgroundColor: Colors.white,
+              //     action: SnackBarAction(
+              //         label: 'Ok',
+              //         onPressed: () => Navigator.of(context).pop()),
+              //   ));
+              // }
             },
             child: Container(
               width: double.infinity,
               height: height * 0.07,
-              margin: EdgeInsets.only(top: height * 0.02),
+              // margin: EdgeInsets.only(top: height * 0.02),
               decoration: BoxDecoration(
                   color: const Color.fromRGBO(57, 226, 14, 1),
                   borderRadius: BorderRadius.circular(15)),
               child: Center(
                 child: Text(
-                  'Login',
+                  'Continue',
                   // // textScaleFactor: textScaleFactor,
                   style: TextStyle(
                       color: Colors.white,
@@ -817,11 +824,8 @@ class FormWidgetState extends State<FormWidget> {
                   style: TextStyle(
                       color: Colors.green, fontWeight: FontWeight.bold),
                 ),
-                content: Expanded(
-                  child: Text(addressProvider == ''
-                      ? 'Choose Address'
-                      : addressProvider),
-                ),
+                content: Text(
+                    addressProvider == '' ? 'Choose Address' : addressProvider),
                 actions: [
                   TextButton(
                       onPressed: () {
@@ -863,6 +867,9 @@ class FormWidgetState extends State<FormWidget> {
     } else if (response.statusCode == 200) {
       var responseCode = json.decode(response.body);
       print(response.body);
+
+      Navigator.of(context).pushNamed('/otp-screen',
+          arguments: {'mobile': data['mobile'], 'flag': '0'});
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(responseCode['message'],

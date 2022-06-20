@@ -323,13 +323,16 @@ class CheckOutState extends State<CheckOut> {
                               fit: BoxFit.cover,
                             ),
                           )),
-                      Text(
-                        data['data']['cartItem'][index]['productName'],
-                        // // textScaleFactor: textScaleFactor,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: tabLayout ? 25 : 14),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          data['data']['cartItem'][index]['productName'],
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: tabLayout ? 25 : 14),
+                        ),
                       ),
                     ],
                   ),
@@ -700,12 +703,12 @@ class CheckOutState extends State<CheckOut> {
                       : height * 0.06,
                   // margin: EdgeInsets.only(bottom: height * 0.15),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.green,
                       borderRadius: BorderRadius.circular(
                           !tabLayout && !largeLayout ? 10 : 20),
                       boxShadow: const [
                         BoxShadow(
-                            color: Colors.green,
+                            color: Colors.grey,
                             blurRadius: 5,
                             offset: Offset(0, 2))
                       ]),
@@ -714,7 +717,7 @@ class CheckOutState extends State<CheckOut> {
                       'PAY',
                       // // textScaleFactor: textScaleFactor,
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: tabLayout ? 30 : 20),
                     ),

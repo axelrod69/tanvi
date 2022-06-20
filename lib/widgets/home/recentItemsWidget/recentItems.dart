@@ -140,10 +140,10 @@ class RecentItemsState extends State<RecentItems> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: tabLayout
-                                                ? 25
+                                                ? 23
                                                 : largeLayout
-                                                    ? 17
-                                                    : 12),
+                                                    ? 15
+                                                    : 10),
                                       ),
                                       SizedBox(height: height * 0.01),
                                       Text(
@@ -156,7 +156,7 @@ class RecentItemsState extends State<RecentItems> {
                                             fontSize: tabLayout
                                                 ? 18
                                                 : largeLayout
-                                                    ? 12
+                                                    ? 8
                                                     : 8),
                                       )
                                     ],
@@ -178,10 +178,10 @@ class RecentItemsState extends State<RecentItems> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: tabLayout
-                                                ? 50
+                                                ? 45
                                                 : largeLayout
-                                                    ? 17
-                                                    : 12),
+                                                    ? 15
+                                                    : 10),
                                       ),
                                     ),
                                     InkWell(

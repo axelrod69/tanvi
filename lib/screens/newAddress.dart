@@ -59,11 +59,9 @@ class NewAddressState extends State<NewAddress> {
                           style: TextStyle(
                               color: Colors.green, fontWeight: FontWeight.bold),
                         ),
-                        content: Expanded(
-                          child: Text(addressProvider == ''
-                              ? 'Choose Address'
-                              : addressProvider),
-                        ),
+                        content: Text(addressProvider == ''
+                            ? 'Choose Address'
+                            : addressProvider),
                         actions: [
                           TextButton(
                               onPressed: () {

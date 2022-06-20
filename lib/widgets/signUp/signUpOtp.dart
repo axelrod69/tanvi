@@ -47,9 +47,11 @@ class InputOTPState extends State<InputOTP> {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final mobile = routes['mobile'];
     final name = routes['name'];
+    final flag = routes['flag'];
 
     print('mobile: $mobile');
     print('name: $name');
+    print('flag: $flag');
 
     // TODO: implement build
     return Column(
@@ -668,7 +670,11 @@ class InputOTPState extends State<InputOTP> {
         InkWell(
           onTap: () {
             if (_key.currentState!.validate()) {
-              checkOtp(mobile, context, name);
+              if (flag == '0') {
+                checkOtpSignIn(mobile, context);
+              } else {
+                checkOtpSignUp(mobile, context, name);
+              }
             }
           },
           child: Container(
@@ -694,11 +700,26 @@ class InputOTPState extends State<InputOTP> {
             ),
           ),
         ),
+        SizedBox(height: height * 0.006),
+        InkWell(
+          onTap: () {
+            var data = {'mobile': mobile};
+            Provider.of<Network>(context, listen: false)
+                .logIn(data, 'api/resend-otp/');
+          },
+          child: Text(
+            'Didn\'t Receive OTP? Request Another',
+            style: TextStyle(
+                color: const Color.fromRGBO(154, 154, 154, 1),
+                fontWeight: FontWeight.bold,
+                fontSize: width * 0.04),
+          ),
+        )
       ],
     );
   }
 
-  void checkOtp(String mobile, BuildContext context, String name) async {
+  void checkOtpSignUp(String mobile, BuildContext context, String name) async {
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
     var otp = _firstPin! + _secondPin! + _thirdPin! + _fourthPin!;
     var data = {'otp': otp, 'mobile': mobile};
@@ -734,7 +755,108 @@ class InputOTPState extends State<InputOTP> {
       //     });
 
       Navigator.of(context).pushNamed('/landing-page');
-    } else {
+    }
+    // else if (receivedResponse['detail'] ==
+    //     'Otp has been matched successfully. Please Validate your Account') {
+    //   SharedPreferences localStorage = await SharedPreferences.getInstance();
+    //   // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
+    //   await localStorage.setString('token', receivedResponse['access']);
+    //   await localStorage.setString('refresh', receivedResponse['refresh']);
+
+    //   // Provider.of<LocationProvider>(context, listen: false)
+    //   //     .setAddress(name, mobile);
+
+    //   // final url =
+    //   //     Uri.parse('http://54.80.135.220/api/customer/shipping-address/');
+
+    //   // await http.post(url,
+    //   //     body: json.encode({
+    //   //       'mobile': mobile,
+    //   //       'name': name,
+    //   //     }),
+    //   //     headers: {
+    //   //       'Authorization': 'Bearer ${localStorage.getString('token')}',
+    //   //       'Content-Type': 'application/json'
+    //   //     });
+
+    //   Navigator.of(context).pushNamed('/landing-page');
+    // }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Incorrect OTP',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.green,
+        action: SnackBarAction(
+            label: 'OK',
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+      ));
+    }
+  }
+
+  void checkOtpSignIn(String mobile, BuildContext context) async {
+    // SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var otp = _firstPin! + _secondPin! + _thirdPin! + _fourthPin!;
+    var data = {'otp': otp, 'mobile': mobile};
+    print(data);
+    var response = await Provider.of<Network>(context, listen: false)
+        .checkOtp(data, 'api/validateotp/');
+    print(response.body);
+    var receivedResponse = json.decode(response.body);
+
+    print('Access Token ${receivedResponse['access']}');
+
+    if (receivedResponse['detail'] ==
+        'Otp has been matched successfully. Please Validate your Account') {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
+      await localStorage.setString('token', receivedResponse['access']);
+      await localStorage.setString('refresh', receivedResponse['refresh']);
+
+      // Provider.of<LocationProvider>(context, listen: false)
+      //     .setAddress(name, mobile);
+
+      // final url =
+      //     Uri.parse('http://54.80.135.220/api/customer/shipping-address/');
+
+      // await http.post(url,
+      //     body: json.encode({
+      //       'mobile': mobile,
+      //       'name': name,
+      //     }),
+      //     headers: {
+      //       'Authorization': 'Bearer ${localStorage.getString('token')}',
+      //       'Content-Type': 'application/json'
+      //     });
+
+      Navigator.of(context).pushNamed('/landing-page');
+    }
+    // else if (receivedResponse['detail'] ==
+    //     'Otp has been matched successfully. Please Validate your Account') {
+    //   SharedPreferences localStorage = await SharedPreferences.getInstance();
+    //   // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
+    //   await localStorage.setString('token', receivedResponse['access']);
+    //   await localStorage.setString('refresh', receivedResponse['refresh']);
+
+    //   // Provider.of<LocationProvider>(context, listen: false)
+    //   //     .setAddress(name, mobile);
+
+    //   // final url =
+    //   //     Uri.parse('http://54.80.135.220/api/customer/shipping-address/');
+
+    //   // await http.post(url,
+    //   //     body: json.encode({
+    //   //       'mobile': mobile,
+    //   //       'name': name,
+    //   //     }),
+    //   //     headers: {
+    //   //       'Authorization': 'Bearer ${localStorage.getString('token')}',
+    //   //       'Content-Type': 'application/json'
+    //   //     });
+
+    //   Navigator.of(context).pushNamed('/landing-page');
+    // }
+    else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text('Incorrect OTP',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
@@ -747,3 +869,6 @@ class InputOTPState extends State<InputOTP> {
     }
   }
 }
+
+// void resendOtp(mobile) {
+// }

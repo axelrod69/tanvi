@@ -448,65 +448,125 @@ class CartScreenState extends State<CartScreen> {
                   Padding(
                     padding: EdgeInsets.only(
                         left: width * 0.082, right: height * 0.04),
-                    child: InkWell(
-                      onTap: () => Navigator.of(context)
-                          .pushNamed('/checkout-screen', arguments: {
-                        'data': provider,
-                        'tax': taxCalculation,
-                        'discountCode': couponCode
-                      }),
-                      child: Container(
-                          width: double.infinity,
-                          height: tabLayout
-                              ? height * 0.08
-                              : largeLayout
-                                  ? height * 0.06
-                                  : height * 0.07,
-                          margin: EdgeInsets.only(
-                              top:
-                                  height > 800 ? height * 0.04 : height * 0.012,
-                              bottom: height > 800 ? height * 0.04 : 0),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
+                    child: provider['data']['cartItem'].length == 0
+                        ? Container(
+                            width: double.infinity,
+                            height: tabLayout
+                                ? height * 0.08
+                                : largeLayout
+                                    ? height * 0.06
+                                    : height * 0.07,
+                            margin: EdgeInsets.only(
+                                top: height > 800
+                                    ? height * 0.04
+                                    : height * 0.012,
+                                bottom: height > 800 ? height * 0.04 : 0),
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
                               borderRadius: BorderRadius.circular(30),
-                              boxShadow: const [
-                                BoxShadow(
+                              // boxShadow: const [
+                              //   BoxShadow(
+                              //       color: Colors.grey,
+                              //       blurRadius: 10,
+                              //       offset: Offset(0, 2))
+                              // ]
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: width * 0.04),
+                                  child: Text('Proceed To Checkout',
+                                      // // textScaleFactor: textScaleFactor,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: tabLayout
+                                              ? 35
+                                              : largeLayout
+                                                  ? 22
+                                                  : 18)),
+                                ),
+                                // Padding(
+                                //   padding: EdgeInsets.only(right: width * 0.04),
+                                //   child: Text(
+                                //       // '₹${provider['data']['grandTotal']}',
+                                //       '₹$totalAmount',
+                                //       style: TextStyle(
+                                //           color: Colors.black,
+                                //           fontWeight: FontWeight.bold,
+                                //           fontSize: tabLayout
+                                //               ? 35
+                                //               : largeLayout
+                                //                   ? 22
+                                //                   : 18)),
+                                // )
+                              ],
+                            ))
+                        : InkWell(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed('/checkout-screen', arguments: {
+                                'data': provider,
+                                'tax': taxCalculation,
+                                'discountCode': couponCode
+                              });
+                            },
+                            child: Container(
+                                width: double.infinity,
+                                height: tabLayout
+                                    ? height * 0.08
+                                    : largeLayout
+                                        ? height * 0.06
+                                        : height * 0.07,
+                                margin: EdgeInsets.only(
+                                    top: height > 800
+                                        ? height * 0.04
+                                        : height * 0.012,
+                                    bottom: height > 800 ? height * 0.04 : 0),
+                                decoration: BoxDecoration(
                                     color: Colors.green,
-                                    blurRadius: 10,
-                                    offset: Offset(0, 2))
-                              ]),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: width * 0.04),
-                                child: Text('Proceed To Checkout',
-                                    // // textScaleFactor: textScaleFactor,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: tabLayout
-                                            ? 35
-                                            : largeLayout
-                                                ? 22
-                                                : 18)),
-                              ),
-                              // Padding(
-                              //   padding: EdgeInsets.only(right: width * 0.04),
-                              //   child: Text(
-                              //       // '₹${provider['data']['grandTotal']}',
-                              //       '₹$totalAmount',
-                              //       style: TextStyle(
-                              //           color: Colors.black,
-                              //           fontWeight: FontWeight.bold,
-                              //           fontSize: tabLayout
-                              //               ? 35
-                              //               : largeLayout
-                              //                   ? 22
-                              //                   : 18)),
-                              // )
-                            ],
-                          )),
-                    ),
+                                    borderRadius: BorderRadius.circular(30),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.grey,
+                                          blurRadius: 10,
+                                          offset: Offset(0, 2))
+                                    ]),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: width * 0.04),
+                                      child: Text('Proceed To Checkout',
+                                          // // textScaleFactor: textScaleFactor,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: tabLayout
+                                                  ? 35
+                                                  : largeLayout
+                                                      ? 22
+                                                      : 18)),
+                                    ),
+                                    // Padding(
+                                    //   padding: EdgeInsets.only(right: width * 0.04),
+                                    //   child: Text(
+                                    //       // '₹${provider['data']['grandTotal']}',
+                                    //       '₹$totalAmount',
+                                    //       style: TextStyle(
+                                    //           color: Colors.black,
+                                    //           fontWeight: FontWeight.bold,
+                                    //           fontSize: tabLayout
+                                    //               ? 35
+                                    //               : largeLayout
+                                    //                   ? 22
+                                    //                   : 18)),
+                                    // )
+                                  ],
+                                )),
+                          ),
                   )
                 ],
               ),

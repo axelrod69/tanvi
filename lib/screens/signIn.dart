@@ -30,9 +30,10 @@ class SignIn extends StatelessWidget {
         // margin: EdgeInsets.only(top: height * 0.15),
         padding: EdgeInsets.only(
             top: !tabLayout && !largeLayout ? height * 0.05 : height * 0.11),
-        child: ListView(
+        child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Text(
@@ -49,7 +50,7 @@ class SignIn extends StatelessWidget {
                 style: TextStyle(
                     // fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(154, 154, 154, 1),
-                    fontSize: width * 0.03),
+                    fontSize: width * 0.04),
               ),
             ),
             SizedBox(height: height * 0.04),

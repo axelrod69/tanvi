@@ -197,8 +197,15 @@ class CategoryScreenState extends State<CategoryScreen> {
                             //   _categoryImages[index]['image'],
                             //   // fit: BoxFit.contain,
                             // ),
-                            child:
-                                Image.network(provider[index]['categoryImage']),
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                              child: Image.network(
+                                provider[index]['categoryImage'],
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                         // SizedBox(height: height * 0.04),

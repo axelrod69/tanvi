@@ -148,10 +148,10 @@ class ViewRecentState extends State<ViewRecent> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: tabLayout
-                                                ? 25
+                                                ? 23
                                                 : largeLayout
-                                                    ? 17
-                                                    : 12),
+                                                    ? 15
+                                                    : 10),
                                       ),
                                       SizedBox(height: height * 0.01),
                                       Text(
@@ -162,9 +162,9 @@ class ViewRecentState extends State<ViewRecent> {
                                             color: Colors.grey[600],
                                             fontWeight: FontWeight.bold,
                                             fontSize: tabLayout
-                                                ? 18
+                                                ? 16
                                                 : largeLayout
-                                                    ? 12
+                                                    ? 8
                                                     : 8),
                                       )
                                     ],
@@ -190,10 +190,10 @@ class ViewRecentState extends State<ViewRecent> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: tabLayout
-                                                ? 50
+                                                ? 45
                                                 : largeLayout
-                                                    ? 17
-                                                    : 12),
+                                                    ? 13
+                                                    : 10),
                                       ),
                                     ),
                                     InkWell(

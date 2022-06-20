@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../model/orderHistory/orderHistory.dart';
+import '../../screens/pendingOrdersPage.dart';
 
 class OrderHistory extends StatefulWidget {
   OrderHistoryState createState() => OrderHistoryState();
@@ -68,25 +69,26 @@ class OrderHistoryState extends State<OrderHistory> {
                               : 12),
                 ),
               ),
-              // Padding(
-              //   padding:
-              //       EdgeInsets.only(right: width * 0.02, top: height * 0.01),
-              //   child: InkWell(
-              //     onTap: () => Navigator.of(context).pushNamed('/order-screen'),
-              //     child: Text(
-              //       'View All',
-              //       // // textScaleFactor: textScaleFactor,
-              //       style: TextStyle(
-              //           color: Colors.black,
-              //           fontWeight: FontWeight.bold,
-              //           fontSize: tabLayout
-              //               ? 16
-              //               : largeLayout
-              //                   ? 12
-              //                   : 10),
-              //     ),
-              //   ),
-              // )
+              Padding(
+                padding:
+                    EdgeInsets.only(right: width * 0.02, top: height * 0.01),
+                child: InkWell(
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => PendingOrders())),
+                  child: Text(
+                    'View All',
+                    // // textScaleFactor: textScaleFactor,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: tabLayout
+                            ? 16
+                            : largeLayout
+                                ? 12
+                                : 10),
+                  ),
+                ),
+              )
             ],
           ),
           // SizedBox(height: height * 0.02),
@@ -113,47 +115,48 @@ class OrderHistoryState extends State<OrderHistory> {
                       // color: Colors.blue,
                       child: Row(
                         children: [
-                          for (int itemIndex = 0;
-                              itemIndex <
-                                  orderHistory['data'][index]['order_products']
-                                      .length;
-                              itemIndex++)
-                            Flexible(
-                              flex: !tabLayout && !largeLayout ? 2 : 1,
-                              child: Container(
-                                height: double.infinity,
-                                // color: Colors.pink,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: height * 0.01,
-                                    horizontal: width * 0.01),
-                                child: Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: height * 0.01,
-                                        horizontal: width * 0.01),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                            color: Colors.green,
-                                            width: 3,
-                                            style: BorderStyle.solid),
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                              color: Colors.grey,
-                                              blurRadius: 5,
-                                              offset: Offset(0, 2))
-                                        ]),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        'http://54.80.135.220${orderHistory['data'][index]['order_products'][itemIndex]['product']['main_image']}',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )),
-                              ),
-                            ),
+                          Flexible(
+                            flex: !tabLayout && !largeLayout ? 2 : 1,
+                            child: Icon(Icons.shopping_cart,
+                                size: tabLayout
+                                    ? 80
+                                    : largeLayout
+                                        ? 60
+                                        : 20),
+                            // child: Container(
+                            //   height: double.infinity,
+                            //   // color: Colors.pink,
+                            //   padding: EdgeInsets.symmetric(
+                            //       vertical: height * 0.01,
+                            //       horizontal: width * 0.01),
+                            //   child: Container(
+                            //       width: double.infinity,
+                            //       height: double.infinity,
+                            //       padding: EdgeInsets.symmetric(
+                            //           vertical: height * 0.01,
+                            //           horizontal: width * 0.01),
+                            //       decoration: BoxDecoration(
+                            //           color: Colors.white,
+                            //           border: Border.all(
+                            //               color: Colors.green,
+                            //               width: 3,
+                            //               style: BorderStyle.solid),
+                            //           borderRadius: BorderRadius.circular(20),
+                            //           boxShadow: const [
+                            //             BoxShadow(
+                            //                 color: Colors.grey,
+                            //                 blurRadius: 5,
+                            //                 offset: Offset(0, 2))
+                            //           ]),
+                            //       child: ClipRRect(
+                            //         borderRadius: BorderRadius.circular(20),
+                            //         child: Image.network(
+                            //           'http://54.80.135.220${orderHistory['data'][index]['order_products']['product']['main_image']}',
+                            //           fit: BoxFit.cover,
+                            //         ),
+                            //       )),
+                            // ),
+                          ),
                           Flexible(
                             flex: 3,
                             child: Container(
@@ -163,27 +166,20 @@ class OrderHistoryState extends State<OrderHistory> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  for (int itemIndex = 0;
-                                      itemIndex <
-                                          orderHistory['data'][index]
-                                                  ['order_products']
-                                              .length;
-                                      itemIndex++)
-                                    Text(
-                                      orderHistory['data'][index]
-                                              ['order_products'][itemIndex]
-                                          ['product']['name'],
-                                      // // textScaleFactor: textScaleFactor,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: tabLayout
-                                              ? 25
-                                              : largeLayout
-                                                  ? 16
-                                                  : 12),
-                                    ),
+                                  // Text(
+                                  //   orderHistory['data'][index]
+                                  //       ['order_products']['product']['name'],
+                                  //   // // textScaleFactor: textScaleFactor,
+                                  //   overflow: TextOverflow.ellipsis,
+                                  //   style: TextStyle(
+                                  //       color: Colors.black,
+                                  //       fontWeight: FontWeight.bold,
+                                  //       fontSize: tabLayout
+                                  //           ? 25
+                                  //           : largeLayout
+                                  //               ? 16
+                                  //               : 12),
+                                  // ),
                                   Text(
                                     'Order No = ${orderHistory['data'][index]['order_details']['order_number']}',
                                     // // textScaleFactor: textScaleFactor,
@@ -191,10 +187,10 @@ class OrderHistoryState extends State<OrderHistory> {
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         fontSize: tabLayout
-                                            ? 20
+                                            ? 25
                                             : largeLayout
-                                                ? 12
-                                                : 10),
+                                                ? 16
+                                                : 12),
                                   ),
                                   Text(
                                     orderHistory['data'][index]['order_details']
@@ -216,6 +212,15 @@ class OrderHistoryState extends State<OrderHistory> {
                                                 ? Colors.amber
                                                 : Colors.green,
                                         fontWeight: FontWeight.bold,
+                                        fontSize: tabLayout
+                                            ? 20
+                                            : largeLayout
+                                                ? 16
+                                                : 12),
+                                  ),
+                                  Text(
+                                    'No Of Item(s): ${orderHistory['data'][index]['order_products'].length}',
+                                    style: TextStyle(
                                         fontSize: tabLayout
                                             ? 20
                                             : largeLayout
