@@ -35,6 +35,19 @@ class CategoryListState extends State<CategoryList> {
     super.initState();
   }
 
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   Provider.of<CategoryProductsProvider>(context, listen: false)
+  //       .getCategoryProducts(widget.id)
+  //       .then((_) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
+  //   super.didChangeDependencies();
+  // }
+
   // Future<void> categoryCount() async {
   //   SharedPreferences localStorage = await SharedPreferences.getInstance();
   //   count = localStorage.getInt('categoryCounter')!;
@@ -646,19 +659,35 @@ class CategoryListState extends State<CategoryList> {
                                   ],
                                 ),
                                 SizedBox(height: height * 0.015),
-                                Container(
-                                  width: double.infinity,
-                                  // color: Colors.red,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text('View Details',
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                            '/item-details',
+                                            arguments: {
+                                              'id': provider['data'][index]
+                                                  ['id'],
+                                              'image': provider['data'][index]
+                                                  ['main_image'],
+                                              'name': provider['data'][index]
+                                                  ['name'],
+                                              'description': provider['data']
+                                                  [index]['description'],
+                                              'price': provider['data'][index]
+                                                  ['price'],
+                                              'quantity': provider['data']
+                                                  [index]['selectedQuantity'],
+                                            });
+                                      },
+                                      child: const Text('View Details',
                                           style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
+                                          )),
+                                    )
+                                  ],
                                 )
                               ],
                             ),

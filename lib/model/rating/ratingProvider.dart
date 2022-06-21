@@ -11,7 +11,8 @@ class RatingProvider with ChangeNotifier {
     return {..._ratings};
   }
 
-  Future<void> postRating(String productId, String rating) async {
+  Future<Map<String, dynamic>> postRating(
+      String productId, String rating) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/customer/product-review/');
 
@@ -25,6 +26,8 @@ class RatingProvider with ChangeNotifier {
     var res = json.decode(response.body);
 
     print('Rating Response: $res');
+
+    return res;
   }
 
   Future<void> getRatings() async {

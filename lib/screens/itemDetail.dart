@@ -218,16 +218,18 @@ class ItemDetailsState extends State<ItemDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(name,
-                            // textScaleFactor: textScaleFactor,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: tabLayout
-                                    ? 40
-                                    : largeLayout
-                                        ? 25
-                                        : 20)),
+                        FittedBox(
+                          child: Text(name,
+                              // textScaleFactor: textScaleFactor,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: tabLayout
+                                      ? 40
+                                      : largeLayout
+                                          ? 25
+                                          : 20)),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -250,14 +252,35 @@ class ItemDetailsState extends State<ItemDetails> {
                                     itemBuilder: (context, _) => const Icon(
                                         Icons.star,
                                         color: Colors.yellow),
-                                    onRatingUpdate: (double value) {
+                                    onRatingUpdate: (double value) async {
                                       setState(() {
                                         rating = value;
                                       });
-                                      Provider.of<RatingProvider>(context,
-                                              listen: false)
-                                          .postRating(
-                                              id.toString(), value.toString());
+                                      var res =
+                                          await Provider.of<RatingProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .postRating(id.toString(),
+                                                  value.toString());
+                                      if (res['error'] == false) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                backgroundColor: Colors.green,
+                                                content: Text(
+                                                  res['message'],
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                action: SnackBarAction(
+                                                    label: 'OK',
+                                                    textColor: Colors.white,
+                                                    onPressed: () =>
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar())));
+                                      }
                                     },
                                   ),
                                   Text('($rating)',
@@ -477,29 +500,39 @@ class ItemDetailsState extends State<ItemDetails> {
                                                 blurRadius: 5,
                                                 offset: Offset(0, 2))
                                           ]),
-                                      child: Image.network(
-                                          'http://54.80.135.220${productsProvider['data'][index]['main_image']}',
-                                          height: tabLayout
-                                              ? height * 0.12
-                                              : height * 0.1,
-                                          width: tabLayout
-                                              ? width * 0.18
-                                              : largeLayout
-                                                  ? height * 0.1
-                                                  : height * 0.13),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            !tabLayout && !largeLayout
+                                                ? 10
+                                                : 20),
+                                        child: Image.network(
+                                            'http://54.80.135.220${productsProvider['data'][index]['main_image']}',
+                                            height: tabLayout
+                                                ? height * 0.12
+                                                : height * 0.1,
+                                            width: tabLayout
+                                                ? width * 0.18
+                                                : largeLayout
+                                                    ? height * 0.1
+                                                    : height * 0.13),
+                                      ),
                                     ),
                                     SizedBox(height: height * 0.01),
-                                    Text(
-                                        productsProvider['data'][index]['name'],
-                                        // textScaleFactor: textScaleFactor,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: tabLayout
-                                                ? 20
-                                                : largeLayout
-                                                    ? 14
-                                                    : 12))
+                                    FittedBox(
+                                      fit: BoxFit.fill,
+                                      child: Text(
+                                          productsProvider['data'][index]
+                                              ['name'],
+                                          // textScaleFactor: textScaleFactor,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: tabLayout
+                                                  ? 20
+                                                  : largeLayout
+                                                      ? 14
+                                                      : 12)),
+                                    )
                                   ],
                                 ),
                               ),
