@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../model/addToCart/addToCart.dart';
 import '../../model/categoryProducts/categoryProductsProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import '../../model/addToCart/addToCart.dart';
 
 class CategoryList extends StatefulWidget {
   final int id;
@@ -27,8 +27,12 @@ class CategoryListState extends State<CategoryList> {
     Provider.of<CategoryProductsProvider>(context, listen: false)
         .getCategoryProducts(widget.id)
         .then((_) {
-      setState(() {
-        isLoading = false;
+      Provider.of<AddToCartProvider>(context, listen: false)
+          .getCartProducts()
+          .then((_) {
+        setState(() {
+          isLoading = false;
+        });
       });
     });
     // categoryCount();
@@ -271,122 +275,6 @@ class CategoryListState extends State<CategoryList> {
                                                                     FontWeight
                                                                         .bold,
                                                                 fontSize: 18)),
-                                                        // provider['data'][index][
-                                                        //             'isClicked'] ==
-                                                        //         false
-                                                        //     ? Container()
-                                                        //     : Expanded(
-                                                        //         child:
-                                                        //             Container(
-                                                        //         color:
-                                                        //             Colors.red,
-                                                        //         padding: EdgeInsets.only(
-                                                        //             top: height *
-                                                        //                 0.004,
-                                                        //             bottom:
-                                                        //                 height *
-                                                        //                     0.004),
-                                                        //         child: Row(
-                                                        //           mainAxisAlignment:
-                                                        //               MainAxisAlignment
-                                                        //                   .end,
-                                                        //           children: [
-                                                        //             InkWell(
-                                                        //               onTap:
-                                                        //                   () {
-                                                        //                 if (provider['data'][index]['selectedQuantity'] <
-                                                        //                     1) {
-                                                        //                   provider['data'][index]['selectedQuantity'] =
-                                                        //                       0;
-                                                        //                 } else {
-                                                        //                   setState(
-                                                        //                       () {
-                                                        //                     provider['data'][index]['selectedQuantity']--;
-                                                        //                   });
-                                                        //                 }
-                                                        //               },
-                                                        //               child:
-                                                        //                   Container(
-                                                        //                 decoration: const BoxDecoration(
-                                                        //                     shape:
-                                                        //                         BoxShape.circle,
-                                                        //                     boxShadow: [
-                                                        //                       BoxShadow(color: Colors.grey, blurRadius: 8, offset: Offset(1, 1))
-                                                        //                     ]),
-                                                        //                 child:
-                                                        //                     CircleAvatar(
-                                                        //                   backgroundColor:
-                                                        //                       Colors.white,
-                                                        //                   radius: tabLayout
-                                                        //                       ? 14
-                                                        //                       : largeLayout
-                                                        //                           ? 12
-                                                        //                           : 10,
-                                                        //                   child: const Icon(
-                                                        //                       Icons.remove,
-                                                        //                       color: Colors.black),
-                                                        //                 ),
-                                                        //               ),
-                                                        //             ),
-                                                        //             SizedBox(
-                                                        //                 width: width *
-                                                        //                     0.02),
-                                                        //             Text(
-                                                        //               provider['data'][index]
-                                                        //                       [
-                                                        //                       'selectedQuantity']
-                                                        //                   .toString(),
-                                                        //               style: TextStyle(
-                                                        //                   color: Colors.black,
-                                                        //                   fontWeight: FontWeight.bold,
-                                                        //                   fontSize: tabLayout
-                                                        //                       ? 25
-                                                        //                       : largeLayout
-                                                        //                           ? 18
-                                                        //                           : 10),
-                                                        //             ),
-                                                        //             SizedBox(
-                                                        //                 width: width *
-                                                        //                     0.02),
-                                                        //             InkWell(
-                                                        //               onTap:
-                                                        //                   () {
-                                                        //                 setState(
-                                                        //                     () {
-                                                        //                   provider['data'][index]
-                                                        //                       [
-                                                        //                       'selectedQuantity']++;
-                                                        //                 });
-                                                        //               },
-                                                        //               child:
-                                                        //                   Container(
-                                                        //                 decoration: const BoxDecoration(
-                                                        //                     shape:
-                                                        //                         BoxShape.circle,
-                                                        //                     boxShadow: [
-                                                        //                       BoxShadow(color: Colors.grey, blurRadius: 8, offset: Offset(1, 1))
-                                                        //                     ]),
-                                                        //                 child:
-                                                        //                     CircleAvatar(
-                                                        //                   backgroundColor:
-                                                        //                       Colors.white,
-                                                        //                   radius: tabLayout
-                                                        //                       ? 14
-                                                        //                       : largeLayout
-                                                        //                           ? 12
-                                                        //                           : 10,
-                                                        //                   child: const Icon(
-                                                        //                       Icons.add,
-                                                        //                       color: Colors.black),
-                                                        //                 ),
-                                                        //               ),
-                                                        //             ),
-                                                        //             SizedBox(
-                                                        //                 width: width *
-                                                        //                     0.035),
-                                                        //           ],
-                                                        //         ),
-                                                        //       ))
                                                       ])
                                                     ],
                                                   ),
@@ -399,12 +287,13 @@ class CategoryListState extends State<CategoryList> {
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     provider['data'][index][
-                                                                    'selectedQuantity'] <
-                                                                1 ||
-                                                            provider['data']
-                                                                        [index][
-                                                                    'isClicked'] ==
-                                                                true
+                                                                'selectedQuantity'] >
+                                                            1
+                                                        //     ||
+                                                        // provider['data']
+                                                        //             [index][
+                                                        //         'isClicked'] ==
+                                                        //     true
                                                         ? Container(
                                                             // color: Colors.red,
                                                             padding: EdgeInsets
@@ -424,12 +313,12 @@ class CategoryListState extends State<CategoryList> {
                                                                     if (provider['data'][index]
                                                                             [
                                                                             'selectedQuantity'] <
-                                                                        2) {
+                                                                        1) {
                                                                       provider['data']
                                                                               [
                                                                               index]
                                                                           [
-                                                                          'selectedQuantity'] = 1;
+                                                                          'selectedQuantity'] = 0;
                                                                     } else {
                                                                       setState(
                                                                           () {
