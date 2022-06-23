@@ -13,7 +13,8 @@ class CartScreenState extends State<CartScreen> {
   bool isLoading = true;
   Map<String, dynamic> updatedProducts = {};
   double totalPrice = 0.0;
-  double totalAmount = 0.0;
+  // double totalAmount = 0.0;
+  var totalAmount;
   double grand = 0.0;
   int index = 0;
   double tax = 0.0;
@@ -433,7 +434,7 @@ class CartScreenState extends State<CartScreen> {
                                     : largeLayout
                                         ? 22
                                         : 18)),
-                        Text('₹$totalAmount',
+                        Text(totalAmount == 0 ? '₹0' : '₹$totalAmount',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,

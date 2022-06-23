@@ -538,6 +538,7 @@ class ItemDetailsState extends State<ItemDetails> {
                               ),
                             ),
                             itemCount: productsProvider['data'].length,
+                            // itemCount: productsProvider['count'],
                           ),
                         )
                       ],

@@ -288,12 +288,7 @@ class CategoryListState extends State<CategoryList> {
                                                   children: [
                                                     provider['data'][index][
                                                                 'selectedQuantity'] >
-                                                            1
-                                                        //     ||
-                                                        // provider['data']
-                                                        //             [index][
-                                                        //         'isClicked'] ==
-                                                        //     true
+                                                            0
                                                         ? Container(
                                                             // color: Colors.red,
                                                             padding: EdgeInsets
@@ -325,8 +320,12 @@ class CategoryListState extends State<CategoryList> {
                                                                         provider['data'][index]
                                                                             [
                                                                             'selectedQuantity']--;
+                                                                        print(
+                                                                            'Decrease: ${provider['data'][index]['selectedQuantity']}');
                                                                       });
                                                                     }
+                                                                    print(
+                                                                        'Decrease Post SetState: ${provider['data'][index]['selectedQuantity']}');
                                                                     cartDecrease(
                                                                         provider['data'][index]
                                                                             [
@@ -334,6 +333,9 @@ class CategoryListState extends State<CategoryList> {
                                                                         provider['data'][index]
                                                                             [
                                                                             'selectedQuantity'],
+                                                                        provider['data'][index]
+                                                                            [
+                                                                            'cartId'],
                                                                         context,
                                                                         cartProvider);
                                                                   },
@@ -468,68 +470,76 @@ class CategoryListState extends State<CategoryList> {
                                                             child: Center(
                                                               child: InkWell(
                                                                 onTap: () {
+                                                                  // setState(() {
+                                                                  // provider['data']
+                                                                  //         [
+                                                                  //         index]
+                                                                  //     [
+                                                                  //     'isClicked'] = !provider['data']
+                                                                  //         [
+                                                                  //         index]
+                                                                  //     [
+                                                                  //     'isClicked'];
+                                                                  // print(
+                                                                  //     'Clicked: ${provider['data'][index]['isClicked']}');
+                                                                  // });
+                                                                  // if (provider['data']
+                                                                  //             [
+                                                                  //             index]
+                                                                  //         [
+                                                                  //         'selectedQuantity'] ==
+                                                                  //     0) {
+                                                                  //   ScaffoldMessenger.of(
+                                                                  //           context)
+                                                                  //       .showSnackBar(
+                                                                  //           SnackBar(
+                                                                  //     backgroundColor:
+                                                                  //         Colors
+                                                                  //             .green,
+                                                                  //     content:
+                                                                  //         const Text(
+                                                                  //       'Selected Quantity Must be 1 or more units',
+                                                                  //       style: TextStyle(
+                                                                  //           color:
+                                                                  //               Colors.white,
+                                                                  //           fontWeight: FontWeight.bold),
+                                                                  //     ),
+                                                                  //     action: SnackBarAction(
+                                                                  //         label:
+                                                                  //             'OK',
+                                                                  //         textColor: Colors
+                                                                  //             .white,
+                                                                  //         onPressed: () =>
+                                                                  //             ScaffoldMessenger.of(context).hideCurrentSnackBar()),
+                                                                  //   ));
+                                                                  // } else {
                                                                   setState(() {
                                                                     provider['data']
                                                                             [
                                                                             index]
                                                                         [
-                                                                        'isClicked'] = !provider['data']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'isClicked'];
-                                                                    print(
-                                                                        'Clicked: ${provider['data'][index]['isClicked']}');
+                                                                        'selectedQuantity'] = 1;
                                                                   });
-                                                                  if (provider['data']
+                                                                  cartAdd(
+                                                                      provider['data']
                                                                               [
                                                                               index]
                                                                           [
-                                                                          'selectedQuantity'] ==
-                                                                      0) {
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                            SnackBar(
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .green,
-                                                                      content:
-                                                                          const Text(
-                                                                        'Selected Quantity Must be 1 or more units',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            fontWeight: FontWeight.bold),
-                                                                      ),
-                                                                      action: SnackBarAction(
-                                                                          label:
-                                                                              'OK',
-                                                                          textColor: Colors
-                                                                              .white,
-                                                                          onPressed: () =>
-                                                                              ScaffoldMessenger.of(context).hideCurrentSnackBar()),
-                                                                    ));
-                                                                  } else {
-                                                                    cartAdd(
-                                                                        provider['data'][index]
-                                                                            [
-                                                                            'id'],
-                                                                        provider['data'][index]
-                                                                            [
-                                                                            'selectedQuantity'],
-                                                                        context,
-                                                                        cartProvider);
-                                                                  }
-                                                                },
-                                                                child: Text(
-                                                                  provider['data'][index]
+                                                                          'id'],
+                                                                      provider['data'][index]['selectedQuantity'] ==
+                                                                              0
+                                                                          ? 1
+                                                                          : provider['data'][index]
                                                                               [
-                                                                              'selectedQuantity'] ==
-                                                                          0
-                                                                      ? 'Add'
-                                                                      : 'Add x${provider['data'][index]['selectedQuantity']}',
-                                                                  style: const TextStyle(
+                                                                              'selectedQuantity'],
+                                                                      context,
+                                                                      cartProvider);
+                                                                  // }
+                                                                },
+                                                                child:
+                                                                    const Text(
+                                                                  'Add',
+                                                                  style: TextStyle(
                                                                       color: Colors
                                                                           .white,
                                                                       fontWeight:
@@ -604,15 +614,21 @@ class CategoryListState extends State<CategoryList> {
     localStorage.setInt('cartLength', provider['data']['cartItem'].length);
   }
 
-  void cartDecrease(int productId, int quantity, BuildContext context,
-      Map<String, dynamic> provider) async {
-    final response =
-        await Provider.of<AddToCartProvider>(context, listen: false)
-            .postToCart(productId, quantity);
-    final res = json.decode(response.body);
+  void cartDecrease(int productId, int quantity, int cartItemId,
+      BuildContext context, Map<String, dynamic> provider) async {
+    print('Cart Decreaseeeeeeeeeeeee: $quantity');
+    if (quantity < 1) {
+      await Provider.of<AddToCartProvider>(context, listen: false)
+          .deleteCartItem(cartItemId);
+    } else {
+      final response =
+          await Provider.of<AddToCartProvider>(context, listen: false)
+              .postToCart(productId, quantity);
+      final res = json.decode(response.body);
 
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    localStorage.setInt('cartLength', provider['data']['cartItem'].length);
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setInt('cartLength', provider['data']['cartItem'].length);
+    }
   }
 
   void cartAdd(int productId, int quantity, BuildContext context,

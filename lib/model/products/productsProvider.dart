@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductsProvider with ChangeNotifier {
   String baseUrl = 'http://54.80.135.220/';
@@ -18,8 +19,12 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> getProducts() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/products');
-    final response = await http.get(url);
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${localStorage.getString('token')}',
+      'Content-Type': 'application/json'
+    });
     _products = json.decode(response.body);
     print('Products: $_products');
   }

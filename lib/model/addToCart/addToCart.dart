@@ -119,7 +119,7 @@ class AddToCartProvider with ChangeNotifier {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${localStorage.getString('token')}'
     });
-    print(response.body);
+    print('Delete Response: ${response.body}');
     notifyListeners();
   }
 }

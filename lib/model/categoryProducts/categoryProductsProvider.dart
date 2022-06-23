@@ -31,7 +31,7 @@ class CategoryProductsProvider with ChangeNotifier {
       //   print(
       //       'Quantity: ${_categoryProducts['data'][index]['selectedQuantity']}');
       // }
-      print('Category Products $_categoryProducts');
+      print('Category Products: $_categoryProducts');
     } else {
       _categoryProducts = {'data': []};
     }
