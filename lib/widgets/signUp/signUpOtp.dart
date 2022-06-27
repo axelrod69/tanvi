@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,31 @@ class InputOTPState extends State<InputOTP> {
   String? _secondPin;
   String? _thirdPin;
   String? _fourthPin;
+  int seconds = 60;
+  bool isTimer = true;
+  Timer? timer;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    requestTimer();
+    super.initState();
+  }
+
+  void requestTimer() async {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (seconds == 0) {
+        setState(() {
+          isTimer = !isTimer;
+        });
+        timer.cancel();
+      } else {
+        setState(() {
+          seconds--;
+        });
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -701,20 +728,38 @@ class InputOTPState extends State<InputOTP> {
           ),
         ),
         SizedBox(height: height * 0.006),
-        InkWell(
-          onTap: () {
-            var data = {'mobile': mobile};
-            Provider.of<Network>(context, listen: false)
-                .logIn(data, 'api/resend-otp/');
-          },
-          child: Text(
-            'Didn\'t Receive OTP? Request Another',
-            style: TextStyle(
-                color: const Color.fromRGBO(154, 154, 154, 1),
-                fontWeight: FontWeight.bold,
-                fontSize: width * 0.04),
-          ),
-        )
+
+        isTimer
+            ? FittedBox(
+                child: Text(
+                  'Didn\'t Receive OTP? Request Another in $seconds seconds',
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 207, 206, 206),
+                      fontWeight: FontWeight.bold,
+                      fontSize: width * 0.04),
+                ),
+              )
+            : InkWell(
+                onTap: () {
+                  var data = {'mobile': mobile};
+                  Provider.of<Network>(context, listen: false)
+                      .logIn(data, 'api/resend-otp/')
+                      .then(() {
+                    setState(() {
+                      isTimer = !isTimer;
+                      seconds = 60;
+                    });
+                    requestTimer();
+                  });
+                },
+                child: Text(
+                  'Didn\'t Receive OTP? Request Another',
+                  style: TextStyle(
+                      color: const Color.fromRGBO(154, 154, 154, 1),
+                      fontWeight: FontWeight.bold,
+                      fontSize: width * 0.04),
+                ),
+              )
       ],
     );
   }
