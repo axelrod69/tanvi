@@ -31,6 +31,12 @@ class InputOTPState extends State<InputOTP> {
   bool isTimer = true;
   Timer? timer;
 
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  // }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,6 +46,23 @@ class InputOTPState extends State<InputOTP> {
 
   void requestTimer() async {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (seconds == 0) {
+        setState(() {
+          isTimer = !isTimer;
+        });
+        timer.cancel();
+      } else {
+        setState(() {
+          seconds--;
+        });
+      }
+    });
+  }
+
+  void restart() async {
+    seconds = 60;
+    isTimer = !isTimer;
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (seconds == 0) {
         setState(() {
           isTimer = !isTimer;
@@ -743,14 +766,13 @@ class InputOTPState extends State<InputOTP> {
                 onTap: () {
                   var data = {'mobile': mobile};
                   Provider.of<Network>(context, listen: false)
-                      .logIn(data, 'api/resend-otp/')
-                      .then(() {
-                    setState(() {
-                      isTimer = !isTimer;
-                      seconds = 60;
-                    });
-                    requestTimer();
+                      .logIn(data, 'api/resend-otp/');
+
+                  setState(() {
+                    isTimer = !isTimer;
+                    seconds = 60;
                   });
+                  requestTimer();
                 },
                 child: Text(
                   'Didn\'t Receive OTP? Request Another',
