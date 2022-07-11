@@ -268,7 +268,7 @@ class ViewRecentState extends State<ViewRecent> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: Image.network(
-                                                'http://54.80.135.220${provider['data'][index]['order_products'][itemDetails]['product']['main_image']}',
+                                                'http://34.100.212.22${provider['data'][index]['order_products'][itemDetails]['product']['main_image']}',
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -324,7 +324,7 @@ class ViewRecentState extends State<ViewRecent> {
                                 //                 borderRadius:
                                 //                     BorderRadius.circular(10),
                                 //                 child: Image.network(
-                                //                   'http://54.80.135.220${provider['data'][index]['order_products'][index]['product']['main_image']}',
+                                //                   'http://34.100.212.22${provider['data'][index]['order_products'][index]['product']['main_image']}',
                                 //                   fit: BoxFit.cover,
                                 //                 ),
                                 //               ),

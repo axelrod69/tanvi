@@ -151,7 +151,7 @@ class OrderHistoryState extends State<OrderHistory> {
                             //       child: ClipRRect(
                             //         borderRadius: BorderRadius.circular(20),
                             //         child: Image.network(
-                            //           'http://54.80.135.220${orderHistory['data'][index]['order_products']['product']['main_image']}',
+                            //           'http://34.100.212.22${orderHistory['data'][index]['order_products']['product']['main_image']}',
                             //           fit: BoxFit.cover,
                             //         ),
                             //       )),

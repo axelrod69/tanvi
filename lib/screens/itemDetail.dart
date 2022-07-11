@@ -203,7 +203,7 @@ class ItemDetailsState extends State<ItemDetails> {
                           //   image,
                           //   height: height * 0.2
                           //   ),
-                          child: Image.network('http://54.80.135.220$image',
+                          child: Image.network('http://34.100.212.22$image',
                               height: tabLayout ? height * 0.25 : height * 0.2),
                         )
                       ],
@@ -506,7 +506,7 @@ class ItemDetailsState extends State<ItemDetails> {
                                                 ? 10
                                                 : 20),
                                         child: Image.network(
-                                            'http://54.80.135.220${productsProvider['data'][index]['main_image']}',
+                                            'http://34.100.212.22${productsProvider['data'][index]['main_image']}',
                                             height: tabLayout
                                                 ? height * 0.12
                                                 : height * 0.1,

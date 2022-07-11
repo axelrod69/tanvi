@@ -52,7 +52,7 @@ dependencies:
 
 flutter_native_splash:
   color: '#f3f2f2'
-  image: assets/images/tanveeLogo.png
+  image: assets/images/tanveeLogoSplash.png
   android: true
   ios: true
 

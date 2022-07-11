@@ -221,9 +221,9 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                 : CircleAvatar(
                                                     radius: width * 0.06,
                                                     backgroundImage: NetworkImage(
-                                                        'http://54.80.135.220${profileProvider['data']['profile_pic']}'),
+                                                        'http://34.100.212.22${profileProvider['data']['profile_pic']}'),
                                                     // child: Image.network(
-                                                    //     'http://54.80.135.220${profileProvider['data']['profile_pic']}')
+                                                    //     'http://34.100.212.22${profileProvider['data']['profile_pic']}')
                                                   )
                                             : largeLayout
                                                 // ? Image.asset(
@@ -241,9 +241,9 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                         radius: 16,
                                                         backgroundImage:
                                                             NetworkImage(
-                                                                'http://54.80.135.220${profileProvider['data']['profile_pic']}'),
+                                                                'http://34.100.212.22${profileProvider['data']['profile_pic']}'),
                                                         // child: Image.network(
-                                                        //     'http://54.80.135.220${profileProvider['data']['profile_pic']}')
+                                                        //     'http://34.100.212.22${profileProvider['data']['profile_pic']}')
                                                       )
                                                 : profileProvider['data']
                                                             ['profile_pic'] ==
@@ -257,9 +257,9 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
                                                         radius: width * 0.09,
                                                         backgroundImage:
                                                             NetworkImage(
-                                                                'http://54.80.135.220${profileProvider['data']['profile_pic']}'),
+                                                                'http://34.100.212.22${profileProvider['data']['profile_pic']}'),
                                                         // child: Image.network(
-                                                        //     'http://54.80.135.220${profileProvider['data']['profile_pic']}')
+                                                        //     'http://34.100.212.22${profileProvider['data']['profile_pic']}')
                                                       ),
                                       )
                                     ],

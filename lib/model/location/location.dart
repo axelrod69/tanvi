@@ -11,7 +11,7 @@ class LocationProvider with ChangeNotifier {
     getLocation();
   }
 
-  String baseUrl = 'http://54.80.135.220';
+  String baseUrl = 'http://34.100.212.22';
 
   bool isLoading = true;
 

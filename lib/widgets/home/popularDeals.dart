@@ -152,7 +152,7 @@ class PopularDealsState extends State<PopularDeals> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(30),
                                       child: Image.network(
-                                        'http://54.80.135.220${provider['data'][index][0]['main_image']}',
+                                        'http://34.100.212.22${provider['data'][index][0]['main_image']}',
                                         fit: BoxFit.cover,
                                         width: tabLayout
                                             ? width * 0.35

@@ -92,7 +92,7 @@ class DiscountState extends State<Discount> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: Image.network(
-                                  'http://54.80.135.220${provider['data'][index]['offer_banner']}',
+                                  'http://34.100.212.22${provider['data'][index]['offer_banner']}',
                                   fit: BoxFit.cover,
                                 ),
                               ),

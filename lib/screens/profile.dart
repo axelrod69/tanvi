@@ -506,14 +506,13 @@ class ProfileState extends State<Profile> {
                                                         ? 70
                                                         : 50,
                                                 backgroundImage: NetworkImage(
-                                                    'http://54.80.135.220${profileProvider['data']['profile_pic']}'
-                                                    ),
+                                                    'http://34.100.212.22${profileProvider['data']['profile_pic']}'),
                                                 // child: ClipRRect(
                                                 //   borderRadius: tabLayout
                                                 //       ? BorderRadius.circular(80)
                                                 //       : BorderRadius.circular(70),
                                                 //   child: Image.network(
-                                                //       'http://54.80.135.220${profileProvider['data']['profile_pic']}'),
+                                                //       'http://34.100.212.22${profileProvider['data']['profile_pic']}'),
                                                 // ),
                                               ),
                                   ),

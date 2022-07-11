@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class PopularDealsProvider with ChangeNotifier {
-  String baseUrl = 'http://54.80.135.220/';
+  String baseUrl = 'http://34.100.212.22/';
   Map<String, dynamic> _popularDeals = {};
 
   Map<String, dynamic> get popularDeals {

@@ -270,7 +270,7 @@ class RecentItemsState extends State<RecentItems> {
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                   child: Image.network(
-                                                    'http://54.80.135.220${provider['data'][index]['order_products'][itemIndex]['product']['main_image']}',
+                                                    'http://34.100.212.22${provider['data'][index]['order_products'][itemIndex]['product']['main_image']}',
                                                     fit: BoxFit.cover,
                                                   ),
                                                 ),

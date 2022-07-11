@@ -149,7 +149,7 @@ class TopSellerState extends State<TopSeller> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
                                     child: Image.network(
-                                      'http://54.80.135.220${firstProvider[index]['main_image']}',
+                                      'http://34.100.212.22${firstProvider[index]['main_image']}',
                                       // scale: 0.6,
                                       fit: BoxFit.cover,
                                     ),
@@ -259,7 +259,7 @@ class TopSellerState extends State<TopSeller> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
                                     child: Image.network(
-                                      'http://54.80.135.220${secondProvider[index]['main_image']}',
+                                      'http://34.100.212.22${secondProvider[index]['main_image']}',
                                       fit: BoxFit.cover,
                                     ),
                                   ),

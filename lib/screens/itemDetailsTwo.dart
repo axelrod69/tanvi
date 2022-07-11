@@ -151,7 +151,7 @@ class ItemDetailsTwoState extends State<ItemDetailsTwo> {
                     //   image,
                     //   height: height * 0.2
                     //   ),
-                    child: Image.network('http://54.80.135.220$image',
+                    child: Image.network('http://34.100.212.22$image',
                         height: height * 0.2),
                   )
                 ],

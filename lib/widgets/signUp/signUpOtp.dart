@@ -809,7 +809,7 @@ class InputOTPState extends State<InputOTP> {
           .setAddress(name, mobile);
 
       // final url =
-      //     Uri.parse('http://54.80.135.220/api/customer/shipping-address/');
+      //     Uri.parse('http://34.100.212.22/api/customer/shipping-address/');
 
       // await http.post(url,
       //     body: json.encode({
@@ -834,7 +834,7 @@ class InputOTPState extends State<InputOTP> {
     //   //     .setAddress(name, mobile);
 
     //   // final url =
-    //   //     Uri.parse('http://54.80.135.220/api/customer/shipping-address/');
+    //   //     Uri.parse('http://34.100.212.22/api/customer/shipping-address/');
 
     //   // await http.post(url,
     //   //     body: json.encode({
@@ -884,7 +884,7 @@ class InputOTPState extends State<InputOTP> {
       //     .setAddress(name, mobile);
 
       // final url =
-      //     Uri.parse('http://54.80.135.220/api/customer/shipping-address/');
+      //     Uri.parse('http://34.100.212.22/api/customer/shipping-address/');
 
       // await http.post(url,
       //     body: json.encode({
@@ -909,7 +909,7 @@ class InputOTPState extends State<InputOTP> {
     //   //     .setAddress(name, mobile);
 
     //   // final url =
-    //   //     Uri.parse('http://54.80.135.220/api/customer/shipping-address/');
+    //   //     Uri.parse('http://34.100.212.22/api/customer/shipping-address/');
 
     //   // await http.post(url,
     //   //     body: json.encode({

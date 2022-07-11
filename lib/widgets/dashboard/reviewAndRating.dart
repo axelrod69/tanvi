@@ -108,7 +108,7 @@ class ReviewAndRatingState extends State<ReviewAndRating> {
                         child: Row(
                           children: [
                             Image.network(
-                              'http://54.80.135.220${provider['data'][index]['product']['main_image']}',
+                              'http://34.100.212.22${provider['data'][index]['product']['main_image']}',
                               // fit: BoxFit.cover,
                               scale: 0.6,
                             ),

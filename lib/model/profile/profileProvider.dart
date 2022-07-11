@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
 class ProfileProvider with ChangeNotifier {
-  String baseUrl = 'http://54.80.135.220/';
+  String baseUrl = 'http://34.100.212.22/';
   Map<String, dynamic> _profile = {};
 
   Map<String, dynamic> get profile {
@@ -39,7 +39,7 @@ class ProfileProvider with ChangeNotifier {
   //   print('Form Data: $formData');
 
   //   final response = await Dio().post(
-  //       'http://54.80.135.220/api/customer/my-details/',
+  //       'http://34.100.212.22/api/customer/my-details/',
   //       data: formData,
   //       options: Options(headers: {
   //         'Authorization': 'Bearer ${localStorage.getString('token')}'

@@ -19,7 +19,7 @@ class CategoryListState extends State<CategoryList> {
   // int count = 1;
   bool isLoading = true;
   bool isClicked = false;
-  String baseUrl = 'http://54.80.135.220';
+  String baseUrl = 'http://34.100.212.22';
 
   @override
   void initState() {
@@ -188,7 +188,7 @@ class CategoryListState extends State<CategoryList> {
                                                 width: 2.5),
                                             image: DecorationImage(
                                                 image: NetworkImage(
-                                                    'http://54.80.135.220${provider['data'][index]['main_image']}'),
+                                                    'http://34.100.212.22${provider['data'][index]['main_image']}'),
                                                 // scale: 1.5,
                                                 fit: BoxFit.cover),
                                             boxShadow: const [

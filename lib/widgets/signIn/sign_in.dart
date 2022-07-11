@@ -910,7 +910,7 @@ class FormWidgetState extends State<FormWidget> {
       await localStorage.setString('token', receivedResponse['access']);
       await localStorage.setString('refresh', receivedResponse['refresh']);
 
-      final url = Uri.parse('http://54.80.135.220/' + 'api/fcm-token/');
+      final url = Uri.parse('http://34.100.212.22/' + 'api/fcm-token/');
 
       // var responseFcm =
       //     await Provider.of<Network>(context, listen: false).fcmToken(fcm);
