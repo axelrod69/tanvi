@@ -10,18 +10,18 @@ class Categories extends StatefulWidget {
 class CategoriesState extends State<Categories> {
   bool isLoading = true;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    Provider.of<CategoryProvider>(context, listen: false)
-        .getCategory()
-        .then((_) {
-      setState(() {
-        isLoading = false;
-      });
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   Provider.of<CategoryProvider>(context, listen: false)
+  //       .getCategory()
+  //       .then((_) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -82,89 +82,91 @@ class CategoriesState extends State<Categories> {
               ),
             ),
             Expanded(
-              child: isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.green,
-                      ),
-                    )
-                  : Container(
-                      width: double.infinity,
-                      height: height * 0.1,
-                      margin: EdgeInsets.only(top: height * 0.01),
-                      padding: EdgeInsets.only(
-                          left: width * 0.02,
-                          top: height * 0.005,
-                          right: width * 0.02,
-                          bottom: height * 0.008),
-                      decoration: BoxDecoration(
-                        // color: Colors.red,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => Container(
-                          width: width * 0.3,
-                          height: height * 0.06,
-                          // padding: EdgeInsets.fromLTRB(width * 0.02, height * 0.01,
-                          //     width * 0.02, height * 0.01),
-                          margin: EdgeInsets.only(right: width * 0.02),
-                          padding: EdgeInsets.only(
-                              left: width * 0.02, right: width * 0.02),
-                          // color: Colors.green,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: height * 0.004),
-                                child: InkWell(
-                                  onTap: () => Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                    builder: (context) => CategoryList(
-                                        provider[index]['id'],
-                                        provider[index]['name']),
-                                  )),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: tabLayout
-                                        ? height * 0.14
-                                        : largeLayout
-                                            ? height * 0.12
-                                            : height * 0.15,
-                                    decoration: BoxDecoration(
-                                      color: Colors.green[100],
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        provider[index]['categoryImage'],
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
+              child:
+                  // isLoading
+                  //     ? const Center(
+                  //         child: CircularProgressIndicator(
+                  //           color: Colors.green,
+                  //         ),
+                  //       )
+                  //     :
+                  Container(
+                width: double.infinity,
+                height: height * 0.1,
+                margin: EdgeInsets.only(top: height * 0.01),
+                padding: EdgeInsets.only(
+                    left: width * 0.02,
+                    top: height * 0.005,
+                    right: width * 0.02,
+                    bottom: height * 0.008),
+                decoration: BoxDecoration(
+                  // color: Colors.red,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => Container(
+                    width: width * 0.3,
+                    height: height * 0.06,
+                    // padding: EdgeInsets.fromLTRB(width * 0.02, height * 0.01,
+                    //     width * 0.02, height * 0.01),
+                    margin: EdgeInsets.only(right: width * 0.02),
+                    padding: EdgeInsets.only(
+                        left: width * 0.02, right: width * 0.02),
+                    // color: Colors.green,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: height * 0.004),
+                          child: InkWell(
+                            onTap: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CategoryList(
+                                  provider[index]['id'],
+                                  provider[index]['name']),
+                            )),
+                            child: Container(
+                              width: double.infinity,
+                              height: tabLayout
+                                  ? height * 0.14
+                                  : largeLayout
+                                      ? height * 0.12
+                                      : height * 0.15,
+                              decoration: BoxDecoration(
+                                color: Colors.green[100],
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  provider[index]['categoryImage'],
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              SizedBox(height: height * 0.01),
-                              Text(
-                                provider[index]['name'],
-                                textAlign: TextAlign.center,
-                                // textScaleFactor: textScaleFactor,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: tabLayout
-                                        ? width * 0.02
-                                        : largeLayout
-                                            ? 14
-                                            : 12),
-                              )
-                            ],
+                            ),
                           ),
                         ),
-                        itemCount: provider.length,
-                      ),
+                        SizedBox(height: height * 0.01),
+                        Text(
+                          provider[index]['name'],
+                          textAlign: TextAlign.center,
+                          // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: tabLayout
+                                  ? width * 0.02
+                                  : largeLayout
+                                      ? 14
+                                      : 12),
+                        )
+                      ],
                     ),
+                  ),
+                  itemCount: provider.length,
+                ),
+              ),
             )
           ],
         ),

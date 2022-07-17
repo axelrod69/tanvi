@@ -36,6 +36,16 @@ class OrderProvider with ChangeNotifier {
   Future<Map<String, dynamic>> razorPayVerification(String orderNumber,
       String orderId, String paymentId, String signature) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
+
+    var body = {
+      'order_number': orderNumber,
+      'razorpay_order_id': orderId,
+      'razorpay_payment_id': paymentId,
+      'razorpay_signature': signature
+    };
+
+    print('PAYMENT ARGUMENTS: $body');
+
     final url =
         Uri.parse(baseUrl + 'api/customer/order-place-razorpay-verify/');
     final response = await http.post(url,

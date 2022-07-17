@@ -23,22 +23,44 @@ class CartScreenState extends State<CartScreen> {
   double amount = 0;
   String? minOrder;
 
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   Provider.of<AddToCartProvider>(context, listen: false)
+  //       .getCartProducts()
+  //       .then((_) {
+  //     setState(() {
+  //       totalAmount = Provider.of<AddToCartProvider>(context, listen: false)
+  //           .cartData['data']['grandTotal'];
+
+  //       isLoading = false;
+  //       // totalPrice = response['data']['grandTotal'];
+  //     });
+  //     print('Total Price: $totalPrice');
+  //   });
+  //   super.initState();
+  // }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
-    Provider.of<AddToCartProvider>(context, listen: false)
-        .getCartProducts()
-        .then((_) {
-      setState(() {
-        totalAmount = Provider.of<AddToCartProvider>(context, listen: false)
-            .cartData['data']['grandTotal'];
+    if (isLoading) {
+      Provider.of<AddToCartProvider>(context, listen: false)
+          .getCartProducts()
+          .then((_) {
+        print('Dependencies');
+        setState(() {
+          totalAmount = Provider.of<AddToCartProvider>(context, listen: false)
+              .cartData['data']['grandTotal'];
 
-        isLoading = false;
-        // totalPrice = response['data']['grandTotal'];
+          isLoading = false;
+          // totalPrice = response['data']['grandTotal'];
+        });
+        print('Total Price: $totalPrice');
+        getCoupon();
       });
-      print('Total Price: $totalPrice');
-    });
-    getCoupon();
+    }
+
     // getTotalPriceCalculation();
     // updateCart;
     // updateCall;
@@ -337,7 +359,6 @@ class CartScreenState extends State<CartScreen> {
                                                       provider['data']
                                                               ['cartItem']
                                                           [index]['id']);
-
                                               print('Rachhel Sekh');
                                             }
                                           });

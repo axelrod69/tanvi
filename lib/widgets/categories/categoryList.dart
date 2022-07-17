@@ -6,6 +6,7 @@ import '../../model/categoryProducts/categoryProductsProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import '../../model/addToCart/addToCart.dart';
+import '../bottomNavigation.dart';
 
 class CategoryList extends StatefulWidget {
   final int id;
@@ -83,7 +84,8 @@ class CategoryListState extends State<CategoryList> {
           title: Row(
             children: [
               InkWell(
-                onTap: () => Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CustomBottomNavigation())),
                 child: Container(
                   height: tabLayout
                       ? height * 0.07

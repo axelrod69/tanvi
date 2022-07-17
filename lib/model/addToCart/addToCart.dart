@@ -60,7 +60,7 @@ class AddToCartProvider with ChangeNotifier {
       _length = _cartData['data']['cartItem'].length;
       print(
           'Length Of Cartttttttttttttttttttttttttttttttttttttttttttttttttttttt: $_length');
-      // notifyListeners();
+      notifyListeners();
     } else {
       // if() {}
       _cartData = {

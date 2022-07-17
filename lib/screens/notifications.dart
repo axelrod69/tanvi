@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tanvi/widgets/bottomNavigation.dart';
+import 'package:provider/provider.dart';
+import '../model/notificationList/notificationList.dart';
 
 class Notifications extends StatefulWidget {
+  // final Map<String, dynamic> notificationList;
   NotificationsState createState() => NotificationsState();
+
+  // Notifications(this.notificationList);
 }
 
 class NotificationsState extends State<Notifications> {
@@ -26,11 +31,14 @@ class NotificationsState extends State<Notifications> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
+    final notificationProvider =
+        Provider.of<NotificationList>(context).notificationList;
 
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
         // leading: Padding(
@@ -75,18 +83,32 @@ class NotificationsState extends State<Notifications> {
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(right: width * 0.011),
-                    child: Text(
-                      _notifications[index],
-                      textScaleFactor: textScaleFactor,
-                      style: const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          notificationProvider['data'][index]
+                              ['notificationText'],
+                          // widget.notificationList['data'][index],
+                          textScaleFactor: textScaleFactor,
+                          style: const TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: height * 0.005),
+                        Text(
+                          notificationProvider['data'][index]['created_at'],
+                          style: const TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        )
+                      ],
                     ),
                   ),
                 )
               ],
             ),
           ),
-          itemCount: _notifications.length,
+          // itemCount: widget.notificationList['data'].length,
+          itemCount: notificationProvider['data'].length,
         ),
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

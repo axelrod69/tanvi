@@ -7,20 +7,20 @@ class TopSeller extends StatefulWidget {
 }
 
 class TopSellerState extends State<TopSeller> {
-  bool isLoading = true;
+  // bool isLoading = true;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    Provider.of<TopProductsProvider>(context, listen: false)
-        .getTopProducts()
-        .then((_) {
-      setState(() {
-        isLoading = false;
-      });
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   Provider.of<TopProductsProvider>(context, listen: false)
+  //       .getTopProducts()
+  //       .then((_) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
+  //   super.initState();
+  // }
 
   // final List<dynamic> _popularDeals = [
   //   {

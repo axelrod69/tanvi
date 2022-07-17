@@ -30,8 +30,13 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> searchProduct() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+
     final url = Uri.parse(baseUrl + 'api/products');
-    final response = await http.get(url);
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${localStorage.getString('token')}',
+      'Content-Type': 'application/json'
+    });
     _productsTest = json.decode(response.body);
     _searchProducts = [];
     _productsTest['data'].forEach((element) => _searchProducts.add(element));

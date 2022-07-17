@@ -11,18 +11,18 @@ class Discount extends StatefulWidget {
 class DiscountState extends State<Discount> {
   bool isLoading = true;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    Provider.of<CouponProvider>(context, listen: false)
-        .fetchCoupons()
-        .then((_) {
-      setState(() {
-        isLoading = false;
-      });
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   Provider.of<CouponProvider>(context, listen: false)
+  //       .fetchCoupons()
+  //       .then((_) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +34,15 @@ class DiscountState extends State<Discount> {
     final provider = Provider.of<CouponProvider>(context).coupon;
 
     // TODO: implement build
-    return isLoading
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Colors.green,
-            ),
-          )
-        : provider['data'].length == 0
+    return
+        // isLoading
+        //     ? const Center(
+        //         child: CircularProgressIndicator(
+        //           color: Colors.green,
+        //         ),
+        //       )
+        //     :
+        provider['data'].length == 0
             // : provider['data'] == []
             ? const Center(
                 child: Text('No Offers Available'),

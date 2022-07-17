@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../model/notificationList/notificationList.dart';
 
 class DashboardNotification extends StatefulWidget {
   DashboardNotificationState createState() => DashboardNotificationState();
@@ -10,6 +12,20 @@ class DashboardNotificationState extends State<DashboardNotification> {
     {'name': 'Your order has been delivered', 'time': '1h ago'},
     {'name': 'Your bag is out for delivery', 'time': '1d ago'},
   ];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<NotificationList>(context, listen: false)
+        .getNotificationList()
+        .then((_) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +33,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
     final width = MediaQuery.of(context).size.width;
     final tabLayout = width > 600;
     final largeLayout = width > 350 && width < 600;
+    final provider = Provider.of<NotificationList>(context).notificationList;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     // final textScaleFactorTwo = MediaQuery.of(context).textScaleFactor * 1.4;
 
@@ -95,8 +112,8 @@ class DashboardNotificationState extends State<DashboardNotification> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              _notification[index]['name'],
-                              overflow: TextOverflow.fade,
+                              provider['data'][index]['notificationText'],
+                              // overflow: TextOverflow.ellipsis,
                               // textScaleFactor: textScaleFactorTwo,
                               style: TextStyle(
                                   color: Colors.black,
@@ -108,7 +125,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
                                           : 10),
                             ),
                             Text(
-                              _notification[index]['time'],
+                              provider['data'][index]['created_at'],
                               // // textScaleFactor: textScaleFactor,
                               style: TextStyle(
                                   color: Colors.grey,
@@ -125,7 +142,7 @@ class DashboardNotificationState extends State<DashboardNotification> {
                     ],
                   ),
                 ),
-                itemCount: _notification.length,
+                itemCount: 3,
               ),
             ),
           )

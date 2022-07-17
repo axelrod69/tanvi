@@ -41,6 +41,7 @@ import './screens/newAddressSelect.dart';
 import './model/rating/ratingProvider.dart';
 import './screens/onBoardingScreen.dart';
 import './notificatonService/localNotification.dart';
+import './model/notificationList/notificationList.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data.toString());
@@ -52,6 +53,7 @@ void main() async {
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   LocalNotificationService.initialize();
+
   runApp(MyApp());
 }
 
@@ -114,14 +116,15 @@ class MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
         ChangeNotifierProvider(create: (context) => OrderHistoryProvider()),
         ChangeNotifierProvider(create: (context) => AddressProvider()),
-        ChangeNotifierProvider(create: (context) => RatingProvider())
+        ChangeNotifierProvider(create: (context) => RatingProvider()),
+        ChangeNotifierProvider(create: (context) => NotificationList())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             scaffoldBackgroundColor: const Color.fromRGBO(236, 236, 248, 1)),
-        // home: isAuth ? CustomBottomNavigation() : OnBoardingScreen(),
-        home: OnBoardingScreen(),
+        home: isAuth ? CustomBottomNavigation() : OnBoardingScreen(),
+        // home: OnBoardingScreen(),
         routes: {
           '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),
@@ -133,8 +136,8 @@ class MyAppState extends State<MyApp> {
           'item-details-two': (context) => ItemDetailsTwo(),
           '/cart-screen': (context) => CartScreen(),
           '/dashboard-screen': (context) => Dashboard(),
-          '/notification-screen': (context) => Notifications(),
-          '/profile-screen': (context) => Profile(),
+          // '/notification-screen': (context) => Notifications(),
+          // '/profile-screen': (context) => Profile(),
           '/checkout-screen': (context) => CheckOut(),
           '/otp-screen': (context) => OtpScreen(),
           '/change-location': (context) => ChangeLocation(),

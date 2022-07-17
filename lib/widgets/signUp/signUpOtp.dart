@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,13 @@ class InputOTPState extends State<InputOTP> {
   int seconds = 60;
   bool isTimer = true;
   Timer? timer;
+  String? fcm;
+  // bool isLoading = true;
+
+  Future<void> fcmCodeGenerate() async {
+    fcm = await FirebaseMessaging.instance.getToken();
+    print('FCM Codessssssssssssssssssss $fcm');
+  }
 
   // @override
   // void didChangeDependencies() {
@@ -40,6 +48,7 @@ class InputOTPState extends State<InputOTP> {
   @override
   void initState() {
     // TODO: implement initState
+    fcmCodeGenerate();
     requestTimer();
     super.initState();
   }
@@ -574,148 +583,6 @@ class InputOTPState extends State<InputOTP> {
             ],
           ),
         ),
-        // Form(
-        //   key: _key,
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //     children: [
-        //       Center(
-        //         child: Container(
-        //           width: width * 0.16,
-        //           height: height * 0.08,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(10),
-        //               color: Colors.white,
-        //               boxShadow: const [
-        //                 BoxShadow(
-        //                     color: Colors.grey,
-        //                     blurRadius: 8,
-        //                     offset: Offset(1, 2))
-        //               ]),
-        //           child: TextFormField(
-        //             showCursor: true,
-        //             cursorHeight: 45,
-        //             inputFormatters: [LengthLimitingTextInputFormatter(1)],
-        //             keyboardType: TextInputType.number,
-        //             style: const TextStyle(fontSize: 45),
-        //             textAlign: TextAlign.center,
-        //             obscureText: true,
-        //             obscuringCharacter: '*',
-        //             decoration: const InputDecoration(
-        //                 focusedBorder: InputBorder.none,
-        //                 border: InputBorder.none),
-        //             onFieldSubmitted: (_) =>
-        //                 FocusScope.of(context).requestFocus(_focusSecond),
-        //             validator: (first) {
-        //               _firstPin = first.toString();
-        //               return null;
-        //             },
-        //           ),
-        //         ),
-        //       ),
-        //       Center(
-        //         child: Container(
-        //           width: width * 0.16,
-        //           height: height * 0.08,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(10),
-        //               color: Colors.white,
-        //               boxShadow: const [
-        //                 BoxShadow(
-        //                     color: Colors.grey,
-        //                     blurRadius: 8,
-        //                     offset: Offset(1, 2))
-        //               ]),
-        //           child: TextFormField(
-        //               showCursor: true,
-        //               cursorHeight: 45,
-        //               inputFormatters: [LengthLimitingTextInputFormatter(1)],
-        //               keyboardType: TextInputType.number,
-        //               // focusNode: _focusSecond,
-        //               style: const TextStyle(fontSize: 45),
-        //               textAlign: TextAlign.center,
-        //               obscureText: true,
-        //               obscuringCharacter: '*',
-        //               decoration: const InputDecoration(
-        //                   focusedBorder: InputBorder.none,
-        //                   border: InputBorder.none),
-        //               onFieldSubmitted: (_) =>
-        //                   FocusScope.of(context).requestFocus(_focusThird),
-        //               validator: (second) {
-        //                 _secondPin = second.toString();
-        //                 return null;
-        //               }),
-        //         ),
-        //       ),
-        //       Center(
-        //         child: Container(
-        //           width: width * 0.16,
-        //           height: height * 0.08,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(10),
-        //               color: Colors.white,
-        //               boxShadow: const [
-        //                 BoxShadow(
-        //                     color: Colors.grey,
-        //                     blurRadius: 8,
-        //                     offset: Offset(1, 2))
-        //               ]),
-        //           child: TextFormField(
-        //               showCursor: true,
-        //               cursorHeight: 45,
-        //               inputFormatters: [LengthLimitingTextInputFormatter(1)],
-        //               // focusNode: _focusThird,
-        //               keyboardType: TextInputType.number,
-        //               style: const TextStyle(fontSize: 45),
-        //               textAlign: TextAlign.center,
-        //               obscureText: true,
-        //               obscuringCharacter: '*',
-        //               decoration: const InputDecoration(
-        //                   focusedBorder: InputBorder.none,
-        //                   border: InputBorder.none),
-        //               onFieldSubmitted: (_) =>
-        //                   FocusScope.of(context).requestFocus(_focusFourth),
-        //               validator: (third) {
-        //                 _thirdPin = third.toString();
-        //                 return null;
-        //               }),
-        //         ),
-        //       ),
-        //       Center(
-        //         child: Container(
-        //           width: width * 0.16,
-        //           height: height * 0.08,
-        //           decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(10),
-        //               color: Colors.white,
-        //               boxShadow: const [
-        //                 BoxShadow(
-        //                     color: Colors.grey,
-        //                     blurRadius: 8,
-        //                     offset: Offset(1, 2))
-        //               ]),
-        //           child: TextFormField(
-        //               showCursor: true,
-        //               cursorHeight: 45,
-        //               inputFormatters: [LengthLimitingTextInputFormatter(1)],
-        //               // focusNode: _focusFourth,
-        //               keyboardType: TextInputType.number,
-        //               style: const TextStyle(fontSize: 45),
-        //               textAlign: TextAlign.center,
-        //               obscureText: true,
-        //               obscuringCharacter: '*',
-        //               decoration: const InputDecoration(
-        //                   focusedBorder: InputBorder.none,
-        //                   border: InputBorder.none),
-        //               validator: (fourth) {
-        //                 _fourthPin = fourth.toString();
-        //                 return null;
-        //               }),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
         SizedBox(height: height * 0.045),
         InkWell(
           onTap: () {
@@ -751,7 +618,6 @@ class InputOTPState extends State<InputOTP> {
           ),
         ),
         SizedBox(height: height * 0.006),
-
         isTimer
             ? FittedBox(
                 child: Text(
@@ -802,11 +668,27 @@ class InputOTPState extends State<InputOTP> {
         'Otp has been matched successfully. Please Validate your Account') {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
+
       await localStorage.setString('token', receivedResponse['access']);
       await localStorage.setString('refresh', receivedResponse['refresh']);
 
       Provider.of<LocationProvider>(context, listen: false)
           .setAddress(name, mobile);
+
+      final url = Uri.parse('http://34.100.212.22/' + 'api/fcm-token/');
+
+      // var responseFcm =
+      //     await Provider.of<Network>(context, listen: false).fcmToken(fcm);
+
+      var responseFcm =
+          await http.post(url, body: json.encode({'fcm_token': fcm}), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${localStorage.getString('token')}'
+      });
+
+      print('FCM RESPONSE TOKEN: ${responseFcm.body}');
+
+      // Navigator.of(context).pushNamed('/landing-page');
 
       // final url =
       //     Uri.parse('http://34.100.212.22/api/customer/shipping-address/');
@@ -879,6 +761,16 @@ class InputOTPState extends State<InputOTP> {
       // SharedPreferences refreshStorage = await SharedPreferences.getInstance();
       await localStorage.setString('token', receivedResponse['access']);
       await localStorage.setString('refresh', receivedResponse['refresh']);
+
+      final url = Uri.parse('http://34.100.212.22/' + 'api/fcm-token/');
+
+      var responseFcm =
+          await http.post(url, body: json.encode({'fcm_token': fcm}), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${localStorage.getString('token')}'
+      });
+
+      print('FCM RESPONSE TOKEN: ${responseFcm.body}');
 
       // Provider.of<LocationProvider>(context, listen: false)
       //     .setAddress(name, mobile);
