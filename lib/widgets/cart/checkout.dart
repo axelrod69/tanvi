@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,6 +8,7 @@ import '../../model/order/orderProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../screens/paymentLoadingScreen.dart';
 import '../../model/address/addressProvider.dart';
+import '../../model/profile/profileProvider.dart';
 
 class CheckOut extends StatefulWidget {
   CheckOutState createState() => CheckOutState();
@@ -24,11 +27,12 @@ class CheckOutState extends State<CheckOut> {
   String? responsePaymentId;
   String? responseSignature;
   String? receipt;
+  Map<String, dynamic>? data;
 
   @override
   void initState() {
     // TODO: implement initState
-
+    data = Provider.of<ProfileProvider>(context, listen: false).profile;
     super.initState();
     getCoupon();
     razorpay = Razorpay();
@@ -71,12 +75,17 @@ class CheckOutState extends State<CheckOut> {
   }
 
   Future<void> razorPayCheckout() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
     try {
-      Provider.of<OrderProvider>(context, listen: false)
+      var response = Provider.of<OrderProvider>(context, listen: false)
           .postRazorPayOrder()
           .then((_) {
         receipt = Provider.of<OrderProvider>(context, listen: false)
             .orderId['data']['receipt'];
+
+        print(
+            'ORDER IDDDDDDDDDDDDDDDDDDD: ${Provider.of<OrderProvider>(context, listen: false).orderId['data']['id']}');
+
         var options = {
           'key': 'rzp_test_EK1Fh8he18fUGa',
           'amount': Provider.of<OrderProvider>(context, listen: false)
@@ -87,11 +96,16 @@ class CheckOutState extends State<CheckOut> {
               .orderId['data']['id'],
           // 'order_id': 'order_JWg1YWglJjXPak',
           // 'description': 'Fine T-Shirt',
-          'prefill': {'contact': '+919831405393', 'email': 'siddc.8@gmail.com'}
+          'prefill': {
+            'contact': data!['data']['mobile'],
+            'email': data!['data']['email']
+          }
         };
         print('OPTIONS $options');
         razorpay.open(options);
       });
+
+      print('RESPONSEEEEEEEEEEEEEEEEEEEEEEE; $response');
       // Provider.of<OrderProvider>(context, listen: false)
       //     .postRazorpayTest()
       //     .then((_) {
@@ -117,6 +131,8 @@ class CheckOutState extends State<CheckOut> {
       //   print('OPTIONS $options');
       //   razorpay.open(options);
       // });
+      localStorage.remove('couponCode');
+      localStorage.remove('couponAmount');
     } catch (e) {
       debugPrint('Error: e');
     }

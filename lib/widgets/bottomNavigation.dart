@@ -23,10 +23,12 @@ class CustomBottomNavigation extends StatefulWidget {
   CustomBottomNavigationState createState() => CustomBottomNavigationState();
 }
 
-class CustomBottomNavigationState extends State<CustomBottomNavigation> {
+class CustomBottomNavigationState extends State<CustomBottomNavigation>
+    with WidgetsBindingObserver {
   int index = 2;
   bool isLoading = true;
   int length = 0;
+  var data;
 
   @override
   void initState() {
@@ -85,13 +87,19 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
             .length;
       });
     });
-
+    // WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   WidgetsBinding.instance.removeObserver(this);
+  //   super.dispose();
+  // }
+
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     Provider.of<AddToCartProvider>(context, listen: false)
         .getCartProducts()
         .then((_) {
@@ -99,6 +107,8 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
           .cartData['data']['cartItem']
           .length;
     });
+    // TODO: implement didChangeDependencies
+
     super.didChangeDependencies();
   }
 
@@ -114,8 +124,14 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation> {
   //   // TODO: implement didChangeAppLifecycleState
   //   print('State: $state');
   //   if (state == AppLifecycleState.resumed) {
-  //     Provider.of<AddToCartProvider>(context, listen: false).getCartProducts();
-  //     print('LOGGGGGGG: $length');
+  //     setState(() {
+  //       Provider.of<AddToCartProvider>(context, listen: false)
+  //           .getCartProducts();
+  //       length = Provider.of<AddToCartProvider>(context, listen: false)
+  //           .cartData['data']['cartItem']
+  //           .length;
+  //       print('LOGGGGGGG: $length');
+  //     });
   //   }
   //   super.didChangeAppLifecycleState(state);
   // }
