@@ -1,4 +1,4 @@
-package com.example.tanvi
+package com.tanvee.tanvi
 
 import io.flutter.embedding.android.FlutterActivity
 

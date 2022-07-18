@@ -49,6 +49,7 @@ dependencies:
   firebase_messaging: ^11.4.1
   flutter_local_notifications: ^9.6.0
   expandable: ^5.0.1
+  
 
 flutter_native_splash:
   color: '#f3f2f2'
@@ -64,6 +65,12 @@ flutter_native_splash:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.3
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo-4.png"  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
