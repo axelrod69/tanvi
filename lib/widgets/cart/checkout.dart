@@ -92,6 +92,31 @@ class CheckOutState extends State<CheckOut> {
         print('OPTIONS $options');
         razorpay.open(options);
       });
+      // Provider.of<OrderProvider>(context, listen: false)
+      //     .postRazorpayTest()
+      //     .then((_) {
+      //   // receipt = Provider.of<OrderProvider>(context, listen: false)
+      //   //     .orderId['data']['receipt'];
+      //   receipt = Provider.of<OrderProvider>(context, listen: false)
+      //       .orderId['razorpay_order']['id'];
+      //   var options = {
+      //     'key': 'rzp_test_EK1Fh8he18fUGa',
+      //     // 'amount': Provider.of<OrderProvider>(context, listen: false)
+      //     //         .orderId['data']['amount_due'] /
+      //     //     100,
+      //     'amount': 500,
+      //     'name': 'Tanvee Order',
+      //     // 'order_id': Provider.of<OrderProvider>(context, listen: false)
+      //     //     .orderId['data']['id'],
+      //     'order_id': Provider.of<OrderProvider>(context, listen: false)
+      //         .orderId['razorpay_order']['id'],
+      //     // 'order_id': 'order_JWg1YWglJjXPak',
+      //     // 'description': 'Fine T-Shirt',
+      //     'prefill': {'contact': '+919831405393', 'email': 'siddc.8@gmail.com'}
+      //   };
+      //   print('OPTIONS $options');
+      //   razorpay.open(options);
+      // });
     } catch (e) {
       debugPrint('Error: e');
     }

@@ -16,6 +16,18 @@ class OrderProvider with ChangeNotifier {
     return {..._verification};
   }
 
+  Future<Map<String, dynamic>> postRazorpayTest() async {
+    final url = Uri.parse(baseUrl + 'api/customer/order-payment/create/');
+
+    final response = await http.post(url);
+
+    _orderId = json.decode(response.body);
+
+    print('ORDER ID: $_orderId');
+
+    return _orderId;
+  }
+
   Future<Map<String, dynamic>> postRazorPayOrder() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/customer/order-place-razorpay/');

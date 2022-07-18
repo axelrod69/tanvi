@@ -23,8 +23,7 @@ class CustomBottomNavigation extends StatefulWidget {
   CustomBottomNavigationState createState() => CustomBottomNavigationState();
 }
 
-class CustomBottomNavigationState extends State<CustomBottomNavigation>
-    with WidgetsBindingObserver {
+class CustomBottomNavigationState extends State<CustomBottomNavigation> {
   int index = 2;
   bool isLoading = true;
   int length = 0;
@@ -38,39 +37,39 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation>
     Provider.of<ProfileProvider>(context, listen: false)
         .getProfileDetails()
         .then((_) {
-      Provider.of<AddressProvider>(context, listen: false)
-          .getDefaultAddress()
+      Provider.of<AddToCartProvider>(context, listen: false)
+          .getCartProducts()
           .then((_) {
-        // Provider.of<OrderHistoryProvider>(context, listen: false)
-        //     .getOrderHistory()
-        //     .then((_) {
-        Provider.of<CouponProvider>(context, listen: false)
-            .fetchCoupons()
+        Provider.of<AddressProvider>(context, listen: false)
+            .getDefaultAddress()
             .then((_) {
-          Provider.of<PopularDealsProvider>(context, listen: false)
-              .getPopularDeals()
+          // Provider.of<OrderHistoryProvider>(context, listen: false)
+          //     .getOrderHistory()
+          //     .then((_) {
+          Provider.of<CouponProvider>(context, listen: false)
+              .fetchCoupons()
               .then((_) {
-            Provider.of<CategoryProvider>(context, listen: false)
-                .getCategory()
+            Provider.of<PopularDealsProvider>(context, listen: false)
+                .getPopularDeals()
                 .then((_) {
-              Provider.of<WishListProvider>(context, listen: false)
-                  .fetchProducts()
+              Provider.of<CategoryProvider>(context, listen: false)
+                  .getCategory()
                   .then((_) {
-                Provider.of<TopProductsProvider>(context, listen: false)
-                    .getTopProducts()
+                Provider.of<WishListProvider>(context, listen: false)
+                    .fetchProducts()
                     .then((_) {
-                  Provider.of<OrderHistoryProvider>(context, listen: false)
-                      .getOrderHistory()
+                  Provider.of<TopProductsProvider>(context, listen: false)
+                      .getTopProducts()
                       .then((_) {
-                    Provider.of<NotificationList>(context, listen: false)
-                        .getNotificationList()
+                    Provider.of<OrderHistoryProvider>(context, listen: false)
+                        .getOrderHistory()
                         .then((_) {
-                      setState(() {
-                        isLoading = false;
-                        length = Provider.of<AddToCartProvider>(context,
-                                listen: false)
-                            .cartData['data']['cartItem']
-                            .length;
+                      Provider.of<NotificationList>(context, listen: false)
+                          .getNotificationList()
+                          .then((_) {
+                        setState(() {
+                          isLoading = false;
+                        });
                       });
                     });
                   });
@@ -80,161 +79,45 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation>
           });
         });
       });
+      setState(() {
+        length = Provider.of<AddToCartProvider>(context, listen: false)
+            .cartData['data']['cartItem']
+            .length;
+      });
     });
+
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
-    if (isLoading == true) {
-      Provider.of<AddToCartProvider>(context, listen: false)
-          .getCartProducts()
-          .then((_) {
-        setState(() {
-          length = Provider.of<AddToCartProvider>(context, listen: false)
-              .cartData['data']['cartItem']
-              .length;
-        });
-      });
-    }
-
+    Provider.of<AddToCartProvider>(context, listen: false)
+        .getCartProducts()
+        .then((_) {
+      length = Provider.of<AddToCartProvider>(context, listen: false)
+          .cartData['data']['cartItem']
+          .length;
+    });
     super.didChangeDependencies();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
-    print('State: $state');
-    if (state == AppLifecycleState.resumed) {
-      Provider.of<AddToCartProvider>(context, listen: false).getCartProducts();
-      print('LOGGGGGGG: $length');
-    }
-    super.didChangeAppLifecycleState(state);
-  }
-
   // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   Provider.of<Network>(context, listen: false).getToken();
-  //   length = Provider.of<AddToCartProvider>(context, listen: false).length;
-  //   print('LENGTH: $length');
-  //   Provider.of<AddToCartProvider>(context, listen: false)
-  //       .getCartProducts()
-  //       .then((_) {
-  //     Provider.of<ProfileProvider>(context, listen: false)
-  //         .getProfileDetails()
-  //         .then((_) {
-  //       Provider.of<AddressProvider>(context, listen: false)
-  //           .getDefaultAddress()
-  //           .then((_) {
-  //         // Provider.of<OrderHistoryProvider>(context, listen: false)
-  //         //     .getOrderHistory()
-  //         //     .then((_) {
-  //         Provider.of<CouponProvider>(context, listen: false)
-  //             .fetchCoupons()
-  //             .then((_) {
-  //           Provider.of<PopularDealsProvider>(context, listen: false)
-  //               .getPopularDeals()
-  //               .then((_) {
-  //             Provider.of<CategoryProvider>(context, listen: false)
-  //                 .getCategory()
-  //                 .then((_) {
-  //               Provider.of<WishListProvider>(context, listen: false)
-  //                   .fetchProducts()
-  //                   .then((_) {
-  //                 Provider.of<TopProductsProvider>(context, listen: false)
-  //                     .getTopProducts()
-  //                     .then((_) {
-  //                   Provider.of<OrderHistoryProvider>(context, listen: false)
-  //                       .getOrderHistory()
-  //                       .then((_) {
-  //                     Provider.of<NotificationList>(context, listen: false)
-  //                         .getNotificationList()
-  //                         .then((_) {
-  //                       setState(() {
-  //                         isLoading = false;
-
-  //                         length = Provider.of<AddToCartProvider>(context,
-  //                                 listen: false)
-  //                             .cartData['data']['cartItem']
-  //                             .length;
-  //                       });
-  //                     });
-  //                   });
-  //                 });
-  //               });
-  //             });
-  //           });
-  //         });
-  //       });
-  //     });
-  //   });
-  //   super.didChangeDependencies();
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   WidgetsBinding.instance.removeObserver(this);
+  //   super.dispose();
   // }
 
   // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   setState(() {
-  //     length = Provider.of<AddToCartProvider>(context, listen: false)
-  //         .cartData['data']['cartItem']
-  //         .length;
-  //   });
-  //   super.didChangeDependencies();
-  // }
-
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   setState(() {
-  //     length = Provider.of<AddToCartProvider>(context, listen: false)
-  //         .cartData['data']['cartItem']
-  //         .length;
-  //   });
-  //   super.didChangeDependencies();
-  // }
-
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   Provider.of<Network>(context, listen: false).getToken();
-  //   Provider.of<AddToCartProvider>(context, listen: false).length;
-  //   Provider.of<AddToCartProvider>(context, listen: false)
-  //       .getCartProducts()
-  //       .then((_) {
-  //     Provider.of<ProfileProvider>(context, listen: false)
-  //         .getProfileDetails()
-  //         .then((_) {
-  //       Provider.of<AddressProvider>(context, listen: false)
-  //           .getDefaultAddress()
-  //           .then((_) {
-  //         // Provider.of<OrderHistoryProvider>(context, listen: false)
-  //         //     .getOrderHistory()
-  //         //     .then((_) {
-  //         setState(() {
-  //           isLoading = false;
-  //         });
-
-  //         // });
-  //       });
-  //     });
-  //     setState(() {
-  //       length = Provider.of<AddToCartProvider>(context, listen: false)
-  //           .cartData['data']['cartItem']
-  //           .length;
-  //     });
-  //   });
-
-  //   super.didChangeDependencies();
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   // TODO: implement didChangeAppLifecycleState
+  //   print('State: $state');
+  //   if (state == AppLifecycleState.resumed) {
+  //     Provider.of<AddToCartProvider>(context, listen: false).getCartProducts();
+  //     print('LOGGGGGGG: $length');
+  //   }
+  //   super.didChangeAppLifecycleState(state);
   // }
 
   @override

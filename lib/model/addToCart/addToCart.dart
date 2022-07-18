@@ -6,11 +6,16 @@ import 'dart:convert';
 class AddToCartProvider with ChangeNotifier {
   String baseUrl = 'http://34.100.212.22/';
   Map<String, dynamic> _cartData = {};
+  List<dynamic> _cartList = [];
   int _length = 0;
   // Map<String, String> _cart = {};
 
   Map<String, dynamic> get cartData {
     return {..._cartData};
+  }
+
+  List<dynamic> get cartList {
+    return [..._cartList];
   }
 
   int get length {
@@ -57,6 +62,7 @@ class AddToCartProvider with ChangeNotifier {
     // print('Cart Data $res');
     if (response.statusCode == 200) {
       _cartData = json.decode(response.body);
+      _cartList = _cartData['data']['cartItem'];
       _length = _cartData['data']['cartItem'].length;
       print(
           'Length Of Cartttttttttttttttttttttttttttttttttttttttttttttttttttttt: $_length');
@@ -109,6 +115,7 @@ class AddToCartProvider with ChangeNotifier {
     });
     var res = json.decode(response.body);
     print('Edit Cart Item $res');
+    notifyListeners();
     return res;
   }
 

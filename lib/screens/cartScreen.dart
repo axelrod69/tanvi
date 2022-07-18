@@ -41,26 +41,37 @@ class CartScreenState extends State<CartScreen> {
   //   super.initState();
   // }
 
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   Provider.of<AddToCartProvider>(context, listen: false)
+  //       .getCartProducts()
+  //       .then((_) {
+  //     setState(() {
+  //       totalAmount = Provider.of<AddToCartProvider>(context, listen: false)
+  //           .cartData['data']['grandTotal'];
+  //     });
+  //     getCoupon();
+  //   });
+  //   super.didChangeDependencies();
+  // }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
-    if (isLoading) {
-      Provider.of<AddToCartProvider>(context, listen: false)
-          .getCartProducts()
-          .then((_) {
-        print('Dependencies');
-        setState(() {
-          totalAmount = Provider.of<AddToCartProvider>(context, listen: false)
-              .cartData['data']['grandTotal'];
+    Provider.of<AddToCartProvider>(context, listen: false)
+        .getCartProducts()
+        .then((_) {
+      setState(() {
+        totalAmount = Provider.of<AddToCartProvider>(context, listen: false)
+            .cartData['data']['grandTotal'];
 
-          isLoading = false;
-          // totalPrice = response['data']['grandTotal'];
-        });
-        print('Total Price: $totalPrice');
-        getCoupon();
+        isLoading = false;
+        // totalPrice = response['data']['grandTotal'];
       });
-    }
-
+      print('Total Price: $totalPrice');
+    });
+    getCoupon();
     // getTotalPriceCalculation();
     // updateCart;
     // updateCall;
@@ -144,6 +155,7 @@ class CartScreenState extends State<CartScreen> {
     final width = MediaQuery.of(context).size.width;
     // final textScaleFactor = MediaQuery.of(context).textScaleFactor * 1.2;
     final provider = Provider.of<AddToCartProvider>(context).cartData;
+    final listProvider = Provider.of<AddToCartProvider>(context).cartList;
 
     var price = 0.0;
     final tabLayout = width > 600;
@@ -270,6 +282,7 @@ class CartScreenState extends State<CartScreen> {
                                           child: Image.network(
                                             provider['data']['cartItem'][index]
                                                 ['mainImage'],
+                                            // listProvider[index]['mainImage'],
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -290,6 +303,7 @@ class CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text(
                                               '₹${provider['data']['cartItem'][index]['price']}',
+                                              // '₹${listProvider[index]['price']}',
                                               // price.toString(),
                                               // // textScaleFactor: textScaleFactor,
                                               style: TextStyle(
@@ -301,6 +315,8 @@ class CartScreenState extends State<CartScreen> {
                                             Text(
                                               provider['data']['cartItem']
                                                   [index]['productName'],
+                                              // listProvider[index]
+                                              //     ['productName'],
                                               // // textScaleFactor: textScaleFactor,
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -313,6 +329,8 @@ class CartScreenState extends State<CartScreen> {
                                               provider['data']['cartItem']
                                                       [index]['quantity']
                                                   .toString(),
+                                              // listProvider[index]['quantity']
+                                              //     .toString(),
                                               // // textScaleFactor: textScaleFactor,
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -341,11 +359,16 @@ class CartScreenState extends State<CartScreen> {
                                     InkWell(
                                         onTap: () {
                                           setState(() {
-                                            if (provider['data']['cartItem']
-                                                    [index]['quantity'] >
-                                                1) {
+                                            if (
+                                                // listProvider[index]
+                                                //           ['quantity'] >
+                                                //       1
+                                                provider['data']['cartItem']
+                                                        [index]['quantity'] >
+                                                    1) {
                                               provider['data']['cartItem']
                                                   [index]['quantity']--;
+                                              // listProvider[index]['quantity']--;
                                               updateCartDecrease(
                                                   provider['data']['cartItem']
                                                       [index],
@@ -430,6 +453,7 @@ class CartScreenState extends State<CartScreen> {
                         ),
                       ),
                       itemCount: provider['data']['cartItem'].length,
+                      // itemCount: listProvider.length,
                     ),
                   ),
                   Divider(
