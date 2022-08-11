@@ -8,9 +8,10 @@ import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   final String address;
+  final String streetName;
   SignUpState createState() => SignUpState();
 
-  SignUp(this.address);
+  SignUp(this.address, this.streetName);
 }
 
 class SignUpState extends State<SignUp> {
@@ -412,7 +413,7 @@ class SignUpState extends State<SignUp> {
                                         offset: Offset(1, 2))
                                   ]),
                               child: TextFormField(
-                                initialValue: widget.address,
+                                initialValue: addressProvider,
                                 maxLines: 2,
                                 enabled: false,
                                 style: TextStyle(
@@ -558,7 +559,9 @@ class SignUpState extends State<SignUp> {
         'mobile': data['mobile'],
         // 'address': widget.address
         'name': '${data['first_name']} ${data['last_name']}',
-        'flag': '1'
+        'flag': '1',
+        'houseDetails': widget.address,
+        'streetName': widget.streetName
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

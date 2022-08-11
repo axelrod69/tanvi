@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/orderHistory/orderHistory.dart';
+import 'package:intl/intl.dart';
 
 class PendingOrders extends StatefulWidget {
   PendingOrdersState createState() => PendingOrdersState();
@@ -8,6 +9,8 @@ class PendingOrders extends StatefulWidget {
 
 class PendingOrdersState extends State<PendingOrders> {
   bool isLoading = true;
+
+  DateFormat dateFormat = DateFormat('dd-MMM-yyyy HH:mm:ss');
 
   @override
   void initState() {
@@ -180,15 +183,16 @@ class PendingOrdersState extends State<PendingOrders> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: tabLayout
-                                                ? 25
+                                                ? 23
                                                 : largeLayout
-                                                    ? 17
-                                                    : 12),
+                                                    ? 15
+                                                    : 10),
                                       ),
                                       SizedBox(height: height * 0.01),
                                       Text(
-                                        provider['data'][index]['order_details']
-                                            ['created_at'],
+                                        // provider['data'][index]['order_details']
+                                        //     ['created_at'],sss
+                                        '${dateFormat.format(DateTime.parse(provider['data'][index]['order_details']['created_at']).toLocal())}',
                                         // // textScaleFactor: textScaleFactor,
                                         style: TextStyle(
                                             color: Colors.grey[600],
@@ -196,7 +200,7 @@ class PendingOrdersState extends State<PendingOrders> {
                                             fontSize: tabLayout
                                                 ? 18
                                                 : largeLayout
-                                                    ? 12
+                                                    ? 8
                                                     : 8),
                                       )
                                     ],
@@ -214,18 +218,21 @@ class PendingOrdersState extends State<PendingOrders> {
                                       fit: BoxFit.scaleDown,
                                       child: Text(
                                         '₹${provider['data'][index]['order_details']['grand_total']}',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                         // // textScaleFactor: textScaleFactor,
                                         // textScaleFactor:
                                         //     MediaQuery.of(context).textScaleFactor *
                                         //         1.2,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: tabLayout
-                                                ? 50
-                                                : largeLayout
-                                                    ? 17
-                                                    : 12),
+                                        // style: TextStyle(
+                                        //     color: Colors.black,
+                                        //     fontWeight: FontWeight.bold,
+                                        //     fontSize: tabLayout
+                                        //         ? 50
+                                        //         : largeLayout
+                                        //             ? 17
+                                        //             : 12),
                                       ),
                                     ),
                                     InkWell(

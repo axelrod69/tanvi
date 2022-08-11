@@ -122,8 +122,11 @@ class ChangeNewLocationState extends State<ChangeNewLocation> {
         ),
       ),
       body: Container(
+        // width: width * 0.5,
         width: double.infinity,
+        // height: height * 1,
         height: height * 1,
+        margin: EdgeInsets.only(left: 5, right: 5),
         // color: Colors.red,
         child: ListView.builder(
           itemBuilder: (context, index) => InkWell(

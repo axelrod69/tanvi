@@ -49,6 +49,9 @@ dependencies:
   firebase_messaging: ^11.4.1
   flutter_local_notifications: ^9.6.0
   expandable: ^5.0.1
+  intl: ^0.17.0
+  sms_autofill: ^2.2.0
+  jwt_decoder: ^2.0.1
   
 
 flutter_native_splash:

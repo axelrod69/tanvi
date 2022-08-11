@@ -107,10 +107,14 @@ class InputOTPState extends State<InputOTP> {
     final mobile = routes['mobile'];
     final name = routes['name'];
     final flag = routes['flag'];
+    final addressDetails = routes['houseDetails'];
+    final streetName = routes['streetName'];
 
     print('mobile: $mobile');
     print('name: $name');
     print('flag: $flag');
+    print('addressDetails: $addressDetails');
+    print('streetName: $streetName');
 
     // TODO: implement build
     return Column(
@@ -590,7 +594,8 @@ class InputOTPState extends State<InputOTP> {
               if (flag == '0') {
                 checkOtpSignIn(mobile, context);
               } else {
-                checkOtpSignUp(mobile, context, name);
+                checkOtpSignUp(
+                    mobile, context, name, addressDetails, streetName);
               }
             }
           },
@@ -652,7 +657,8 @@ class InputOTPState extends State<InputOTP> {
     );
   }
 
-  void checkOtpSignUp(String mobile, BuildContext context, String name) async {
+  void checkOtpSignUp(String mobile, BuildContext context, String name,
+      String addressDetails, String streetName) async {
     // SharedPreferences localStorage = await SharedPreferences.getInstance();
     var otp = _firstPin! + _secondPin! + _thirdPin! + _fourthPin!;
     var data = {'otp': otp, 'mobile': mobile};
@@ -673,7 +679,7 @@ class InputOTPState extends State<InputOTP> {
       await localStorage.setString('refresh', receivedResponse['refresh']);
 
       Provider.of<LocationProvider>(context, listen: false)
-          .setAddress(name, mobile);
+          .setAddress(name, mobile, addressDetails, streetName);
 
       final url = Uri.parse('http://34.100.212.22/' + 'api/fcm-token/');
 

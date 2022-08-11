@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../model/orderHistory/orderHistory.dart';
 import '../../../screens/pendingOrdersPage.dart';
-import './viewRecent.dart';
+import 'package:intl/intl.dart';
 
 class RecentItems extends StatefulWidget {
   RecentItemsState createState() => RecentItemsState();
 }
 
 class RecentItemsState extends State<RecentItems> {
+  DateFormat dateFormat = DateFormat('dd-MMM-yyyy HH:mm:ss');
   // bool isLoading = true;
   // // bool isExpanded = false;
 
@@ -147,8 +148,7 @@ class RecentItemsState extends State<RecentItems> {
                                 ),
                                 SizedBox(height: height * 0.01),
                                 Text(
-                                  provider['data'][index]['order_details']
-                                      ['created_at'],
+                                  '${dateFormat.format(DateTime.parse(provider['data'][index]['order_details']['created_at']).toLocal())}',
                                   // // textScaleFactor: textScaleFactor,
                                   style: TextStyle(
                                       color: Colors.grey[600],

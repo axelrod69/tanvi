@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tanvi/widgets/signIn/anotherAddress.dart';
 import '../../authentication/network.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:http/http.dart' as http;
@@ -13,6 +14,7 @@ import '../../screens/address.dart';
 import '../../screens/newAddressSelect.dart';
 import '../../screens/signUp.dart';
 import '../signUp/signUpOtp.dart';
+import 'currentLocation.dart';
 
 class FormWidget extends StatefulWidget {
   FormWidgetState createState() => FormWidgetState();
@@ -223,7 +225,10 @@ class FormWidgetState extends State<FormWidget> {
                               .newAddress(
                                   coOrdinates['lat'], coOrdinates['lng']);
                         });
-                        Navigator.of(context).pop();
+                        // Navigator.of(context).pop();
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                CurrentLocation(data['mobile'])));
                       },
                       child: const Text(
                         'Choose Current Location',
@@ -232,22 +237,26 @@ class FormWidgetState extends State<FormWidget> {
                         ),
                       )),
                   TextButton(
-                      onPressed: () => Navigator.of(context)
-                          .push(MaterialPageRoute(
-                              builder: (context) => ChangeNewLocation()))
-                          .then((_) => Navigator.of(context).pop()),
+                      onPressed: () =>
+                          // Navigator.of(context)
+                          //     .push(MaterialPageRoute(
+                          //         builder: (context) => ChangeNewLocation()))
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  AnotherAddress(data['mobile']))),
+                      // .then((_) => Navigator.of(context).pop()),
                       child: const Text('Choose Another Address',
                           style: TextStyle(
                               color: Color.fromARGB(255, 36, 71, 100)))),
-                  TextButton(
-                      onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => SignUp(addressProvider))),
-                      child: const Text(
-                        'Continue',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 38, 255, 5)),
-                      ))
+                  // TextButton(
+                  //     onPressed: () => Navigator.of(context).push(
+                  //         MaterialPageRoute(
+                  //             builder: (context) => SignUp(addressProvider))),
+                  //     child: const Text(
+                  //       'Continue',
+                  //       style:
+                  //           TextStyle(color: Color.fromARGB(255, 38, 255, 5)),
+                  //     ))
                 ],
               ));
     } else if (response.statusCode == 200) {

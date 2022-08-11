@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tanvi/widgets/bottomNavigation.dart';
 import 'package:provider/provider.dart';
 import '../model/notificationList/notificationList.dart';
+import 'package:intl/intl.dart';
 
 class Notifications extends StatefulWidget {
   // final Map<String, dynamic> notificationList;
@@ -25,6 +26,7 @@ class NotificationsState extends State<Notifications> {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
   ];
+  DateFormat dateFormat = DateFormat('dd-MMM-yyyy HH:mm:ss');
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +98,7 @@ class NotificationsState extends State<Notifications> {
                         ),
                         SizedBox(height: height * 0.005),
                         Text(
-                          notificationProvider['data'][index]['created_at'],
+                          '${dateFormat.format(DateTime.parse(notificationProvider['data'][index]['created_at']).toLocal())}',
                           style: const TextStyle(
                               color: Colors.grey, fontWeight: FontWeight.bold),
                         )

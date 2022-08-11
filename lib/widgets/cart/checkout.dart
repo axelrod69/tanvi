@@ -87,7 +87,8 @@ class CheckOutState extends State<CheckOut> {
             'ORDER IDDDDDDDDDDDDDDDDDDD: ${Provider.of<OrderProvider>(context, listen: false).orderId['data']['id']}');
 
         var options = {
-          'key': 'rzp_test_EK1Fh8he18fUGa',
+          // 'key': 'rzp_test_EK1Fh8he18fUGa',
+          'key': 'rzp_live_3rG4OQtcjC1WS3',
           'amount': Provider.of<OrderProvider>(context, listen: false)
                   .orderId['data']['amount_due'] /
               100,
@@ -439,7 +440,7 @@ class CheckOutState extends State<CheckOut> {
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: tabLayout ? 20 : 13)),
-                      Text('₹10',
+                      Text('₹0',
                           // // textScaleFactor: textScaleFactor,
                           style: TextStyle(
                               color: Colors.black,

@@ -42,6 +42,7 @@ import './model/rating/ratingProvider.dart';
 import './screens/onBoardingScreen.dart';
 import './notificatonService/localNotification.dart';
 import './model/notificationList/notificationList.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data.toString());
@@ -76,12 +77,21 @@ class MyAppState extends State<MyApp> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     // SharedPreferences refresh = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
+    bool isExpired = JwtDecoder.isExpired(token!);
+
+    print('COUPON CODE: ${localStorage.getString('couponCode')}');
+    print('COUPON AMOUNT: ${localStorage.getString('couponAmount')}');
+
+    localStorage.remove('couponCode');
+    localStorage.remove('couponAmount');
+
+    print('TOKEN EXPIRY: $isExpired');
     // localStorage.remove('token');
     // localStorage.remove('refresh');
     print('Access Tokeeeeeeeeeeeeeeeen : ${localStorage.getString('token')}');
     print(
         'Refressssssssssh Tokeeeeeeeeeen : ${localStorage.getString('refresh')}');
-    if (token != null) {
+    if (token != null && isExpired == false) {
       setState(() {
         isAuth = true;
       });
@@ -126,6 +136,7 @@ class MyAppState extends State<MyApp> {
         home: isAuth ? CustomBottomNavigation() : OnBoardingScreen(),
         // home: OnBoardingScreen(),
         routes: {
+          '/onboarding-screens': (context) => OnBoardingScreen(),
           '/landing-page': (context) => CustomBottomNavigation(),
           '/sign-in': (context) => SignIn(),
           // '/sign-up': (context) => SignUp(),

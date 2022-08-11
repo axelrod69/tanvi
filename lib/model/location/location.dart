@@ -135,12 +135,14 @@ class LocationProvider with ChangeNotifier {
     locality = place.subLocality!;
     city = place.locality!;
     selectedState = place.administrativeArea!;
+    print('SET NEW ADDRESS');
     print('Initial Address $postCode');
     print('Initial Address $addressLine');
     print('Initial Address $locality');
     print('Initial Address $city');
     print('Initial Address $selectedState');
     print('New Address $_deliveryAddress');
+    print('New Address Set $_newAddressSet');
     // setState(() {});
     _state = place.administrativeArea;
     _coorDinates['lat'] = latitude;
@@ -165,8 +167,8 @@ class LocationProvider with ChangeNotifier {
     print(json.decode(response.body));
   }
 
-  Future<void> editAddress(
-      String? id, String name, String contactNumber) async {
+  Future<void> editAddress(String? id, String name, String contactNumber,
+      String houseDetails, String streetName) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url =
         Uri.parse(baseUrl + '/api/customer/shipping-address-update/$id/');
@@ -176,7 +178,13 @@ class LocationProvider with ChangeNotifier {
           'name': name,
           'contact_number': contactNumber,
           'postcode': postCode,
-          'address_line': addressLine,
+          'address_line': houseDetails == "" && streetName == ""
+              ? addressLine
+              : houseDetails == "" && streetName != ""
+                  ? '$addressLine, Street Name: $streetName'
+                  : streetName == "" && houseDetails != ""
+                      ? '$addressLine, House Details: $houseDetails'
+                      : '$addressLine, House Details: $houseDetails, Street Name: $streetName',
           'locality': locality == '' ? '.' : locality,
           'city': city,
           'state': state,
@@ -205,12 +213,14 @@ class LocationProvider with ChangeNotifier {
     locality = place.subLocality!;
     city = place.locality!;
     selectedState = place.administrativeArea!;
+    print('NEW ADDRESS');
     print('Initial Address $postCode');
     print('Initial Address $addressLine');
     print('Initial Address $locality');
     print('Initial Address $city');
     print('Initial Address $selectedState');
     print('New Address $_deliveryAddress');
+    print('New Address Set $_newAddressSet');
     // setState(() {});
     _state = place.administrativeArea;
     _coorDinates['lat'] = latitude;
@@ -218,12 +228,16 @@ class LocationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setAddress(String name, String mobileNumber) async {
+  Future<void> setAddress(String name, String mobileNumber, String houseDetails,
+      String streetName) async {
     var latitude = _coorDinates['lat'];
     var longitude = _coorDinates['lng'];
 
     print('Latitude Set Address $latitude');
     print('Longitude Set Address $longitude');
+
+    print('HOUSE DETAILS: $houseDetails');
+    print('STREET NAME: $streetName');
 
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + '/api/customer/shipping-address/');
@@ -233,7 +247,13 @@ class LocationProvider with ChangeNotifier {
           'name': name,
           'contact_number': mobileNumber,
           'postcode': postCode,
-          'address_line': addressLine,
+          'address_line': houseDetails == "" && streetName == ""
+              ? addressLine
+              : houseDetails == "" && streetName != ""
+                  ? '$addressLine, Street Name: $streetName'
+                  : streetName == "" && houseDetails != ""
+                      ? '$addressLine, House Details: $houseDetails'
+                      : '$addressLine, House Details: $houseDetails, Street Name: $streetName', //Append House No,House/Apartment Name, Street Name to this
           'locality': locality,
           'city': city,
           'state': selectedState,

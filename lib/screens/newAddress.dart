@@ -20,6 +20,8 @@ class NewAddressState extends State<NewAddress> {
   String? phoneNumber;
   final _focusFirst = FocusNode();
   final _focusSecond = FocusNode();
+  final addressController = TextEditingController();
+  final streetNameController = TextEditingController();
 
   @override
   void dispose() {
@@ -150,191 +152,294 @@ class NewAddressState extends State<NewAddress> {
       body: Container(
         height: height * 1,
         width: width * 1,
-        child: Form(
-          key: _formkey,
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    EdgeInsets.only(left: width * 0.02, right: width * 0.02),
-                child: Container(
-                  margin: EdgeInsets.only(top: height * 0.02),
-                  padding:
-                      EdgeInsets.only(left: width * 0.02, top: height * 0.0045),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: Offset(1, 2))
-                      ]),
-                  child: TextFormField(
-                    initialValue: widget.name,
-                    style: TextStyle(
-                        fontSize: tabLayout
-                            ? width * 0.04
-                            : largeLayout
-                                ? 18
-                                : 16),
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        hintText:
-                            widget.name == '' ? 'Enter Name' : widget.name,
-                        // ),
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none),
-                    onFieldSubmitted: (_) =>
-                        FocusScope.of(context).requestFocus(_focusFirst),
-                    validator: (fName) {
-                      if (fName!.isEmpty) {
-                        return 'Please Enter Name';
-                      } else {
-                        firstName = fName;
-                        return null;
-                      }
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(height: height * 0.02),
-              Padding(
-                padding:
-                    EdgeInsets.only(left: width * 0.02, right: width * 0.02),
-                child: Container(
-                  padding:
-                      EdgeInsets.only(left: width * 0.02, top: height * 0.0045),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: Offset(1, 2))
-                      ]),
-                  child: TextFormField(
-                    initialValue: widget.mobileNumber,
-                    style: TextStyle(
-                        fontSize: tabLayout
-                            ? width * 0.04
-                            : largeLayout
-                                ? 18
-                                : 16),
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        hintText: widget.mobileNumber == ''
-                            ? 'Enter Mobile Number'
-                            : widget.mobileNumber,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none),
-                    onFieldSubmitted: (_) =>
-                        FocusScope.of(context).requestFocus(_focusFirst),
-                    validator: (number) {
-                      if (number!.isEmpty) {
-                        return 'Please Enter Mobile Number';
-                      } else {
-                        phoneNumber = number;
-                        return null;
-                      }
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(height: height * 0.02),
-              // Text('Previous Address'),
-              // Padding(
-              //   padding:
-              //       EdgeInsets.only(left: width * 0.02, right: width * 0.02),
-              //   child: Container(
-              //       padding: EdgeInsets.all(10),
-              //       width: double.infinity,
-              //       decoration: BoxDecoration(
-              //           color: Colors.white,
-              //           borderRadius: BorderRadius.circular(15),
-              //           boxShadow: const [
-              //             BoxShadow(
-              //                 color: Colors.grey,
-              //                 blurRadius: 10,
-              //                 offset: Offset(1, 2))
-              //           ]),
-              //       child:
-              //           // Text(provider.isEmpty ? 'No Address Selected' : provider),
-              //           Text(widget.address!)),
-              // ),
-              // SizedBox(height: height * 0.02),
-              provider.isEmpty
-                  ? Container()
-                  : Container(
-                      child: Column(
-                      children: [
-                        Text('New Address'),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: width * 0.02, right: width * 0.02),
-                          child: Container(
-                              padding: EdgeInsets.all(10),
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 2))
-                                  ]),
-                              child:
-                                  // Text(provider.isEmpty ? 'No Address Selected' : provider),
-                                  Text(provider)),
-                        ),
-                      ],
-                    )),
-              SizedBox(height: height * 0.04),
-              Padding(
-                padding:
-                    EdgeInsets.only(left: width * 0.08, right: width * 0.08),
-                child: InkWell(
-                  onTap: () {
-                    if (_formkey.currentState!.validate()) {
-                      widget.flag == true
-                          ? Provider.of<LocationProvider>(context,
-                                  listen: false)
-                              .editAddress(widget.id, firstName!, phoneNumber!)
-                              .then((_) => Navigator.of(context)
-                                  .pushNamed('/address-list'))
-                          : Provider.of<LocationProvider>(context,
-                                  listen: false)
-                              .setAddress(firstName!, phoneNumber!)
-                              .then((_) => Navigator.of(context)
-                                  .pushNamed('/address-list'));
-                    }
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: height * 0.07,
-                    margin: EdgeInsets.only(top: height * 0.02),
-                    decoration: BoxDecoration(
-                        color: const Color.fromRGBO(57, 226, 14, 1),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Center(
-                      child: Text(
-                        'Save',
-                        // // textScaleFactor: textScaleFactor,
+        child: ListView(
+          children: [
+            Form(
+              key: _formkey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.08, right: width * 0.08),
+                    child: Container(
+                      margin: EdgeInsets.only(top: height * 0.02),
+                      padding: EdgeInsets.only(
+                          left: width * 0.02, top: height * 0.0045),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(1, 2))
+                          ]),
+                      child: TextFormField(
+                        initialValue: widget.name,
                         style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: tabLayout ? width * 0.04 : 18),
+                            fontSize: tabLayout
+                                ? width * 0.04
+                                : largeLayout
+                                    ? 18
+                                    : 16),
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                            hintText:
+                                widget.name == '' ? 'Enter Name' : widget.name,
+                            // ),
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none),
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).requestFocus(_focusFirst),
+                        validator: (fName) {
+                          if (fName!.isEmpty) {
+                            return 'Please Enter Name';
+                          } else {
+                            firstName = fName;
+                            return null;
+                          }
+                        },
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(height: height * 0.04),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.08, right: width * 0.08),
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          left: width * 0.02, top: height * 0.0045),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(1, 2))
+                          ]),
+                      child: TextFormField(
+                        initialValue: widget.mobileNumber,
+                        style: TextStyle(
+                            fontSize: tabLayout
+                                ? width * 0.04
+                                : largeLayout
+                                    ? 18
+                                    : 16),
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            hintText: widget.mobileNumber == ''
+                                ? 'Enter Mobile Number'
+                                : widget.mobileNumber,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none),
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).requestFocus(_focusFirst),
+                        validator: (number) {
+                          if (number!.isEmpty) {
+                            return 'Please Enter Mobile Number';
+                          } else {
+                            phoneNumber = number;
+                            return null;
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: height * 0.03),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.08, right: width * 0.08),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'House No/Block No, Floor No, House/Building Name (Optional)',
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: tabLayout
+                                  ? width * 0.03
+                                  : largeLayout
+                                      ? 14
+                                      : 12),
+                        ),
+                        SizedBox(height: height * 0.01),
+                        Container(
+                          margin: EdgeInsets.only(bottom: height * 0.04),
+                          padding: EdgeInsets.only(
+                              left: width * 0.02, top: height * 0.0045),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    // color: Color.fromRGBO(227, 189, 255, 0.5),
+                                    offset: Offset(1, 2))
+                              ]),
+                          child: TextField(
+                            style: TextStyle(
+                                fontSize: tabLayout
+                                    ? width * 0.04
+                                    : largeLayout
+                                        ? 18
+                                        : 16),
+                            controller: addressController,
+                            decoration: const InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none),
+                            onChanged: (address) {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.08, right: width * 0.08),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Street Name (Optional)',
+                          // // textScaleFactor: textScaleFactor,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: tabLayout
+                                  ? width * 0.03
+                                  : largeLayout
+                                      ? 14
+                                      : 12),
+                        ),
+                        SizedBox(height: height * 0.01),
+                        Container(
+                            margin: EdgeInsets.only(bottom: height * 0.04),
+                            padding: EdgeInsets.only(
+                                left: width * 0.02, top: height * 0.0045),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(18),
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      // color: Color.fromRGBO(227, 189, 255, 0.5),
+                                      offset: Offset(1, 2))
+                                ]),
+                            child: TextField(
+                              style: TextStyle(
+                                  fontSize: tabLayout
+                                      ? width * 0.04
+                                      : largeLayout
+                                          ? 18
+                                          : 16),
+                              controller: streetNameController,
+                              decoration: const InputDecoration(
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none),
+                              onChanged: (street) {},
+                            )),
+                      ],
+                    ),
+                  ),
+                  provider.isEmpty
+                      ? Container()
+                      : Padding(
+                          padding: EdgeInsets.only(
+                              left: width * 0.08, right: width * 0.08),
+                          child: Container(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('New Address',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: tabLayout
+                                          ? width * 0.03
+                                          : largeLayout
+                                              ? 14
+                                              : 12)),
+                              SizedBox(height: height * 0.01),
+                              Container(
+                                  padding: EdgeInsets.all(10),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 10,
+                                            offset: Offset(1, 2))
+                                      ]),
+                                  child:
+                                      // Text(provider.isEmpty ? 'No Address Selected' : provider),
+                                      Text(provider)),
+                            ],
+                          )),
+                        ),
+                  SizedBox(height: height * 0.04),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.08, right: width * 0.08),
+                    child: InkWell(
+                      onTap: () {
+                        if (_formkey.currentState!.validate()) {
+                          widget.flag == true
+                              ? Provider.of<LocationProvider>(context,
+                                      listen: false)
+                                  .editAddress(
+                                      widget.id,
+                                      firstName!,
+                                      phoneNumber!,
+                                      addressController.text,
+                                      streetNameController.text)
+                                  .then((_) => Navigator.of(context)
+                                      .pushNamed('/address-list'))
+                              : Provider.of<LocationProvider>(context,
+                                      listen: false)
+                                  .setAddress(
+                                      firstName!,
+                                      phoneNumber!,
+                                      addressController.text,
+                                      streetNameController.text)
+                                  .then((_) => Navigator.of(context)
+                                      .pushNamed('/address-list'));
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: height * 0.07,
+                        margin: EdgeInsets.only(top: height * 0.02),
+                        decoration: BoxDecoration(
+                            color: const Color.fromRGBO(57, 226, 14, 1),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Center(
+                          child: Text(
+                            'Save',
+                            // // textScaleFactor: textScaleFactor,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: tabLayout ? width * 0.04 : 18),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
