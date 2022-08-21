@@ -35,6 +35,7 @@ class OrderHistoryProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       _orderHistory = json.decode(response.body);
       for (int index = 0; index < _orderHistory['data'].length; index++) {
+        // for (int index = _orderHistory['data'].length; index > 1; index--) {
         _orderHistory['data'][index]['order_details']['isExpanded'] = false;
       }
     } else {

@@ -29,6 +29,7 @@ class OrderProvider with ChangeNotifier {
   }
 
   Future<Map<String, dynamic>> postRazorPayOrder() async {
+    print('CLICKEEEEEEEEEEEEEEEEEEEEEEEEED');
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     final url = Uri.parse(baseUrl + 'api/customer/order-place-razorpay/');
     final response = await http.post(url,
@@ -41,6 +42,8 @@ class OrderProvider with ChangeNotifier {
           'Content-Type': 'application/json'
         });
     _orderId = json.decode(response.body);
+    print('CLICKEEEEEEEEEEEEEEEEEEEEEEEEED AGAIIIIIIIIIIIIIIIIIN');
+
     print('RAZORPAYR 108: ${_orderId}');
     return _orderId;
   }

@@ -84,17 +84,24 @@ class CheckOutState extends State<CheckOut> {
             .orderId['data']['receipt'];
 
         print(
+            'RAZORPAYRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR');
+
+        print(
             'ORDER IDDDDDDDDDDDDDDDDDDD: ${Provider.of<OrderProvider>(context, listen: false).orderId['data']['id']}');
 
         var options = {
           // 'key': 'rzp_test_EK1Fh8he18fUGa',
           'key': 'rzp_live_3rG4OQtcjC1WS3',
+          // 'amount': Provider.of<OrderProvider>(context, listen: false)
+          //         .orderId['data']['amount_due'] /
+          //     100,
           'amount': Provider.of<OrderProvider>(context, listen: false)
-                  .orderId['data']['amount_due'] /
-              100,
+              .orderId['OrderAmount'],
           'name': 'Tanvee Order',
+          // 'order_id': Provider.of<OrderProvider>(context, listen: false)
+          //     .orderId['data']['id'],
           'order_id': Provider.of<OrderProvider>(context, listen: false)
-              .orderId['data']['id'],
+              .orderId['OrderPaymentId'],
           // 'order_id': 'order_JWg1YWglJjXPak',
           // 'description': 'Fine T-Shirt',
           'prefill': {
